@@ -68,26 +68,22 @@ describe('Employees', function() {
           $stateParams: $stateParams
         });
 
-        $httpBackend.when('GET', '/users').respond(200, [{username: 'testUser'}]);
+        $httpBackend.when('GET', '/users?page=1&sort=%7B%22username%22:1%7D').respond(200);
+        $httpBackend.when('GET', '/users?page=2&sort=%7B%22username%22:1%7D').respond(200, {name: 'pageConfig2'});
       });
 
       describe('during setup', function () {
         it('should be able to instantiate the controller and request a page of employees', function () { 
           expect(controller).to.be.ok; 
           // $scope.requestEmployees is called upon controller creation
-          $httpBackend.expect('GET', '/users');
-          $httpBackend.flush();
+
+          // TODO : set an expectation for to request employees on set up and flush httpBackend
         });
       }); 
 
       describe('requesting employees', function () {
 
-        it('should set the result to the employees', function () {
-          $httpBackend.expect('GET', '/users');
-          $scope.requestEmployees();
-          $httpBackend.flush();
-          expect($scope.employees[0].username).to.equal("testUser");
-        }); 
+        // TODO : verify it should set the result to the pageConfig object
 
       });
 

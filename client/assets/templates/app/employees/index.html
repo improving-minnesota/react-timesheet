@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="employee in employees" 
+            <tr ng-repeat="employee in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: employee.deleted}"
               ng-click="showDetail(employee)">
@@ -47,6 +47,8 @@
         </table>
       </div>
     </div>
+
+    <!-- TODO : Add UI Bootstrap pagination to the table -->
 
   </div>
 

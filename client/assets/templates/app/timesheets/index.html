@@ -21,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="timesheet in timesheets" 
+            <tr ng-repeat="timesheet in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: timesheet.deleted}"
               ng-click="showDetail(timesheet)">
@@ -45,6 +45,8 @@
         </table>
       </div>
     </div>
+
+    <!-- TODO : Add UI Bootstrap pagination to the timesheet table -->
 
   </div>
   

@@ -19,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="project in projects" 
+            <tr ng-repeat="project in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: project.deleted}"
               ng-click="showDetail(project)">
@@ -39,6 +39,17 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <div pagination
+        total-items="pageConfig.totalItems" 
+        page="pageConfig.page" 
+        items-per-page="pageConfig.limit" 
+        boundary-links="true" 
+        rotate="true" 
+        on-select-page="requestProjects(page)">
       </div>
     </div>
 

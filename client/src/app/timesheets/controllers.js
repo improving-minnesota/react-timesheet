@@ -1,18 +1,16 @@
-angular.module('app.timesheets.controllers', [])
+angular.module('app.timesheets.controllers', [
+  // TODO : Register the timesheet directives as a dependency
+])
 
   .controller('TimesheetCtrl', 
     function ($control, $scope, $state, $stateParams, notifications) {
 
       $scope.requestTimesheets = function requestTimesheets (page) {
 
-        var query = {
-          user_id: $stateParams.user_id
-        };
-
-        $control.list('timesheets', query)
-          .then(function (timesheets) {
-            $scope.timesheets = timesheets;
-          });
+        // TODO : Set up pagination for timesheets
+        // 1. Create a query object (include user_id)
+        // 2. Call the new 'page' function on $control
+        // 3. Set the pageConfig on scope to the returned object
       };
 
       $scope.showDetail = function showDetail (timesheet) {
@@ -108,6 +106,32 @@ angular.module('app.timesheets.controllers', [])
             timeunit.deleted = true;
             notifications.error('Error restoring the timeunit.');
           });
+      };
+
+      // These are the controller methods used by the progress directive !!! 
+
+      $scope.hoursRequired = function hoursRequired() {
+        var daysInTimesheet = moment($scope.timesheet.endDate).diff(moment($scope.timesheet.beginDate), 'days') + 1,
+          weekDays = 0;
+        for (var i = 0; i < daysInTimesheet; i++) {
+          switch(moment($scope.timesheet.beginDate).add('days', i).isoWeekday()) {
+            case 1: case 2: case 3: case 4: case 5: 
+              weekDays++;
+          }
+        }
+        return weekDays * 8;
+      };
+
+      $scope.hoursWorked = function hoursWorked() {
+        return _.reduce(_.map($scope.timeunits, function (timeunit) {
+          return timeunit.deleted ? 0 : timeunit.hoursWorked;
+        }), function(sum, hoursWorked) {
+          return sum + hoursWorked;
+        });
+      };
+
+      $scope.reportStatus = function reportStatus(percentComplete) {
+        notifications.info('You have worked ' + percentComplete + ' of your required hours');
       };
     } 
   )

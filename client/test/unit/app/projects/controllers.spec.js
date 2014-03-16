@@ -63,26 +63,21 @@ describe('Projects', function() {
           $state: spies.state,
           $stateParams: $stateParams 
         });
-        
-        $httpBackend.when('GET', '/projects').respond(200, [{name: 'project1'}]);
+
+        $httpBackend.when('GET', '/projects?page=1&sort=%7B%22name%22:1%7D').respond(200);
+        $httpBackend.when('GET', '/projects?page=2&sort=%7B%22name%22:1%7D').respond(200, {name: 'pageConfig2'});
       });
 
       describe('during setup', function () {
         it('should be able to instantiate the controller and request a page of projects', function () { 
           expect(controller).to.be.ok; 
           // $scope.requestProjects is called upon controller creation
-          $httpBackend.expect('GET', '/projects');
-          $httpBackend.flush();
+          // TODO : Set an expectation for requesting projects on setup and flush httpBackend
         });
       }); 
 
       describe('requesting projects', function () {
-        it('should set the result to the pageConfig object', function () {
-          $httpBackend.expect('GET', '/projects');
-          $scope.requestProjects();
-          $httpBackend.flush();
-          expect($scope.projects[0].name).to.equal("project1");
-        }); 
+        // TODO : verify it should set the result to the pageConfig object
       });
 
       describe('showing project detail', function () {
