@@ -8,14 +8,15 @@ describe('Progress Interceptors', function() {
     rejection;
 
   beforeEach(module(
-    // TODO : set up the module dependencies
+    'progress.interceptors'
   ));
 
   beforeEach(inject(function($injector) {
-    // TODO : Inject the interceptor 
+    interceptor = $injector.get('nProgressInterceptor');
 
     spies = {
-      // TODO : create spies for NProgress stop and start
+      start : sinon.spy(NProgress, 'start'),
+      done  : sinon.spy(NProgress, 'done')
     };
 
     success = {status: 200};
@@ -24,35 +25,64 @@ describe('Progress Interceptors', function() {
   }));
 
   afterEach(function () {
-    // TODO : restore the spies
+    spies.start.restore();
+    spies.done.restore();
   });
 
   describe('request', function () {
 
-    // TODO : verity it should start the progress bar
-    // TODO : verify it should return a promise containing the config object
+    it('should start the progress bar', function () {
+      interceptor.request(success);
+      expect(spies.start).to.have.been.called;
+    });
+
+    it('should return a promise containing the config object', function () {
+      var promise = interceptor.request(success);
+      expect(promise.then).to.exist;
+      expect(promise).to.eventually.equal(success);
+    });
 
   });
 
   describe('requestError', function () {
 
-    // TODO : verify it should stop the progress bar
-    // TODO : verify it should reject the promise with the rejection config
+    it('should stop the progress bar', function () {
+      interceptor.requestError(rejection);
+      expect(spies.done).to.have.been.called;
+    });
+
+    it('should reject the promise with the rejection config', function () {
+      var promise = interceptor.requestError(rejection);
+      expect(promise).to.have.been.rejectedWith(rejection);
+    });
 
   });
 
   describe('response', function () {
 
-    // TODO : verify it should stop the progress bar
-    // TODO : verify it should return a promise with the response object'
+    it('should stop the progress bar', function () {
+      interceptor.response(success);
+      expect(spies.done).to.have.been.called;
+    });
+
+    it('should return a promise with the response object', function () {
+      var promise = interceptor.response(success);
+      expect(promise).to.eventually.equal(success);
+    });
 
   });
 
   describe('responseError', function () {
 
-    // TODO : verify it should stop the progress bar
-    // TODO : verify it should reject the promise with the rejection config
+    it('should stop the progress bar', function () {
+      interceptor.responseError(rejection);
+      expect(spies.done).to.have.been.called;
+    });
 
+    it('should reject the promise with the rejection config', function () {
+      var promise = interceptor.responseError(rejection);
+      expect(promise).to.have.been.rejectedWith(rejection);
+    });
   });
 
 });
