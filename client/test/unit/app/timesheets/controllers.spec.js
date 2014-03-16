@@ -8,14 +8,14 @@ describe('Timesheets', function() {
     $stateParams,
     $scope,
     $api,
-    controller, 
+    controller,
     timesheet,
     timeunits,
     employee,
     spies;
- 
+
   describe('Controllers', function() {
-      
+
     beforeEach(
       module(
         'app.resources',
@@ -34,7 +34,7 @@ describe('Timesheets', function() {
     }));
 
     beforeEach(inject(function ($injector) {
-      // TODO : assign a test user_id "1234567890" to $stateParams 
+      // TODO : assign a test user_id "1234567890" to $stateParams
 
       timesheet = {
         "_id": "asdfghjklqwerty",
@@ -67,31 +67,29 @@ describe('Timesheets', function() {
 
       beforeEach(function() {
         $scope = $rootScope.$new();
-        controller = $controller("TimesheetCtrl", { 
+        controller = $controller("TimesheetCtrl", {
           $scope: $scope
           // TODO : assign the stubbed $state and $stateParams to be injected in your test controller
         });
 
         // TODO : change the path here to expect $stateParams.user_id between users and timesheets
-        $httpBackend.when('GET', '/users/timesheets').respond(200, [{name: 'testTimesheet'}]);
+        $httpBackend.when('GET', '/users/1234567890/timesheets').respond(200, [{name: 'testTimesheet'}]);
       });
 
       describe('during setup', function () {
-        it('should be able to instantiate the controller and request a page of timesheets', function () { 
-          expect(controller).to.be.ok; 
+        it('should be able to instantiate the controller and request a page of timesheets', function () {
+          expect(controller).to.be.ok;
           // $scope.requestTimesheets is called upon controller creation
 
-          // TODO : change the path here to expect $stateParams.user_id between users and timesheets
-          $httpBackend.expect('GET', '/users/timesheets');
+          $httpBackend.expect('GET', '/users/1234567890/timesheets');
           $httpBackend.flush();
         });
-      }); 
+      });
 
       describe('requesting timesheets', function () {
         it('should set the result to the timesheets', function () {
 
-          // TODO : change the path here to expect $stateParams.user_id between users and timesheets
-          $httpBackend.expect('GET', '/users/timesheets');
+          $httpBackend.expect('GET', '/users/1234567890/timesheets');
           $scope.requestTimesheets();
           $httpBackend.flush();
           expect($scope.timesheets[0].name).to.equal("testTimesheet");
@@ -99,7 +97,7 @@ describe('Timesheets', function() {
       });
 
       describe('showing timesheet detail', function () {
-        
+
         // TODO : verify it should transition to the timesheet detail state
 
       });
@@ -190,7 +188,7 @@ describe('Timesheets', function() {
 
     describe('TimesheetDetailCtrl', function() {
       var timeunit;
-      
+
       beforeEach(function() {
 
         $scope = $rootScope.$new();
@@ -236,7 +234,7 @@ describe('Timesheets', function() {
 
         // TODO : verify it should set the timeunit_id on state params and transistion to the edit timeunits state
 
-      }); 
+      });
 
       describe('removeTimeunit', function () {
         it('should send a remove request for the specified timeunit', function () {
@@ -373,11 +371,11 @@ describe('Timesheets', function() {
         });
 
         // TODO : verify it should set saveText to the current state saveText
-        
+
         it('should set the timesheet on scope to an empty object', function () {
           expect($scope.timesheet).to.be.empty;
         });
-      }); 
+      });
 
       describe('saving a new timesheet', function () {
 

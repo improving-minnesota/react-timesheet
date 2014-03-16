@@ -1,11 +1,11 @@
 angular.module('app.projects.controllers', [])
-    
-  .controller('ProjectCtrl', 
-    // TODO : inject the $state and $stateProvider services
-    function ($control, $scope) { 
+
+  .controller('ProjectCtrl',
+    // TODO : inject the $state and $stateParams services
+    function ($control, $scope) {
 
       $scope.requestProjects = function requestProjects (page) {
-        
+
         $control.list('projects')
           .then(function (projects) {
             $scope.projects = projects;
@@ -27,9 +27,9 @@ angular.module('app.projects.controllers', [])
           });
       };
 
-      $scope.restore = function restore (project) { 
+      $scope.restore = function restore (project) {
 
-        $control.restore('projects', project) 
+        $control.restore('projects', project)
           .then(function (restored) {
             console.log('success !');
           })
@@ -43,8 +43,8 @@ angular.module('app.projects.controllers', [])
     }
   )
 
-  .controller('ProjectDetailCtrl', 
-    // TODO : inject the $state and $stateProvider services
+  .controller('ProjectDetailCtrl',
+    // TODO : inject the $state and $stateParams services
     function ($scope, project) {
       // TODO : set saveText on scope to the saveText assigned to the data of the current state
 
@@ -54,8 +54,8 @@ angular.module('app.projects.controllers', [])
     }
   )
 
-  .controller('ProjectCreateCtrl', 
-    // TODO : inject the $state and $stateProvider services
+  .controller('ProjectCreateCtrl',
+    // TODO : inject the $state and $stateParams services
     function ($scope, $control) {
       // TODO : set saveText on scope to the saveText assigned to the data of the current state
 
