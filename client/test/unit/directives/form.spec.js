@@ -10,7 +10,7 @@ describe('Form directives', function () {
   beforeEach(module(
     'form.directives',
     'ngResource',
-    // TODO : set the section header template as a dependency
+    'assets/templates/directives/form/form-header.html',
     'assets/templates/directives/form/field-wrapper.html',
     'assets/templates/directives/form/static-field.html'
   ));
@@ -27,25 +27,41 @@ describe('Form directives', function () {
       $scope.headerName = 'My Header';
       $scope.content = 'My Content';
 
-      // TODO : Prepare the directive for testing
-      // 1. Create an element that uses the directive
-      // 2. Compile the element with scope
-      // 3. Run a $digest on scope
-      // 4. Run an $apply on scope
+      element = angular.element(
+        '<div tsz-form-section-header header="{{headerName}}">' +
+        '   <p>{{content}}</p>' +
+        '</div>');
+
+      $compile(element)($scope);
+
+      $scope.$digest();
+      $scope.$apply();
     });
 
     describe('header attribute', function() {
-
-      // TODO : verify it should set the header content within the directive template
-      // TODO : verify it should respond to changes
-
+      it('should set the header content within the directive template', function () {
+        expect(element.find('h4').text()).to.equal('My Header');
+      });
+      it('should respond to changes', function () {
+        expect(element.find('h4').text()).to.equal('My Header');
+        $scope.$apply(function() {
+          $scope.headerName = 'My Updated Header';
+        });
+        expect(element.find('h4').text()).to.equal('My Updated Header');
+      });
     });
     
     describe('transcluded contents', function() {
-
-      // TODO : verify it should transclude the directive element contents
-      // TODO : verify it should respond to changes
-      
+      it('should transclude the directive element contents', function () {
+        expect(element.find('p').text()).to.equal('My Content');
+      });
+      it('should respond to changes', function () {
+        expect(element.find('p').text()).to.equal('My Content');
+        $scope.$apply(function() {
+          $scope.content = 'My Updated Content';
+        });
+        expect(element.find('p').text()).to.equal('My Updated Content');
+      });
     });
 
     

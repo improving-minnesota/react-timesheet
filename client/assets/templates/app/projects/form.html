@@ -1,14 +1,14 @@
-<!-- TODO : Add form validation -->
 <div class="tsz-project-form" ng-cloak>
   <div class="row">
     <div class="col-xs-12">
-      <form class="form-horizontal" name="projectForm">
+      <form class="form-horizontal" novalidate name="projectForm">
 
         <div class="form-group">
           <div tsz-field-wrap input-id="project-name" label="Name">
             <input type="text" class="form-control" 
               name="project-name" placeholder="Project Name"
-              ng-model="project.name">
+              ng-model="project.name" 
+              ng-minlength="1" ng-maxlength="40" required>
           </div>
         </div>
 
@@ -16,7 +16,8 @@
           <div tsz-field-wrap input-id="project-description" label="Description">
             <input type="text" class="form-control" 
               name="project-description" placeholder="Project Description"
-              ng-model="project.description">
+              ng-model="project.description" 
+              ng-minlength="1" ng-maxlength="255" required>
           </div>
         </div>
 
@@ -27,7 +28,8 @@
         <div class="row">
           <div class="col-sm-2 col-sm-offset-8">
             <button class="btn btn-primary btn-block" 
-              ng-click="save()">{{saveText}}</button>
+              ng-click="save()"
+              ng-disabled="projectForm.$invalid">{{saveText}}</button>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-danger btn-block" ng-click="cancel()">Cancel</button>

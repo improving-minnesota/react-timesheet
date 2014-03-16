@@ -4,10 +4,15 @@ angular.module('app.employees.controllers', [])
     function ($control, $scope, $state, $stateParams, notifications) {
 
       $scope.requestEmployees = function requestEmployees (page) {
-        // TODO : Set up pagination for employees
-        // 1. Create a query object
-        // 2. Call the new 'page' function on $control
-        // 3. Set the pageConfig on scope to the returned object
+        var query = {
+          page: page,
+          sort: {username: 1}
+        };
+
+        $control.page('employees', query)
+          .then(function (pageConfig) {
+            $scope.pageConfig = pageConfig;
+          });
       };
 
       $scope.showDetail = function showDetail (employee) {

@@ -48,7 +48,16 @@
       </div>
     </div>
 
-    <!-- TODO : Add UI Bootstrap pagination to the table -->
+    <div class="text-center">
+      <div pagination
+        total-items="pageConfig.totalItems" 
+        page="pageConfig.page" 
+        items-per-page="pageConfig.limit" 
+        boundary-links="true" 
+        rotate="true" 
+        on-select-page="requestEmployees(page)">
+      </div>
+    </div>
 
   </div>
 

@@ -1,9 +1,7 @@
-<!-- TODO : Add form validation -->
-
 <div class="tsz-timeunit-form" ng-cloak>
   <div class="row">
     <div class="col-xs-12">
-      <form class="form-horizontal" name="timeunitForm">
+      <form class="form-horizontal" novalidate name="timeunitForm">
 
         <div class="form-group">
           <div tsz-field-wrap input-id="timeunit-project" label="Project">
@@ -42,7 +40,8 @@
           <div tsz-field-wrap input-id="timeunit-hoursWorked" label="Hours">
             <input type="number" class="form-control" 
               name="timeunit-hoursWorked" placeholder="Hours Worked"
-              ng-model="timeunit.hoursWorked">
+              ng-model="timeunit.hoursWorked" 
+              required>
           </div>
         </div>
 
@@ -53,7 +52,8 @@
         <div class="row">
           <div class="col-sm-2 col-sm-offset-8">
             <button class="btn btn-primary btn-block" 
-              ng-click="save()">Save</button>
+              ng-click="save()"
+              ng-disabled="timeunitForm.$invalid">Save</button>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-danger btn-block" ng-click="cancel()">Cancel</button>

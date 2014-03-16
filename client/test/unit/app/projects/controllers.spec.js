@@ -72,12 +72,18 @@ describe('Projects', function() {
         it('should be able to instantiate the controller and request a page of projects', function () { 
           expect(controller).to.be.ok; 
           // $scope.requestProjects is called upon controller creation
-          // TODO : Set an expectation for requesting projects on setup and flush httpBackend
+          $httpBackend.expect('GET', '/projects?page=1&sort=%7B%22name%22:1%7D');
+          $httpBackend.flush();
         });
       }); 
 
       describe('requesting projects', function () {
-        // TODO : verify it should set the result to the pageConfig object
+        it('should set the result to the pageConfig object', function () {
+          $httpBackend.expect('GET', '/projects?page=2&sort=%7B%22name%22:1%7D');
+          $scope.requestProjects(2);
+          $httpBackend.flush();
+          expect($scope.pageConfig.name).to.equal("pageConfig2");
+        }); 
       });
 
       describe('showing project detail', function () {

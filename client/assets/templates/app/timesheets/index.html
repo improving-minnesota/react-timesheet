@@ -46,7 +46,16 @@
       </div>
     </div>
 
-    <!-- TODO : Add UI Bootstrap pagination to the timesheet table -->
+    <div class="text-center">
+      <div pagination
+        total-items="pageConfig.totalItems" 
+        page="pageConfig.page" 
+        items-per-page="pageConfig.limit" 
+        boundary-links="true" 
+        rotate="true" 
+        on-select-page="requestTimesheets(page)">
+      </div>
+    </div>
 
   </div>
   

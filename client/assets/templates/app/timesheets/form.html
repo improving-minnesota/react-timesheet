@@ -1,15 +1,14 @@
-<!-- TODO : Add form validation -->
-
 <div class="tsz-timesheet-form" ng-cloak>
   <div class="row">
     <div class="col-xs-12">
-      <form class="form-horizontal" name="timesheetForm">
+      <form class="form-horizontal" novalidate name="timesheetForm">
 
         <div class="form-group">
           <div tsz-field-wrap input-id="timesheet-name" label="Name">
             <input type="text" class="form-control" 
               name="timesheet-name" placeholder="Timesheet Name"
-              ng-model="timesheet.name">
+              ng-model="timesheet.name" 
+              ng-minlength="1" ng-maxlength="40" required>
           </div>
         </div>
 
@@ -17,7 +16,8 @@
           <div tsz-field-wrap input-id="timesheet-description" label="Description">
             <input type="text" class="form-control" 
               name="timesheet-description" placeholder="Timesheet Description"
-              ng-model="timesheet.description">
+              ng-model="timesheet.description" 
+              ng-minlength="1" ng-maxlength="255" required>
           </div>
         </div>
 
@@ -67,7 +67,8 @@
         <div class="row">
           <div class="col-sm-2 col-sm-offset-8">
             <button class="btn btn-primary btn-block" 
-              ng-click="save()">{{saveText}}</button>
+              ng-click="save()"
+              ng-disabled="timesheetForm.$invalid">{{saveText}}</button>
           </div>
           <div class="col-sm-2">
             <button class="btn btn-danger btn-block" ng-click="cancel()">Cancel</button>

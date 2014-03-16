@@ -1,6 +1,5 @@
-<!-- TODO : Create the progress bar template 
-  1. Use Bootstrap's progress and progress-bar classes
-  2. Call the controller's progressClicked on click
-  3. Set the width in the style attribute according to percentComplete
-  4. Set the text to be percentComplete formatted as a number 
--->
+<div class="progress" ng-click="progressClicked()">
+  <div class="progress-bar" style="width: {{percentComplete > 100 ? 100 : percentComplete}}%;">
+    {{percentComplete | number:0}}%
+  </div>
+</div>
