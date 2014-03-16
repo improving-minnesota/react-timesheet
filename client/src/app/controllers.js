@@ -1,6 +1,9 @@
 angular.module('app.controllers', [])
 
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, securityContext){
+    
+    // TODO : Watch securityContext for changes and update 
+    // authenticated and loggedInUser on scope
 
   })
   
@@ -11,7 +14,10 @@ angular.module('app.controllers', [])
   )
 
   .controller('NavCtrl', 
-    function ($scope) {
-
+    function ($scope, authentication) {
+    
+      $scope.logout = function logout () {
+        authentication.logout();
+      };
     }
   );

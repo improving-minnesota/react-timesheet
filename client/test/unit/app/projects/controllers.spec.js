@@ -18,6 +18,8 @@ describe('Projects', function() {
       module(
         'app.resources',
         'ngResource',
+        'security.services',
+        // TODO : add notification module as dependency
         'app.projects',
         'app.projects.controllers'
       ));
@@ -32,8 +34,10 @@ describe('Projects', function() {
     }));
 
     beforeEach(inject(function ($injector) {
+      // TODO : inject the notification service
 
       spies = {
+        // TODO : create spies on notification success and error methods. 
         state: sinon.stub($state)
       };
 
@@ -81,6 +85,12 @@ describe('Projects', function() {
       });
 
       describe('showing project detail', function () {
+        it('should notify the user if the project is deleted', function () {
+          project.deleted = true;
+          $httpBackend.flush();
+          $scope.showDetail(project);
+          // TODO : verify that error notification was sent
+        });
         it('should transition to the project detail state', function () {
           $httpBackend.flush();
           $scope.showDetail(project);
@@ -116,6 +126,12 @@ describe('Projects', function() {
             $httpBackend.flush();
             expect(project.deleted).to.be.true;
           });
+          it('should notify the user of the deletion', function () {
+            $scope.remove(project);
+            $httpBackend.flush();
+            // TODO : verify that success notification was sent
+            // TODO : verify that error notification was not sent
+          });
         });
 
         describe('in error', function () {
@@ -128,6 +144,12 @@ describe('Projects', function() {
             $scope.remove(project);
             $httpBackend.flush();
             expect(project.deleted).to.be.false;
+          });
+          it('should notify the user of the error', function () {
+            $scope.remove(project);
+            $httpBackend.flush();
+            // TODO : verify that error notification was sent
+            // TODO : verify that success notification was not sent
           });
         });
 
@@ -156,6 +178,12 @@ describe('Projects', function() {
             $httpBackend.flush();
             expect(project.deleted).to.be.false;
           });
+          it('should notify the user of the deletion', function () {
+            $scope.restore(project);
+            $httpBackend.flush();
+            // TODO : verify that success notification was sent
+            // TODO : verify that error notification was not sent
+          });
         });
 
         describe('in error', function () {
@@ -168,6 +196,12 @@ describe('Projects', function() {
             $scope.restore(project);
             $httpBackend.flush();
             expect(project.deleted).to.be.true;
+          });
+          it('should notify the user of the error', function () {
+            $scope.restore(project);
+            $httpBackend.flush();
+            // TODO : verify that error notification was sent
+            // TODO : verify that success notification was not sent
           });
         });
       });
@@ -230,6 +264,23 @@ describe('Projects', function() {
             $httpBackend.flush();
             expect($scope.project.name).to.equal(updatedProject.name);
           });
+
+          it('should notify the user of the successful update', function () {
+            $scope.save();
+            $httpBackend.flush();
+            // TODO : verify that success notification was sent
+            // TODO : verify that error notification was not sent
+          });
+        });
+
+        describe('in error', function () {
+          it('should notify the user of the error', function () {
+            $httpBackend.when('PUT', '/projects/' + project._id).respond(500);
+            $scope.save();
+            $httpBackend.flush();
+            // TODO : verify that error notification was sent
+            // TODO : verify that success notification was not sent
+          });
         });
 
       });
@@ -278,6 +329,23 @@ describe('Projects', function() {
             $scope.save();
             $httpBackend.flush();
             expect(spies.state.go).to.have.been.calledWith('app.projects.detail', {_id: project._id});
+          });
+
+          it('should notify the user of the successful create', function () {
+            $scope.save();
+            $httpBackend.flush();
+            // TODO : verify that success notification was sent
+            // TODO : verify that error notification was not sent
+          });
+        });
+
+        describe('in error', function () {
+          it('should notify the user of the error', function () {
+            $httpBackend.when('POST', '/projects').respond(500);
+            $scope.save();
+            $httpBackend.flush();
+            // TODO : verify that error notification was sent
+            // TODO : verify that success notification was not sent
           });
         });
       });

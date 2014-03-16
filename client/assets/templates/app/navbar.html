@@ -14,8 +14,10 @@
         <a ui-sref="app.employees">Employees</a>
       </li>
       <li ng-class="{active: $state.includes('app.timesheets')}">
+        <!-- TODO : Add logged in user to timesheet query -->
         <a ui-sref="app.timesheets({user_id: 'all'})">Timesheets</a>
       </li>
     </ul>
+    <!-- TODO : Add a logout button to the nav bar -->
   </div>
 </div>

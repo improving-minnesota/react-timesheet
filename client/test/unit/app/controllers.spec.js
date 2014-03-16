@@ -10,6 +10,9 @@ describe('App', function() {
         'ui.router',
         'app.resources',
         'ngResource',
+        'security.services',
+        'authentication.services',
+        // TODO : set notifications service as a dependency
         'app.controllers'
       ));
 

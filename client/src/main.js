@@ -4,6 +4,7 @@ angular.module('main', [
   'app',
   'form.directives',
   'progress.interceptors',
+  'security.interceptors',
   'ui.select2',
   'ui.bootstrap.datepicker',
   'ui.bootstrap.pagination',
