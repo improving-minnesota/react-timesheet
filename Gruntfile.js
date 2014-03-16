@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Combines the application templates into a single javascript file that populates 
+    // Combines the application templates into a single javascript file that populates
     // the angular template cache.
     //
     // Also builds the angular ui-bootstrap application specific template overrides
@@ -143,6 +143,7 @@ module.exports = function (grunt) {
           '<%= components %>/select2/select2.css',
           '<%= components %>/nprogress/nprogress.css',
           '<%= components %>/messenger/build/css/messenger.css',
+          //'<%= components %>/messenger/build/css/messenger-theme-future.css',
           '<%= components %>/messenger/build/css/messenger-spinner.css',
           '<%= clientdist %>/assets/css/style.css'
         ],
@@ -185,7 +186,7 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['development'] 
+        tasks: ['development']
       },
       debug: {
         files: [
@@ -195,7 +196,7 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['debug'] 
+        tasks: ['debug']
       },
       production: {
         files: [
@@ -205,12 +206,12 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['production'] 
+        tasks: ['production']
       }
     },
 
     // Stages all the files for running the application.  Each of these
-    // tasks are cumulative where production builds off of debug, debug 
+    // tasks are cumulative where production builds off of debug, debug
     // off of development, and development off of vendor.
     // vendor: All of the 3rd party library files
     // development: All of the files required for development mode
@@ -355,17 +356,41 @@ module.exports = function (grunt) {
       }
     },
 
+  // *********************************************************************************************
+  // New Tasks go below here !!!
+
+    // Starts the karma runner for unit and e2e tests.
+    // Tests are run when the task is re-invoked from the watch task.
+    karma : {
+      unit : {
+        reporters: 'dots',
+        configFile: 'karma.config.js'
+      }
+    },
+
+    // Starts the protractor e2e tests.
+    protractor: {
+      options: {
+        configFile: 'protractor.config.js',
+        keepAlive: true,
+        noColor: false
+      },
+      e2e: {
+      },
+      debug: {
+        options: {
+          debug: true
+        }
+      }
+    },
+
     // Task to add the array-style angular injection to protect against uglifying.
     ngmin : {
       app : {
         src : 'client/src/**/*.js',
         dest : '<%= clientdist %>/app.js'
       }
-    },
-
-  // *********************************************************************************************
-  // New Tasks go below here !!! 
-
+    }
 
   });
 
@@ -386,6 +411,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-mixtape-run-app');
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
 
   // **********************************************************************************************

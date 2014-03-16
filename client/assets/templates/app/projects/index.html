@@ -1,0 +1,59 @@
+<div class="tsz-project-list">
+  <div ng-show="$state.is('app.projects')">
+    <div class="row tsz-form-row">
+      <div class="col-sm-2 pull-right">
+        <button class="btn btn-primary btn-block" type="button" ng-click="createNew()">
+          <i class="icon-plus"></i>
+          New Project
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-hover tsz-table-row-cursor">
+           <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="tsz-table-delete-column">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="project in pageConfig.data | orderBy:'name'" 
+              class="repeated-item fadeable-row"
+              ng-class="{faded: project.deleted}"
+              ng-click="showDetail(project)">
+
+              <td>{{project.name}}</td>
+              <td>{{project.description}}</td>
+              <td>
+                <div ng-switch="project.deleted">
+                  <div ng-switch-when="true">
+                    <button class="btn btn-sm btn-default" ng-click="restore(project); $event.stopPropagation();">Restore</button>
+                  </div>
+                  <div ng-switch-default>
+                    <button class="btn btn-sm btn-danger" ng-click="remove(project); $event.stopPropagation();">Delete</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <div pagination
+        total-items="pageConfig.totalItems" 
+        page="pageConfig.page" 
+        items-per-page="pageConfig.limit" 
+        boundary-links="true" 
+        rotate="true" 
+        on-select-page="requestProjects(page)">
+      </div>
+    </div>
+
+  </div>
+  
+  <div ui-view></div>
+</div>

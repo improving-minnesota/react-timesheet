@@ -1,0 +1,63 @@
+<div class="tsz-timesheet-list">
+  <div ng-show="$state.is('app.timesheets')">
+    <div class="row tsz-form-row">
+      <div class="col-sm-2 pull-right">
+        <button class="btn btn-primary btn-block" type="button" ng-click="createNew()">
+          <i class="icon-plus"></i>
+          New Timesheet
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-hover tsz-table-row-cursor">
+           <thead>
+            <tr>
+              <th>Begin Date</th>
+              <th>End Date</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="tsz-table-delete-column">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="timesheet in pageConfig.data | orderBy:beginDate" 
+              class="repeated-item fadeable-row"
+              ng-class="{faded: timesheet.deleted}"
+              ng-click="showDetail(timesheet)">
+
+              <td>{{timesheet.beginDate | date}}</td>
+              <td>{{timesheet.endDate | date}}</td>
+              <td>{{timesheet.name}}</td>
+              <td>{{timesheet.description}}</td>
+              <td>
+                <div ng-switch="timesheet.deleted">
+                  <div ng-switch-when="true">
+                    <button class="btn btn-sm btn-default" ng-click="restore(timesheet); $event.stopPropagation();">Restore</button>
+                  </div>
+                  <div ng-switch-default>
+                      <button class="btn btn-sm btn-danger" ng-click="remove(timesheet); $event.stopPropagation();">Delete</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <div pagination
+        total-items="pageConfig.totalItems" 
+        page="pageConfig.page" 
+        items-per-page="pageConfig.limit" 
+        boundary-links="true" 
+        rotate="true" 
+        on-select-page="requestTimesheets(page)">
+      </div>
+    </div>
+
+  </div>
+  
+  <div ui-view></div>
+</div>
