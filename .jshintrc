@@ -1,0 +1,14 @@
+{
+	"scripturl": true,
+  "laxcomma": true,
+  "nomen": false,
+  "globals" : {
+    "angular": true,
+    "chai": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "it": true,
+    "xit": true
+  }
+}

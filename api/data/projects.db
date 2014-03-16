@@ -1,0 +1,4 @@
+{"name":"Project2","description":"This is your second project","_id":"VmPutHJlJMrIxc3s"}
+{"name":"Project1","description":"This is your first project","_id":"tF6vMFh0JXuTjPRs"}
+{"name":"Project3","description":"This is the third project","_id":"yx0spI3S5DjQxumr"}
+{"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}

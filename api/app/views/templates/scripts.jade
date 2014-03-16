@@ -1,0 +1,47 @@
+case env
+  when 'production'
+    script(src="assets/js/app.min.js")
+  when 'debug'
+    script(src="assets/js/app.js")
+  default
+
+    // Shims
+    script(src='assets/js/components/modernizr/modernizr.js')
+
+    // jQuery and Related
+    script(src='assets/js/components/jquery/jquery.js')
+    script(src='assets/js/components/select2/select2.js')
+    script(src='assets/js/components/messenger/build/js/messenger.js')
+    script(src='assets/js/components/messenger/build/js/messenger-theme-future.js')
+
+    // bootstrap
+    script(src='assets/js/components/bootstrap/dist/js/bootstrap.js')
+
+    // AngularJS libraries
+    script(src='assets/js/components/angular/angular.js')
+    script(src='assets/js/components/angular-cookies/angular-cookies.js')
+    script(src='assets/js/components/angular-resource/angular-resource.js')
+    script(src='assets/js/components/angular-sanitize/angular-sanitize.js')
+    script(src='assets/js/components/angular-animate/angular-animate.js')
+    script(src='assets/js/components/angular-route/angular-route.js')
+
+    // Angular UI libraries
+    script(src='assets/js/components/angular-ui-select2/src/select2.js')
+    script(src='assets/js/components/angular-ui-bootstrap/src/position/position.js')
+    script(src='assets/js/components/angular-ui-bootstrap/src/datepicker/datepicker.js')
+    script(src='assets/js/components/angular-ui-bootstrap/src/pagination/pagination.js')
+    script(src='assets/js/components/angular-ui-bootstrap/src/buttons/buttons.js')
+
+    //NProgress
+    script(src='assets/js/components/nprogress/nprogress.js')
+
+    // utilities
+    script(src='assets/js/components/lodash/dist/lodash.js')
+    script(src='assets/js/components/moment/moment.js')
+
+    each script in applicationScripts
+      script(src=script)
+
+    each script in templateScripts
+      script(src=script)
+

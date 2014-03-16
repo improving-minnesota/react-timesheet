@@ -1,0 +1,27 @@
+html(class="no-js")
+  head
+    base(href="/")
+    title(ng-bind-template="Timesheetz") Timesheetz
+    
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1")
+    meta(name="description", content="Timesheet Demo Application")
+
+    - if (env == 'production')
+      link(href="/assets/css/style.min.css", rel="stylesheet", type="text/css")
+    - else
+      link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
+
+    body()
+      .tsz-page-container
+        .navbar.navbar-default.navbar-static-top
+          .container-fluid
+            .navbar-header
+              a.navbar-brand(href="#")
+                i.fa.fa-clock-o.fa-lg
+                |   Angular Training
+
+        .text-center
+          .h1 Welcome to Angular JS !!!
+            
+    include ../templates/scripts
