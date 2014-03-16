@@ -1,3 +1,17 @@
-// TODO : create the app.controllers module
-// 1. create a MainCtrl with an empty body
-// 2. create an AppCtrl that sets demo to an empty object on scope. 
+angular.module('app.controllers', [])
+
+  .controller('MainCtrl', function ($scope) {
+
+  })
+  
+  .controller('AppCtrl', 
+    function ($scope){
+      $scope.demo = {};
+    }
+  )
+
+  .controller('NavCtrl', 
+    function ($scope) {
+
+    }
+  );
