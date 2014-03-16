@@ -1,17 +1,17 @@
 describe('Authorization', function() {
-  var $rootScope,
-    security,
-    authorization,
-    authentication,
+  var $rootScope, 
+    security, 
+    authorization, 
+    authentication, 
     queue,
-    securityContextResponse,
+    securityContextResponse, 
     resolved,
     spies;
-
+  
   var expect = chai.expect;
 
   angular.module('test', []).value('I18N.MESSAGES', {});
-
+  
   beforeEach(
     module(
       'test',
@@ -19,32 +19,32 @@ describe('Authorization', function() {
       'security.services',
       'app.resources',
       'ngResource',
-      // TODO : set notification service as dependency
-      // TODO : set authorization service as dependency
+      'notifications.services',
+      'authorization.services', 
       'assets/templates/security/login.html'
     ));
-
+  
   beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');
-    // TODO : inject the authorization service
+    authorization = $injector.get('authorization');
     authentication = $injector.get('authentication');
     securityContext = $injector.get('securityContext');
     queue = $injector.get('retryQueue');
-
+    
     securityContextResponse = { authenticated: true, user: { _id: '1234567890', email: 'jo@bloggs.com', firstName: 'Jo', lastName: 'Bloggs', admin: true} };
     resolved = false;
 
     spies = {
       currentUser : sinon.stub(authentication, 'requestCurrentUser', function () {
         securityContext.setAuthentication(securityContextResponse);
-        // You will need to call $digest to resolve the promise.
+        // You will need to call $digest to resolve the promise. 
         return $injector.get('$q').when(securityContext);
-      })
+      }) 
     };
   }));
 
   describe('requireAuthenticatedUser', function() {
-
+    
     it('makes a GET request to current user url', function() {
       expect(securityContext.authenticated).to.be.false;
 
@@ -77,3 +77,4 @@ describe('Authorization', function() {
 
   });
 });
+  

@@ -1,8 +1,9 @@
 angular.module('app.projects', [
   'app.projects.controllers',
-  'ui.router'
+  'ui.router',
+  'authorization.services'
 ])
-.config(function ($stateProvider) {
+.config(function ($stateProvider, authorizationProvider) {
 
   $stateProvider
     .state('app.projects', {

@@ -21,6 +21,7 @@ describe('Timeunits', function() {
         'app.resources',
         'ngResource',
         'security.services',
+        'notifications.services',
         'app.timesheets.timeunits',
         'app.timesheets.timeunits.controllers'
       ));
@@ -55,7 +56,11 @@ describe('Timeunits', function() {
         "user_id": $stateParams.user_id
       };
 
+      var notifications = $injector.get('notifications');
+
       spies = {
+        error: sinon.spy(notifications, 'error'),
+        success: sinon.spy(notifications, 'success'),
         state: sinon.stub($state)
       };
     }));
@@ -133,6 +138,24 @@ describe('Timeunits', function() {
             $httpBackend.flush();
             expect($scope.timeunit.name).to.equal(updatedTimeunit.name);
           });
+
+          it('should notify the user of the successful update', function () {
+            $scope.save();
+            $httpBackend.flush();
+            expect(spies.success).to.have.been.called;
+            expect(spies.error).to.not.have.been.called;
+          });
+        });
+
+        describe('in error', function () {
+          it('should notify the user of the error and reload the state', function () {
+            $httpBackend.when('PUT', '/users/1234567890/timesheets/asdfghjklqwerty/timeunits/aaaaaaaaaa').respond(500);
+            $scope.save();
+            $httpBackend.flush();
+            expect(spies.error).to.have.been.called;
+            expect(spies.success).to.not.have.been.called;
+            expect(spies.state.reload).to.have.been.called;
+          });
         });
 
       });
@@ -177,6 +200,23 @@ describe('Timeunits', function() {
             $scope.save();
             $httpBackend.flush();
             expect($scope.timeunit.name).to.equal(updatedTimeunit.name);
+          });
+
+          it('should notify the user of the successful update', function () {
+            $scope.save();
+            $httpBackend.flush();
+            expect(spies.success).to.have.been.called;
+            expect(spies.error).to.not.have.been.called;
+          });
+        });
+
+        describe('in error', function () {
+          it('should notify the user of the error and reload the state', function () {
+            $httpBackend.when('POST', '/users/1234567890/timesheets/asdfghjklqwerty/timeunits').respond(500);
+            $scope.save();
+            $httpBackend.flush();
+            expect(spies.error).to.have.been.called;
+            expect(spies.success).to.not.have.been.called;
           });
         });
 

@@ -1,10 +1,10 @@
 angular.module('authentication.services', [
-  'security.services'
-  // TODO : set notifications services as a dependency
+  'security.services',
+  'notifications.services'
 ])
 
-.factory('authentication', // TODO : Inject the notifications service
-  function ($q, $control, $state, $location, securityContext, retryQueue) { 
+.factory('authentication', 
+  function ($q, $control, $state, $location, securityContext, retryQueue, notifications) {
     
     // Register a handler for when an item is added to the retry retryQueue
     // This forces the login page on entry. 
@@ -89,7 +89,7 @@ angular.module('authentication.services', [
               securityContext.setAuthentication(user);
         
               if (securityContext.user && securityContext.user.username) {
-                // TODO : Welcome back the user with a success or info notification
+                notifications.success("Welcome Back, " + securityContext.user.username + ".");
               }
 
               return securityContext;  

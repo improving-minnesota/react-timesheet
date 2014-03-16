@@ -1,7 +1,7 @@
 angular.module('app.employees.controllers', [])
   
   .controller('EmployeeCtrl', 
-    function ($control, $scope, $state, $stateParams) { // TODO : inject the notifications service
+    function ($control, $scope, $state, $stateParams, notifications) {
 
       $scope.requestEmployees = function requestEmployees (page) {
 
@@ -13,7 +13,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.showDetail = function showDetail (employee) {
         if (employee.deleted) {
-          // TODO : send a notification alerting the user they cannot view a deleted employee
+          notifications.error('You cannot edit a deleted employee.');
           return;
         }
         $state.go('app.employees.detail', employee);
@@ -27,11 +27,11 @@ angular.module('app.employees.controllers', [])
 
         $control.remove('employees', employee) 
           .then(function () {
-            // TODO : send a success notification using the notifications service
+            notifications.success('Employee : ' + employee.username + ', was deleted.');
           })
           .catch(function (x) {
             employee.deleted = false;
-            // TODO : send an error notification to the users
+            notifications.error('Error attempting to delete employee.');
           });
       };
 
@@ -39,11 +39,11 @@ angular.module('app.employees.controllers', [])
        
        $control.restore('employees', employee)
           .then(function (restored) {
-            // TODO : send a success notification 
+            notifications.success('Employee was restored.');
           })
           .catch(function (x) {
             employee.deleted = true;
-            // TODO : send an error notification
+            notifications.error('Error restoring employee.');
           });
       };
 
@@ -56,8 +56,7 @@ angular.module('app.employees.controllers', [])
   )
 
   .controller('EmployeeDetailCtrl', 
-    // TODO : inject the notifications service
-    function ($scope, $state, $stateParams, employee) {
+    function ($scope, $state, $stateParams, notifications, employee) {
       $scope.saveText = $state.current.data.saveText;
       $scope.employee = employee;
 
@@ -65,29 +64,28 @@ angular.module('app.employees.controllers', [])
         $scope.employee.$update()
           .then(function (updated) {
             $scope.timesheet = updated;
-            // TODO : send a success notification
+            notifications.success('Updated employee: ' + employee.username);
           })
           .catch(function (x) {
-            // TODO : send an error notification
+            notifications.error('There was an error updating the employee.');
           });
       };
     }
   )
 
   .controller('EmployeeCreateCtrl', 
-    // TODO : inject the notifications service
-    function ($scope, $state, $stateParams, $control) {
+    function ($scope, $state, $stateParams, $control, notifications) {
       $scope.saveText = $state.current.data.saveText;
       $scope.employee = {admin: false};
 
       $scope.save = function save () {
         $control.create('employees', $scope.employee)
           .then(function (created) {
-            // TODO : send a success notification
+            notifications.success('Employee : ' + created.username + ', created.');
             $state.go('app.employees.detail', {_id: created._id});
           })
           .catch(function (x) {
-            // TODO : send an error notification
+            notifications.error('There was an error creating employee.');
           });
       };
     }

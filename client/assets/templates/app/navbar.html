@@ -6,7 +6,7 @@
         {{$state.current.data.title}}
       </a>
     </div>
-    <ul class="nav navbar-nav navbar-left">
+    <ul ng-if="authenticated" class="nav navbar-nav navbar-left">
       <li ng-class="{active: $state.includes('app.projects')}">
         <a ui-sref="app.projects">Projects</a>
       </li>
@@ -14,10 +14,16 @@
         <a ui-sref="app.employees">Employees</a>
       </li>
       <li ng-class="{active: $state.includes('app.timesheets')}">
-        <!-- TODO : Add logged in user to timesheet query -->
-        <a ui-sref="app.timesheets({user_id: 'all'})">Timesheets</a>
+        <a ui-sref="app.timesheets({user_id: loggedInUser._id})">Timesheets</a>
       </li>
     </ul>
-    <!-- TODO : Add a logout button to the nav bar -->
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a class="navbar-brand logout" ng-click="logout()">  
+          <i class="fa fa-power-off"></i>
+          Logout
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
