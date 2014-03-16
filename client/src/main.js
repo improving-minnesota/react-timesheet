@@ -1,7 +1,13 @@
 angular.module('main', [
   'templates-main',
   'templates-lib',
-  'app'
+  'app',
+  'ui.select2',
+  'ui.bootstrap.datepicker',
+  'ui.bootstrap.pagination',
+  'ui.bootstrap.buttons',
+  'ngSanitize',
+  'ngAnimate'
 ])
 
 .run(function ($log) {

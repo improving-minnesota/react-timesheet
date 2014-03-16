@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Combines the application templates into a single javascript file that populates 
+    // Combines the application templates into a single javascript file that populates
     // the angular template cache.
     //
     // Also builds the angular ui-bootstrap application specific template overrides
@@ -143,6 +143,7 @@ module.exports = function (grunt) {
           '<%= components %>/select2/select2.css',
           '<%= components %>/nprogress/nprogress.css',
           '<%= components %>/messenger/build/css/messenger.css',
+          //'<%= components %>/messenger/build/css/messenger-theme-future.css',
           '<%= components %>/messenger/build/css/messenger-spinner.css',
           '<%= clientdist %>/assets/css/style.css'
         ],
@@ -185,7 +186,7 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['development'] 
+        tasks: ['development']
       },
       debug: {
         files: [
@@ -195,7 +196,7 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['debug'] 
+        tasks: ['debug']
       },
       production: {
         files: [
@@ -205,12 +206,12 @@ module.exports = function (grunt) {
           '<%= assets %>/less/**/*.less',
           'app/views/**/*.jade'
         ],
-        tasks: ['production'] 
+        tasks: ['production']
       }
     },
 
     // Stages all the files for running the application.  Each of these
-    // tasks are cumulative where production builds off of debug, debug 
+    // tasks are cumulative where production builds off of debug, debug
     // off of development, and development off of vendor.
     // vendor: All of the 3rd party library files
     // development: All of the files required for development mode
@@ -364,8 +365,11 @@ module.exports = function (grunt) {
     },
 
   // *********************************************************************************************
-  // New Tasks go below here !!! 
+  // New Tasks go below here !!!
 
+    // TODO : configure the karma grunt task
+    // 1. use the 'dots' reporter
+    // 2. set it to run in the background
 
   });
 
