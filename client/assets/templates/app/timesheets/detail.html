@@ -83,11 +83,14 @@
               </tr>
             </thead>
             <tbody>
+              <tr ng-repeat="timeunit in timeunits | orderBy:'dateWorked'" ng-click="showTimeunitDetail(timeunit)" 
+              <!-- TODO : add a filter to order the timeunits by date worked -->
               <tr ng-repeat="timeunit in timeunits" ng-click="showTimeunitDetail(timeunit)" 
                 class="fadeable-row"
                 ng-class="{faded: timeunit.deleted}">
                 
                 <td>{{timeunit.project}}</td>
+                <!-- TODO : add a date format filter -->
                 <td>{{timeunit.dateWorked}}</td>
                 <td>{{timeunit.hoursWorked}}</td>
                 <td>

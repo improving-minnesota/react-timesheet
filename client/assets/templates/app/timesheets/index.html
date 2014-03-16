@@ -21,11 +21,14 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="timesheet in pageConfig.data | orderBy:beginDate" 
+            <!-- TODO : Add a filter to order the timesheets by begin date -->
             <tr ng-repeat="timesheet in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: timesheet.deleted}"
               ng-click="showDetail(timesheet)">
 
+              <!-- TODO : add a date format filter -->
               <td>{{timesheet.beginDate}}</td>
               <td>{{timesheet.endDate}}</td>
               <td>{{timesheet.name}}</td>

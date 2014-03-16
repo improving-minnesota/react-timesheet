@@ -22,6 +22,8 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="employee in pageConfig.data | orderBy:'username'" 
+            <!-- TODO : add a filter to order the employees by username -->
             <tr ng-repeat="employee in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: employee.deleted}"
@@ -31,6 +33,7 @@
               <td>{{employee.email}}</td>
               <td>{{employee.firstName}}</td>
               <td>{{employee.lastName}}</td>
+              <!-- TODO : add a boolean filter for human readable text -->
               <td>{{employee.admin}}</td>
               <td>
                 <div ng-switch="employee.deleted">
