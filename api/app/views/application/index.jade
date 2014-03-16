@@ -1,4 +1,4 @@
-html(class="no-js")
+html(class="no-js", ng-app="main")
   head
     base(href="/")
     title(ng-bind-template="Timesheetz") Timesheetz
@@ -12,16 +12,10 @@ html(class="no-js")
     - else
       link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
 
-    body()
-      .tsz-page-container
-        .navbar.navbar-default.navbar-static-top
-          .container-fluid
-            .navbar-header
-              a.navbar-brand(href="#")
-                i.fa.fa-clock-o.fa-lg
-                |   Angular Training
-
-        .text-center
-          .h1 Welcome to Angular JS !!!
+    body(ng-controller="MainCtrl")
+      .tsz-page-container(ng-cloak)
+        div(ui-view="navbar")
+        div(ui-view="content")
+        div(ui-view="login")
             
     include ../templates/scripts
