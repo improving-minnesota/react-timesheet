@@ -367,9 +367,14 @@ module.exports = function (grunt) {
   // *********************************************************************************************
   // New Tasks go below here !!!
 
-    // TODO : configure the karma grunt task
-    // 1. use the 'dots' reporter
-    // 2. set it to run in the background
+    // Starts the karama runner for unit and e2e tests.
+    // Tests are run when the task is re-invoked from the watch task.
+    karma : {
+      unit : {
+        reporters: 'dots',
+        configFile: 'karma.config.js'
+      }
+    }
 
   });
 
