@@ -3,6 +3,8 @@ angular.module('app.employees', [
 ])
 
 .run(function ($api) {
-
-  // TODO : add the employees resource to the $api service
+  $api.add({
+    resource: 'employees',
+    url: '/users'
+  });
 });

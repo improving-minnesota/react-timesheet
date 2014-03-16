@@ -3,20 +3,42 @@ angular.module('app.timesheets.controllers', [])
   .controller('TimesheetCtrl', 
     function ($control, $scope) {
 
-      // TODO : implement a function on scope to request timesheets
-      $scope.requestTimesheets = function requestTimesheets () {
-        // Since the server expects a user_id in the request url, we can send 'all'
-        // for now which will return every timesheet. 
+      $scope.requestTimesheets = function requestTimesheets (page) {
         var query = {
           user_id: 'all'
         };
 
+        $control.list('timesheets', query)
+          .then(function (timesheets) {
+            $scope.timesheets = timesheets;
+          });
       };
 
-      // TODO : implement a function on scope to soft delete a timesheet
-      // TODO : implement a function on scope to restore a deleted timesheet
-      // TODO : initialize scope by calling requestTimesheets
-      
+      $scope.remove = function remove (timesheet) {
+
+        $control.remove('timesheets', timesheet)
+          .then(function () {
+            console.log('success !');
+          })
+          .catch(function (x) {  
+            timesheet.deleted = false;
+            console.log('error ' + x);
+          });
+      };
+
+      $scope.restore = function restore (timesheet) {
+        
+        $control.restore('timesheets', timesheet)
+          .then(function (restored) {
+            console.log('success !');
+          })
+          .catch(function (x) {
+            timesheet.deleted = true;
+            console.log('error ' + x);
+          });
+      };
+
+      $scope.requestTimesheets(1);
     }
   );
     

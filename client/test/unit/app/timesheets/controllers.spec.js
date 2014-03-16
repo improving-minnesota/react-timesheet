@@ -65,44 +65,60 @@ describe('Timesheets', function() {
           $scope: $scope
         });
 
-        // TODO : set up a response for api calls to get a list of timesheets
+        $httpBackend.when('GET', '/users/all/timesheets').respond(200, [{name: 'testTimesheet'}]);
       });
 
       describe('during setup', function () {
-
-        // TODO : verify it should be able to instantiate the controller and request a page of timesheets
-
+        it('should be able to instantiate the controller and request a page of timesheets', function () { 
+          expect(controller).to.be.ok; 
+          // $scope.requestTimesheets is called upon controller creation
+          $httpBackend.expect('GET', '/users/all/timesheets');
+          $httpBackend.flush();
+        });
       }); 
 
       describe('requesting timesheets', function () {
-
-        // TODO : verify it should set the result to the timesheets
-
+        it('should set the result to the timesheets', function () {
+          $httpBackend.expect('GET', '/users/all/timesheets');
+          $scope.requestTimesheets();
+          $httpBackend.flush();
+          expect($scope.timesheets[0].name).to.equal("testTimesheet");
+        });
       });
 
       describe('removing a timesheet', function () {
 
-        // TODO : verify it should send a remove request for the specified timesheet
+        it('should send a remove request for the specified timesheet', function () {
+          $httpBackend.flush();
+          $httpBackend.expect('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
+          $scope.remove(timesheet);
+          $httpBackend.flush();
+        });
 
         describe('successfully', function () {
           beforeEach(function () {
             $httpBackend.flush();
-
-            // TODO : set up a 200 response for a request to remove a timesheet
+            $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           });
 
-          // TODO : verify it should set the timesheet to deleted for the ui
-
+          it('should set the timesheet to deleted for the ui', function () {
+            $scope.remove(timesheet);
+            $httpBackend.flush();
+            expect(timesheet.deleted).to.be.true;
+          });
         });
 
         describe('in error', function () {
           beforeEach(function () {
             $httpBackend.flush();
-            // TODO : set up a 500 response for a request to remove a timesheet
+            $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(500);
           });
 
-          // TODO : verify it should set deleted to false for the timesheet in the ui
-
+          it('should set deleted to false for the timesheet in the ui', function () {
+            $scope.remove(timesheet);
+            $httpBackend.flush();
+            expect(timesheet.deleted).to.be.false;
+          });
         });
 
       });
@@ -112,28 +128,37 @@ describe('Timesheets', function() {
           timesheet.deleted = true;
         });
 
-        // TODO : verify it should send a restore request for the specified timesheet
+        it('should send a restore request for the specified timesheet', function () {
+          $httpBackend.flush();
+          $httpBackend.expect('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
+          $scope.restore(timesheet);
+          $httpBackend.flush();
+        });
 
         describe('successfully', function () {
           beforeEach(function () {
             $httpBackend.flush();
-
-            // TODO : set up a 200 response for a request to restore a timesheet
+            $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           });
 
-          // TODO : verify it should set the timesheet to not deleted for the ui
-
+          it('should set the timesheet to not deleted for the ui', function () {
+            $scope.restore(timesheet);
+            $httpBackend.flush();
+            expect(timesheet.deleted).to.be.false;
+          });
         });
 
         describe('in error', function () {
           beforeEach(function () {
             $httpBackend.flush();
-
-            // TODO : set up a 500 response for a request to restore a timesheet
+            $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(500);
           });
 
-          // TODO : verify it should set deleted to true for the timesheet in the ui
-          
+          it('should set deleted to true for the timesheet in the ui', function () {
+            $scope.restore(timesheet);
+            $httpBackend.flush();
+            expect(timesheet.deleted).to.be.true;
+          });
         });
       });
     });

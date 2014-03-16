@@ -13,26 +13,23 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="timesheet in timesheets" 
+              class="fadeable-row"
+              ng-class="{faded: timesheet.deleted}">
 
-            <!-- TODO : Create the timesheet table
-              1. set the repeater to each timesheet in timesheets
-              2. set the class, faded, to be dependent upon timesheet.deleted
-              3. bind the <td>'s to the properties on timesheet -->
-            <tr class="fadeable-row">
-
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{timesheet.beginDate}}</td>
+              <td>{{timesheet.endDate}}</td>
+              <td>{{timesheet.name}}</td>
+              <td>{{timesheet.description}}</td>
               <td>
-
-                <!-- TODO : Optionally show a delete or restore button
-                  1. use ng-switch on timesheet.deleted 
-                  2. if the timesheet is deleted, show the restore button
-                  3. if the timesheet is not deleted, show the delete button
-                  3. set up the restore button to call restore(timesheet) when clicked
-                  4. set up the delete button to call remove(timesheet) when clicked -->
-
+                <div ng-switch="timesheet.deleted">
+                  <div ng-switch-when="true">
+                    <button class="btn btn-sm btn-default" ng-click="restore(timesheet); $event.stopPropagation();">Restore</button>
+                  </div>
+                  <div ng-switch-default>
+                      <button class="btn btn-sm btn-danger" ng-click="remove(timesheet); $event.stopPropagation();">Delete</button>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>

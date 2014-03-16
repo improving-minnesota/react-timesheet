@@ -19,26 +19,24 @@
           </thead>
           <tbody>
 
-            <!-- TODO : Create the employee table
-              1. set the repeater to each employee in employees
-              2. set the class, faded, to be dependent upon employee.deleted
-              3. bind the <td>'s to the properties on employee -->
-            <tr class="fadeable-row">
+            <tr ng-repeat="employee in employees" 
+              class="fadeable-row"
+              ng-class="{faded: employee.deleted}">
 
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{employee.username}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.firstName}}</td>
+              <td>{{employee.lastName}}</td>
+              <td>{{employee.admin}}</td>
               <td>
-
-                <!-- TODO : Optionally show a delete or restore button
-                  1. use ng-switch on employee.deleted 
-                  2. if the employee is deleted, show the restore button
-                  3. if the employee is not deleted, show the delete button
-                  3. set up the restore button to call restore(employee) when clicked
-                  4. set up the delete button to call remove(employee) when clicked -->
-                
+                <div ng-switch="employee.deleted">
+                  <div ng-switch-when="true">
+                    <button class="btn btn-sm btn-default" ng-click="restore(employee); $event.stopPropagation();">Restore</button>
+                  </div>
+                  <div ng-switch-default>
+                    <button class="btn btn-sm btn-danger" ng-click="remove(employee); $event.stopPropagation();">Delete</button>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>

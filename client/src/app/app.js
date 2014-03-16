@@ -8,12 +8,21 @@ angular.module('app', [
 ])
 
 .config(function ($routeProvider) {
-
-  // TODO : Register the application routes with $routeProvider
-  // 1. /projects : projects/index.html template and ProjectCtrl
-  // 2. /employees : employees/index.html template and EmployeeCtrl
-  // 3. /timesheets : timesheets/index.html template and TimesheetCtrl
-  // 4. default other routes to /projects
-  // 5. the base url for all templates is 'assets/templates/app'
+  $routeProvider.
+    when('/projects', {
+      templateUrl: 'assets/templates/app/projects/index.html',
+      controller: 'ProjectCtrl'
+    })
+    .when('/employees', {
+      templateUrl: 'assets/templates/app/employees/index.html',
+      controller: 'EmployeeCtrl'
+    })
+    .when('/timesheets', {
+      templateUrl: 'assets/templates/app/timesheets/index.html',
+      controller: 'TimesheetCtrl'
+    })
+    .otherwise({
+      redirectTo: '/projects'
+    });
 });
   
