@@ -20,8 +20,6 @@
           </thead>
           <tbody>
             <tr ng-repeat="project in pageConfig.data | orderBy:'name'" 
-            <!-- TODO : add a filter to order the projects by name -->
-            <tr ng-repeat="project in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: project.deleted}"
               ng-click="showDetail(project)">

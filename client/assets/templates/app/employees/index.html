@@ -23,8 +23,6 @@
           </thead>
           <tbody>
             <tr ng-repeat="employee in pageConfig.data | orderBy:'username'" 
-            <!-- TODO : add a filter to order the employees by username -->
-            <tr ng-repeat="employee in pageConfig.data" 
               class="fadeable-row"
               ng-class="{faded: employee.deleted}"
               ng-click="showDetail(employee)">
@@ -33,8 +31,7 @@
               <td>{{employee.email}}</td>
               <td>{{employee.firstName}}</td>
               <td>{{employee.lastName}}</td>
-              <!-- TODO : add a boolean filter for human readable text -->
-              <td>{{employee.admin}}</td>
+              <td>{{employee.admin | yesNo}}</td>
               <td>
                 <div ng-switch="employee.deleted">
                   <div ng-switch-when="true">

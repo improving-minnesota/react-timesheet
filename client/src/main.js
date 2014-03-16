@@ -3,7 +3,7 @@ angular.module('main', [
   'templates-lib',
   'app',
   'form.directives',
-  // TODO : add the date filters as a dependency
+  'date.filters',
   'progress.interceptors',
   'security.interceptors',
   'ui.select2',

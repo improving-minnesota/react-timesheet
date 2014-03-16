@@ -1,5 +1,5 @@
 angular.module('app.employees.controllers', [
-  // TODO : inject the boolean filters
+  'boolean.filters'
 ])
   
   .controller('EmployeeCtrl', 

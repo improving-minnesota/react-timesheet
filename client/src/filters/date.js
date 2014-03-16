@@ -1,5 +1,17 @@
-// TODO : Create a filter module for formatting dates
-// 1. Create the module and name it 'date.filters'
-// 2. Set 'date.utils.services' as a module dependency
-// 3. Create a moment short date filter
-// 4. Create a moment long date filter
+angular.module('date.filters', [
+  'date.utils.services'
+])
+
+  // Nov 18, 2013
+  .filter('momentShortDate', function (dateUtils) {
+    return function (dateString) {
+      return dateUtils.nullOrUndefined(dateString) || moment(dateString).format("MMM D, YYYY");
+    };
+  })
+
+  // November 18th, 2013
+  .filter('momentLongDate', function (dateUtils) {
+    return function (dateString) {
+      return dateUtils.nullOrUndefined(dateString) || moment(dateString).format("MMMM Do, YYYY");
+    };
+  });

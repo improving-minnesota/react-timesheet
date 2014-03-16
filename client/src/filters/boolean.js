@@ -1,3 +1,15 @@
-// TODO : Create a new filter to format booleans
-// 1. Create a new boolean.filters module
-// 2. Create a yesNo filter
+angular.module('boolean.filters', [ ])
+
+  .filter('yesNo', function() {
+    return function(value) {
+      if (_.isBoolean(value)) {
+        if (value) {
+          return 'Yes';
+        } else {
+          return 'No';
+        }
+      } else {
+        return 'N/A';
+      }
+    };
+  });
