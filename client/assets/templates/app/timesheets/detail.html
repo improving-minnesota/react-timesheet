@@ -4,14 +4,14 @@
   <div>
     <div class="row">
       <div class="col-xs-12">
-        <form name="systemCategoryEdit" novalidate class="form-horizontal">
+        <form name="timesheetDetail" novalidate class="form-horizontal">
 
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
 
                 <!-- TODO : bind this field's value to timesheet.name  -->
-                <div tsz-static-field label="Name" label-col="4" 
+                <div tsz-static-field label="Name" label-col="4"
                 field-col="8"></div>
               </div>
             </div>
@@ -19,7 +19,7 @@
               <div class="form-group">
 
                 <!-- TODO : bind this field's value to timesheet.description -->
-                <div tsz-static-field label="Description" label-col="4" 
+                <div tsz-static-field label="Description" label-col="4"
                 field-col="8"></div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <div class="form-group">
 
                 <!-- TODO : bind this field's value to timesheet.beginDate -->
-                <div tsz-static-field label="Begin Date" label-col="4" 
+                <div tsz-static-field label="Begin Date" label-col="4"
                 field-col="8"></div>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div class="form-group">
 
                 <!-- TODO : bind this field's value to timesheet.endDate -->
-                <div tsz-static-field label="End Date" label-col="4" 
+                <div tsz-static-field label="End Date" label-col="4"
                 field-col="8"></div>
               </div>
             </div>
@@ -91,7 +91,7 @@
               <tr ng-repeat="timeunit in timeunits"
                 class="fadeable-row"
                 ng-class="{faded: timeunit.deleted}">
-                
+
                 <td>{{timeunit.project}}</td>
                 <td>{{timeunit.dateWorked}}</td>
                 <td>{{timeunit.hoursWorked}}</td>
