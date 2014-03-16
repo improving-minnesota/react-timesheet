@@ -20,7 +20,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="project in pageConfig.data | orderBy:'name'" 
-              class="fadeable-row"
+              class="repeated-item fadeable-row"
               ng-class="{faded: project.deleted}"
               ng-click="showDetail(project)">
 

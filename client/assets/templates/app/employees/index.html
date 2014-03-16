@@ -23,7 +23,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="employee in pageConfig.data | orderBy:'username'" 
-              class="fadeable-row"
+              class="repeated-item fadeable-row"
               ng-class="{faded: employee.deleted}"
               ng-click="showDetail(employee)">
 
