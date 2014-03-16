@@ -1,8 +1,7 @@
 angular.module('app.projects.controllers', [])
     
   .controller('ProjectCtrl', 
-    // TODO : inject the $state and $stateProvider services
-    function ($control, $scope) { 
+    function ($control, $scope, $state, $stateParams) { 
 
       $scope.requestProjects = function requestProjects (page) {
         
@@ -12,9 +11,17 @@ angular.module('app.projects.controllers', [])
           });
       };
 
-      // TODO : implement a function on scope to show a project details
-      // TODO : implement a function on scope to navigate to the create project state
-      // TODO : implement a function on scope to handle cancels in child states
+      $scope.showDetail = function showDetail (project) {
+        if (project.deleted) {
+          console.log('cannot view a deleted project');
+          return;
+        }
+        $state.go('app.projects.detail', project);
+      };
+
+      $scope.createNew = function createNew () {
+        $state.go('app.projects.create', $stateParams);
+      };
 
       $scope.remove = function remove (project) {
         $control.remove('projects', project)
@@ -39,28 +46,46 @@ angular.module('app.projects.controllers', [])
           });
       };
 
+      $scope.cancel = function cancel () {
+        $state.go('app.projects', {}, {reload: true});
+      };
+
       $scope.requestProjects(1);
     }
   )
 
   .controller('ProjectDetailCtrl', 
-    // TODO : inject the $state and $stateProvider services
-    function ($scope, project) {
-      // TODO : set saveText on scope to the saveText assigned to the data of the current state
-
+    function ($scope, $state, $stateParams, project) {
+      $scope.saveText = $state.current.data.saveText;
       $scope.project = project;
 
-      // TODO : implement a function on scope to update the project
+      $scope.save = function save () {
+        $scope.project.$update()
+          .then(function (updated) {
+            $scope.project = updated;
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error : ' + x);
+          });
+      };
     }
   )
 
   .controller('ProjectCreateCtrl', 
-    // TODO : inject the $state and $stateProvider services
-    function ($scope, $control) {
-      // TODO : set saveText on scope to the saveText assigned to the data of the current state
-
+    function ($scope, $state, $stateParams, $control) {
+      $scope.saveText = $state.current.data.saveText;
       $scope.project = {};
 
-      // TODO : implement a function on scope to update the project and redirect to the detail state
+      $scope.save = function save () {
+        $control.create('projects', $scope.project) 
+          .then(function (created) {
+            $state.go('app.projects.detail', {_id: created._id});
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error : ' + x);
+          });
+      };
     }
   );

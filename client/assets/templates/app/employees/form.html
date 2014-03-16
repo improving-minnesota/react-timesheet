@@ -2,51 +2,46 @@
   <div class="row">
     <div class="col-xs-12">
       <form class="form-horizontal" name="employeeForm">
-        
+
         <div class="form-group">
           <div tsz-field-wrap input-id="employee-username" label="Username">
-
-            <!-- TODO : set this input's model to employee.username -->
             <input type="text" class="form-control" 
-              name="employee-username" placeholder="Employee Username">
+              name="employee-username" placeholder="Employee Username"
+              ng-model="employee.username">
           </div>
         </div>
 
         <div class="form-group">
           <div tsz-field-wrap input-id="employee-email" label="Email">
-
-            <!-- TODO : set this input's model to employee.email -->
             <input type="text" class="form-control" 
-              name="employee-email" placeholder="Employee Email">
+              name="employee-email" placeholder="Employee Email"
+              ng-model="employee.email">
           </div>
         </div>
 
         <div class="form-group">
           <div tsz-field-wrap input-id="employee-firstName" label="First Name">
-
-            <!-- TODO : set this input's model to employee.firstName -->
             <input type="text" class="form-control" 
-              name="employee-firstName" placeholder="First Name">
+              name="employee-firstName" placeholder="First Name"
+              ng-model="employee.firstName">
           </div>
         </div>
 
         <div class="form-group">
           <div tsz-field-wrap input-id="employee-lastName" label="Last Name">
-
-            <!-- TODO : set this input's model to employee.lastName -->
             <input type="text" class="form-control" 
-              name="employee-lastName" placeholder="Last Name">
+              name="employee-lastName" placeholder="Last Name"
+              ng-model="employee.lastName">
           </div>
         </div>
 
         <div class="form-group">
           <div tsz-field-wrap input-id="employee-admin" label="Admin">
-
-             <!-- TODO : set this button's model and text bound to employee.admin -->
              <button type="button" class="btn btn-primary" 
+                ng-model="employee.admin" 
                 btn-checkbox 
                 btn-checkbox-true="true" 
-                btn-checkbox-false="false"></button>
+                btn-checkbox-false="false">{{employee.admin}}</button>
           </div>
         </div>
 
@@ -56,14 +51,11 @@
 
         <div class="row">
           <div class="col-sm-2 col-sm-offset-8">
-
-            <!-- TODO : bind this button's text to saveText on scope and have it call save when clicked -->
-            <button class="btn btn-primary btn-block"></button>
+            <button class="btn btn-primary btn-block" 
+              ng-click="save()">{{saveText}}</button>
           </div>
           <div class="col-sm-2">
-
-            <!-- TODO : have this button call cancel when clicked -->
-            <button class="btn btn-danger btn-block">Cancel</button>
+            <button class="btn btn-danger btn-block" ng-click="cancel()">Cancel</button>
           </div>
         </div>
       </form>

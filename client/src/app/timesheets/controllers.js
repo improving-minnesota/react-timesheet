@@ -1,13 +1,13 @@
 angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetCtrl', 
-    // TODO : inject $state and $stateParams services
-    function ($control, $scope) {
+    function ($control, $scope, $state, $stateParams) {
 
       $scope.requestTimesheets = function requestTimesheets (page) {
 
-        // TODO : assign the query's user_id to $stateParams.user_id
-        var query = {};
+        var query = {
+          user_id: $stateParams.user_id
+        };
 
         $control.list('timesheets', query)
           .then(function (timesheets) {
@@ -15,8 +15,17 @@ angular.module('app.timesheets.controllers', [])
           });
       };
 
-      // TODO : implement a function on scope to show the timesheet details
-      // TODO : implement a function on scope to navigate to the create timesheet state
+      $scope.showDetail = function showDetail (timesheet) {
+        if (timesheet.deleted) {
+          console.log('error : cannot view a deleted timesheet');
+          return;
+        }
+        $state.go('app.timesheets.detail', timesheet);
+      };
+
+      $scope.createNew = function createNew () {
+        $state.go('app.timesheets.create', $stateParams);
+      };
 
       $scope.remove = function remove (timesheet) {
 
@@ -47,15 +56,31 @@ angular.module('app.timesheets.controllers', [])
   )
 
   .controller('TimesheetDetailCtrl', 
-    // TODO : inject $state and $stateParams services
-    function ($scope, $control, timesheet, timeunits) {
+    function ($scope, $state, $stateParams, $control, timesheet, timeunits) {
       $scope.timesheet = timesheet;
       $scope.timeunits = timeunits;
 
-      // TODO : implement a function on scope to navigate to the edit timesheet state
-      // TODO : implement a function on scope to handle cancels
-      // TODO : implement a function on scope to navigate to the log time state
-      // TODO : implement a function on scope to navigate to a timeunit's detail state
+      $scope.edit = function edit (timesheet) {
+        $state.go('app.timesheets.detail.edit', $stateParams);
+      };
+
+      $scope.cancel = function cancel () {
+        $state.go('app.timesheets', $stateParams, {reload: true});
+      };
+
+      $scope.logTime = function logTime () {
+        $state.go('app.timesheets.detail.timeunits.create', $stateParams);
+      };
+
+      $scope.showTimeunitDetail = function showTimeunitDetail (timeunit) {
+        if (timeunit.deleted) {
+            console.log('error ' + x);
+          return;
+        }
+
+        $stateParams.timeunit_id = timeunit._id;
+        $state.go('app.timesheets.detail.timeunits.edit', $stateParams);
+      };
 
       $scope.removeTimeunit = function removeTimeunit (timeunit) {
         timeunit.user_id = timesheet.user_id;
@@ -88,25 +113,48 @@ angular.module('app.timesheets.controllers', [])
   )
 
   .controller('TimesheetEditCtrl', 
-    // TODO : inject $state and $stateParams services
-    function ($scope, $control, timesheet) {
-      // TODO : set saveText on scope to the saveText assigned to the data of the current state
-
+    function ($scope, $state, $stateParams, $control, timesheet) {
+      $scope.saveText = $state.current.data.saveText;
       $scope.timesheet = timesheet;
 
-      // TODO : implement a function on scope to update the timesheet
-      // TODO : implement a function on scope to return back to the detail state on cancel and reload
+      $scope.save = function save () {
+        $scope.timesheet.$update()
+          .then(function (updated) {
+            $scope.timesheet = updated;
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error ' + x);
+          });
+      };
+
+      $scope.cancel = function cancel () {
+        $state.go('app.timesheets.detail', $stateParams, {reload: true});
+      };
     }
   )
 
   .controller('TimesheetCreateCtrl', 
-    // TODO : inject $state and $stateParams services
-    function ($scope, $control) {
-      // TODO : set saveText on scope to the saveText assigned to the data of the current state
+    function ($scope, $state, $stateParams, $control) {
+      $scope.saveText = $state.current.data.saveText;
       $scope.timesheet = {};
 
-      // TODO : implement a function on scope to update the timesheet and redirect to the detail state
-      // TODO : implement a function on scope to navigate to the timesheet list page on cancel and reload the scope
+      $scope.save = function save () {
+        var timesheet = angular.extend({user_id: $stateParams.user_id}, $scope.timesheet);
+
+        $control.create('timesheets', timesheet)
+          .then(function (created) {
+            $state.go('app.timesheets.detail', {user_id: $stateParams.user_id, _id: created._id});
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error ' + x);
+          });
+      };
+
+      $scope.cancel = function cancel () {
+        $state.go('app.timesheets', $stateParams, {reload: true});
+      };
     }
   );
     

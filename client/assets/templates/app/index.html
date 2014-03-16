@@ -1,14 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <!-- Bind the header to the current state data's section -->
-      <h2></h2>
+      <h2>{{$state.current.data.section}}</h2>
       <hr/>   
     </div>  
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <!-- TODO : add a ui-view container for nested states -->
+      <div ui-view></div>
     </div>
   </div>
 </div>

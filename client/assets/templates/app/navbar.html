@@ -3,30 +3,18 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
         <i class="fa fa-clock-o fa-lg"></i>
-        <!-- TODO : bind the brand text to $state.current.data.title -->
+        {{$state.current.data.title}}
       </a>
     </div>
     <ul class="nav navbar-nav navbar-left">
-
-      <!-- TODO : set up the nav bar link for projects
-        1. Set the active class if the current state includes app.projects
-        2. Set the link's ui-sref to app.projects-->
-      <li>
-        <a>Projects</a>
+      <li ng-class="{active: $state.includes('app.projects')}">
+        <a ui-sref="app.projects">Projects</a>
       </li>
-
-      <!-- TODO : set up the nav bar link for employees
-        1. Set the active class if the current state includes app.employees
-        2. Set the link's ui-sref to app.employees-->
-      <li>
-        <a>Employees</a>
+      <li ng-class="{active: $state.includes('app.employees')}">
+        <a ui-sref="app.employees">Employees</a>
       </li>
-
-      <!-- TODO : set up the nav bar link for timesheets
-        1. Set the active class if the current state includes app.timesheets
-        2. Set the link's ui-sref to app.timesheets-->
-      <li>
-        <a>Timesheets</a>
+      <li ng-class="{active: $state.includes('app.timesheets')}">
+        <a ui-sref="app.timesheets({user_id: 'all'})">Timesheets</a>
       </li>
     </ul>
   </div>

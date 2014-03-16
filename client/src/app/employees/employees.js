@@ -1,14 +1,48 @@
 angular.module('app.employees', [
-  'app.employees.controllers'
-  // TODO : set ui.router as a dependency
+  'app.employees.controllers',
+  'ui.router'
 ])
 
-// TODO : create a config block to register the employee states
-// 1. inject the $stateProvider
-// 2. register the employee states with the state provider
-// 3. app.employees with the Employee controller and index.html
-// 4. app.employees.detail 
-// 5. app.employees.create
+.config(function ($stateProvider) {
+
+  $stateProvider
+    .state('app.employees', {
+      url: '/employees',
+      controller: 'EmployeeCtrl',
+      templateUrl: 'assets/templates/app/employees/index.html',
+      data: {
+        section: 'Employees'
+      }
+    })
+
+    .state('app.employees.detail', {
+      url: '/detail/:_id',
+      controller: 'EmployeeDetailCtrl',
+      templateUrl: 'assets/templates/app/employees/form.html',
+      data: {
+        section: 'Update Employee',
+        saveText: 'Update'
+      },
+      resolve : {
+        employee : [
+          '$control', 
+          '$stateParams',
+          function ($control, $stateParams) {
+            return $control.get('employees', $stateParams);
+          }]
+      }
+    })
+
+    .state('app.employees.create', {
+      url: '/create',
+      controller: 'EmployeeCreateCtrl',
+      templateUrl: 'assets/templates/app/employees/form.html',
+      data: {
+        section: 'Create Employee',
+        saveText: 'Create'
+      }
+    });
+})
 
 .run(function ($api) {
   $api.add({

@@ -5,19 +5,17 @@
 
         <div class="form-group">
           <div tsz-field-wrap input-id="project-name" label="Name">
-
-            <!-- TODO : set this input's model to project.name -->
             <input type="text" class="form-control" 
-              name="project-name" placeholder="Project Name">
+              name="project-name" placeholder="Project Name"
+              ng-model="project.name">
           </div>
         </div>
 
         <div class="form-group">
           <div tsz-field-wrap input-id="project-description" label="Description">
-
-            <!-- TODO : set this input's model to project.description -->
             <input type="text" class="form-control" 
-              name="project-description" placeholder="Project Description">
+              name="project-description" placeholder="Project Description"
+              ng-model="project.description">
           </div>
         </div>
 
@@ -27,14 +25,11 @@
 
         <div class="row">
           <div class="col-sm-2 col-sm-offset-8">
-
-            <!-- TODO : bind this button's text to saveText and have it call save when clicked -->
-            <button class="btn btn-primary btn-block"></button>
+            <button class="btn btn-primary btn-block" 
+              ng-click="save()">{{saveText}}</button>
           </div>
           <div class="col-sm-2">
-
-            <!-- TODO : set this button to call cancel when clicked -->
-            <button class="btn btn-danger btn-block">Cancel</button>
+            <button class="btn btn-danger btn-block" ng-click="cancel()">Cancel</button>
           </div>
         </div>
       </form>

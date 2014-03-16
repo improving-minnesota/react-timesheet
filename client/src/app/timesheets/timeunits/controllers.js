@@ -1,35 +1,52 @@
 angular.module('app.timesheets.timeunits.controllers', [])
 
   .controller('TimeunitCtrl', 
-    // TODO : inject the $state and $stateParams services
-    function ($scope, projects) {
+    function ($scope, $state, $stateParams, projects) {
       $scope.projects = projects; 
 
-      // TODO : implement a function on scope to handle cancels in child states
+      $scope.cancel = function cancel () {
+        $state.go('app.timesheets.detail', $stateParams, {reload: true});
+      };
     }
   )
 
   .controller('TimeunitEditCtrl', 
-    // TODO : inject the $state and $stateParams services
-    function ($scope, timeunit) {
+    function ($scope, $state, $stateParams, timeunit) {
       $scope.timeunit = timeunit;
       
-      // TODO : implement a function on scope to update the project
+      $scope.save = function save () {
+        $scope.timeunit.$update()
+          .then(function (updated) {
+            $scope.timeunit = updated;
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error : ' + x);
+            $state.reload();
+          });
+      };
     }
   )
 
   .controller('TimeunitCreateCtrl', 
-    // TODO : inject the $state and $stateParams services
-    function ($scope, $control) {
-      
-      // TODO : initialize the new timeunit with data from $stateParams
-      // 1. user_id = $stateParams.user_id
-      // 2. timesheet_id = $stateParams._id
+    function ($scope, $state, $stateParams, $control, dateFilter) {
       $scope.timeunit = {
+        user_id: $stateParams.user_id,
+        timesheet_id: $stateParams._id,
         dateWorked: $scope.timesheet.beginDate
       };
 
-      // TODO : implement a function on scope to update the project and redirect to the detail state
+      $scope.save = function save () {
+
+        $control.create('timeunits', $scope.timeunit)
+          .then(function (created) {
+            $state.go('app.timesheets.detail', $stateParams, {reload: true});
+            console.log('success !');
+          })
+          .catch(function (x) {
+            console.log('error : ' + x);
+          });
+      };
 
     }
   );
