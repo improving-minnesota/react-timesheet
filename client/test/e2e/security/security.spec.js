@@ -4,11 +4,23 @@ describe('Security', function () {
   describe("An unauthenticated user that opens the application", function () {
     beforeEach (function () {
       browser.get("/");
-      // TODO : Assign 'ptor' the instance of the protractor global
+      ptor = protractor.getInstance();
     });
 
-    // TODO : Verify the user is redirected to the login page if not authenticated.
-    // TODO : Verify the user can login
-    
+    it('should be redirected to the login page', function () {
+      var loginForm = by.name('loginForm');
+      expect(ptor.isElementPresent(loginForm)).toBe(true);
+    });
+
+    it('should be able to login', function () {
+      element(by.model('user.username')).sendKeys('admin');
+      element(by.model('user.password')).sendKeys('password');
+      element(by.css('form button')).click();
+
+      browser.sleep(1.0);
+
+      var logout = by.css('a.logout');
+      expect(ptor.isElementPresent(logout)).toBe(true);
+    });
   });
 });

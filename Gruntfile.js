@@ -356,18 +356,10 @@ module.exports = function (grunt) {
       }
     },
 
-    // Task to add the array-style angular injection to protect against uglifying.
-    ngmin : {
-      app : {
-        src : 'client/src/**/*.js',
-        dest : '<%= clientdist %>/app.js'
-      }
-    },
-
   // *********************************************************************************************
   // New Tasks go below here !!!
 
-    // Starts the karama runner for unit and e2e tests.
+    // Starts the karma runner for unit and e2e tests.
     // Tests are run when the task is re-invoked from the watch task.
     karma : {
       unit : {
@@ -377,8 +369,28 @@ module.exports = function (grunt) {
     },
 
     // Starts the protractor e2e tests.
+    protractor: {
+      options: {
+        configFile: 'protractor.config.js',
+        keepAlive: true,
+        noColor: false
+      },
+      e2e: {
+      },
+      debug: {
+        options: {
+          debug: true
+        }
+      }
+    },
 
-    // TODO: Configure the protractor runner task here.
+    // Task to add the array-style angular injection to protect against uglifying.
+    ngmin : {
+      app : {
+        src : 'client/src/**/*.js',
+        dest : '<%= clientdist %>/app.js'
+      }
+    }
 
   });
 
@@ -399,8 +411,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-mixtape-run-app');
-
-  // TODO : Load the protractor-runner NPM Grunt task.
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
 
   // **********************************************************************************************

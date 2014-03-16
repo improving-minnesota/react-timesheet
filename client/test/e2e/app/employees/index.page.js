@@ -10,12 +10,20 @@ function EmployeesIndexPage() {
   };
 
   this.newEmployeeButton = element(by.buttonText("New Employee"));
-  // TODO : Create a function to click the New Employee button
+  this.clickNewEmployee = function () {
+    this.newEmployeeButton.click();
+  };
 
   this.firstEmployee = element(by.repeater('employee in pageConfig.data').row(0));
-  // TODO : Create a function to click the first employee in the table
-  // TODO : Create a function to click the delete button
-  // TODO : Create a functino to click the restore button
+  this.clickFirstEmployee = function () {
+    this.firstEmployee.click();
+  };
+  this.deleteFirstEmployee = function () {
+    this.firstEmployee.findElement(by.buttonText('Delete')).click();
+  };
+  this.restoreFirstEmployee = function () {
+    this.firstEmployee.findElement(by.buttonText('Restore')).click();
+  };
 }
 
 module.exports = new EmployeesIndexPage();

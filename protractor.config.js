@@ -14,8 +14,9 @@ exports.config = {
   // protractor is called.
   specs: [
     // Have the security test run first so that we have a logged in user. 
-    
-    // TODO : Register the e2e tests here
+    'client/test/e2e/security/security.spec.js',
+    'client/test/e2e/app/employees/*.spec.js',
+    'client/test/e2e/app/projects/*.spec.js'
   ],
 
   // Options to be passed to Jasmine-node.
