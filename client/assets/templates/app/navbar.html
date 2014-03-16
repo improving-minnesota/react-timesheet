@@ -3,17 +3,30 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
         <i class="fa fa-clock-o fa-lg"></i>
+        <!-- TODO : bind the brand text to $state.current.data.title -->
       </a>
     </div>
     <ul class="nav navbar-nav navbar-left">
+
+      <!-- TODO : set up the nav bar link for projects
+        1. Set the active class if the current state includes app.projects
+        2. Set the link's ui-sref to app.projects-->
       <li>
-        <a ng-href="/projects">Projects</a>
+        <a>Projects</a>
       </li>
+
+      <!-- TODO : set up the nav bar link for employees
+        1. Set the active class if the current state includes app.employees
+        2. Set the link's ui-sref to app.employees-->
       <li>
-        <a ng-href="/employees">Employees</a>
+        <a>Employees</a>
       </li>
+
+      <!-- TODO : set up the nav bar link for timesheets
+        1. Set the active class if the current state includes app.timesheets
+        2. Set the link's ui-sref to app.timesheets-->
       <li>
-        <a ng-href="/timesheets">Timesheets</a>
+        <a>Timesheets</a>
       </li>
     </ul>
   </div>

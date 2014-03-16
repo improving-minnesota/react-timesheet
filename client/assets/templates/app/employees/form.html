@@ -1,0 +1,72 @@
+<div class="tsz-employee-form" ng-show="true" class="animate-show">
+  <div class="row">
+    <div class="col-xs-12">
+      <form class="form-horizontal" name="employeeForm">
+        
+        <div class="form-group">
+          <div tsz-field-wrap input-id="employee-username" label="Username">
+
+            <!-- TODO : set this input's model to employee.username -->
+            <input type="text" class="form-control" 
+              name="employee-username" placeholder="Employee Username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="employee-email" label="Email">
+
+            <!-- TODO : set this input's model to employee.email -->
+            <input type="text" class="form-control" 
+              name="employee-email" placeholder="Employee Email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="employee-firstName" label="First Name">
+
+            <!-- TODO : set this input's model to employee.firstName -->
+            <input type="text" class="form-control" 
+              name="employee-firstName" placeholder="First Name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="employee-lastName" label="Last Name">
+
+            <!-- TODO : set this input's model to employee.lastName -->
+            <input type="text" class="form-control" 
+              name="employee-lastName" placeholder="Last Name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="employee-admin" label="Admin">
+
+             <!-- TODO : set this button's model and text bound to employee.admin -->
+             <button type="button" class="btn btn-primary" 
+                btn-checkbox 
+                btn-checkbox-true="true" 
+                btn-checkbox-false="false"></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <hr/>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 col-sm-offset-8">
+
+            <!-- TODO : bind this button's text to saveText on scope and have it call save when clicked -->
+            <button class="btn btn-primary btn-block"></button>
+          </div>
+          <div class="col-sm-2">
+
+            <!-- TODO : have this button call cancel when clicked -->
+            <button class="btn btn-danger btn-block">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="tsz-timeunit-form" ng-cloak>
+  <div class="row">
+    <div class="col-xs-12">
+      <form class="form-horizontal" name="timeunitForm">
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="timeunit-project" label="Project">
+            <select ui-select2="projectSelect"
+              name="timeunit-project"
+              ng-model="timeunit.project" 
+              data-placeholder="Select Project...">
+
+              <!-- TODO : set the repeater for this select's options
+                1. set the repeater to project in projects
+                2. set the value and display text bound to project.name -->
+              <option value=""></option>
+
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="timeunit-dateWorked" label="Date">
+            <div class="input-group">
+
+              <!-- TODO : use a ui datepicker to display and edit timeunit's dateWorked
+                1. Set these attributes: 
+                  a. datepicker-popup="MM/dd/yyyy"
+                  b. show-weeks="false"
+                  c. show-button-bar="false"
+                  d. min="timesheet.beginDate"
+                  e. max="timesheet.endDate"
+                  f. close-text="Close" 
+                2. Set the input's model to timeunit.dateWorked 
+              -->
+              <input type="text" class="form-control" />
+              <span class="input-group-btn">
+                <button class="btn btn-default">
+                  <i class="fa fa-fw fa-calendar"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div tsz-field-wrap input-id="timeunit-hoursWorked" label="Hours">
+
+            <!-- TODO : set this input's model to timeunit.hoursWorked -->
+            <input type="number" class="form-control" 
+              name="timeunit-hoursWorked" placeholder="Hours Worked">
+          </div>
+        </div>
+
+        <div class="row">
+          <hr/>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-2 col-sm-offset-8">
+
+            <!-- TODO : set the button to call save when clicked -->
+            <button class="btn btn-primary btn-block">Save</button>
+          </div>
+          <div class="col-sm-2">
+
+            <!-- TODO : set the button to call cancel when clicked -->
+            <button class="btn btn-danger btn-block">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

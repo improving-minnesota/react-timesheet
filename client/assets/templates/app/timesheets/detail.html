@@ -1,0 +1,117 @@
+<div class="tsz-timesheet-detail">
+
+  <!-- TODO : set the below container div to only show when state is app.timesheets.detail -->
+  <div>
+    <div class="row">
+      <div class="col-xs-12">
+        <form name="systemCategoryEdit" novalidate class="form-horizontal">
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+
+                <!-- TODO : bind this field's value to timesheet.name  -->
+                <div tsz-static-field label="Name" label-col="4" 
+                field-col="8"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+
+                <!-- TODO : bind this field's value to timesheet.description -->
+                <div tsz-static-field label="Description" label-col="4" 
+                field-col="8"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+
+                <!-- TODO : bind this field's value to timesheet.beginDate -->
+                <div tsz-static-field label="Begin Date" label-col="4" 
+                field-col="8"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+
+                <!-- TODO : bind this field's value to timesheet.endDate -->
+                <div tsz-static-field label="End Date" label-col="4" 
+                field-col="8"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">
+
+              <!-- TODO : set this button to call edit(timesheet) on scope when clicked -->
+              <button type="button" class="btn btn-primary btn-block">Edit</button>
+            </div>
+            <div class="col-sm-2">
+
+              <!-- TODO : set this button to call cancel when clicked -->
+              <button type="button" class="btn btn-danger btn-block">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <hr/>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-8 pull-right">
+
+        <!-- TODO : set this button to call logTime when clicked -->
+        <button type="button" class="btn btn-primary btn-block">Log Time</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="tsz-responsive-table-container">
+          <table class="table table-bordered table-hover tsz-table-row-cursor">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Date Worked</th>
+                <th>Hours</th>
+                <th class="tsz-table-delete-column">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- TODO : set the row to call showTimeunitDetail(timeunit) when clicked -->
+              <tr ng-repeat="timeunit in timeunits"
+                class="fadeable-row"
+                ng-class="{faded: timeunit.deleted}">
+                
+                <td>{{timeunit.project}}</td>
+                <td>{{timeunit.dateWorked}}</td>
+                <td>{{timeunit.hoursWorked}}</td>
+                <td>
+                  <div ng-switch="timeunit.deleted">
+                    <div ng-switch-when="true">
+                      <button class="btn btn-sm btn-default" ng-click="restoreTimeunit(timeunit); $event.stopPropagation();">Restore</button>
+                    </div>
+                    <div ng-switch-default>
+                      <button class="btn btn-sm btn-danger" ng-click="removeTimeunit(timeunit); $event.stopPropagation();">Delete</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TODO : set a ui-view for nested states -->
+</div>

@@ -1,28 +1,15 @@
 angular.module('app', [
+  // TODO : add ui.router as a dependency
   'app.resources',
   'app.controllers',
   'app.employees',
   'app.projects',
   'app.timesheets',
-  'ngRoute'
-])
-
-.config(function ($routeProvider) {
-  $routeProvider.
-    when('/projects', {
-      templateUrl: 'assets/templates/app/projects/index.html',
-      controller: 'ProjectCtrl'
-    })
-    .when('/employees', {
-      templateUrl: 'assets/templates/app/employees/index.html',
-      controller: 'EmployeeCtrl'
-    })
-    .when('/timesheets', {
-      templateUrl: 'assets/templates/app/timesheets/index.html',
-      controller: 'TimesheetCtrl'
-    })
-    .otherwise({
-      redirectTo: '/projects'
-    });
-});
+  'app.timesheets.timeunits'
+]);
+ 
+// TODO : create a config block to register the app state
+// 1. inject the $stateProvider
+// 2. register the app state with the state provider
+// 3. app state has multiple views: navbar and content
   
