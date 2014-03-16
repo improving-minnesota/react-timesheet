@@ -1,0 +1,50 @@
+<div class="tsz-employee-list">
+  <div>
+    <div class="row tsz-form-row">
+      <div class="col-sm-2 pull-right">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-hover tsz-table-row-cursor">
+           <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Admin</th>
+              <th  class="tsz-table-delete-column">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- TODO : Create the employee table
+              1. set the repeater to each employee in employees
+              2. set the class, faded, to be dependent upon employee.deleted
+              3. bind the <td>'s to the properties on employee -->
+            <tr class="fadeable-row">
+
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+
+                <!-- TODO : Optionally show a delete or restore button
+                  1. use ng-switch on employee.deleted 
+                  2. if the employee is deleted, show the restore button
+                  3. if the employee is not deleted, show the delete button
+                  3. set up the restore button to call restore(employee) when clicked
+                  4. set up the delete button to call remove(employee) when clicked -->
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
