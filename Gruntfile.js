@@ -403,7 +403,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean', 'jshint', 'less', 'concat:css', 'html2js', 'concat:jsdeps', 'copy:vendor', 'copy:development']);
 
   // Task to compile everything in development mode
-  grunt.registerTask('development', ['default']);
+  grunt.registerTask('development', ['default', 'jade:debug']);
   grunt.registerTask('debug', ['development', 'concat:appjs', 'jade:debug', 'copy:debug']);
   grunt.registerTask('production', ['debug', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
 
