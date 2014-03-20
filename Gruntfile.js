@@ -20,6 +20,8 @@ module.exports = function (grunt) {
     // route.
     jshint:{
       options: {
+        "-W099": false,
+        smarttabs: true,
         scripturl: true,
         laxcomma: true,
         nomen: false,
