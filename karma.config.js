@@ -12,7 +12,7 @@ module.exports = function(config) {
       '../node_modules/sinon-chai/lib/sinon-chai.js',
       '../node_modules/sinon/pkg/sinon.js',
 
-      'dist/assets/js/deps.js',
+      {pattern: 'dist/assets/js/deps.js', watched: false},
       'src/**/*.js',
 
       'assets/js/components/angular-mocks/angular-mocks.js',
