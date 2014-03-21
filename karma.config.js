@@ -14,7 +14,7 @@ module.exports = function(config) {
       '../node_modules/sinon/pkg/sinon.js',
 
       // provide the entire application and dependencies
-      'dist/assets/js/deps.js',
+      {pattern: 'dist/assets/js/deps.js', watched: false},
       'src/**/*.js',
 
       // include the angular mocks libraray
