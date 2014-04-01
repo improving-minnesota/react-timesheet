@@ -3,7 +3,7 @@ angular.module('app.employees.controllers', [
 ])
   
   .controller('EmployeeCtrl', 
-    function ($control, $scope, $state, $stateParams, notifications) {
+    function (data, $scope, $state, $stateParams, notifications) {
 
       $scope.requestEmployees = function requestEmployees (page) {
         var query = {
@@ -31,7 +31,7 @@ angular.module('app.employees.controllers', [
 
       $scope.remove = function remove (employee) {
 
-        $control.remove('employees', employee) 
+        data.remove('employees', employee) 
           .then(function () {
             notifications.success('Employee : ' + employee.username + ', was deleted.');
           })
@@ -43,7 +43,7 @@ angular.module('app.employees.controllers', [
 
       $scope.restore = function restore (employee) {
        
-       $control.restore('employees', employee)
+       data.restore('employees', employee)
           .then(function (restored) {
             notifications.success('Employee was restored.');
           })
@@ -80,12 +80,12 @@ angular.module('app.employees.controllers', [
   )
 
   .controller('EmployeeCreateCtrl', 
-    function ($scope, $state, $stateParams, $control, notifications) {
+    function ($scope, $state, $stateParams, data, notifications) {
       $scope.saveText = $state.current.data.saveText;
       $scope.employee = {admin: false};
 
       $scope.save = function save () {
-        $control.create('employees', $scope.employee)
+        data.create('employees', $scope.employee)
           .then(function (created) {
             notifications.success('Employee : ' + created.username + ', created.');
             $state.go('app.employees.detail', {_id: created._id});
