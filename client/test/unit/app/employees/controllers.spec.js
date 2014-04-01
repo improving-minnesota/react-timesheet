@@ -7,7 +7,6 @@ describe('Employees', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
     controller, 
     employee,
     spies;
@@ -23,11 +22,10 @@ describe('Employees', function() {
       ));
 
     // TODO : inject the $state and $stateParams services and assign them to the spec's variables
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
-      $api = _$api_;
     }));
 
     beforeEach(inject(function ($injector) {
