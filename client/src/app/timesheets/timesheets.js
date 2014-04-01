@@ -24,17 +24,17 @@ angular.module('app.timesheets', [
         },
         resolve : {
           timesheet : [
-            '$control', 
+            'data', 
             '$stateParams', 
-            function ($control, $stateParams) {
-              return $control.get('timesheets', $stateParams);
+            function (data, $stateParams) {
+              return data.get('timesheets', $stateParams);
             }
           ],
           timeunits : [
-            '$control',
+            'data',
             '$stateParams',
-            function ($control, $stateParams) {
-              return $control.list('timeunits', {timesheet_id: $stateParams._id, user_id: $stateParams.user_id});
+            function (data, $stateParams) {
+              return data.list('timeunits', {timesheet_id: $stateParams._id, user_id: $stateParams.user_id});
             }
           ]
         }
@@ -61,8 +61,8 @@ angular.module('app.timesheets', [
       });
   })
 
-  .run(function ($api) {
-    $api.add({
+  .run(function (api) {
+    api.add({
       resource: 'timesheets',
       url: '/users/:user_id/timesheets',
       params: {

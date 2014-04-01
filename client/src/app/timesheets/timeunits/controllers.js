@@ -29,7 +29,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
   )
 
   .controller('TimeunitCreateCtrl', 
-    function ($scope, $state, $stateParams, $control, dateFilter) { // TODO : inject the notifications service
+    function ($scope, $state, $stateParams, data, dateFilter) { // TODO : inject the notifications service
       $scope.timeunit = {
         user_id: $stateParams.user_id,
         timesheet_id: $stateParams._id,
@@ -38,7 +38,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
 
       $scope.save = function save () {
 
-        $control.create('timeunits', $scope.timeunit)
+        data.create('timeunits', $scope.timeunit)
           .then(function (created) {
             $state.go('app.timesheets.detail', $stateParams, {reload: true});
             // TODO : send a success notification using the notifications service

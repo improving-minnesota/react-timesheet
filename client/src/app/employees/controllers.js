@@ -1,11 +1,11 @@
 angular.module('app.employees.controllers', [])
   
   .controller('EmployeeCtrl', 
-    function ($control, $scope, $state, $stateParams) { // TODO : inject the notifications service
+    function (data, $scope, $state, $stateParams) { // TODO : inject the notifications service
 
       $scope.requestEmployees = function requestEmployees (page) {
 
-        $control.list('employees')
+        data.list('employees')
           .then(function (employees) {
             $scope.employees = employees;
           });
@@ -25,7 +25,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.remove = function remove (employee) {
 
-        $control.remove('employees', employee) 
+        data.remove('employees', employee) 
           .then(function () {
             // TODO : send a success notification using the notifications service
           })
@@ -37,7 +37,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.restore = function restore (employee) {
        
-       $control.restore('employees', employee)
+       data.restore('employees', employee)
           .then(function (restored) {
             // TODO : send a success notification 
           })
@@ -76,12 +76,12 @@ angular.module('app.employees.controllers', [])
 
   .controller('EmployeeCreateCtrl', 
     // TODO : inject the notifications service
-    function ($scope, $state, $stateParams, $control) {
+    function ($scope, $state, $stateParams, data) {
       $scope.saveText = $state.current.data.saveText;
       $scope.employee = {admin: false};
 
       $scope.save = function save () {
-        $control.create('employees', $scope.employee)
+        data.create('employees', $scope.employee)
           .then(function (created) {
             // TODO : send a success notification
             $state.go('app.employees.detail', {_id: created._id});
