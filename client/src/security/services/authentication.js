@@ -4,7 +4,7 @@ angular.module('authentication.services', [
 ])
 
 .factory('authentication', // TODO : Inject the notifications service
-  function ($q, $control, $state, $location, securityContext, retryQueue) { 
+  function ($q, data, $state, $location, securityContext, retryQueue) { 
     
     // Register a handler for when an item is added to the retry retryQueue
     // This forces the login page on entry. 
@@ -52,7 +52,7 @@ angular.module('authentication.services', [
       login: function (username, password) {
         var deferred = $q.defer();
 
-        $control.login({username: username, password: password})
+        data.login({username: username, password: password})
           .then(function (user) {
             securityContext.setAuthentication(user);
 
@@ -71,7 +71,7 @@ angular.module('authentication.services', [
 
       // Logout the current user and redirect
       logout: function (redirectTo) {
-        $control.logout()
+        data.logout()
           .then(function () {
             securityContext.reset();
             window.location.assign('/');
@@ -84,7 +84,7 @@ angular.module('authentication.services', [
         if ( securityContext.authenticated ) {
           return $q.when(securityContext);
         } else {
-          return $control.login(null, true)
+          return data.login(null, true)
             .then(function (user) {
               securityContext.setAuthentication(user);
         
