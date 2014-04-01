@@ -1,3 +1,8 @@
 {
-	"directory": "client/assets/js/components"
+	"directory": "client/assets/js/components",
+	"storage" : {
+    "packages" : ".bower-cache",
+    "registry" : ".bower-registry"
+  },
+  "tmp" : ".bower-tmp"
 }
