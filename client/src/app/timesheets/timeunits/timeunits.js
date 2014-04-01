@@ -47,9 +47,9 @@ angular.module('app.timesheets.timeunits', [
       });
   })
 
-  .run(function ($api) {
+  .run(function (api) {
 
-    $api.add({
+    api.add({
       resource: 'timeunits',
       url: '/users/:user_id/timesheets/:timesheet_id/timeunits',
       params: {

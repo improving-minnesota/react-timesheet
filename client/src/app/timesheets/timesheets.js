@@ -61,8 +61,8 @@ angular.module('app.timesheets', [
       });
   })
 
-  .run(function ($api) {
-    $api.add({
+  .run(function (api) {
+    api.add({
       resource: 'timesheets',
       url: '/users/:user_id/timesheets',
       params: {
