@@ -29,7 +29,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
   )
 
   .controller('TimeunitCreateCtrl', 
-    function ($scope, $state, $stateParams, $control, notifications, dateFilter) {
+    function ($scope, $state, $stateParams, data, notifications, dateFilter) {
       $scope.timeunit = {
         user_id: $stateParams.user_id,
         timesheet_id: $stateParams._id,
@@ -38,7 +38,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
 
       $scope.save = function save () {
 
-        $control.create('timeunits', $scope.timeunit)
+        data.create('timeunits', $scope.timeunit)
           .then(function (created) {
             $state.go('app.timesheets.detail', $stateParams, {reload: true});
             notifications.success("Logged Time for " + dateFilter(created.dateWorked));
