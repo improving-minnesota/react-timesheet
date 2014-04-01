@@ -7,7 +7,7 @@ describe('Projects', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
+    api,
     controller, 
     project,
     spies;
@@ -22,11 +22,11 @@ describe('Projects', function() {
         'app.projects.controllers'
       ));
 
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _api_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
-      $api = _$api_;
+      api = _api_;
     }));
 
     beforeEach(inject(function ($injector) {
