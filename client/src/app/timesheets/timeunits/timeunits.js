@@ -13,9 +13,9 @@ angular.module('app.timesheets.timeunits', [
         template: '<div ui-view></div>',
         resolve: {
           projects: [
-            '$control', 
-            function ($control) {
-              return $control.list('projects');
+            'data', 
+            function (data) {
+              return data.list('projects');
             }]
         }
       })
@@ -38,10 +38,10 @@ angular.module('app.timesheets.timeunits', [
         },
         resolve : {
           timeunit : [
-            '$control', 
+            'data', 
             '$stateParams', 
-            function ($control, $stateParams) {
-              return $control.get('timeunits', {_id: $stateParams.timeunit_id, user_id: $stateParams.user_id, timesheet_id: $stateParams._id});
+            function (data, $stateParams) {
+              return data.get('timeunits', {_id: $stateParams.timeunit_id, user_id: $stateParams.user_id, timesheet_id: $stateParams._id});
             }]
         }
       });
