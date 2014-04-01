@@ -4,8 +4,51 @@
 //
 module.exports = function (grunt) {
 
+  var componentList = [
+    // Shims
+    'modernizr/modernizr.js',
+
+    // jQuery and Related
+    'jquery/jquery.js',
+    'select2/select2.js',
+    'messenger/build/js/messenger.js',
+
+    // bootstrap
+    'bootstrap/dist/js/bootstrap.js',
+
+    // AngularJS libraries
+    'angular/angular.js',
+    'angular-cookies/angular-cookies.js',
+    'angular-resource/angular-resource.js',
+    'angular-sanitize/angular-sanitize.js',
+    'angular-animate/angular-animate.js',
+
+    // Angular UI libraries
+    'angular-ui-router/release/angular-ui-router.js',
+    'angular-ui-utils/components/angular-ui-docs/build/ui-utils.js',
+    'angular-ui-select2/src/select2.js',
+    'angular-ui-bootstrap/src/position/position.js',
+    'angular-ui-bootstrap/src/datepicker/datepicker.js',
+    'angular-ui-bootstrap/src/pagination/pagination.js',
+    'angular-ui-bootstrap/src/buttons/buttons.js',
+
+    //NProgress
+    'nprogress/nprogress.js',
+
+    // utilities
+    'lodash/dist/lodash.js',
+    'moment/moment.js'
+  ],
+
+  watchedFiles = [
+    'client/src/**/*.js',
+    'client/test/**/*.js',
+    '<%= assets %>/templates/**/*.html',
+    '<%= assets %>/less/**/*.less'
+  ];
+
   grunt.initConfig ({
-    pkg : grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON('package.json'),
 
     assets: 'client/assets',
     components: '<%= assets %>/js/components',
@@ -25,7 +68,7 @@ module.exports = function (grunt) {
         scripturl: true,
         laxcomma: true,
         nomen: false,
-        globals : {
+        globals: {
           angular: true,
           chai: true,
           describe: true,
@@ -35,10 +78,10 @@ module.exports = function (grunt) {
           xit: true
         }
       },
-      code : {
+      code: {
         src: ['client/src/**/*.js']
       },
-      specs : {
+      specs: {
         src: ['client/test/**/*.js'],
         options: {
           expr: true
@@ -52,7 +95,7 @@ module.exports = function (grunt) {
         options: {
           paths: ['<%= assets %>/less']
         },
-        files : {
+        files: {
           '<%= clientdist %>/assets/css/style.css': '<%= assets %>/less/style.less'
         }
       }
@@ -91,48 +134,12 @@ module.exports = function (grunt) {
     // The concatenate task is used here to merge the almond require/define
     // shim and the templates into the application code.
     concat:{
-      jsdeps : {
-        src : [
-          // Shims
-          '<%= components %>/modernizr/modernizr.js',
-
-          // jQuery and Related
-          '<%= components %>/jquery/jquery.js',
-          '<%= components %>/select2/select2.js',
-          '<%= components %>/messenger/build/js/messenger.js',
-          //'<%= components %>/messenger/build/js/messenger-theme-future.js',
-
-          // bootstrap
-          '<%= components %>/bootstrap/dist/js/bootstrap.js',
-
-          // AngularJS libraries
-          '<%= components %>/angular/angular.js',
-          '<%= components %>/angular-cookies/angular-cookies.js',
-          '<%= components %>/angular-resource/angular-resource.js',
-          '<%= components %>/angular-sanitize/angular-sanitize.js',
-          '<%= components %>/angular-animate/angular-animate.js',
-
-          // Angular UI libraries
-          '<%= components %>/angular-ui-router/release/angular-ui-router.js',
-          '<%= components %>/angular-ui-utils/components/angular-ui-docs/build/ui-utils.js',
-          '<%= components %>/angular-ui-select2/src/select2.js',
-          '<%= components %>/angular-ui-bootstrap/src/position/position.js',
-          '<%= components %>/angular-ui-bootstrap/src/datepicker/datepicker.js',
-          '<%= components %>/angular-ui-bootstrap/src/pagination/pagination.js',
-          '<%= components %>/angular-ui-bootstrap/src/buttons/buttons.js',
-
-          //NProgress
-          '<%= components %>/nprogress/nprogress.js',
-
-          // utilities
-          '<%= components %>/lodash/dist/lodash.js',
-          '<%= components %>/moment/moment.js',
-        ],
-
+      jsdeps: {
+        src: getConcatFiles(),
         dest: '<%= clientdist %>/assets/js/deps.js'
       },
-      appjs : {
-        src : [
+      appjs: {
+        src: [
           '<%= clientdist %>/assets/js/deps.js',
           '<%= clientdist %>/assets/templates/main.templates.js',
           '<%= clientdist %>/assets/templates/lib.templates.js',
@@ -140,8 +147,8 @@ module.exports = function (grunt) {
         ],
         dest: '<%= clientdist %>/assets/js/app.js'
       },
-      css : {
-        src : [
+      css: {
+        src: [
           '<%= components %>/select2/select2.css',
           '<%= components %>/nprogress/nprogress.css',
           '<%= components %>/messenger/build/css/messenger.css',
@@ -156,57 +163,39 @@ module.exports = function (grunt) {
     // order and concatenate them into a single CSS file named style.css.  It
     // also minifies all the CSS as well.  This is named style.css, because we
     // only want to load one stylesheet in index.html.
-    cssmin :{
-      all : {
-        files : {
+    cssmin: {
+      all: {
+        files: {
           '<%= clientdist %>/assets/css/style.min.css': ['<%= clientdist %>/assets/css/style.css']
         }
       }
     },
 
     // Takes the built app.js file and minifies it for filesize benefits.
-    uglify : {
-      dist : {
+    uglify: {
+      dist: {
         files: {
-          '<%= clientdist %>/assets/js/app.min.js' : ['<%= clientdist %>/assets/js/app.js']
+          '<%= clientdist %>/assets/js/app.min.js': ['<%= clientdist %>/assets/js/app.js']
         }
       }
     },
 
     // A task that runs in the background 'watching' for changes to code.
-    watch : {
-      options : {
+    watch: {
+      options: {
         livereload: true,
         atBegin: true
       },
       development: {
-        files: [
-          'client/src/**/*.js',
-          'client/test/**/*.js',
-          '<%= assets %>/templates/**/*.html',
-          '<%= assets %>/less/**/*.less',
-          'app/views/**/*.jade'
-        ],
+        files: watchedFiles,
         tasks: ['development'] 
       },
       debug: {
-        files: [
-          'client/src/**/*.js',
-          'client/test/**/*.js',
-          '<%= assets %>/templates/**/*.html',
-          '<%= assets %>/less/**/*.less',
-          'app/views/**/*.jade'
-        ],
+        files: watchedFiles,
         tasks: ['debug'] 
       },
       production: {
-        files: [
-          'client/src/**/*.js',
-          'client/test/**/*.js',
-          '<%= assets %>/templates/**/*.html',
-          '<%= assets %>/less/**/*.less',
-          'app/views/**/*.jade'
-        ],
+        files: watchedFiles,
         tasks: ['production'] 
       }
     },
@@ -219,7 +208,7 @@ module.exports = function (grunt) {
     // debug: All of the files required for debug mode
     // production:  All of the files required for production mode
     copy: {
-      vendor : {
+      vendor: {
         files: [
           {
             expand: true,
@@ -234,18 +223,22 @@ module.exports = function (grunt) {
             dest:'<%= clientdist %>/assets/font/lato'
           }
         ]
-        },
-      development : {
+      },
+      development: {
         files: [
           {
             expand: true,
             cwd: '<%= assets %>',
             src: ['img/**', 'font/**'],
             dest: '<%= clientdist %>/assets'
+          },
+          {
+            src: '<%= assets %>/html/index.html',
+            dest:'<%= clientdist %>/<%= pkg.name %>/index.html'
           }
         ]
       },
-      debug : {
+      debug: {
         files: [
           {
             expand: true,
@@ -254,14 +247,12 @@ module.exports = function (grunt) {
             dest: '<%= clientdist %>/<%= pkg.name %>-debug/assets'
           },
           {
-            expand: true,
-            cwd: '<%= clientdist %>/assets/html',
-            src:['index.html'],
-            dest: '<%= clientdist %>/<%= pkg.name %>-debug'
+            src: '<%= assets %>/html/index.html',
+            dest:'<%= clientdist %>/<%= pkg.name %>/index.html'
           }
         ]
       },
-      production : {
+      production: {
         files: [
           {
             expand: true,
@@ -270,7 +261,7 @@ module.exports = function (grunt) {
             dest: '<%= clientdist %>/<%= pkg.name %>/assets'
           },
           {
-            src: '<%= clientdist %>/assets/html/index.min.html',
+            src: '<%= assets %>/html/index.html',
             dest:'<%= clientdist %>/<%= pkg.name %>/index.html'
           }
         ]
@@ -279,6 +270,22 @@ module.exports = function (grunt) {
 
     // Compile the **jade** templates into html for deployment
     jade: {
+      development: {
+        options: {
+          pretty: true,
+          data: {
+            env: 'development',
+            applicationScripts : getScripts('client/src', 'js/src'),
+            templateScripts: [
+              '<%= clientdist %>/assets/templates/main.templates.js',
+              '<%= clientdist %>/assets/templates/lib.templates.js'
+            ]
+          }
+        },
+        files: {
+          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
+        }
+      },
       debug: {
         options: {
           pretty: true,
@@ -288,10 +295,10 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= clientdist %>/assets/html/index.html' : ['api/app/views/application/index.jade']
+          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
         }
       },
-      production : {
+      production: {
         options: {
           data: {
             debug: false,
@@ -299,7 +306,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= clientdist %>/assets/html/index.min.html' : ['api/app/views/application/index.jade']
+          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
         }
       }
     },
@@ -307,29 +314,29 @@ module.exports = function (grunt) {
     // The **docco** task iterates through the `src` files and creates annotated source reports for them.
     docco: {
       options: {
-        layout : 'parallel'
+        layout: 'parallel'
       },
       client: {
         options: {
-          output : 'dist/docs/client/'
+          output: 'dist/docs/client/'
         },
         src: 'client/src/**/*.js'
       },
       app: {
         options: {
-          output : 'dist/docs/app/'
+          output: 'dist/docs/app/'
         },
         src: 'app/**/*.js'
       },
       grunt: {
         options: {
-          output : 'dist/docs/docs/grunt/'
+          output: 'dist/docs/docs/grunt/'
         },
         src: 'Gruntfile.js'
       },
       config: {
         options: {
-          output : 'dist/docs/config/'
+          output: 'dist/docs/config/'
         },
         src: 'config/**/*.js'
       }
@@ -337,19 +344,19 @@ module.exports = function (grunt) {
 
     // The **runapp** task will run the `server.js` in a `nodemon` and watch the server files for changes
     runapp: {
-      development : {
+      development: {
         env: 'development'
       },
 
-      debug : {
+      debug: {
         env: 'debug'
       },
 
-      production : {
+      production: {
         env: 'production'
       },
 
-      test : {
+      test: {
         options: {
           dieWithParent: true
         },
@@ -357,11 +364,21 @@ module.exports = function (grunt) {
       }
     },
 
+    shell: {
+      server: {
+        options: {
+          stdout: true,
+          stderror: true
+        },
+        command: 'export NODE_ENV="development"; node api/server.js'
+      }
+    },
+
     // Task to add the array-style angular injection to protect against uglifying.
-    ngmin : {
-      app : {
-        src : 'client/src/**/*.js',
-        dest : '<%= clientdist %>/app.js'
+    ngmin: {
+      app: {
+        src: 'client/src/**/*.js',
+        dest: '<%= clientdist %>/app.js'
       }
     },
 
@@ -370,6 +387,38 @@ module.exports = function (grunt) {
 
 
   });
+
+  // *********************************************************************************************
+
+  function getConcatFiles() {
+    var _ = require('lodash');
+
+    return _.map(componentList, function (component) {
+      return '<%= components %>/' + component;
+    });
+  }
+ 
+  function getScripts(dir, dest) {
+    var path = require('path');
+    var fs = require('fs');
+    var files = fs.readdirSync(dir);
+    var _ = require('lodash');
+    var scripts = [];
+
+    _.each(files, function (file) {
+      var name = dir + '/' + file;
+      var destName = dest + '/' + file;
+    
+      if (fs.statSync(name).isDirectory()) {
+          scripts = scripts.concat(getScripts(name, destName));
+      } else if (path.extname(file) === '.js') {
+        scripts.push(destName);
+      }
+
+    });
+
+    return scripts;
+  }
 
   // *********************************************************************************************
 
@@ -388,6 +437,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-mixtape-run-app');
+  grunt.loadNpmTasks('grunt-shell');
 
 
   // **********************************************************************************************
