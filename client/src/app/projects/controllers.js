@@ -1,7 +1,7 @@
 angular.module('app.projects.controllers', [])
     
   .controller('ProjectCtrl', 
-    function ($control, $scope, $state, $stateParams, notifications) {
+    function (data, $scope, $state, $stateParams, notifications) {
 
       $scope.requestProjects = function requestProjects (page) {
         var query = {
@@ -28,7 +28,7 @@ angular.module('app.projects.controllers', [])
       };
 
       $scope.remove = function remove (project) {
-        $control.remove('projects', project)
+        data.remove('projects', project)
           .then(function (removed) {
             notifications.success('Project : ' + project.name + ', was deleted.');
           })
@@ -40,7 +40,7 @@ angular.module('app.projects.controllers', [])
 
       $scope.restore = function restore (project) { 
 
-        $control.restore('projects', project) 
+        data.restore('projects', project) 
           .then(function (restored) {
             notifications.success('Project was restored.');
           })
@@ -77,12 +77,12 @@ angular.module('app.projects.controllers', [])
   )
 
   .controller('ProjectCreateCtrl', 
-    function ($scope, $state, $stateParams, $control, notifications) {
+    function ($scope, $state, $stateParams, data, notifications) {
       $scope.saveText = $state.current.data.saveText;
       $scope.project = {};
 
       $scope.save = function save () {
-        $control.create('projects', $scope.project) 
+        data.create('projects', $scope.project) 
           .then(function (created) {
             $state.go('app.projects.detail', {_id: created._id});
             notifications.success('Project : ' + created.name + ', created.');
