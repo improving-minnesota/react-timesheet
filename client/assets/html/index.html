@@ -1,5 +1,5 @@
 
-<html class="no-js">
+<html ng-app="main" class="no-js">
   <head>
     <base href="/"/>
     <title ng-bind-template="Timesheetz">Timesheetz</title>
@@ -7,18 +7,27 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1"/>
     <meta name="description" content="Timesheet Demo Application"/>
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
-    <body>
-      <div class="tsz-page-container">
-        <div class="navbar navbar-default navbar-static-top">
-          <div class="container-fluid">
-            <div class="navbar-header"><a href="#" class="navbar-brand"><i class="fa fa-clock-o fa-lg"></i>  Angular Training</a></div>
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="h1">Welcome to Angular JS !!!</div>
+  </head>
+  <body ng-controller="MainCtrl">
+    <div ng-cloak="ng-cloak" class="tsz-page-container">
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header"><a href="#" class="navbar-brand"><i class="fa fa-clock-o fa-lg"></i></a></div>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a ng-href="/#/projects">Projects</a></li>
+            <li><a ng-href="/#/employees">Employees</a></li>
+            <li><a ng-href="/#/timesheets">Timesheets</a></li>
+          </ul>
         </div>
       </div>
-    </body>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div ng-view="ng-view"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Shims-->
     <script src="assets/js/components/modernizr/modernizr.js"></script>
     <!-- jQuery and Related-->
@@ -45,7 +54,17 @@
     <!-- utilities-->
     <script src="assets/js/components/lodash/dist/lodash.js"></script>
     <script src="assets/js/components/moment/moment.js"></script>
+    <script src="js/src/app/app.js"></script>
+    <script src="js/src/app/controllers.js"></script>
+    <script src="js/src/app/employees/controllers.js"></script>
+    <script src="js/src/app/employees/employees.js"></script>
+    <script src="js/src/app/projects/controllers.js"></script>
+    <script src="js/src/app/projects/projects.js"></script>
+    <script src="js/src/app/resources.js"></script>
+    <script src="js/src/app/timesheets/controllers.js"></script>
+    <script src="js/src/app/timesheets/timesheets.js"></script>
+    <script src="js/src/main.js"></script>
     <script src="client/dist/assets/templates/main.templates.js"></script>
     <script src="client/dist/assets/templates/lib.templates.js"></script>
-  </head>
+  </body>
 </html>
