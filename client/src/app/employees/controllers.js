@@ -5,7 +5,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.requestEmployees = function requestEmployees (page) {
 
-        $control.list('employees')
+        data.list('employees')
           .then(function (employees) {
             $scope.employees = employees;
           });
@@ -13,7 +13,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.remove = function remove (employee) {
 
-        $control.remove('employees', employee) 
+        data.remove('employees', employee) 
           .then(function () {
             console.log('success!');
           })
@@ -25,7 +25,7 @@ angular.module('app.employees.controllers', [])
 
       $scope.restore = function restore (employee) {
        
-       $control.restore('employees', employee)
+       data.restore('employees', employee)
           .then(function (restored) {
             console.log('success!');
           })

@@ -8,7 +8,7 @@ angular.module('app.timesheets.controllers', [])
           user_id: 'all'
         };
 
-        $control.list('timesheets', query)
+        data.list('timesheets', query)
           .then(function (timesheets) {
             $scope.timesheets = timesheets;
           });
@@ -16,7 +16,7 @@ angular.module('app.timesheets.controllers', [])
 
       $scope.remove = function remove (timesheet) {
 
-        $control.remove('timesheets', timesheet)
+        data.remove('timesheets', timesheet)
           .then(function () {
             console.log('success !');
           })
@@ -28,7 +28,7 @@ angular.module('app.timesheets.controllers', [])
 
       $scope.restore = function restore (timesheet) {
         
-        $control.restore('timesheets', timesheet)
+        data.restore('timesheets', timesheet)
           .then(function (restored) {
             console.log('success !');
           })

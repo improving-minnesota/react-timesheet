@@ -5,14 +5,14 @@ angular.module('app.projects.controllers', [])
 
       $scope.requestProjects = function requestProjects (page) {
         
-        $control.list('projects')
+        data.list('projects')
           .then(function (projects) {
             $scope.projects = projects;
           });
       };
 
       $scope.remove = function remove (project) {
-        $control.remove('projects', project)
+        data.remove('projects', project)
           .then(function (removed) {
             console.log('success !');
           })
@@ -24,7 +24,7 @@ angular.module('app.projects.controllers', [])
 
       $scope.restore = function restore (project) { 
 
-        $control.restore('projects', project) 
+        data.restore('projects', project) 
           .then(function (restored) {
             console.log('success !');
           })
