@@ -20,9 +20,9 @@ angular.module('app.security', [
     });
 })
 
-.run(function ($api) {
+.run(function (api) {
   
-  $api.add({
+  api.add({
     resource: 'login',
     url: '/login',
     params: {},
@@ -37,7 +37,7 @@ angular.module('app.security', [
     unnatural: true
   });
 
-  $api.add({
+  api.add({
     resource: 'logout',
     url: '/logout',
     params: {},
