@@ -47,6 +47,7 @@
     "grunt-ngmin": "0.0.3",
     "grunt-karma": "0.8.0",
     "protractor": "0.19.0",
-    "grunt-protractor-runner": "0.2.3"
+    "grunt-protractor-runner": "0.2.3",
+    "grunt-shell": "^0.6.4"
   }
 }
