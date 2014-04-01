@@ -24,10 +24,10 @@ angular.module('app.projects', [
       },
       resolve : {
         project: [
-          '$control', 
+          'data', 
           '$stateParams',
-          function ($control, $stateParams) {
-            return $control.get('projects', $stateParams);
+          function (data, $stateParams) {
+            return data.get('projects', $stateParams);
           }]
       }
     })
