@@ -1,7 +1,7 @@
 angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetCtrl', 
-    function ($control, $scope) {
+    function (data, $scope) {
 
       // TODO : implement a function on scope to request timesheets
       $scope.requestTimesheets = function requestTimesheets () {

@@ -1,7 +1,7 @@
 angular.module('app.projects.controllers', [])
     
   .controller('ProjectCtrl', 
-    function ($control, $scope) { 
+    function (data, $scope) { 
 
       // TODO : implement a function on scope to request all projects
       // TODO : implement a function on scope to set a project to deleted
