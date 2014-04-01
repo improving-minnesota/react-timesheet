@@ -1,7 +1,7 @@
 angular.module('app.employees.controllers', [])
   
   .controller('EmployeeCtrl', 
-    function ($control, $scope) {
+    function (data, $scope) {
 
       $scope.requestEmployees = function requestEmployees (page) {
 

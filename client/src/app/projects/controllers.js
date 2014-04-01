@@ -1,7 +1,7 @@
 angular.module('app.projects.controllers', [])
     
   .controller('ProjectCtrl', 
-    function ($control, $scope) { 
+    function (data, $scope) { 
 
       $scope.requestProjects = function requestProjects (page) {
         
