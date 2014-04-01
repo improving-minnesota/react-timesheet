@@ -3,7 +3,8 @@ angular.module('app.projects', [
 ])
 
 .run(function (api) {
-
-  // TODO : register the projects resource with the api service
-  
+   api.add({
+    resource: 'projects',
+    url: '/projects'
+  });
 });
