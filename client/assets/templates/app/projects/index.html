@@ -11,24 +11,21 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-repeat="project in projects" 
+              class="fadeable-row"
+              ng-class="{faded: project.deleted}">
 
-            <!-- TODO : Create the project table
-              1. set the repeater to each project in projects
-              2. set the class, faded, to be dependent upon project.deleted
-              3. bind the <td>'s to the properties on project -->
-            <tr class="fadeable-row">
-
-              <td></td>
-              <td></td>
+              <td>{{project.name}}</td>
+              <td>{{project.description}}</td>
               <td>
-
-                <!-- TODO : Optionally show a delete or restore button
-                  1. use ng-switch on project.deleted 
-                  2. if the project is deleted, show the restore button
-                  3. if the project is not deleted, show the delete button
-                  3. set up the restore button to call restore(project) when clicked
-                  4. set up the delete button to call remove(project) when clicked -->
-                
+                <div ng-switch="project.deleted">
+                  <div ng-switch-when="true">
+                    <button class="btn btn-sm btn-default" ng-click="restore(project); $event.stopPropagation();">Restore</button>
+                  </div>
+                  <div ng-switch-default>
+                    <button class="btn btn-sm btn-danger" ng-click="remove(project); $event.stopPropagation();">Delete</button>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>
