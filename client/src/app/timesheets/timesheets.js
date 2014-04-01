@@ -12,8 +12,8 @@ angular.module('app.timesheets', [
 // 5. app.timesheets.detail.edit
 // 6. app.timesheets.detail.create
 
-  .run(function ($api) {
-    $api.add({
+  .run(function (api) {
+    api.add({
       resource: 'timesheets',
       url: '/users/:user_id/timesheets',
       params: {

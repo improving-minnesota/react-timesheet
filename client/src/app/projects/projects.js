@@ -9,9 +9,8 @@ angular.module('app.projects', [
 // 3. app.projects
 // 4. app.projects.detail 
 // 5. app.projects.create
-
-.run(function ($api) {
-   $api.add({
+.run(function (api) {
+   api.add({
     resource: 'projects',
     url: '/projects'
   });

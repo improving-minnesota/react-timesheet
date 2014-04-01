@@ -20,7 +20,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
 
   .controller('TimeunitCreateCtrl', 
     // TODO : inject the $state and $stateParams services
-    function ($scope, $control) {
+    function ($scope, data) {
       
       // TODO : initialize the new timeunit with data from $stateParams
       // 1. user_id = $stateParams.user_id

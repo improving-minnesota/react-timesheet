@@ -1,12 +1,13 @@
 angular.module('app.projects.controllers', [])
+<<<<<<< HEAD
 
   .controller('ProjectCtrl',
     // TODO : inject the $state and $stateParams services
-    function ($control, $scope) {
+    function (data, $scope) { 
 
       $scope.requestProjects = function requestProjects (page) {
-
-        $control.list('projects')
+        
+        data.list('projects')
           .then(function (projects) {
             $scope.projects = projects;
           });
@@ -17,7 +18,7 @@ angular.module('app.projects.controllers', [])
       // TODO : implement a function on scope to handle cancels in child states
 
       $scope.remove = function remove (project) {
-        $control.remove('projects', project)
+        data.remove('projects', project)
           .then(function (removed) {
             console.log('success !');
           })
@@ -29,7 +30,7 @@ angular.module('app.projects.controllers', [])
 
       $scope.restore = function restore (project) {
 
-        $control.restore('projects', project)
+        data.restore('projects', project) 
           .then(function (restored) {
             console.log('success !');
           })

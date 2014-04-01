@@ -10,9 +10,9 @@ angular.module('app.timesheets.timeunits', [
 // 4. app.timesheets.detail.timeunits.create 
 // 5. app.timesheets.detail.timeunits.edit
 
-  .run(function ($api) {
+  .run(function (api) {
 
-    $api.add({
+    api.add({
       resource: 'timeunits',
       url: '/users/:user_id/timesheets/:timesheet_id/timeunits',
       params: {

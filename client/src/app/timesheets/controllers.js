@@ -2,14 +2,14 @@ angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetCtrl', 
     // TODO : inject $state and $stateParams services
-    function ($control, $scope) {
+    function (data, $scope) {
 
       $scope.requestTimesheets = function requestTimesheets (page) {
 
         // TODO : assign the query's user_id to $stateParams.user_id
         var query = {};
 
-        $control.list('timesheets', query)
+        data.list('timesheets', query)
           .then(function (timesheets) {
             $scope.timesheets = timesheets;
           });
@@ -20,7 +20,7 @@ angular.module('app.timesheets.controllers', [])
 
       $scope.remove = function remove (timesheet) {
 
-        $control.remove('timesheets', timesheet)
+        data.remove('timesheets', timesheet)
           .then(function () {
             console.log('success !');
           })
@@ -32,7 +32,7 @@ angular.module('app.timesheets.controllers', [])
 
       $scope.restore = function restore (timesheet) {
         
-        $control.restore('timesheets', timesheet)
+        data.restore('timesheets', timesheet)
           .then(function (restored) {
             console.log('success !');
           })
@@ -48,7 +48,7 @@ angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetDetailCtrl', 
     // TODO : inject $state and $stateParams services
-    function ($scope, $control, timesheet, timeunits) {
+    function ($scope, data, timesheet, timeunits) {
       $scope.timesheet = timesheet;
       $scope.timeunits = timeunits;
 
@@ -60,7 +60,7 @@ angular.module('app.timesheets.controllers', [])
       $scope.removeTimeunit = function removeTimeunit (timeunit) {
         timeunit.user_id = timesheet.user_id;
 
-        $control.remove('timeunits', timeunit) 
+        data.remove('timeunits', timeunit) 
           .then(function () {
             console.log('success !');
           })
@@ -75,7 +75,7 @@ angular.module('app.timesheets.controllers', [])
       $scope.restoreTimeunit = function restoreTimeunit (timeunit) {
         timeunit.user_id = timesheet.user_id;
 
-        $control.restore('timeunits', timeunit)
+        data.restore('timeunits', timeunit)
           .then(function (restored) {
             console.log('success !');
           })
@@ -89,7 +89,7 @@ angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetEditCtrl', 
     // TODO : inject $state and $stateParams services
-    function ($scope, $control, timesheet) {
+    function ($scope, data, timesheet) {
       // TODO : set saveText on scope to the saveText assigned to the data of the current state
 
       $scope.timesheet = timesheet;
@@ -101,7 +101,7 @@ angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetCreateCtrl', 
     // TODO : inject $state and $stateParams services
-    function ($scope, $control) {
+    function ($scope, data) {
       // TODO : set saveText on scope to the saveText assigned to the data of the current state
       $scope.timesheet = {};
 

@@ -10,8 +10,8 @@ angular.module('app.employees', [
 // 4. app.employees.detail 
 // 5. app.employees.create
 
-.run(function ($api) {
-  $api.add({
+.run(function (api) {
+  api.add({
     resource: 'employees',
     url: '/users'
   });
