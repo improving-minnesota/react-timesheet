@@ -43,8 +43,8 @@ angular.module('app.projects', [
     });
 })
 
-.run(function ($api) {
-   $api.add({
+.run(function (api) {
+   api.add({
     resource: 'projects',
     url: '/projects'
   });

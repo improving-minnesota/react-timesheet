@@ -2,7 +2,7 @@ angular.module('app.timesheets.controllers', [])
 
   .controller('TimesheetCtrl', 
     // TODO : inject the notifications service
-    function ($control, $scope, $state, $stateParams) {
+    function (data, $scope, $state, $stateParams) {
 
       $scope.requestTimesheets = function requestTimesheets (page) {
 
