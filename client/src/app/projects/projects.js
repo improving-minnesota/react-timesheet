@@ -25,10 +25,10 @@ angular.module('app.projects', [
       },
       resolve : {
         project: [
-          '$control', 
+          'data', 
           '$stateParams',
-          function ($control, $stateParams) {
-            return $control.get('projects', $stateParams);
+          function (data, $stateParams) {
+            return data.get('projects', $stateParams);
           }]
       }
     })
@@ -44,8 +44,8 @@ angular.module('app.projects', [
     });
 })
 
-.run(function ($api) {
-   $api.add({
+.run(function (api) {
+   api.add({
     resource: 'projects',
     url: '/projects'
   });
