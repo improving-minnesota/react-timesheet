@@ -1,10 +1,10 @@
 angular.module('app.resources', ['ngResource'])
-  .factory('$control', function ($api) {
+  .factory('data', function (api) {
 
-      var control = {
+      var data = {
 
         page : function (resource, query) {        
-          return $api[resource].paged(query).$promise;
+          return api[resource].paged(query).$promise;
         },
 
         list : function (resource, query) {
@@ -14,50 +14,50 @@ angular.module('app.resources', ['ngResource'])
             queryObject = angular.extend(queryObject, query);
           }
 
-          return $api[resource].query(queryObject).$promise;
+          return api[resource].query(queryObject).$promise;
         },
 
         get : function (resource, query) {
-            return $api[resource].get(query).$promise;
+            return api[resource].get(query).$promise;
         },
 
         create : function (resource, model) {
-          var saved = new $api[resource](model).$save();
+          var saved = new api[resource](model).$save();
           return saved.$promise || saved;
         }, 
 
         update : function (resource, model) {
-          var updated = $api[resource].update(model);
+          var updated = api[resource].update(model);
           return updated.$promise || updated;
         },
 
         remove : function (resource, model) {
           model.deleted = true;
-          return control.update(resource, model);
+          return data.update(resource, model);
         },
 
         restore : function (resource, model) {
           model.deleted = false;
-          return control.update(resource, model);
+          return data.update(resource, model);
         },
 
         login : function (model, current) {
           if (current) {
-            return $api.login.current().$promise;
+            return api.login.current().$promise;
           }
-          return $api.login.login(model).$promise;
+          return api.login.login(model).$promise;
         },
 
         logout : function () {
-          return $api.logout.logout().$promise;
+          return api.logout.logout().$promise;
         }
       };
 
-      return control;
+      return data;
     }
   )
 
-  .factory('$api', function ($resource) {
+  .factory('api', function ($resource) {
 
       var api = {
         idOnly : {_id: '@_id'},
