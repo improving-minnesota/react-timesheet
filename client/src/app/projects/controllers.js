@@ -1,11 +1,11 @@
 angular.module('app.projects.controllers', [])
     
   .controller('ProjectCtrl', 
-    function ($control, $scope, $state, $stateParams) { 
+    function (data, $scope, $state, $stateParams) { 
 
       $scope.requestProjects = function requestProjects (page) {
         
-        $control.list('projects')
+        data.list('projects')
           .then(function (projects) {
             $scope.projects = projects;
           });
@@ -24,7 +24,7 @@ angular.module('app.projects.controllers', [])
       };
 
       $scope.remove = function remove (project) {
-        $control.remove('projects', project)
+        data.remove('projects', project)
           .then(function (removed) {
             console.log('success !');
           })
@@ -36,7 +36,7 @@ angular.module('app.projects.controllers', [])
 
       $scope.restore = function restore (project) { 
 
-        $control.restore('projects', project) 
+        data.restore('projects', project) 
           .then(function (restored) {
             console.log('success !');
           })
@@ -73,12 +73,12 @@ angular.module('app.projects.controllers', [])
   )
 
   .controller('ProjectCreateCtrl', 
-    function ($scope, $state, $stateParams, $control) {
+    function ($scope, $state, $stateParams, data) {
       $scope.saveText = $state.current.data.saveText;
       $scope.project = {};
 
       $scope.save = function save () {
-        $control.create('projects', $scope.project) 
+        data.create('projects', $scope.project) 
           .then(function (created) {
             $state.go('app.projects.detail', {_id: created._id});
             console.log('success !');

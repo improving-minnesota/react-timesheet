@@ -25,10 +25,10 @@ angular.module('app.employees', [
       },
       resolve : {
         employee : [
-          '$control', 
+          'data', 
           '$stateParams',
-          function ($control, $stateParams) {
-            return $control.get('employees', $stateParams);
+          function (data, $stateParams) {
+            return data.get('employees', $stateParams);
           }]
       }
     })
@@ -44,8 +44,8 @@ angular.module('app.employees', [
     });
 })
 
-.run(function ($api) {
-  $api.add({
+.run(function (api) {
+  api.add({
     resource: 'employees',
     url: '/users'
   });
