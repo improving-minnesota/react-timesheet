@@ -1,7 +1,7 @@
 angular.module('app.resources', ['ngResource'])
-  .factory('control', function (api) {
+  .factory('data', function (api) {
 
-      var control = {
+      var data = {
 
         page : function (resource, query) {        
           return api[resource].paged(query).$promise;
@@ -33,12 +33,12 @@ angular.module('app.resources', ['ngResource'])
 
         remove : function (resource, model) {
           model.deleted = true;
-          return control.update(resource, model);
+          return data.update(resource, model);
         },
 
         restore : function (resource, model) {
           model.deleted = false;
-          return control.update(resource, model);
+          return data.update(resource, model);
         },
 
         login : function (model, current) {
@@ -53,7 +53,7 @@ angular.module('app.resources', ['ngResource'])
         }
       };
 
-      return control;
+      return data;
     }
   )
 
