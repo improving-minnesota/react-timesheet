@@ -275,10 +275,10 @@ module.exports = function (grunt) {
           pretty: true,
           data: {
             env: 'development',
-            applicationScripts : getScripts('client/src', 'js/src'),
+            applicationScripts : getScripts('client/src', 'src'),
             templateScripts: [
-              '<%= clientdist %>/assets/templates/main.templates.js',
-              '<%= clientdist %>/assets/templates/lib.templates.js'
+              'assets/templates/main.templates.js',
+              'assets/templates/lib.templates.js'
             ]
           }
         },
