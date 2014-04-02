@@ -7,22 +7,22 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1"/>
     <meta name="description" content="Timesheet Demo Application"/>
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
-    <body ng-controller="MainCtrl">
-      <div ng-cloak="ng-cloak" class="tsz-page-container">
-        <div class="navbar navbar-default navbar-static-top">
-          <div class="container-fluid">
-            <div class="navbar-header"><a href="#" class="navbar-brand"><i class="fa fa-clock-o fa-lg"></i>  Angular Training</a></div>
-          </div>
+  </head>
+  <body ng-controller="MainCtrl">
+    <div ng-cloak="ng-cloak" class="tsz-page-container">
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header"><a href="#" class="navbar-brand"><i class="fa fa-clock-o fa-lg"></i>  Angular Training</a></div>
         </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <div ng-view="ng-view"></div>
-            </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div ng-view="ng-view"></div>
           </div>
         </div>
       </div>
-    </body>
+    </div>
     <!-- Shims-->
     <script src="assets/js/components/modernizr/modernizr.js"></script>
     <!-- jQuery and Related-->
@@ -54,5 +54,5 @@
     <script src="js/src/main.js"></script>
     <script src="client/dist/assets/templates/main.templates.js"></script>
     <script src="client/dist/assets/templates/lib.templates.js"></script>
-  </head>
+  </body>
 </html>
