@@ -31,7 +31,7 @@ describe('Projects', function() {
     }));
 
     beforeEach(inject(function ($injector) {
-      api = $injector('api');
+      api = $injector.get('api');
 
       spies = {
         state: sinon.stub($state)
