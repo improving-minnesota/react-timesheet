@@ -7,15 +7,16 @@ describe('Projects', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
     controller, 
     project,
-    spies;
+    spies,
+    api;
  
   describe('Controllers:', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'app.resources',
         'ngResource',
         'security.services',
@@ -24,17 +25,18 @@ describe('Projects', function() {
         'app.projects.controllers'
       ));
 
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
       $state = _$state_;
       $stateParams = _$stateParams_;
-      $api = _$api_;
     }));
 
     beforeEach(inject(function ($injector) {
       var notifications = $injector.get('notifications');
+
+      api = $injector.get('api');
 
       spies = {
         error: sinon.spy(notifications, 'error'),
@@ -220,7 +222,7 @@ describe('Projects', function() {
         $scope = $rootScope.$new();
         controller = $controller("ProjectDetailCtrl", {
           $scope: $scope,
-          project: new $api.projects(project),
+          project: new api.projects(project),
           $state: spies.state,
           $stateParams: $stateParams
         });
