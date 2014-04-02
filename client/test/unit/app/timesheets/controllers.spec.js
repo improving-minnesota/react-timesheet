@@ -11,7 +11,8 @@ describe('Timesheets', function() {
     timesheet,
     timeunits,
     employee,
-    spies;
+    spies,
+    api;
  
   describe('Controllers', function() {
       
@@ -33,6 +34,7 @@ describe('Timesheets', function() {
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector.get('api');
       $stateParams.user_id = "1234567890";
 
       timesheet = {
@@ -196,7 +198,7 @@ describe('Timesheets', function() {
         $scope = $rootScope.$new();
         controller = $controller("TimesheetDetailCtrl", {
           $scope: $scope,
-          timesheet: new $api.timesheets(timesheet),
+          timesheet: new api.timesheets(timesheet),
           timeunits: timeunits,
           $state: spies.state,
           $stateParams: $stateParams
@@ -321,7 +323,7 @@ describe('Timesheets', function() {
         $scope = $rootScope.$new();
         controller = $controller("TimesheetEditCtrl", {
           $scope: $scope,
-          timesheet: new $api.timesheets(timesheet),
+          timesheet: new api.timesheets(timesheet),
           $state: spies.state
         });
       });

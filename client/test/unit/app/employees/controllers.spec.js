@@ -9,7 +9,8 @@ describe('Employees', function() {
     $scope,
     controller, 
     employee,
-    spies;
+    spies,
+    api;
  
   describe('Controllers:', function() {
       
@@ -29,6 +30,7 @@ describe('Employees', function() {
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector.get('api');
 
       spies = {
         // TODO : set up a sinon test stub on $state service
@@ -182,7 +184,7 @@ describe('Employees', function() {
         $scope = $rootScope.$new();
         controller = $controller("EmployeeDetailCtrl", {
           $scope: $scope,
-          employee: new $api.employees(employee)
+          employee: new api.employees(employee)
 
           // TODO : inject the spies.state and $stateProvider into the test controller
         });

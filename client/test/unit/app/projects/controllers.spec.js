@@ -9,7 +9,8 @@ describe('Projects', function() {
     $scope,
     controller, 
     project,
-    spies;
+    spies,
+    api;
  
   describe('Controllers:', function() {
       
@@ -30,6 +31,7 @@ describe('Projects', function() {
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector('api');
 
       spies = {
         state: sinon.stub($state)
@@ -188,7 +190,7 @@ describe('Projects', function() {
         $scope = $rootScope.$new();
         controller = $controller("ProjectDetailCtrl", {
           $scope: $scope,
-          project: new $api.projects(project),
+          project: new api.projects(project),
           $state: spies.state,
           $stateParams: $stateParams
         });

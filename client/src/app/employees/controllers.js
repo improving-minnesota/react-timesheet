@@ -57,7 +57,7 @@ angular.module('app.employees.controllers', [])
 
   .controller('EmployeeCreateCtrl', 
     // TODO : inject $state and $stateParams
-    function ($scope, $control) {
+    function ($scope, data) {
       // TODO : set saveText on scope to the saveText assigned to the data of the current state
 
       $scope.employee = {admin: false};

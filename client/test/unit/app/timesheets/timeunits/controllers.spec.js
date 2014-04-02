@@ -11,7 +11,8 @@ describe('Timeunits', function() {
     timeunit,
     timesheet,
     projects,
-    spies;
+    spies,
+    api;
  
   describe('Controllers', function() {
       
@@ -32,6 +33,7 @@ describe('Timeunits', function() {
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector.get('api');
       $stateParams.user_id = "1234567890";
       $stateParams._id = "asdfghjklqwerty";
 
@@ -98,7 +100,7 @@ describe('Timeunits', function() {
           $scope: $scope,
           $state: spies.state,
           $stateParams: $stateParams,
-          timeunit: new $api.timeunits(timeunit)
+          timeunit: new api.timeunits(timeunit)
         });
       }));
 
