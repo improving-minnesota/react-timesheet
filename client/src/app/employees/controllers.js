@@ -9,7 +9,7 @@ angular.module('app.employees.controllers', [])
           sort: {username: 1}
         };
 
-        $control.page('employees', query)
+        data.page('employees', query)
           .then(function (pageConfig) {
             $scope.pageConfig = pageConfig;
           });

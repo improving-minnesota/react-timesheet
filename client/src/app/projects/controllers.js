@@ -9,7 +9,7 @@ angular.module('app.projects.controllers', [])
           sort: {name: 1}
         };
 
-        $control.page('projects', query)
+        data.page('projects', query)
           .then(function (pageConfig) {
             $scope.pageConfig = pageConfig;
           });
