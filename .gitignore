@@ -24,3 +24,9 @@ libpeerconnection.log
 dist
 
 api/data/db/*
+
+.bower-cache/*
+
+.bower-registry/*
+
+.bower-tmp/*
