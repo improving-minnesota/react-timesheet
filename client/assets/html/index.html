@@ -1,6 +1,5 @@
 
-<!-- Add the ng-app directive and assign it to the 'main' application file -->
-<html class="no-js">
+<html ng-app="main" class="no-js">
   <head>
     <base href="/"/>
     <title ng-bind-template="Timesheetz">Timesheetz</title>
@@ -8,9 +7,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1"/>
     <meta name="description" content="Timesheet Demo Application"/>
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
-
-    <!-- Add the MainCtrl as the ng-controller to the body tag -->
-    <body>
+    <body ng-controller="MainCtrl">
       <div ng-cloak="ng-cloak" class="tsz-page-container">
         <div class="navbar navbar-default navbar-static-top">
           <div class="container-fluid">
@@ -20,13 +17,12 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <!-- Add the ng-view directive -->
+              <div ng-view="ng-view"></div>
             </div>
           </div>
         </div>
       </div>
     </body>
-
     <!-- Shims-->
     <script src="assets/js/components/modernizr/modernizr.js"></script>
     <!-- jQuery and Related-->
@@ -53,10 +49,10 @@
     <!-- utilities-->
     <script src="assets/js/components/lodash/dist/lodash.js"></script>
     <script src="assets/js/components/moment/moment.js"></script>
-    <script src="js/src/app/app.js"></script>
-    <script src="js/src/app/controllers.js"></script>
-    <script src="js/src/main.js"></script>
-    <script src="client/dist/assets/templates/main.templates.js"></script>
-    <script src="client/dist/assets/templates/lib.templates.js"></script>
+    <script src="src/app/app.js"></script>
+    <script src="src/app/controllers.js"></script>
+    <script src="src/main.js"></script>
+    <script src="assets/templates/main.templates.js"></script>
+    <script src="assets/templates/lib.templates.js"></script>
   </head>
 </html>
