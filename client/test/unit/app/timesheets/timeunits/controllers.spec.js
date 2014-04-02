@@ -7,17 +7,18 @@ describe('Timeunits', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
     controller, 
     timeunit,
     timesheet,
     projects,
-    spies;
- 
+    spies,
+    api;
+
   describe('Controllers', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'app.resources',
         'ngResource',
         'security.services',
@@ -26,16 +27,16 @@ describe('Timeunits', function() {
         'app.timesheets.timeunits.controllers'
       ));
 
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
       $state = _$state_;
       $stateParams = _$stateParams_;
-      $api = _$api_;
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector.get('api');
       $stateParams.user_id = "1234567890";
       $stateParams._id = "asdfghjklqwerty";
 
@@ -106,7 +107,7 @@ describe('Timeunits', function() {
           $scope: $scope,
           $state: spies.state,
           $stateParams: $stateParams,
-          timeunit: new $api.timeunits(timeunit)
+          timeunit: new api.timeunits(timeunit)
         });
       }));
 
