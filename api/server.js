@@ -8,8 +8,8 @@ locomotive.boot('./api/', process.env.NODE_ENV, function (err, app) {
   }
 
   app.get("/", function(req, res) {
-      console.log("attempting this : " + __dirname);
-      return res.sendfile("index.html", {root: __dirname + '/../client/assets/html'});
+    console.log("attempting this : " + __dirname);
+    return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
   });
 
 
