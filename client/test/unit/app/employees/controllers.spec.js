@@ -16,6 +16,7 @@ describe('Employees', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'ngResource',
         'app.resources',
         'app.employees',

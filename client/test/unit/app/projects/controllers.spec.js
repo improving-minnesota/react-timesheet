@@ -16,6 +16,7 @@ describe('Projects', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'app.resources',
         'ngResource',
         'app.projects',

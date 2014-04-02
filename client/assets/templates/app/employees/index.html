@@ -1,6 +1,5 @@
 <div class="tsz-employee-list">
-  <!-- TODO : set up to only show this container when state is app.employees -->
-  <div>
+  <div ng-show="$state.is('app.employees')">
     <div class="row tsz-form-row">
       <div class="col-sm-2 pull-right">
         <!-- TODO : Add a button that calls createNew when clicked -->

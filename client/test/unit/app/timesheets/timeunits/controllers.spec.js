@@ -18,6 +18,7 @@ describe('Timeunits', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'app.resources',
         'ngResource',
         'app.timesheets.timeunits',
