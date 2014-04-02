@@ -276,10 +276,10 @@ module.exports = function (grunt) {
           pretty: true,
           data: {
             env: 'development',
-            applicationScripts : getScripts('client/src', 'js/src'),
+            applicationScripts : getScripts('client/src', 'src'),
             templateScripts: [
-              '<%= clientdist %>/assets/templates/main.templates.js',
-              '<%= clientdist %>/assets/templates/lib.templates.js'
+              'assets/templates/main.templates.js',
+              'assets/templates/lib.templates.js'
             ]
           }
         },
@@ -484,7 +484,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean', 'jshint', 'less', 'concat:css', 'html2js', 'concat:jsdeps', 'copy:vendor', 'copy:development']);
 
   // Task to compile everything in development mode
-  grunt.registerTask('development', ['default', 'jade:debug']);
+  grunt.registerTask('development', ['default']);
   grunt.registerTask('debug', ['development', 'concat:appjs', 'jade:debug', 'copy:debug']);
   grunt.registerTask('production', ['debug', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
 
