@@ -7,15 +7,16 @@ describe('Employees', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
     controller, 
     employee,
-    spies;
+    spies,
+    api;
  
   describe('Controllers:', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'ngResource',
         'app.resources',
         'security.services',
@@ -24,17 +25,18 @@ describe('Employees', function() {
         'app.employees.controllers'
       ));
 
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
       $state = _$state_;
       $stateParams = _$stateParams_;
-      $api = _$api_;
     }));
 
     beforeEach(inject(function ($injector) {
       // TODO : inject the notifications service
+
+      api = $injector.get('api');
 
       spies = {
         // TODO : create spies for the notifications service methods
@@ -230,9 +232,7 @@ describe('Employees', function() {
         $scope = $rootScope.$new();
         controller = $controller("EmployeeDetailCtrl", {
           $scope: $scope,
-          employee: new $api.employees(employee),
-          $state: spies.state,
-          $stateParams: $stateParams
+          employee: new api.employees(employee)
         });
       });
 
