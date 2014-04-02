@@ -17,7 +17,12 @@ module.exports = function(config) {
 
       'assets/js/components/angular-mocks/angular-mocks.js',
 
-      'test/unit/**/*.spec.js',
+      'test/unit/app/employees/*.spec.js',
+      'test/unit/app/projects/*.spec.js',
+
+      // TODO : uncomment as needed.
+      // 'test/unit/app/timesheets/*.spec.js',
+      // 'test/unit/app/timesheets/timeunits/*.spec.js',
 
       'assets/templates/**/*.html'
     ],

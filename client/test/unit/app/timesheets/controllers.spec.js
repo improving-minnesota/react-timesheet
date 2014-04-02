@@ -7,14 +7,14 @@ describe('Timesheets', function() {
     $state,
     $stateParams,
     $scope,
-    controller,
+    controller, 
     timesheet,
     timeunits,
     employee,
     spies;
-
+ 
   describe('Controllers', function() {
-
+      
     beforeEach(
       module(
         'app.resources',
@@ -24,15 +24,16 @@ describe('Timesheets', function() {
         'app.timesheets.controllers'
       ));
 
-    // TODO : inject the $state and $stateParams services and assign them to the spec's variables
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
+      $state = _$state_;
+      $stateParams = _$stateParams_;
     }));
 
     beforeEach(inject(function ($injector) {
-      // TODO : assign a test user_id "1234567890" to $stateParams
+      $stateParams.user_id = "1234567890";
 
       timesheet = {
         "_id": "asdfghjklqwerty",
@@ -52,7 +53,7 @@ describe('Timesheets', function() {
       ];
 
       spies = {
-        // TODO : set up a sinon test stub on $state service
+        state: sinon.stub($state)
       };
     }));
 
@@ -65,28 +66,26 @@ describe('Timesheets', function() {
 
       beforeEach(function() {
         $scope = $rootScope.$new();
-        controller = $controller("TimesheetCtrl", {
-          $scope: $scope
-          // TODO : assign the stubbed $state and $stateParams to be injected in your test controller
+        controller = $controller("TimesheetCtrl", { 
+          $scope: $scope,
+          $state: spies.state,
+          $stateParams: $stateParams 
         });
 
-        // TODO : change the path here to expect $stateParams.user_id between users and timesheets
         $httpBackend.when('GET', '/users/1234567890/timesheets').respond(200, [{name: 'testTimesheet'}]);
       });
 
       describe('during setup', function () {
-        it('should be able to instantiate the controller and request a page of timesheets', function () {
-          expect(controller).to.be.ok;
+        it('should be able to instantiate the controller and request a page of timesheets', function () { 
+          expect(controller).to.be.ok; 
           // $scope.requestTimesheets is called upon controller creation
-
           $httpBackend.expect('GET', '/users/1234567890/timesheets');
           $httpBackend.flush();
         });
-      });
+      }); 
 
       describe('requesting timesheets', function () {
         it('should set the result to the timesheets', function () {
-
           $httpBackend.expect('GET', '/users/1234567890/timesheets');
           $scope.requestTimesheets();
           $httpBackend.flush();
@@ -95,15 +94,20 @@ describe('Timesheets', function() {
       });
 
       describe('showing timesheet detail', function () {
-
-        // TODO : verify it should transition to the timesheet detail state
-
+        
+        it('should transition to the timesheet detail state', function () {
+          $httpBackend.flush();
+          $scope.showDetail(timesheet);
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail', timesheet);
+        });
       });
 
       describe('creating a new timesheet', function () {
-
-        // TODO : verify it should transition to the create timesheet state
-
+        it('should transition to the create timesheet state', function () {
+          $httpBackend.flush();
+          $scope.createNew();
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.create');
+        });
       });
 
       describe('removing a timesheet', function () {
@@ -186,16 +190,16 @@ describe('Timesheets', function() {
 
     describe('TimesheetDetailCtrl', function() {
       var timeunit;
-
+      
       beforeEach(function() {
 
         $scope = $rootScope.$new();
         controller = $controller("TimesheetDetailCtrl", {
           $scope: $scope,
           timesheet: new $api.timesheets(timesheet),
-          timeunits: timeunits
-
-          // TODO : inject the spies.state and $stateParams into your test controller
+          timeunits: timeunits,
+          $state: spies.state,
+          $stateParams: $stateParams
         });
 
         timeunit = angular.extend(timeunits[0], {user_id: '1234567890', timesheet_id: timesheet._id});
@@ -206,33 +210,40 @@ describe('Timesheets', function() {
           expect(controller).to.be.ok;
         });
 
-        // TODO : verify it should set the timesheet on scope to the resolved timesheet
-
+        it('should set the timesheet on scope to the resolved timesheet', function () {
+          expect($scope.timesheet._id).to.equal(timesheet._id);
+          expect($scope.timesheet.name).to.equal(timesheet.name);
+        });
       });
 
       describe('edit', function () {
-
-        // TODO : verify it should transition to the edit state
-
+        it('should transition to the edit state', function () {
+          $scope.edit(timesheet);
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail.edit', $stateParams);
+        }); 
       });
 
       describe('cancel', function () {
-
-        // TODO : verify it should return back to the timesheet list
-
+        it('should return back to the timesheet list', function () {
+          $scope.cancel();
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets');
+        });
       });
 
       describe('logTime', function () {
-
-        // TODO : verify it should transition to the create timeunits state
-
+        it('should transition to the create timeunits state', function () {
+          $scope.logTime();
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail.timeunits.create', $stateParams);
+        });
       });
 
       describe('showTimeunitDetail', function () {
-
-        // TODO : verify it should set the timeunit_id on state params and transistion to the edit timeunits state
-
-      });
+        it('should set the timeunit_id on state params and transistion to the edit timeunits state', function () {
+          $scope.showTimeunitDetail({_id: 'abc'});
+          expect($stateParams.timeunit_id).to.equal('abc');
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail.timeunits.edit');
+        });
+      }); 
 
       describe('removeTimeunit', function () {
         it('should send a remove request for the specified timeunit', function () {
@@ -305,13 +316,13 @@ describe('Timesheets', function() {
 
     describe('TimesheetEditCtrl', function() {
       beforeEach(function() {
-        // TODO : set the saveText on the stubbed state to 'update'
+        spies.state.current = {data: {saveText: 'update'}};
 
         $scope = $rootScope.$new();
         controller = $controller("TimesheetEditCtrl", {
           $scope: $scope,
-          timesheet: new $api.timesheets(timesheet)
-          // TODO : set the spies.state stub to be injected into the test controller
+          timesheet: new $api.timesheets(timesheet),
+          $state: spies.state
         });
       });
 
@@ -320,8 +331,14 @@ describe('Timesheets', function() {
           expect(controller).to.be.ok;
         });
 
-        // TODO : verify it should set saveText to the current state saveText
-        // TODO : verify it should set the timesheet on scope to the resolved timesheet
+        it('should set saveText to the current state saveText', function () {
+          expect($scope.saveText).to.equal('update');
+        });
+
+        it('should set the timesheet on scope to the resolved timesheet', function () {
+          expect($scope.timesheet._id).to.equal(timesheet._id);
+          expect($scope.timesheet.name).to.equal(timesheet.name);
+        });
       });
 
       describe('Saving an edited timesheet', function () {
@@ -338,28 +355,33 @@ describe('Timesheets', function() {
             $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200, updatedTimesheet);
           });
 
-          // TODO : verify it should set the timesheet on scope to be the updated timesheet
-
+          it('should set the timesheet on scope to be the updated timesheet', function () {
+            $scope.save();
+            $httpBackend.flush();
+            expect($scope.timesheet.name).to.equal(updatedTimesheet.name);
+          });
         });
 
       });
 
       describe('cancel', function () {
-
-        // TODO : verify it should return back to the timesheet detail
-
+        it('should return back to the timesheet detail', function () {
+          $scope.cancel();
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail');
+        });
       });
     });
 
     describe('TimesheetCreateCtrl', function() {
 
       beforeEach(function() {
-        // TODO : set the saveText on the spies.state.current.data to 'create'
+        spies.state.current = {data: {saveText: 'create'}};
 
         $scope = $rootScope.$new();
         controller = $controller("TimesheetCreateCtrl", {
-          $scope: $scope
-          // TODO : inject the spies.state and $stateParams into the test controller
+          $scope: $scope,
+          $state: spies.state,
+          $stateParams: $stateParams
         });
       });
 
@@ -368,12 +390,14 @@ describe('Timesheets', function() {
           expect(controller).to.be.ok;
         });
 
-        // TODO : verify it should set saveText to the current state saveText
-
+        it('should set saveText to the current state saveText', function () {
+          expect($scope.saveText).to.equal('create');
+        });
+        
         it('should set the timesheet on scope to an empty object', function () {
           expect($scope.timesheet).to.be.empty;
         });
-      });
+      }); 
 
       describe('saving a new timesheet', function () {
 
@@ -385,17 +409,21 @@ describe('Timesheets', function() {
 
           beforeEach(function () {
             $httpBackend.when('POST', '/users/1234567890/timesheets').respond(200, timesheet);
+            });
+
+          it('should transition to the detail page of the created timesheet', function () {
+            $scope.save();
+            $httpBackend.flush();
+            expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail', {user_id: $stateParams.user_id, _id: timesheet._id});
           });
-
-          // TODO : verify it should transition to the detail page of the created timesheet
-
         });
       });
 
       describe('cancel', function () {
-
-        // TODO : verify it should return back to the timesheet list
-
+        it('should return back to the timesheet list', function () {
+          $scope.cancel();
+          expect(spies.state.go).to.have.been.calledWith('app.timesheets');
+        });
       });
 
     });
