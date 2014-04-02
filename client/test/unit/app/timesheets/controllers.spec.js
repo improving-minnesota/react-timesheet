@@ -7,17 +7,18 @@ describe('Timesheets', function() {
     $state,
     $stateParams,
     $scope,
-    $api,
     controller, 
     timesheet,
     timeunits,
     employee,
-    spies;
+    spies,
+    api;
  
   describe('Controllers', function() {
       
     beforeEach(
       module(
+        'ui.router',
         'app.resources',
         'ngResource',
         'app.timesheets.timeunits',
@@ -25,16 +26,16 @@ describe('Timesheets', function() {
         'app.timesheets.controllers'
       ));
 
-    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_, _$api_){
+    beforeEach(inject(function (_$rootScope_, _$httpBackend_, _$controller_, _$state_, _$stateParams_){
       $rootScope = _$rootScope_;
       $httpBackend = _$httpBackend_;
       $controller = _$controller_;
       $state = _$state_;
       $stateParams = _$stateParams_;
-      $api = _$api_;
     }));
 
     beforeEach(inject(function ($injector) {
+      api = $injector.get('api');
       $stateParams.user_id = "1234567890";
 
       timesheet = {
@@ -198,7 +199,7 @@ describe('Timesheets', function() {
         $scope = $rootScope.$new();
         controller = $controller("TimesheetDetailCtrl", {
           $scope: $scope,
-          timesheet: new $api.timesheets(timesheet),
+          timesheet: new api.timesheets(timesheet),
           timeunits: timeunits,
           $state: spies.state,
           $stateParams: $stateParams
@@ -323,7 +324,7 @@ describe('Timesheets', function() {
         $scope = $rootScope.$new();
         controller = $controller("TimesheetEditCtrl", {
           $scope: $scope,
-          timesheet: new $api.timesheets(timesheet),
+          timesheet: new api.timesheets(timesheet),
           $state: spies.state
         });
       });
