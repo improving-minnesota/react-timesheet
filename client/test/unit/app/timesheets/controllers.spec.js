@@ -68,7 +68,7 @@ describe('Timesheets', function() {
 
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
-      // $httpBackend.verifyNoOutstandingRequest();
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     describe('TimesheetCtrl', function() {
@@ -89,23 +89,29 @@ describe('Timesheets', function() {
         it('should be able to instantiate the controller and request a page of timesheets', function () { 
           expect(controller).to.be.ok; 
           // $scope.requestTimesheets is called upon controller creation
-          // TODO : Set an expectation for requesting timesheets during setup and flush httpBackend
+          $httpBackend.expect('GET', '/users/1234567890/timesheets?page=1&sort=%7B%22beginDate%22:1%7D');
+          $httpBackend.flush();
         });
       }); 
 
       describe('requesting timesheets', function () {
-        // TODO : verify it should set the result to the pageConfig object
+        it('should set the result to the pageConfig object', function () {
+          $httpBackend.expect('GET', '/users/1234567890/timesheets?page=2&sort=%7B%22beginDate%22:1%7D');
+          $scope.requestTimesheets(2);
+          $httpBackend.flush();
+          expect($scope.pageConfig.name).to.equal("pageConfig2");
+        }); 
       });
 
       describe('showing timesheet detail', function () {
         it('should notify the user if the timesheet is deleted', function () {
           timesheet.deleted = true;
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.showDetail(timesheet);
           expect(spies.error).to.have.been.calledWith('You cannot edit a deleted timesheet.');
         });
         it('should transition to the timesheet detail state', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.showDetail(timesheet);
           expect(spies.state.go).to.have.been.calledWith('app.timesheets.detail', timesheet);
         });
@@ -113,7 +119,7 @@ describe('Timesheets', function() {
 
       describe('creating a new timesheet', function () {
         it('should transition to the create timesheet state', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.createNew();
           expect(spies.state.go).to.have.been.calledWith('app.timesheets.create');
         });
@@ -122,7 +128,7 @@ describe('Timesheets', function() {
       describe('removing a timesheet', function () {
 
         it('should send a remove request for the specified timesheet', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $httpBackend.expect('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           $scope.remove(timesheet);
           $httpBackend.flush();
@@ -130,7 +136,7 @@ describe('Timesheets', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           });
 
@@ -149,7 +155,7 @@ describe('Timesheets', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(500);
           });
 
@@ -174,7 +180,7 @@ describe('Timesheets', function() {
         });
 
         it('should send a restore request for the specified timesheet', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $httpBackend.expect('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           $scope.restore(timesheet);
           $httpBackend.flush();
@@ -182,7 +188,7 @@ describe('Timesheets', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(200);
           });
 
@@ -201,7 +207,7 @@ describe('Timesheets', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/users/1234567890/timesheets/' + timesheet._id).respond(500);
           });
 

@@ -53,7 +53,7 @@ describe('Projects', function() {
 
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
-      //$httpBackend.verifyNoOutstandingRequest();
+      $httpBackend.verifyNoOutstandingRequest();
     });
 
     describe('ProjectCtrl', function() {
@@ -74,23 +74,29 @@ describe('Projects', function() {
         it('should be able to instantiate the controller and request a page of projects', function () { 
           expect(controller).to.be.ok; 
           // $scope.requestProjects is called upon controller creation
-          // TODO : Set an expectation for requesting projects on setup and flush httpBackend
+          $httpBackend.expect('GET', '/projects?page=1&sort=%7B%22name%22:1%7D');
+          $httpBackend.flush();
         });
       }); 
 
       describe('requesting projects', function () {
-        // TODO : verify it should set the result to the pageConfig object
+        it('should set the result to the pageConfig object', function () {
+          $httpBackend.expect('GET', '/projects?page=2&sort=%7B%22name%22:1%7D');
+          $scope.requestProjects(2);
+          $httpBackend.flush();
+          expect($scope.pageConfig.name).to.equal("pageConfig2");
+        }); 
       });
 
       describe('showing project detail', function () {
         it('should notify the user if the project is deleted', function () {
           project.deleted = true;
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.showDetail(project);
           expect(spies.error).to.have.been.calledWith('You cannot edit a deleted project.');
         });
         it('should transition to the project detail state', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.showDetail(project);
           expect(spies.state.go).to.have.been.calledWith('app.projects.detail', project);
         });
@@ -98,7 +104,7 @@ describe('Projects', function() {
 
       describe('creating a new project', function () {
         it('should transition to the create project state', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.createNew();
           expect(spies.state.go).to.have.been.calledWith('app.projects.create');
         });
@@ -107,7 +113,7 @@ describe('Projects', function() {
       describe('removing a project', function () {
 
         it('should send a remove request for the specified project', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $httpBackend.expect('PUT', '/projects/' + project._id).respond(200);
           $scope.remove(project);
           $httpBackend.flush();
@@ -115,7 +121,7 @@ describe('Projects', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/projects/' + project._id).respond(200);
           });
 
@@ -134,7 +140,7 @@ describe('Projects', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/projects/' + project._id).respond(500);
           });
 
@@ -159,7 +165,7 @@ describe('Projects', function() {
         });
 
         it('should send a restore request for the specified project', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $httpBackend.expect('PUT', '/projects/' + project._id).respond(200);
           $scope.restore(project);
           $httpBackend.flush();
@@ -167,7 +173,7 @@ describe('Projects', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/projects/' + project._id).respond(200);
           });
 
@@ -186,7 +192,7 @@ describe('Projects', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            // $httpBackend.flush();
+            $httpBackend.flush();
             $httpBackend.when('PUT', '/projects/' + project._id).respond(500);
           });
 
@@ -206,7 +212,7 @@ describe('Projects', function() {
 
       describe('cancel', function () {
         it('should return back to the project list', function () {
-          // $httpBackend.flush();
+          $httpBackend.flush();
           $scope.cancel();
           expect(spies.state.go).to.have.been.calledWith('app.projects');
         });
