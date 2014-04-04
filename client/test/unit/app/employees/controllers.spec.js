@@ -92,12 +92,12 @@ describe('Employees', function() {
       describe('showing employee detail', function () {
         it('should notify the user if the employee is deleted', function () {
           employee.deleted = true;
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $scope.showDetail(employee);
           expect(spies.error).to.have.been.calledWith('You cannot edit a deleted employee.');
         });
         it('should transition to the employee detail state', function () {
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $scope.showDetail(employee);
           expect(spies.state.go).to.have.been.calledWith('app.employees.detail');
         });
@@ -105,7 +105,7 @@ describe('Employees', function() {
 
       describe('creating a new employee', function () {
         it('should transition to the create employee state', function () {
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $scope.createNew();
           expect(spies.state.go).to.have.been.calledWith('app.employees.create');
         });
@@ -114,7 +114,7 @@ describe('Employees', function() {
       describe('removing a employee', function () {
 
         it('should send a remove request for the specified employee', function () {
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $httpBackend.expect('PUT', '/users/' + employee._id).respond(200);
           $scope.remove(employee);
           $httpBackend.flush();
@@ -122,7 +122,7 @@ describe('Employees', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            $httpBackend.flush();
+            // $httpBackend.flush();
             $httpBackend.when('PUT', '/users/' + employee._id).respond(200);
           });
 
@@ -141,7 +141,7 @@ describe('Employees', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            $httpBackend.flush();
+            // $httpBackend.flush();
             $httpBackend.when('PUT', '/users/' + employee._id).respond(500);
           });
 
@@ -166,7 +166,7 @@ describe('Employees', function() {
         });
 
         it('should send a restore request for the specified employee', function () {
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $httpBackend.expect('PUT', '/users/' + employee._id).respond(200);
           $scope.restore(employee);
           $httpBackend.flush();
@@ -174,7 +174,7 @@ describe('Employees', function() {
 
         describe('successfully', function () {
           beforeEach(function () {
-            $httpBackend.flush();
+            // $httpBackend.flush();
             $httpBackend.when('PUT', '/users/' + employee._id).respond(200);
           });
 
@@ -193,7 +193,7 @@ describe('Employees', function() {
 
         describe('in error', function () {
           beforeEach(function () {
-            $httpBackend.flush();
+            // $httpBackend.flush();
             $httpBackend.when('PUT', '/users/' + employee._id).respond(500);
           });
 
@@ -213,7 +213,7 @@ describe('Employees', function() {
 
       describe('cancel', function () {
         it('should return back to the employee list', function () {
-          $httpBackend.flush();
+          // $httpBackend.flush();
           $scope.cancel();
           expect(spies.state.go).to.have.been.calledWith('app.employees');
         });
