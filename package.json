@@ -46,8 +46,8 @@
     "grunt-html2js": "0.1.8",
     "grunt-ngmin": "0.0.3",
     "grunt-karma": "0.8.0",
-    "protractor": "0.19.0",
-    "grunt-protractor-runner": "0.2.3",
+    "protractor": "0.22.0",
+    "grunt-protractor-runner": "0.2.4",
     "grunt-shell": "^0.6.4"
   }
 }
