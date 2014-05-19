@@ -364,13 +364,25 @@ module.exports = function (grunt) {
       }
     },
 
+    env: {
+      development: {
+        NODE_ENV: 'development'
+      },
+      debug: {
+        NODE_ENV: 'debug'
+      },
+      production: {
+        NODE_ENV: 'production'
+      }
+    },
+
     shell: {
       server: {
         options: {
           stdout: true,
           stderror: true
         },
-        command: 'export NODE_ENV="development"; node api/server.js'
+        command: 'node api/server.js'
       }
     },
 
@@ -438,6 +450,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-mixtape-run-app');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-env');
 
 
   // **********************************************************************************************
@@ -458,4 +471,8 @@ module.exports = function (grunt) {
   // Forks off the application server and runs the unit and e2e tests.
   // Test results stored in client/test-reports
   grunt.registerTask('test', ['production', 'runapp:test']);
+
+  grunt.registerTask('serve:development', ['env:development', 'shell:server']);
+  grunt.registerTask('serve:debug', ['env:debug', 'shell:server']);
+  grunt.registerTask('serve:production', ['env:production', 'shell:server']);
 };
