@@ -100,11 +100,7 @@ module.exports = function (grunt) {
           base: 'client',
         },
         src: [
-          '<%= assets %>/templates/app/**/*.html',
-          '<%= assets %>/templates/common/**/*.html',
-          '<%= assets %>/templates/home/**/*.html',
-          '<%= assets %>/templates/navigation/**/*.html',
-          '<%= assets %>/templates/*.html'
+          '<%= assets %>/templates/**/*.html'
         ],
         dest: '<%= clientdist %>/assets/templates/main.templates.js'
       },
@@ -116,6 +112,14 @@ module.exports = function (grunt) {
           '<%= assets %>/js/angular-ui-bootstrap/template/**/*.html'
         ],
         dest: '<%= clientdist %>/assets/templates/lib.templates.js'
+      }
+    },
+
+    // Task to add the array-style angular injection to protect against uglifying.
+    ngmin: {
+      app: {
+        src: 'client/src/**/*.js',
+        dest: '<%= clientdist %>/temp/app.ngmin.js'
       }
     },
 
@@ -131,7 +135,7 @@ module.exports = function (grunt) {
           '<%= clientdist %>/assets/js/deps.js',
           '<%= clientdist %>/assets/templates/main.templates.js',
           '<%= clientdist %>/assets/templates/lib.templates.js',
-          'client/src/**/*.js'
+          '<%= clientdist %>/temp/app.ngmin.js'
         ],
         dest: '<%= clientdist %>/assets/js/app.js'
       },
@@ -160,30 +164,14 @@ module.exports = function (grunt) {
 
     // Takes the built app.js file and minifies it for filesize benefits.
     uglify: {
+      options: {
+        sourceMap: true,
+        sourceMapIncludeSources: true
+      },
       dist: {
         files: {
           '<%= clientdist %>/assets/js/app.min.js': ['<%= clientdist %>/assets/js/app.js']
         }
-      }
-    },
-
-    // A task that runs in the background 'watching' for changes to code.
-    watch: {
-      options: {
-        livereload: true,
-        atBegin: true
-      },
-      development: {
-        files: watchedFiles,
-        tasks: ['development'] 
-      },
-      debug: {
-        files: watchedFiles,
-        tasks: ['debug'] 
-      },
-      production: {
-        files: watchedFiles,
-        tasks: ['production'] 
       }
     },
 
@@ -225,26 +213,12 @@ module.exports = function (grunt) {
           }
         ]
       },
-      debug: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= clientdist %>/assets',
-            src: ['css/style.css', 'font/**', 'img/**', 'js/app.js'],
-            dest: '<%= clientdist %>/<%= pkg.name %>-debug/assets'
-          },
-          {
-            src: '<%= assets %>/html/index.html',
-            dest:'<%= clientdist %>/<%= pkg.name %>/index.html'
-          }
-        ]
-      },
       production: {
         files: [
           {
             expand: true,
             cwd: '<%= clientdist %>/assets',
-            src: ['css/style.min.css', 'font/**', 'img/**', 'js/app.min.js'],
+            src: ['css/style.min.css', 'font/**', 'img/**', 'js/app.min.js', 'js/app.min.js.map'],
             dest: '<%= clientdist %>/<%= pkg.name %>/assets'
           },
           {
@@ -267,18 +241,6 @@ module.exports = function (grunt) {
               'assets/templates/main.templates.js',
               'assets/templates/lib.templates.js'
             ]
-          }
-        },
-        files: {
-          '<%= assets %>/html/index.html': ['api/src/views/index.jade']
-        }
-      },
-      debug: {
-        options: {
-          pretty: true,
-          data: {
-            debug: true,
-            env: 'debug'
           }
         },
         files: {
@@ -329,34 +291,9 @@ module.exports = function (grunt) {
       }
     },
 
-    // The **runapp** task will run the `server.js` in a `nodemon` and watch the server files for changes
-    runapp: {
-      development: {
-        env: 'development'
-      },
-
-      debug: {
-        env: 'debug'
-      },
-
-      production: {
-        env: 'production'
-      },
-
-      test: {
-        options: {
-          dieWithParent: true
-        },
-        env: 'development'
-      }
-    },
-
     env: {
       development: {
         NODE_ENV: 'development'
-      },
-      debug: {
-        NODE_ENV: 'debug'
       },
       production: {
         NODE_ENV: 'production'
@@ -370,14 +307,29 @@ module.exports = function (grunt) {
           stderror: true
         },
         command: 'nodemon api/server.js'
+      },
+      debug: {
+        options: {
+          stdout: true,
+          stderror: true
+        },
+        command: 'node-debug api/server.js'
       }
     },
 
-    // Task to add the array-style angular injection to protect against uglifying.
-    ngmin: {
-      app: {
-        src: 'client/src/**/*.js',
-        dest: '<%= clientdist %>/app.js'
+    // A task that runs in the background 'watching' for changes to code.
+    watch: {
+      options: {
+        livereload: true,
+        atBegin: true
+      },
+      development: {
+        files: watchedFiles,
+        tasks: ['development'] 
+      },
+      production: {
+        files: watchedFiles,
+        tasks: ['production'] 
       }
     },
 
@@ -412,6 +364,7 @@ module.exports = function (grunt) {
   });
 
   // *********************************************************************************************
+  // Helper functions
 
   function getConcatFiles() {
     var _ = require('lodash');
@@ -445,24 +398,8 @@ module.exports = function (grunt) {
 
   // *********************************************************************************************
 
-  // Load NPM Package Tasks
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-docco-multi');
-  grunt.loadNpmTasks('grunt-html2js');
-  grunt.loadNpmTasks('grunt-ngmin');
-  grunt.loadNpmTasks('grunt-mixtape-run-app');
-  grunt.loadNpmTasks('grunt-protractor-runner');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-env');
+  // Load NPM Grunt Tasks
+  require('load-grunt-tasks')(grunt);
 
   // **********************************************************************************************
 
@@ -473,17 +410,16 @@ module.exports = function (grunt) {
   // almond.js and dist/debug/templates.js into the require.js file.
 
   grunt.registerTask('default', ['clean', 'jshint', 'less', 'concat:css', 'html2js', 'concat:jsdeps', 'copy:vendor', 'copy:development']);
-
-  // Task to compile everything in development mode
   grunt.registerTask('development', ['default']);
-  grunt.registerTask('debug', ['development', 'concat:appjs', 'jade:debug', 'copy:debug']);
-  grunt.registerTask('production', ['debug', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
+
+  // Task to minify the codez for production and prepare for deployment
+  grunt.registerTask('production', ['development', 'ngmin:app', 'concat:appjs', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
 
   // Forks off the application server and runs the unit and e2e tests.
   // Test results stored in client/test-reports
   grunt.registerTask('test', ['production', 'runapp:test']);
 
   grunt.registerTask('serve:development', ['env:development', 'shell:server']);
-  grunt.registerTask('serve:debug', ['env:debug', 'shell:server']);
   grunt.registerTask('serve:production', ['env:production', 'shell:server']);
+  grunt.registerTask('debugger', ['env:development', 'shell:debug']);
 };

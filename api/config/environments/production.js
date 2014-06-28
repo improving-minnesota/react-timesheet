@@ -7,8 +7,6 @@ module.exports = function() {
 
   this.set('port', properties.server.prod.port);
 
-  this.use(express.logger());
-
   // Serve static content
   this.use(express.static(__dirname + "/../../../client/dist/" + pkg.name));
 

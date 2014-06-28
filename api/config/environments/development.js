@@ -12,6 +12,7 @@ module.exports = function () {
   this.use('/assets/icons', express.static(__dirname + "/../../../client/dist/assets/icons"));
   this.use('/assets/images', express.static(__dirname + "/../../../client/dist/assets/images"));
   this.use('/assets/templates', express.static(__dirname + "/../../../client/dist/assets/templates"));
+  this.use('/assets/font', express.static(__dirname + "/../../../client/dist/assets/font"));
 
   this.use(function (req, res) {
     res.send(404);
