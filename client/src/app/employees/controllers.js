@@ -7,7 +7,7 @@ angular.module('app.employees.controllers', [
 
       $scope.requestEmployees = function requestEmployees (page) {
         var query = {
-          page: page,
+          page: page || $scope.pageConfig.page,
           sort: {username: 1}
         };
 

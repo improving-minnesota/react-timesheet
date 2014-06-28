@@ -5,14 +5,13 @@ angular.module('notifications.services', [])
     function () {
 
       Messenger.options = {
-        extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
-        theme: 'flat'
+        extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
       };
 
       var notifications = {
 
         message : function (message, config) {
-          message.showCloseButton = true;
+          message.hideAfter = 3;
 
           if (angular.isDefined(config) && angular.isObject(config)) {
             message = angular.extend(message, config);

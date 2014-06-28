@@ -140,8 +140,6 @@ module.exports = function (grunt) {
           '<%= components %>/select2/select2.css',
           '<%= components %>/nprogress/nprogress.css',
           '<%= components %>/messenger/build/css/messenger.css',
-          //'<%= components %>/messenger/build/css/messenger-theme-future.css',
-          '<%= components %>/messenger/build/css/messenger-spinner.css',
           '<%= clientdist %>/assets/css/style.css'
         ],
         dest: '<%= clientdist %>/assets/css/style.css'

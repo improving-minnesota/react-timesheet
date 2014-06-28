@@ -5,7 +5,7 @@ angular.module('app.projects.controllers', [])
 
       $scope.requestProjects = function requestProjects (page) {
         var query = {
-          page: page,
+          page: page || $scope.pageConfig.page,
           sort: {name: 1}
         };
 

@@ -11,16 +11,16 @@ module.exports = function () {
   console.log(' * Configuring Application Security');
 
   passport.serializeUser(function (user, done) {
-    done(null, user._id);
+    return done(null, user._id);
   });
   
   passport.deserializeUser(function (id, done) {
     db.findOne('users', {_id: id})
       .then(function (user) {
-        done(null, user);
+        return done(null, user);
       })
       .fail(function (err) {
-        done(err, null);
+        return done(err, null);
       });
   });
 

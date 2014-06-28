@@ -9,7 +9,7 @@ angular.module('app.timesheets.controllers', [
 
         var query = {
           user_id: $stateParams.user_id,
-          page: page,
+          page: page || $scope.pageConfig.page,
           sort: {beginDate: 1}
         };
 
