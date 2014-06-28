@@ -4,7 +4,7 @@
 var express = require('express'), 
   passport = require('passport'), 
   LocalStrategy = require('passport-local').Strategy,
-  db = require('../../src/services/db.js');
+  db = require('../../src/services/db');
 
 module.exports = function () {
 
@@ -17,14 +17,19 @@ module.exports = function () {
   passport.deserializeUser(function (id, done) {
     db.findOne('users', {_id: id})
       .then(function (user) {
+        console.log('found user');
         done(null, user);
-      },
-      function (err) {
+      })
+      .fail(function (err) {
+        console.log('user err' + err);
         done(err, null);
       });
   });
 
-  passport.use(new LocalStrategy (
+  passport.use(new LocalStrategy ({
+      usernameField: 'username',
+      passwordField: 'password'
+    },
     function (username, password, done) {
       console.log('attempting to login');
 
@@ -39,10 +44,14 @@ module.exports = function () {
 
           console.log("returning false : " + password + ", " + user.password);
           return done(null, false);
-        },
-        function (err) {
+        })
+        .fail(function (err) {
           return done(err);
         });
     }
   ));
+
+  // Use passport session
+  this.use(passport.initialize());
+  this.use(passport.session());
 };

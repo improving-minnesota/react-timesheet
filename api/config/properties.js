@@ -26,11 +26,5 @@ module.exports = {
     prod : {
       port: 3033
     }
-  },
-
-  proxy : {
-    '\/api\/.*' : {
-      target: 'http://localhost:8080/api/',
-    }
   }
 };

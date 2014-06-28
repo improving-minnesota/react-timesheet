@@ -72,9 +72,9 @@ function seed() {
 
 db.findOne('users', {username: 'admin'})
   .then(function (user) {
-      console.log("User -> " + JSON.stringify(user));
       console.log("Found user. DB already seeded.");
       if (user === null) seed();
-  }, function (err) {
+  })
+  .fail(function (err) {
     console.log("Error : " + err);
   }); 

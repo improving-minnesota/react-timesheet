@@ -3,10 +3,10 @@
 var projectsController = require('../controllers/projects.controller'),
   router = require('express').Router();
 
-module.exports = function(app) {
+module.exports = function (app) {
 
   router.route('/projects')
-    .get(projectsController.list)
+    .get(projectsController.index)
     .post(projectsController.create);
 
   router.route('/projects/:projectId')

@@ -11,15 +11,11 @@ var app = bootable(express());
 // Add environement phases to configure express for the target environment
 app.phase(require('bootable-environment')('api/config/environments'));
 
-// Load the Routes
-app.phase(bootable.routes('api/config/routes'));
-
 // Run the initializers
 app.phase(bootable.initializers('api/config/initializers'));
 
 // Serve the index.html from root
 app.get("/", function(req, res) {
-  console.log("attempting this : " + __dirname);
   return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
 });
 

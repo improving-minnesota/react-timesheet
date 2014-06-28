@@ -1,10 +1,10 @@
 var Q = require('q'),
-  db = require('../services/db.js'),
+  db = require('../services/db'),
   _ = require('lodash');
 
 module.exports = {
   index: function (req, res, next) {
-    var userId = param('user_id');
+    var userId = req.params.userId;
     var query = req.query;
 
     if (userId && userId !== 'all') {
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   create: function (req, res, next) {
-    var userId = req.param.userId;
+    var userId = req.params.userId;
 
     var newTimesheet = req.body;
     newTimesheet.user_id = userId;
@@ -47,8 +47,8 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var userId = req.param.userId;
-    var id = req.param.timesheetId;
+    var userId = req.params.userId;
+    var id = req.params.timesheetId;
 
     db.findOne('timesheets', {user_id: userId, _id: id})
       .then(function (timesheet) {
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = req.param.timesheetId;
+    var id = req.params.timesheetId;
 
     db.update('timesheets', {_id: id}, req.body)
       .then(function (timesheet) {
@@ -72,7 +72,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = req.param.timesheetId;
+    var id = req.params.timesheetId;
 
     db.remove('timesheets', {_id: id})
       .then(function () {

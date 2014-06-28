@@ -10,4 +10,10 @@ module.exports = function() {
   // Setup jade templates
   this.set('view engine', 'jade');
   this.engine('jade', require('jade').__express);
+
+  // Initialize the routes
+  var app = this;
+  require('../util').walk(__dirname + '/../../src/routes', null, function (path) {
+    app.use('/', require(path)(app));
+  });
 };

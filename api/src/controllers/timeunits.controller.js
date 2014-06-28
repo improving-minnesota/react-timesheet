@@ -1,10 +1,10 @@
 var Q = require('q'),
-  db = require('../services/db.js'),
+  db = require('../services/db'),
   _ = require('lodash');
 
 module.exports = {
   index: function (req, res, next) {
-    var timesheetId = req.param.timesheetId;
+    var timesheetId = req.params.timesheetId;
     var query = _.extend({timesheet_id: timesheetId}, req.query);
     
     db.find('timeunits', query)
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var id = req.param.timeunitId;
+    var id = req.params.timeunitId;
 
     db.findOne('timeunits', {_id: id})
       .then(function (timeunit) {
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = req.param.timeunitId;
+    var id = req.params.timeunitId;
 
     db.update('timeunits', {_id: id}, req.body)
       .then(function (timeunit) {
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = req.param.timeunitId;
+    var id = req.params.timeunitId;
 
     db.remove('timeunits', {_id: id})
       .then(function () {

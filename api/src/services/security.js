@@ -47,6 +47,9 @@ var security = {
     
     function authenticationFailed(err, user, info) {
       if (err) { return next(err); }
+
+      console.log('user: ' + user);
+      console.log('info: ' + JSON.stringify(info));
       if (!user) { return res.json(sanitize(user)); }
 
       req.login(user, function (err) {

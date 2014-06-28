@@ -1,5 +1,5 @@
 var Q = require('q'),
-  db = require('../services/db.js');
+  db = require('../services/db');
 
 module.exports = {
   index: function (req, res, next) {
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var id = req.param.projectId;
+    var id = req.params.projectId;
 
     db.findOne('projects', {_id: id})
       .then(function (project) {
@@ -51,7 +51,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = req.param.projectId;
+    var id = req.params.projectId;
 
     db.update('projects', {_id: id}, req.body)
       .then(function (project) {
@@ -63,7 +63,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = req.param.projectId;
+    var id = req.params.projectId;
 
     db.remove('projects', {_id: id})
       .then(function () {

@@ -8,7 +8,7 @@ var usersController = require('../controllers/users.controller'),
 module.exports = function (app) {
 
   router.route('/users')
-    .get(usersController.list)
+    .get(usersController.index)
     .post(usersController.create);
 
   router.route('/users/:userId')
@@ -17,7 +17,7 @@ module.exports = function (app) {
     .delete(usersController.destroy);
 
   router.route('/users/:userId/timesheets')
-    .get(timesheetsController.list)
+    .get(timesheetsController.index)
     .post(timesheetsController.create);
 
   router.route('/users/:userId/timesheets/:timesheetId')
@@ -26,7 +26,7 @@ module.exports = function (app) {
     .delete(timesheetsController.destroy);
 
   router.route('/users/:userId/timesheets/:timesheetId/timeunits')
-    .get(timeunitsController.list)
+    .get(timeunitsController.index)
     .post(timeunitsController.create);
 
   router.route('/users/:userId/timesheets/:timesheetId/timeunits/:timeunitId')

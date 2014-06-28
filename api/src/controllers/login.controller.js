@@ -1,4 +1,4 @@
-var security = require('../services/security.js');
+var security = require('../services/security');
 
 module.exports = {
   index: function (req, res, next) {

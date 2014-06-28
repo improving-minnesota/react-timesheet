@@ -1,4 +1,4 @@
-var db = require('../services/db.js');
+var db = require('../services/db');
 
 module.exports = {
   index: function (req, res, next) {
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var id = req.param.userId;
+    var id = req.params.userId;
 
     db.findOne('users', {_id: id})
       .then(function (user) {
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = req.param.userId;
+    var id = req.params.userId;
 
     db.update('users', {_id: id}, req.body)
       .then(function (user) {
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = req.param.userId;
+    var id = req.params.userId;
 
     db.remove('users', {_id: id})
       .then(function () {

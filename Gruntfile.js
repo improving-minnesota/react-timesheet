@@ -28,6 +28,7 @@ module.exports = function (grunt) {
     'angular-ui-utils/components/angular-ui-docs/build/ui-utils.js',
     'angular-ui-select2/src/select2.js',
     'angular-ui-bootstrap/src/position/position.js',
+    'angular-ui-bootstrap/src/dateparser/dateparser.js',
     'angular-ui-bootstrap/src/datepicker/datepicker.js',
     'angular-ui-bootstrap/src/pagination/pagination.js',
     'angular-ui-bootstrap/src/buttons/buttons.js',
