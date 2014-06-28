@@ -17,11 +17,9 @@ module.exports = function () {
   passport.deserializeUser(function (id, done) {
     db.findOne('users', {_id: id})
       .then(function (user) {
-        console.log('found user');
         done(null, user);
       })
       .fail(function (err) {
-        console.log('user err' + err);
         done(err, null);
       });
   });
@@ -31,14 +29,11 @@ module.exports = function () {
       passwordField: 'password'
     },
     function (username, password, done) {
-      console.log('attempting to login');
 
       db.findOne('users', {username: username})
         .then(function (user) {
-          console.log("authentication : " + JSON.stringify(user));
           
           if (user.password === password) { 
-            console.log("returning user");
             return done(null, user); 
           }
 
@@ -50,8 +45,4 @@ module.exports = function () {
         });
     }
   ));
-
-  // Use passport session
-  this.use(passport.initialize());
-  this.use(passport.session());
 };

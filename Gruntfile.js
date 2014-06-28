@@ -371,7 +371,7 @@ module.exports = function (grunt) {
           stdout: true,
           stderror: true
         },
-        command: 'node api/server.js'
+        command: 'nodemon api/server.js'
       }
     },
 
@@ -408,14 +408,6 @@ module.exports = function (grunt) {
         options: {
           debug: true
         }
-      }
-    },
-
-    // Task to add the array-style angular injection to protect against uglifying.
-    ngmin : {
-      app : {
-        src : 'client/src/**/*.js',
-        dest : '<%= clientdist %>/app.js'
       }
     }
 
