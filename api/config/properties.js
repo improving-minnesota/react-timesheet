@@ -19,12 +19,8 @@ module.exports = {
       port: 3000
     },
 
-    debug : {
-      port: 3003
-    },
-
     prod : {
-      port: 3033
+      port: 3001
     }
   }
 };

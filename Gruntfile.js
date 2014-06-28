@@ -4,51 +4,10 @@
 //
 module.exports = function (grunt) {
 
-  var componentList = [
-    // Shims
-    'modernizr/modernizr.js',
-
-    // jQuery and Related
-    'jquery/dist/jquery.js',
-    'select2/select2.js',
-    'messenger/build/js/messenger.js',
-
-    // bootstrap
-    'bootstrap/dist/js/bootstrap.js',
-
-    // AngularJS libraries
-    'angular/angular.js',
-    'angular-cookies/angular-cookies.js',
-    'angular-resource/angular-resource.js',
-    'angular-sanitize/angular-sanitize.js',
-    'angular-animate/angular-animate.js',
-
-    // Angular UI libraries
-    'angular-ui-router/release/angular-ui-router.js',
-    'angular-ui-utils/components/angular-ui-docs/build/ui-utils.js',
-    'angular-ui-select2/src/select2.js',
-    'angular-ui-bootstrap/src/position/position.js',
-    'angular-ui-bootstrap/src/dateparser/dateparser.js',
-    'angular-ui-bootstrap/src/datepicker/datepicker.js',
-    'angular-ui-bootstrap/src/pagination/pagination.js',
-    'angular-ui-bootstrap/src/buttons/buttons.js',
-
-    //NProgress
-    'nprogress/nprogress.js',
-
-    // utilities
-    'lodash/dist/lodash.js',
-    'moment/moment.js'
-  ],
-
-  watchedFiles = [
-    'client/src/**/*.js',
-    'client/test/**/*.js',
-    '<%= assets %>/templates/**/*.html',
-    '<%= assets %>/less/**/*.less'
-  ],
-
-  jshintrc = grunt.file.readJSON('.jshintrc');
+  var filesConfig = require('./files.config'),
+    componentList = filesConfig.components,
+    watchedFiles = filesConfig.watchedFiles,
+    jshintrc = grunt.file.readJSON('.jshintrc');
 
   grunt.initConfig ({
     pkg: grunt.file.readJSON('package.json'),
@@ -127,7 +86,7 @@ module.exports = function (grunt) {
     // shim and the templates into the application code.
     concat:{
       jsdeps: {
-        src: getConcatFiles(),
+        src: filesConfig.getComponents('<%= components %>'),
         dest: '<%= clientdist %>/assets/js/deps.js'
       },
       appjs: {
@@ -236,11 +195,12 @@ module.exports = function (grunt) {
           pretty: true,
           data: {
             env: 'development',
-            applicationScripts : getScripts('client/src', 'src'),
+            applicationScripts : filesConfig.getScripts('client/src', 'src'),
             templateScripts: [
               'assets/templates/main.templates.js',
               'assets/templates/lib.templates.js'
-            ]
+            ],
+            componentScripts: filesConfig.getComponents('assets/js')
           }
         },
         files: {
@@ -364,61 +324,18 @@ module.exports = function (grunt) {
   });
 
   // *********************************************************************************************
-  // Helper functions
-
-  function getConcatFiles() {
-    var _ = require('lodash');
-
-    return _.map(componentList, function (component) {
-      return '<%= components %>/' + component;
-    });
-  }
- 
-  function getScripts(dir, dest) {
-    var path = require('path');
-    var fs = require('fs');
-    var files = fs.readdirSync(dir);
-    var _ = require('lodash');
-    var scripts = [];
-
-    _.each(files, function (file) {
-      var name = dir + '/' + file;
-      var destName = dest + '/' + file;
-    
-      if (fs.statSync(name).isDirectory()) {
-          scripts = scripts.concat(getScripts(name, destName));
-      } else if (path.extname(file) === '.js') {
-        scripts.push(destName);
-      }
-
-    });
-
-    return scripts;
-  }
-
-  // *********************************************************************************************
-
   // Load NPM Grunt Tasks
   require('load-grunt-tasks')(grunt);
 
   // **********************************************************************************************
-
-  // The default task will remove all contents inside the dist/ folder, lint
-  // all your code, precompile all the underscore templates into
-  // dist/debug/templates.js, compile all the application code into
-  // dist/debug/require.js, and then concatenate the require/define shim
-  // almond.js and dist/debug/templates.js into the require.js file.
-
+  // The default task is the development task
   grunt.registerTask('default', ['clean', 'jshint', 'less', 'concat:css', 'html2js', 'concat:jsdeps', 'copy:vendor', 'copy:development']);
   grunt.registerTask('development', ['default']);
 
   // Task to minify the codez for production and prepare for deployment
   grunt.registerTask('production', ['development', 'ngmin:app', 'concat:appjs', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
 
-  // Forks off the application server and runs the unit and e2e tests.
-  // Test results stored in client/test-reports
-  grunt.registerTask('test', ['production', 'runapp:test']);
-
+  // Tasks to run the node server and rest api
   grunt.registerTask('serve:development', ['env:development', 'shell:server']);
   grunt.registerTask('serve:production', ['env:production', 'shell:server']);
   grunt.registerTask('debugger', ['env:development', 'shell:debug']);
