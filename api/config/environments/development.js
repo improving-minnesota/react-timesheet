@@ -5,13 +5,6 @@ module.exports = function () {
   console.log(" * Applying development configurations");
   
   this.set('port', properties.server.dev.port);
-  
-  this.use(this.router);
-  this.use(express.logger('dev'));
-  this.use(express.errorHandler({
-    dumpExceptions: true,
-    showStack: true
-  }));
 
   // Server static content
   this.use(express.static(__dirname + "/../../../client"));

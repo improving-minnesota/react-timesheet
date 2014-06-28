@@ -16,15 +16,15 @@ module.exports = {
 
   server : {
     dev : {
-      listenPort: 3000
+      port: 3000
     },
 
     debug : {
-      listenPort: 3003
+      port: 3003
     },
 
     prod : {
-      listenPort: 3033
+      port: 3033
     }
   },
 

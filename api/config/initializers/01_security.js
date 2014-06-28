@@ -4,7 +4,7 @@
 var express = require('express'), 
   passport = require('passport'), 
   LocalStrategy = require('passport-local').Strategy,
-  db = require('../../app/services/db.js');
+  db = require('../../src/services/db.js');
 
 module.exports = function () {
 

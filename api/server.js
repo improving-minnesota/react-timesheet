@@ -17,6 +17,12 @@ app.phase(bootable.routes('api/config/routes'));
 // Run the initializers
 app.phase(bootable.initializers('api/config/initializers'));
 
+// Serve the index.html from root
+app.get("/", function(req, res) {
+  console.log("attempting this : " + __dirname);
+  return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
+});
+
 // Boot the application
 app.boot(function(err) {
   if (err) { throw err; }
@@ -37,10 +43,4 @@ app.boot(function(err) {
     }
   });
   
-});
-
-// Serve the index.html from root
-app.get("/", function(req, res) {
-  console.log("attempting this : " + __dirname);
-  return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
 });
