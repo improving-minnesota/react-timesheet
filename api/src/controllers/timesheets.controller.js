@@ -32,7 +32,7 @@ module.exports = {
   },
 
   create: function (req, res, next) {
-    var userId = param("user_id");
+    var userId = req.param.userId;
 
     var newTimesheet = req.body;
     newTimesheet.user_id = userId;
@@ -47,8 +47,8 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var userId = param('user_id');
-    var id = param('id');
+    var userId = req.param.userId;
+    var id = req.param.timesheetId;
 
     db.findOne('timesheets', {user_id: userId, _id: id})
       .then(function (timesheet) {
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = this.param('id');
+    var id = req.param.timesheetId;
 
     db.update('timesheets', {_id: id}, req.body)
       .then(function (timesheet) {
@@ -72,7 +72,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = this.param('id');
+    var id = req.param.timesheetId;
 
     db.remove('timesheets', {_id: id})
       .then(function () {

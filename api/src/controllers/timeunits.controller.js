@@ -4,8 +4,7 @@ var Q = require('q'),
 
 module.exports = {
   index: function (req, res, next) {
-    var userId = param('user_id');
-    var timesheetId = param('timesheet_id');
+    var timesheetId = req.param.timesheetId;
     var query = _.extend({timesheet_id: timesheetId}, req.query);
     
     db.find('timeunits', query)
@@ -26,7 +25,7 @@ module.exports = {
   },
 
   show: function (req, res, next) {
-    var id = this.param('id');
+    var id = req.param.timeunitId;
 
     db.findOne('timeunits', {_id: id})
       .then(function (timeunit) {
@@ -38,7 +37,7 @@ module.exports = {
   },
 
   update: function (req, res, next) {
-    var id = this.param('id');
+    var id = req.param.timeunitId;
 
     db.update('timeunits', {_id: id}, req.body)
       .then(function (timeunit) {
@@ -50,7 +49,7 @@ module.exports = {
   },
 
   destroy: function (req, res, next) {
-    var id = this.param('id');
+    var id = req.param.timeunitId;
 
     db.remove('timeunits', {_id: id})
       .then(function () {
