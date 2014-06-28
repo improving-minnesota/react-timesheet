@@ -45,13 +45,15 @@ module.exports = function (grunt) {
     'client/test/**/*.js',
     '<%= assets %>/templates/**/*.html',
     '<%= assets %>/less/**/*.less'
-  ];
+  ],
+
+  jshintrc = grunt.file.readJSON('.jshintrc');
 
   grunt.initConfig ({
     pkg: grunt.file.readJSON('package.json'),
 
     assets: 'client/assets',
-    components: '<%= assets %>/js/components',
+    components: '<%= assets %>/js',
     clientdist: 'client/dist',
 
     // The clean task ensures all files are removed from the dist/ directory so
@@ -62,22 +64,7 @@ module.exports = function (grunt) {
     // override inside main.js needs to test for them so as to not accidentally
     // route.
     jshint:{
-      options: {
-        "-W099": false,
-        smarttabs: true,
-        scripturl: true,
-        laxcomma: true,
-        nomen: false,
-        globals: {
-          angular: true,
-          chai: true,
-          describe: true,
-          beforeEach: true,
-          afterEach: true,
-          it: true,
-          xit: true
-        }
-      },
+      options: jshintrc,
       code: {
         src: ['client/src/**/*.js']
       },
@@ -122,10 +109,10 @@ module.exports = function (grunt) {
       },
       lib: {
         options: {
-          base: '<%= assets %>/js/components/angular-ui-bootstrap',
+          base: '<%= assets %>/js/angular-ui-bootstrap',
         },
         src: [
-          '<%= assets %>/js/components/angular-ui-bootstrap/template/**/*.html'
+          '<%= assets %>/js/angular-ui-bootstrap/template/**/*.html'
         ],
         dest: '<%= clientdist %>/assets/templates/lib.templates.js'
       }
@@ -284,7 +271,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
+          '<%= assets %>/html/index.html': ['api/app/views/index.jade']
         }
       },
       debug: {
@@ -296,7 +283,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
+          '<%= assets %>/html/index.html': ['api/app/views/index.jade']
         }
       },
       production: {
@@ -307,7 +294,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= assets %>/html/index.html': ['api/app/views/application/index.jade']
+          '<%= assets %>/html/index.html': ['api/app/views/index.jade']
         }
       }
     },

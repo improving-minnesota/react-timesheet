@@ -1,24 +1,46 @@
-var fs = require('fs'),
-  Q = require('q'),
-  locomotive = require('locomotive');
+var Q = require('q'),
+  bootable = require('bootable'),
+  express = require('express'),
+  http = require('http');
 
-locomotive.boot('./api/', process.env.NODE_ENV, function (err, app) {
-  if (err){
-    throw err;
-  }
+console.log("Booting Development Server");
 
-  app.get("/", function(req, res) {
-    console.log("attempting this : " + __dirname);
-    return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
-  });
+// Wrap express with bootable
+var app = bootable(express());
 
+// Add environement phases to configure express for the target environment
+app.phase(require('bootable-environment')('api/config/environments'));
 
-  app.listen(app.settings.port, function () {
-    console.log("Ready for requests on port %d in %s mode.", app.settings.port, app.settings.env);
-    console.log('Returning ready to the parent process if any.');
+// Load the Routes
+app.phase(bootable.routes('api/config/routes'));
 
+// Run the initializers
+app.phase(bootable.initializers('api/config/initializers'));
+
+// Boot the application
+app.boot(function(err) {
+  if (err) { throw err; }
+
+  // Start the HTTP server
+  Q.fcall(function() {
+    var deferred = Q.defer();
+    http.createServer(app).listen(app.get('port'), function(){
+      console.log('Express server listening on port ' + app.get('port'));
+      deferred.resolve();
+    });
+    return deferred.promise;
+  })
+  // Then send the ready to any parent processes
+  .then(function() {
     if (process.send) {
       process.send({ status: 'ready' });
     }
   });
+  
+});
+
+// Serve the index.html from root
+app.get("/", function(req, res) {
+  console.log("attempting this : " + __dirname);
+  return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
 });

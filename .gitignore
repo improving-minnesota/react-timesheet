@@ -9,7 +9,7 @@ client/test-reports/*
 
 client/docs/*
 
-client/assets/js/components/*
+client/assets/js/*
 
 client/cache.manifest
 

@@ -4,7 +4,6 @@
 
 ### Tracklist (incorporated frameworks) ###
 
-* [Locomotive](http://locomotivejs.org/)
 * [Express](http://expressjs.com/)
 * [Angular](http://angularjs.org/)
 * [karma](http://karma-runner.github.io/0.8/index.html)
@@ -14,40 +13,18 @@
 * [Less](http://lesscss.org/)
 * [Jade](http://jade-lang.com/)
 
-### Inspiration ###
-
-* [Backbone Boilerplate](https://github.com/backbone-boilerplate/backbone-boilerplate)
-* [angular-app](https://github.com/angular-app/angular-app)
-* [Angular Fun](https://github.com/CaryLandholt/AngularFun)
-* [Grails](http://grails.org/)
-
 ### Dependencies ###
 
 * [Node](http://nodejs.org/)
-* [Mongo](http://www.mongodb.org/)
 * [Grunt](https://github.com/cowboy/grunt) `npm install -g grunt-cli` 
 * [Bower](http://twitter.github.com/bower/) `npm install -g bower`
 * [Nodemon](https://github.com/remy/nodemon/) `npm install -g nodemon`
-* [Docco](http://jashkenas.github.io/docco/) `npm install -g docco`
 * [Karma](https://github.com/karma-runner/karma/) `npm install -g karma`
-
-### Releasing ###
-1. Start by creating a release branch using the standard GitFlow conventions.
-2. Modify the `version` attribute in `package.json` and `bower.json` to the official release version (without "SNAPSHOT").
-3. Commit the changes to the release branch.
-4. Run `grunt release` to build, test, and publish the release artifact to Nexus.
-5. Once the artifact has been published, finish the release branch (including standard GitFlow practices like tagging).
-6. Switch to the development branch and increment the version to the next release snapshot (e.g. 1.2.3-SNAPSHOT).
-7. Commit the new development version to develop.
-8. Push the master branch and development branches to origin.
 
 ### Quick Start ###
 
 #### Install the Node dependencies locally. ####
 `npm install`
-
-#### Run init task to initialize a freshly checked out project ####
-`grunt init`
 
 ## Grunt Tasks ##
 ### These are all the Grunt.js tasks in their entirety: ###
@@ -89,16 +66,6 @@
 
 ### And a couple of shortcut tasks to run various combinations: ###
 
-* `grunt init` 
-
-  * Runs bower install
-  * Runs the production task
-
-* `grunt angular` 
-
-  * Runs NPM install for the angular project
-  * Runs the Angular package Grunt task
-
 * `grunt development` 
 
   * Cleans the project
@@ -135,7 +102,3 @@
 * `grunt deploy`
   * Runs `grunt test`
   * Runs `maven:deploy` to deploy the project zip artifact to the Nexus snapshot repository.
-
-* `grunt release`
-  * Runs `grunt test`
-  * Runs `maven:release` to deploy the project zip artifact to the Nexus release repository.

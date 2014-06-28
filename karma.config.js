@@ -15,7 +15,7 @@ module.exports = function(config) {
       {pattern: 'dist/assets/js/deps.js', watched: false},
       'src/**/*.js',
 
-      'assets/js/components/angular-mocks/angular-mocks.js',
+      'assets/js/angular-mocks/angular-mocks.js',
 
       'test/unit/**/*.spec.js',
 

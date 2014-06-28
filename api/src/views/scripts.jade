@@ -1,0 +1,46 @@
+case env
+  when 'production'
+    script(src="assets/js/app.min.js")
+  when 'debug'
+    script(src="assets/js/app.js")
+  default
+
+    // Shims
+    script(src='assets/js/modernizr/modernizr.js')
+
+    // jQuery and Related
+    script(src='assets/js/jquery/jquery.js')
+    script(src='assets/js/select2/select2.js')
+    script(src='assets/js/messenger/build/js/messenger.js')
+
+    // bootstrap
+    script(src='assets/js/bootstrap/dist/js/bootstrap.js')
+
+    // AngularJS libraries
+    script(src='assets/js/angular/angular.js')
+    script(src='assets/js/angular-cookies/angular-cookies.js')
+    script(src='assets/js/angular-resource/angular-resource.js')
+    script(src='assets/js/angular-sanitize/angular-sanitize.js')
+    script(src='assets/js/angular-animate/angular-animate.js')
+
+    // Angular UI libraries
+    script(src='assets/js/angular-ui-router/release/angular-ui-router.js')
+    script(src='assets/js/angular-ui-select2/src/select2.js')
+    script(src='assets/js/angular-ui-bootstrap/src/position/position.js')
+    script(src='assets/js/angular-ui-bootstrap/src/datepicker/datepicker.js')
+    script(src='assets/js/angular-ui-bootstrap/src/pagination/pagination.js')
+    script(src='assets/js/angular-ui-bootstrap/src/buttons/buttons.js')
+
+    //NProgress
+    script(src='assets/js/nprogress/nprogress.js')
+
+    // utilities
+    script(src='assets/js/lodash/dist/lodash.js')
+    script(src='assets/js/moment/moment.js')
+
+    each script in applicationScripts
+      script(src=script)
+
+    each script in templateScripts
+      script(src=script)
+

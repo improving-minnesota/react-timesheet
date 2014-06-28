@@ -16,18 +16,21 @@ module.exports = {
 
   server : {
     dev : {
-      listenPort: 3000,
-      securePort: 8400
+      listenPort: 3000
     },
 
     debug : {
-      listenPort: 3003,
-      securePort: 8403
+      listenPort: 3003
     },
 
     prod : {
-      listenPort: 3033,
-      securePort: 8433
+      listenPort: 3033
+    }
+  },
+
+  proxy : {
+    '\/api\/.*' : {
+      target: 'http://localhost:8080/api/',
     }
   }
 };
