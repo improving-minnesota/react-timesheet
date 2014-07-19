@@ -1,6 +1,8 @@
 // This is a module that can be read by both the Gruntfile and
-// scripts.jade template for file location. 
+// scripts.jade template for file locations. 
 
+// The external library dependencies in the order they 
+// need to be loaded into the browser. 
 exports.components = [
   // Shims
   'modernizr/modernizr.js',
@@ -37,6 +39,8 @@ exports.components = [
   'moment/moment.js'
 ];
 
+// Files on the client that will kick off the watch 
+// task when changed. 
 exports.watchedFiles = [
   'client/src/**/*.js',
   'client/test/**/*.js',
@@ -44,6 +48,8 @@ exports.watchedFiles = [
   '<%= assets %>/less/**/*.less'
 ];
 
+// Helper function to create the list of external libraries
+// with the needed base directory for build or imports. 
 exports.getComponents = function getComponents(dir) {
   var _ = require('lodash');
 
@@ -52,6 +58,8 @@ exports.getComponents = function getComponents(dir) {
   });
 };
  
+// Helper function to get the urls for the application 
+// scripts for the build or page imports. 
 exports.getScripts = function getScripts(dir, dest) {
   var path = require('path');
   var fs = require('fs');
