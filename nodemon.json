@@ -1,0 +1,10 @@
+{
+  "ignore": [
+    "client/**",
+    "node_modules/**",
+    "Gruntfile.js",
+    "karma.config.js",
+    "protractor.config.js",
+    "api/data/**"
+  ]
+}

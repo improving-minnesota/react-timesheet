@@ -1,0 +1,65 @@
+
+<html ng-app="main" class="no-js">
+  <head>
+    <base href="/"/>
+    <title ng-bind-template="Timesheetz">Timesheetz</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1"/>
+    <meta name="description" content="Timesheet Demo Application"/>
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body ng-controller="MainCtrl">
+    <div ng-cloak="ng-cloak" class="tsz-page-container">
+      <div ui-view="navbar"></div>
+      <div ui-view="content"></div>
+      <div ui-view="login"></div>
+    </div>
+    <script src="assets/js/modernizr/modernizr.js"></script>
+    <script src="assets/js/jquery/dist/jquery.js"></script>
+    <script src="assets/js/select2/select2.js"></script>
+    <script src="assets/js/messenger/build/js/messenger.js"></script>
+    <script src="assets/js/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="assets/js/angular/angular.js"></script>
+    <script src="assets/js/angular-cookies/angular-cookies.js"></script>
+    <script src="assets/js/angular-resource/angular-resource.js"></script>
+    <script src="assets/js/angular-sanitize/angular-sanitize.js"></script>
+    <script src="assets/js/angular-animate/angular-animate.js"></script>
+    <script src="assets/js/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="assets/js/angular-ui-select2/src/select2.js"></script>
+    <script src="assets/js/angular-ui-bootstrap/src/position/position.js"></script>
+    <script src="assets/js/angular-ui-bootstrap/src/dateparser/dateparser.js"></script>
+    <script src="assets/js/angular-ui-bootstrap/src/datepicker/datepicker.js"></script>
+    <script src="assets/js/angular-ui-bootstrap/src/pagination/pagination.js"></script>
+    <script src="assets/js/angular-ui-bootstrap/src/buttons/buttons.js"></script>
+    <script src="assets/js/nprogress/nprogress.js"></script>
+    <script src="assets/js/lodash/dist/lodash.js"></script>
+    <script src="assets/js/moment/moment.js"></script>
+    <script src="src/app/app.js"></script>
+    <script src="src/app/controllers.js"></script>
+    <script src="src/app/employees/controllers.js"></script>
+    <script src="src/app/employees/employees.js"></script>
+    <script src="src/app/projects/controllers.js"></script>
+    <script src="src/app/projects/projects.js"></script>
+    <script src="src/app/resources.js"></script>
+    <script src="src/app/timesheets/controllers.js"></script>
+    <script src="src/app/timesheets/timesheets.js"></script>
+    <script src="src/app/timesheets/timeunits/controllers.js"></script>
+    <script src="src/app/timesheets/timeunits/timeunits.js"></script>
+    <script src="src/directives/form.js"></script>
+    <script src="src/directives/timesheet.js"></script>
+    <script src="src/filters/boolean.js"></script>
+    <script src="src/filters/date.js"></script>
+    <script src="src/interceptors/progress.js"></script>
+    <script src="src/interceptors/security.js"></script>
+    <script src="src/main.js"></script>
+    <script src="src/security/controllers.js"></script>
+    <script src="src/security/security.js"></script>
+    <script src="src/security/services/authentication.js"></script>
+    <script src="src/security/services/authorization.js"></script>
+    <script src="src/security/services/security.js"></script>
+    <script src="src/services/date.utils.js"></script>
+    <script src="src/services/notifications.js"></script>
+    <script src="assets/templates/main.templates.js"></script>
+    <script src="assets/templates/lib.templates.js"></script>
+  </body>
+</html>

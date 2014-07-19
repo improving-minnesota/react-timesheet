@@ -1,0 +1,14 @@
+case env
+  when 'production'
+    script(src="assets/js/app.min.js")
+
+  default
+    each component in componentScripts
+      script(src=component)
+
+    each appScript in applicationScripts
+      script(src=appScript)
+
+    each tmpl in templateScripts
+      script(src=tmpl)
+
