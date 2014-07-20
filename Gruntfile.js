@@ -48,37 +48,15 @@ module.exports = function (grunt) {
       }
     },
 
-    // Combines the application templates into a single javascript file that populates
-    // the angular template cache.
-    //
-    // Also builds the angular ui-bootstrap application specific template overrides
-    html2js: {
-      // Application Templates
-      main: {
-        options: {
-          base: 'client',
-        },
-        src: [
-          '<%= assets %>/templates/**/*.html'
-        ],
-        dest: '<%= clientdist %>/assets/templates/main.templates.js'
+    browserify: {
+      options: {
+        transform:[ 
+          require('grunt-react').browserify
+        ]
       },
-      lib: {
-        options: {
-          base: '<%= assets %>/js/angular-ui-bootstrap',
-        },
-        src: [
-          '<%= assets %>/js/angular-ui-bootstrap/template/**/*.html'
-        ],
-        dest: '<%= clientdist %>/assets/templates/lib.templates.js'
-      }
-    },
-
-    // Task to add the array-style angular injection to protect against uglifying.
-    ngmin: {
       app: {
-        src: 'client/src/**/*.js',
-        dest: '<%= clientdist %>/temp/app.ngmin.js'
+        src: 'client/src/main.js',
+        dest: '<%= clientdist %>/temp/app.js'
       }
     },
 
@@ -92,9 +70,7 @@ module.exports = function (grunt) {
       appjs: {
         src: [
           '<%= clientdist %>/assets/js/deps.js',
-          '<%= clientdist %>/assets/templates/main.templates.js',
-          '<%= clientdist %>/assets/templates/lib.templates.js',
-          '<%= clientdist %>/temp/app.ngmin.js'
+          '<%= clientdist %>/temp/app.js'
         ],
         dest: '<%= clientdist %>/assets/js/app.js'
       },
