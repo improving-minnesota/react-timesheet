@@ -1,52 +1,75 @@
-angular.module('app.projects', [
-  'app.projects.controllers',
-  'ui.router',
-  'authorization.services'
-])
-.config(function ($stateProvider, authorizationProvider) {
+/** @jsx React.DOM */
 
-  $stateProvider
-    .state('app.projects', {
-      url: '/projects',
-      controller: 'ProjectCtrl',
-      templateUrl: 'assets/templates/app/projects/index.html',
-      data: {
-        section: 'Projects'
-      }
-    })  
+var React = require('react/addons');
+var Router = require('react-nested-router');
 
-    .state('app.projects.detail', {
-      url: '/detail/:_id',
-      controller: 'ProjectDetailCtrl',
-      templateUrl: 'assets/templates/app/projects/form.html',
-      data: {
-        section: 'Project Details',
-        saveText: 'Update'
-      },
-      resolve : {
-        project: [
-          'data', 
-          '$stateParams',
-          function (data, $stateParams) {
-            return data.get('projects', $stateParams);
-          }]
-      }
-    })
+var ProjectTable = require('./project.table');
 
-    .state('app.projects.create', {
-      url: '/create',
-      controller: 'ProjectCreateCtrl',
-      templateUrl: 'assets/templates/app/projects/form.html',
-      data: {
-        section: 'Create Project',
-        saveText: 'Create'
-      }
-    });
-})
+var Projects = React.createClass({
 
-.run(function (api) {
-   api.add({
-    resource: 'projects',
-    url: '/projects'
-  });
-});
+  getInitialState: function () {
+    return {
+      projects: this.requestProjects()
+    };
+  },
+
+  requestProjects: function () {
+    // var query = {
+    //   page: page || $scope.pageConfig.page,
+    //   sort: {username: 1}
+    // };
+
+    // data.page('projects', query)
+    //   .then(function (pageConfig) {
+    //     $scope.pageConfig = pageConfig;
+    //   });
+
+    return [
+      {"_id": "111", "name": "Project1", "description": "This is your first project"},
+      {"_id": "222", "name": "Project2", "description": "This is your second project"},
+      {"_id": "333", "name": "Project3", "description": "This is the third project"}
+    ];
+  },
+
+  createNew: function () {
+    Router.transitionTo('app.projects.create');
+  },
+  
+  render: function () {
+    return (
+      <div className="tsz-project-list">
+        <div>
+          <div className="row tsz-form-row">
+            <div className="col-sm-2 pull-right">
+              <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
+                <i className="icon-plus"/> New Project
+              </button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <ProjectTable projects={this.state.projects} />
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div pagination
+              total-items="pageConfig.totalItems" 
+              ng-model="pageConfig.page" 
+              items-per-page="pageConfig.limit" 
+              boundary-links="true" 
+              rotate="true" 
+              ng-change="requestProjects(page)">
+            </div>
+          </div>
+
+        </div>
+        
+        {this.props.activeRoute}
+      </div>
+    );
+  }
+}); 
+
+module.exports = Projects;
+

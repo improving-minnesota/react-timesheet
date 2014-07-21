@@ -39,12 +39,12 @@ angular.module('authentication.services', [
         // If the current path is login and a redirect is defined, 
         // go to the login state which preserving the current redirect param
         if (path === '/login' && redirectParam) {
-          $state.go('login', {redirect: redirectParam});
+          Router.transitionTo('login', {redirect: redirectParam});
 
         // Otherwise, encode the current path URL as a redirect parameter to we can
         // redirect to it on successful authentication
         } else {
-          $state.go('login', {redirect: encodeURIComponent(path)});
+          Router.transitionTo('login', {redirect: encodeURIComponent(path)});
         }
       },
 

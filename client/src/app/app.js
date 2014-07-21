@@ -1,37 +1,39 @@
-angular.module('app', [
-  'ui.router',
-  'app.resources',
-  'app.controllers',
-  'app.employees',
-  'app.projects',
-  'app.timesheets',
-  'app.timesheets.timeunits',
-  'app.security',
-  'authorization.services'
-])
+/** @jsx React.DOM */
 
-  .config(function ($stateProvider, authorizationProvider) {
+var React = require('react');
+var Router = require('react-nested-router');
 
-    $stateProvider
-      .state('app', {
-        abstract: true,
-        url: '/app',
-        data: {
-          title: 'The Timesheet App'
-        },
-        views : {
-          'navbar' : {
-            controller: 'NavCtrl',
-            templateUrl: 'assets/templates/app/navbar.html'
-          },
-          'content' : {
-            controller: 'AppCtrl',
-            templateUrl: 'assets/templates/app/index.html'
-          }
-        }, 
-        resolve: {
-          authenticatedUser: authorizationProvider.requireAuthenticatedUser
-        }
-      });
-  });
-  
+var NavBar = require('../navbar');
+var SectionHeader = require('../section');
+
+var App = React.createClass({
+  mixins: [Router.ActiveState],
+
+  render : function () {
+
+    return (
+      <div>
+        <NavBar />
+        <div className="container">
+          <SectionHeader />
+          <div className="row">
+            <div className="col-xs-12">
+              {this.props.activeRoute}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+module.exports = App;
+
+
+  // $scope.$watch(function () {
+  //     return securityContext.authenticated;
+  //   },
+  //   function (authenticated) {
+  //     $scope.authenticated = authenticated;
+  //     $scope.loggedInUser = securityContext.user;
+  //   });

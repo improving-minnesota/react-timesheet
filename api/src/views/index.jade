@@ -1,7 +1,7 @@
-html(class="no-js", ng-app="main")
+html(class="no-js")
   head
     base(href="/")
-    title(ng-bind-template="Timesheetz") Timesheetz
+    title Timesheetz
 
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1")
@@ -12,10 +12,13 @@ html(class="no-js", ng-app="main")
     - else
       link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
 
-  body(ng-controller="MainCtrl")
-    .tsz-page-container(ng-cloak)
-      div(ui-view="navbar")
-      div(ui-view="content")
-      div(ui-view="login")
+  body
+    .tsz-page-container
+      div(id="app")
 
-    include scripts
+    case env
+      when 'production'
+        script(src="assets/js/app.min.js")
+
+      default
+        script(src="assets/js/app.js")

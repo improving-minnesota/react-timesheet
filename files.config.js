@@ -1,44 +1,6 @@
 // This is a module that can be read by both the Gruntfile and
 // scripts.jade template for file locations. 
 
-// The external library dependencies in the order they 
-// need to be loaded into the browser. 
-exports.components = [
-  // Shims
-  'modernizr/modernizr.js',
-
-  // jQuery and Related
-  'jquery/dist/jquery.js',
-  'select2/select2.js',
-  'messenger/build/js/messenger.js',
-
-  // bootstrap
-  'bootstrap/dist/js/bootstrap.js',
-
-  // AngularJS libraries
-  'angular/angular.js',
-  'angular-cookies/angular-cookies.js',
-  'angular-resource/angular-resource.js',
-  'angular-sanitize/angular-sanitize.js',
-  'angular-animate/angular-animate.js',
-
-  // Angular UI libraries
-  'angular-ui-router/release/angular-ui-router.js',
-  'angular-ui-select2/src/select2.js',
-  'angular-ui-bootstrap/src/position/position.js',
-  'angular-ui-bootstrap/src/dateparser/dateparser.js',
-  'angular-ui-bootstrap/src/datepicker/datepicker.js',
-  'angular-ui-bootstrap/src/pagination/pagination.js',
-  'angular-ui-bootstrap/src/buttons/buttons.js',
-
-  //NProgress
-  'nprogress/nprogress.js',
-
-  // utilities
-  'lodash/dist/lodash.js',
-  'moment/moment.js'
-];
-
 // Files on the client that will kick off the watch 
 // task when changed. 
 exports.watchedFiles = [

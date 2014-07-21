@@ -11,7 +11,7 @@ angular.module('app.timesheets.timeunits', [
         abstract: true,
         url: '/timeunits',
         controller: 'TimeunitCtrl',
-        template: '<div ui-view></div>',
+        template: '<this.props.activeRoute/>',
         resolve: {
           projects: [
             'data', 

@@ -5,7 +5,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
       $scope.projects = projects; 
 
       $scope.cancel = function cancel () {
-        $state.go('app.timesheets.detail', $stateParams, {reload: true});
+        Router.transitionTo('app.timesheets.detail', $stateParams, {reload: true});
       };
     }
   )
@@ -40,7 +40,7 @@ angular.module('app.timesheets.timeunits.controllers', [])
 
         data.create('timeunits', $scope.timeunit)
           .then(function (created) {
-            $state.go('app.timesheets.detail', $stateParams, {reload: true});
+            Router.transitionTo('app.timesheets.detail', $stateParams, {reload: true});
             notifications.success("Logged Time for " + dateFilter(created.dateWorked));
           })
           .catch(function (x) {

@@ -24,11 +24,11 @@ angular.module('app.timesheets.controllers', [
           notifications.error('You cannot edit a deleted timesheet.');
           return;
         }
-        $state.go('app.timesheets.detail', timesheet);
+        Router.transitionTo('app.timesheets.detail', timesheet);
       };
 
       $scope.createNew = function createNew () {
-        $state.go('app.timesheets.create', $stateParams);
+        Router.transitionTo('app.timesheets.create', $stateParams);
       };
 
       $scope.remove = function remove (timesheet) {
@@ -65,15 +65,15 @@ angular.module('app.timesheets.controllers', [
       $scope.timeunits = timeunits;
 
       $scope.edit = function edit (timesheet) {
-        $state.go('app.timesheets.detail.edit', $stateParams);
+        Router.transitionTo('app.timesheets.detail.edit', $stateParams);
       };
 
       $scope.cancel = function cancel () {
-        $state.go('app.timesheets', $stateParams, {reload: true});
+        Router.transitionTo('app.timesheets', $stateParams, {reload: true});
       };
 
       $scope.logTime = function logTime () {
-        $state.go('app.timesheets.detail.timeunits.create', $stateParams);
+        Router.transitionTo('app.timesheets.detail.timeunits.create', $stateParams);
       };
 
       $scope.showTimeunitDetail = function showTimeunitDetail (timeunit) {
@@ -83,7 +83,7 @@ angular.module('app.timesheets.controllers', [
         }
 
         $stateParams.timeunit_id = timeunit._id;
-        $state.go('app.timesheets.detail.timeunits.edit', $stateParams);
+        Router.transitionTo('app.timesheets.detail.timeunits.edit', $stateParams);
       };
 
       $scope.removeTimeunit = function removeTimeunit (timeunit) {
@@ -157,7 +157,7 @@ angular.module('app.timesheets.controllers', [
       };
 
       $scope.cancel = function cancel () {
-        $state.go('app.timesheets.detail', $stateParams, {reload: true});
+        Router.transitionTo('app.timesheets.detail', $stateParams, {reload: true});
       };
     }
   )
@@ -172,7 +172,7 @@ angular.module('app.timesheets.controllers', [
 
         data.create('timesheets', timesheet)
           .then(function (created) {
-            $state.go('app.timesheets.detail', {user_id: $stateParams.user_id, _id: created._id});
+            Router.transitionTo('app.timesheets.detail', {user_id: $stateParams.user_id, _id: created._id});
             notifications.success("Timesheet: " + $scope.timesheet.name + ", was successfully created.");
           })
           .catch(function (x) {
@@ -181,7 +181,7 @@ angular.module('app.timesheets.controllers', [
       };
 
       $scope.cancel = function cancel () {
-        $state.go('app.timesheets', $stateParams, {reload: true});
+        Router.transitionTo('app.timesheets', $stateParams, {reload: true});
       };
     }
   );

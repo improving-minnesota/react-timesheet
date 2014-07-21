@@ -102,3 +102,17 @@ angular.module('app.resources', ['ngResource'])
       
       return api;
     });
+
+.run(function (api) {
+  api.add({
+    resource: 'employees',
+    url: '/users'
+  });
+});
+
+.run(function (api) {
+   api.add({
+    resource: 'projects',
+    url: '/projects'
+  });
+});

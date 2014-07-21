@@ -1,53 +1,88 @@
-angular.module('app.employees', [
-  'app.employees.controllers',
-  'ui.router',
-  'authorization.services'
-])
+/** @jsx React.DOM */
 
-.config(function ($stateProvider, authorizationProvider) {
+var React = require('react/addons');
 
-  $stateProvider
-    .state('app.employees', {
-      url: '/employees',
-      controller: 'EmployeeCtrl',
-      templateUrl: 'assets/templates/app/employees/index.html',
-      data: {
-        section: 'Employees'
-      }
-    })
+var EmployeeTable = require('./employee.table');
 
-    .state('app.employees.detail', {
-      url: '/detail/:_id',
-      controller: 'EmployeeDetailCtrl',
-      templateUrl: 'assets/templates/app/employees/form.html',
-      data: {
-        section: 'Update Employee',
-        saveText: 'Update'
+var Employees = React.createClass({
+
+  getInitialState: function () {
+    return {
+      employees: this.requestEmployees()
+    };
+  },
+
+  requestEmployees: function requestEmployees () {
+    // var query = {
+    //   page: page || $scope.pageConfig.page,
+    //   sort: {username: 1}
+    // };
+
+    // data.page('employees', query)
+    //   .then(function (pageConfig) {
+    //     $scope.pageConfig = pageConfig;
+    //   });
+
+    return [
+      {
+        "_id": "111",
+        "username": "admin", 
+        "email": "admin@mixtape.com", 
+        "password": "password", 
+        "admin": true, 
+        "firstName": "Admin", 
+        "lastName": "User"
       },
-      resolve : {
-        employee : [
-          'data', 
-          '$stateParams',
-          function (data, $stateParams) {
-            return data.get('employees', $stateParams);
-          }]
+      {
+        "_id": "222",
+        "username": "user", 
+        "email": "user@mixtape.com", 
+        "password": "password", 
+        "admin": false, 
+        "firstName": "Normal", 
+        "lastName": "User"
       }
-    })
+    ];
+  },
 
-    .state('app.employees.create', {
-      url: '/create',
-      controller: 'EmployeeCreateCtrl',
-      templateUrl: 'assets/templates/app/employees/form.html',
-      data: {
-        section: 'Create Employee',
-        saveText: 'Create'
-      }
-    });
-})
+  createNew: function createNew () {
+    Router.transitionTo('app.employees.create');
+  },
+  
+  render: function () {
+    return (
+      <div className="tsz-employee-list">
+        <div>
+          <div className="row tsz-form-row">
+            <div className="col-sm-2 pull-right">
+              <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
+                <i className="icon-plus"/> New Employee
+              </button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <EmployeeTable employees={this.state.employees} />
+            </div>
+          </div>
 
-.run(function (api) {
-  api.add({
-    resource: 'employees',
-    url: '/users'
-  });
-});
+          <div className="text-center">
+            <div pagination
+              total-items="pageConfig.totalItems" 
+              ng-model="pageConfig.page" 
+              items-per-page="pageConfig.limit" 
+              boundary-links="true" 
+              rotate="true" 
+              ng-change="requestEmployees(page)">
+            </div>
+          </div>
+
+        </div>
+
+        {this.props.activeRoute}
+      </div>
+    );
+  }
+}); 
+
+module.exports = Employees;

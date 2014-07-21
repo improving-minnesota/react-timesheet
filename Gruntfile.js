@@ -5,7 +5,6 @@
 module.exports = function (grunt) {
 
   var filesConfig = require('./files.config'),
-    componentList = filesConfig.components,
     watchedFiles = filesConfig.watchedFiles,
     jshintrc = grunt.file.readJSON('.jshintrc');
 
@@ -26,7 +25,7 @@ module.exports = function (grunt) {
     jshint:{
       options: jshintrc,
       code: {
-        src: ['client/src/**/*.js']
+        src: ['<%= clientdist %>/assets/js/app.js']
       },
       specs: {
         src: ['client/test/**/*.js'],
@@ -51,29 +50,19 @@ module.exports = function (grunt) {
     browserify: {
       options: {
         transform:[ 
+          require('browserify-shim'),
           require('grunt-react').browserify
         ]
       },
       app: {
-        src: 'client/src/main.js',
-        dest: '<%= clientdist %>/temp/app.js'
+        src: ['client/src/*.js'],
+        dest: '<%= clientdist %>/assets/js/app.js'
       }
     },
 
     // The concatenate task is used here to merge the almond require/define
     // shim and the templates into the application code.
     concat:{
-      jsdeps: {
-        src: filesConfig.getComponents('<%= components %>'),
-        dest: '<%= clientdist %>/assets/js/deps.js'
-      },
-      appjs: {
-        src: [
-          '<%= clientdist %>/assets/js/deps.js',
-          '<%= clientdist %>/temp/app.js'
-        ],
-        dest: '<%= clientdist %>/assets/js/app.js'
-      },
       css: {
         src: [
           '<%= components %>/select2/select2.css',
@@ -305,11 +294,21 @@ module.exports = function (grunt) {
 
   // **********************************************************************************************
   // The default task is the development task
-  grunt.registerTask('default', ['clean', 'jshint', 'less', 'concat:css', 'html2js', 'concat:jsdeps', 'copy:vendor', 'copy:development']);
+  grunt.registerTask('default', [
+    'clean', 
+    'browserify:app',
+    //'jshint', 
+    'less', 
+    'concat:css', 
+    'jade:development',
+    'copy:vendor', 
+    'copy:development'
+  ]);
+
   grunt.registerTask('development', ['default']);
 
   // Task to minify the codez for production and prepare for deployment
-  grunt.registerTask('production', ['development', 'ngmin:app', 'concat:appjs', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
+  grunt.registerTask('production', ['development', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
 
   // Tasks to run the node server and rest api
   grunt.registerTask('serve:development', ['env:development', 'shell:server']);
