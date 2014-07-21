@@ -14,11 +14,11 @@ var Section = React.createClass({
 
   updateActiveState: function () {
     var section;
-    if (Section.isActive('employees')) {
+    if (this.isActive('employees')) {
       section = 'Employees';
-    } else if (Section.isActive('projects')) {
+    } else if (this.isActive('projects')) {
       section = 'Projects';
-    } else if (Section.isActive('timesheets')) {
+    } else if (this.isActive('timesheets')) {
       section = 'Timesheets';
     }
 

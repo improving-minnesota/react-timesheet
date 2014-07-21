@@ -1,12 +1,10 @@
 // The dateUtils service provides utilties for handling dates that are contained in a 
 // server response. 
+var _ = require('lodash');
 
-angular.module('date.utils.services',  [])
-  
-  .factory('dateUtils', function () {
-    return {
-      nullOrUndefined : function nullOrUndefined(dateString) {
-        return (!angular.isDefined(dateString) || dateString === null ? 'None' : false);
-      }
-    };
-  });
+module.exports = {
+
+  nullOrUndefined : function nullOrUndefined(dateString) {
+    return (!_.isDefined(dateString) || dateString === null ? 'None' : false);
+  }
+};

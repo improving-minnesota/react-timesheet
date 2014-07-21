@@ -1,7 +1,6 @@
-angular.module('authentication.services', [
-  'security.services',
-  'notifications.services'
-])
+var securityContext = require('./context');
+var retryQueue = require('./retry.queue');
+var notifications = require('../services/notifications');
 
 .factory('authentication', 
   function ($q, data, $state, $location, securityContext, retryQueue, notifications) {

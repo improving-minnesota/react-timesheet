@@ -18,7 +18,7 @@ var App = React.createClass({
           <SectionHeader />
           <div className="row">
             <div className="col-xs-12">
-              {this.props.activeRoute}
+              <this.props.activeRoute />
             </div>
           </div>
         </div>
@@ -28,12 +28,3 @@ var App = React.createClass({
 });
 
 module.exports = App;
-
-
-  // $scope.$watch(function () {
-  //     return securityContext.authenticated;
-  //   },
-  //   function (authenticated) {
-  //     $scope.authenticated = authenticated;
-  //     $scope.loggedInUser = securityContext.user;
-  //   });
