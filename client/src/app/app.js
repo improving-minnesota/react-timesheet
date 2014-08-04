@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Router = require('react-nested-router');
+var Router = require('react-router');
 
 var NavBar = require('../navbar');
 var SectionHeader = require('../section');
@@ -18,7 +18,7 @@ var App = React.createClass({
           <SectionHeader />
           <div className="row">
             <div className="col-xs-12">
-              <this.props.activeRoute />
+              <this.props.activeRouteHandler />
             </div>
           </div>
         </div>

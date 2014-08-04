@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var Router = require('react-nested-router');
+var Router = require('react-router');
 
 var ProjectTable = require('./project.table');
 
@@ -32,7 +32,7 @@ var Projects = React.createClass({
   },
 
   createNew: function () {
-    Router.transitionTo('app.projects.create');
+    Router.transitionTo('projects.create');
   },
   
   render: function () {
@@ -65,7 +65,7 @@ var Projects = React.createClass({
 
         </div>
         
-        {this.props.activeRoute}
+        <this.props.activeRouteHandler />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var Router = require('react-nested-router');
+var Router = require('react-router');
 
 var EmployeeTable = require('./employee.table');
 var data = require('../../data/data');
@@ -66,7 +66,7 @@ var Employees = React.createClass({
 
         </div>
 
-        <this.props.activeRoute />
+        <this.props.activeRouteHandler />
       </div>
     );
   }

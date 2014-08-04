@@ -8,7 +8,7 @@ var FieldWrap = React.createClass({
   propTypes: {
     inputId: PropTypes.string,
     label: PropTypes.string,
-    formField: PropTypes.module
+    formField: PropTypes.component
   },
   
   render: function () {

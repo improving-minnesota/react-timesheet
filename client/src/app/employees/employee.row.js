@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var Router = require('react-nested-router');
+var Router = require('react-router');
 
 var notifications = require('../../services/notifications');
 var data = require('../../data/data');

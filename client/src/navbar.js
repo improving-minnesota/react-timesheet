@@ -1,8 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-
-var Router = require('react-nested-router');
+var Router = require('react-router');
 var Link = Router.Link;
 var ActiveState = Router.ActiveState;
 

@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
+var Router = require('react-router');
 var ProjectForm = require('./project.form.js');
 
 var ProjectDetail = React.createClass({
@@ -21,7 +22,7 @@ var ProjectDetail = React.createClass({
   },
 
   cancel: function () {
-    Router.transitionTo('app.projects');
+    Router.transitionTo('projects');
   },
 
   getInitialState: function () {

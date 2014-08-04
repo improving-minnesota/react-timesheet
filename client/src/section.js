@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Router = require('react-nested-router');
+var Router = require('react-router');
 
 var SectionHeader = React.createClass({
   mixins: [Router.ActiveState],
