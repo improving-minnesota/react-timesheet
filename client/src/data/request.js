@@ -3,27 +3,21 @@ var _ = require('lodash');
 var q = require('q');
 
 function serverRequest(method, url, data, expects) {
-  var deferred = q.deferred();
+  var deferred = q.defer();
 
   $.ajax(url, {
     data: data,
     method: method,
-    dataType: 'json',
-    dataFilter: function (response) {
-      if (expects === 'object' && !_.isObject(resonse)) {
-        q.reject({message: 'Request expected an object as a response, but got something else.'});
-      } else if (expects === 'array' && !_.isArray(response)) {
-        q.reject({message: 'Request expected an array as a response, but go something else.'});
-      }
-
-      return response;
-    }
+    dataType: 'json'
   })
   .done(function (data) {
-    q.resolve(data);
+    if (expects === 'object') {
+      data = data[0];
+    }
+    deferred.resolve(data);
   })
   .fail(function (data) {
-    q.reject(data);
+    deferred.reject(data);
   });
 
   return deferred.promise;
@@ -31,11 +25,11 @@ function serverRequest(method, url, data, expects) {
 
 function Request (resource) {
   this.url = resource.url;
-  this.id = resource.id;
+  this.params = resource.params;
 }
 
 Request.prototype.page = function (query) {        
-  return serverRequest('GET', this.url, query, 'object');
+  return serverRequest('GET', this.generateUrl(query), query, 'object');
 };
 
 Request.prototype.list = function (query) {
@@ -45,7 +39,7 @@ Request.prototype.list = function (query) {
     queryObject = _.extend(queryObject, query);
   }
 
-  return serverRequest('GET', this.url, queryObject, 'array');
+  return serverRequest('GET', this.generateUrl(query), queryObject, 'array');
 };
 
 Request.prototype.get = function (query) {
@@ -53,7 +47,7 @@ Request.prototype.get = function (query) {
 };
 
 Request.prototype.create = function (model) {
-  return serverRequest('POST', this.url, model);
+  return serverRequest('POST', this.generateUrl(model), model);
 };
 
 Request.prototype.update = function (model) {
@@ -71,7 +65,21 @@ Request.prototype.restore = function (model) {
 };
 
 Request.prototype.generateUrl = function (model) {
-  return this.url + '/' + model[this.id];
+  var url = this.url;
+
+  // All resources at least have an id parameter. 
+  _.each(this.params, function (value, key) {
+    var token = '/:' + key;
+
+    // if the parameter doesn't exist on the params, just blank it out.  
+    var param = !_.isUndefined(model[key]) ? '/' + model[key] : '';
+    url = url.replace(token, param);
+  }); 
+
+  // clean up the :_id if an id was not included
+  url = url.replace('/:_id', '');
+
+  return url;
 };
 
 module.exports = Request;

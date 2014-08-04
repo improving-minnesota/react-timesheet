@@ -1,25 +1,22 @@
 var api = require('./api');
 
-module.exports = {
+module.exports = function () {
 
-  init : function () {
-
-    api.add({
+  api
+    .add({
       resource: 'employees',
       url: '/users'
-    });
+    })
 
-    api.add({
-      resource: 'projects',
-      url: '/projects'
-    });
+    .add({
+      resource: 'projects'
+    })
 
-    api.add({
+    .add({
       resource: 'timesheets',
       url: '/users/:user_id/timesheets',
       params: {
         user_id: '@user_id'
       }
     });
-  }
 };

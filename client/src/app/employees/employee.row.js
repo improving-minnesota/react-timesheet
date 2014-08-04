@@ -1,7 +1,11 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-nested-router');
 
+var notifications = require('../../services/notifications');
+var data = require('../../data/data');
+var yesNo = require('../../filters/boolean');
 
 var EmployeeRow = React.createClass({
 
@@ -10,38 +14,39 @@ var EmployeeRow = React.createClass({
   },
 
   showDetail: function showDetail () {
-    alert('show detail');
-    // if (employee.deleted) {
-    //   notifications.error('You cannot edit a deleted employee.');
-    //   return;
-    // }
-    // Router.transitionTo('app.employees.detail', employee);
+    if (this.props.employee.deleted) {
+      notifications.error('You cannot edit a deleted employee.');
+      return;
+    }
+    Router.transitionTo('employees.detail', this.props.employee);
   },
 
-  remove: function remove () {
-    alert('remove!');
-    // data.remove('employees', employee) 
-    //   .then(function () {
-    //     notifications.success('Employee : ' + employee.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     employee.deleted = false;
-    //     notifications.error('Error attempting to delete employee.');
-    //   });
-// $event.stopPropagation();
+  remove: function remove (e) {
+    var self = this;
+    e.stopPropagation();
+
+    data.remove('employees', this.props.employee) 
+      .then(function () {
+        notifications.success('Employee : ' + employee.username + ', was deleted.');
+      })
+      .catch(function (x) {
+        this.props.employee.deleted = false;
+        notifications.error('Error attempting to delete employee.');
+      });
   },
 
-  restore: function restore () {
-   alert('restore!');
-   // data.restore('employees', employee)
-   //    .then(function (restored) {
-   //      notifications.success('Employee was restored.');
-   //    })
-   //    .catch(function (x) {
-   //      employee.deleted = true;
-   //      notifications.error('Error restoring employee.');
-   //    });
-// $event.stopPropagation();
+  restore: function restore (e) {
+    var self = this;
+    e.stopPropagation();
+
+    data.restore('employees', this.props.employee)
+      .then(function (restored) {
+        notifications.success('Employee was restored.');
+      })
+      .catch(function (x) {
+        this.props.employee.deleted = true;
+        notifications.error('Error restoring employee.');
+      });
   },
   
   render: function () {
@@ -68,7 +73,7 @@ var EmployeeRow = React.createClass({
         <td>{employee.email}</td>
         <td>{employee.firstName}</td>
         <td>{employee.lastName}</td>
-        <td>{employee.admin}</td>
+        <td>{yesNo(employee.admin)}</td>
         <td>
           <button className={buttonClasses} onClick={employee.deleted ? this.restore : this.remove}>
             {employee.deleted ? 'Restore' : 'Delete'}

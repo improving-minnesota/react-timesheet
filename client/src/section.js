@@ -3,7 +3,7 @@
 var React = require('react');
 var Router = require('react-nested-router');
 
-var Section = React.createClass({
+var SectionHeader = React.createClass({
   mixins: [Router.ActiveState],
   
   getInitialState: function () {
@@ -14,11 +14,20 @@ var Section = React.createClass({
 
   updateActiveState: function () {
     var section;
-    if (this.isActive('employees')) {
+    
+    if (SectionHeader.isActive('employees')) {
       section = 'Employees';
-    } else if (this.isActive('projects')) {
+    } else if (SectionHeader.isActive('employees.create')) {
+      section = 'Create Employee';
+    } else if (SectionHeader.isActive('employees.detail')) {
+      section = 'Update Employee';
+    } else if (SectionHeader.isActive('projects')) {
       section = 'Projects';
-    } else if (this.isActive('timesheets')) {
+    } else if (SectionHeader.isActive('projects.create')) {
+      section = 'Create Project';
+    } else if (SectionHeader.isActive('projects.detail')) {
+      section = 'Update Project';
+    } else if (SectionHeader.isActive('timesheets')) {
       section = 'Timesheets';
     }
 
@@ -38,4 +47,4 @@ var Section = React.createClass({
   }
 });
 
-module.exports = Section;
+module.exports = SectionHeader;

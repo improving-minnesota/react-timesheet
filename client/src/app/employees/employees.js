@@ -1,52 +1,39 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-nested-router');
 
 var EmployeeTable = require('./employee.table');
+var data = require('../../data/data');
 
 var Employees = React.createClass({
 
   getInitialState: function () {
     return {
-      employees: this.requestEmployees()
+      employees: []
     };
   },
 
   requestEmployees: function requestEmployees () {
+    var self = this;
     // var query = {
-    //   page: page || $scope.pageConfig.page,
+    //   page: this.state.page || 1,
     //   sort: {username: 1}
     // };
 
     // data.page('employees', query)
-    //   .then(function (pageConfig) {
-    //     $scope.pageConfig = pageConfig;
-    //   });
-
-    return [
-      {
-        "_id": "111",
-        "username": "admin", 
-        "email": "admin@mixtape.com", 
-        "password": "password", 
-        "admin": true, 
-        "firstName": "Admin", 
-        "lastName": "User"
-      },
-      {
-        "_id": "222",
-        "username": "user", 
-        "email": "user@mixtape.com", 
-        "password": "password", 
-        "admin": false, 
-        "firstName": "Normal", 
-        "lastName": "User"
-      }
-    ];
+    data.list('employees')
+      .then(function (employees) {
+        self.setState({employees: employees});
+      });
   },
 
   createNew: function createNew () {
-    Router.transitionTo('app.employees.create');
+    Router.transitionTo('employees.create');
+  },
+
+  componentDidMount: function () {
+    this.requestEmployees();
   },
   
   render: function () {
@@ -79,7 +66,7 @@ var Employees = React.createClass({
 
         </div>
 
-        {this.props.activeRoute}
+        <this.props.activeRoute />
       </div>
     );
   }

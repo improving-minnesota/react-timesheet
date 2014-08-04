@@ -1,33 +1,45 @@
 /** @jsx React.DOM */
 
-var React = require('React');
-var EmployeeForm = require('./employee.form.js');
+var React = require('react');
+var Router = require('react-nested-router');
+
+var EmployeeForm = require('./employee.form');
+var data = require('../../data/data');
 
 var EmployeeDetail = React.createClass({
 
-  getEmployee: function (employeeId) {
-    // return data.get('employees', $stateParams);
+  getEmployee: function () {
+    var self = this;
+
+    data.get('employees', {_id: this.props.params._id})
+      .then(function (employee) {
+        self.setState({employee: employee});
+      })
+      .catch(function (data) {
+        notifications.error('There was an error getting the employee');
+      });
   },
 
   saveEmployee: function () {
-    // data.create('employees', $scope.employee)
-    //   .then(function (created) {
-    //     notifications.success('Employee : ' + created.username + ', created.');
-    //     Router.transitionTo('app.employees.detail', {_id: created._id});
-    //   })
-    //   .catch(function (x) {
-    //     notifications.error('There was an error creating employee.');
-    //   });
+    data.update('employees', this.state.employee)
+      .then(function (updated) {
+        notifications.success('Employee : ' + updated.username + ', updated.');
+        Router.transitionTo('employees');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error creating employee.');
+      });
   },
 
   cancel: function () {
-    Router.transitionTo('app.employees');
+    Router.transitionTo('employees');
   },
 
   getInitialState: function () {
     return {
       saveText: 'Update',
-      section: 'Update Employee'
+      section: 'Update Employee',
+      employee: {admin: false}
     };
   },  
 
@@ -37,7 +49,7 @@ var EmployeeDetail = React.createClass({
   
   render : function () {
     return (
-      <EmployeeForm employee={this.state.employee} />
+      <EmployeeForm employee={this.state.employee} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
     );
   }
 });

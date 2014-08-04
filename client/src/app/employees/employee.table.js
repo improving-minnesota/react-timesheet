@@ -13,7 +13,7 @@ var EmployeeTable = React.createClass({
 
     var employeeRows = this.props.employees.map(function (employee) {
       return (
-        <EmployeeRow employee={employee} key={employee._id}/>
+        <EmployeeRow employee={employee} key={employee._id} />
       );
     });
 

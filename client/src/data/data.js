@@ -1,19 +1,21 @@
-var api = requre('./api');
+var _ = require('lodash');
+
+var api = require('./api');
 
 function Data() {}
 
 Data.prototype.page = function (resource, query) {        
-  return api[resource].paged(query);
+  return api[resource].page(query);
 };
 
 Data.prototype.list = function (resource, query) {
   var queryObject = {};
 
-  if (angular.isObject(query)) {
-    queryObject = angular.extend(queryObject, query);
+  if (_.isObject(query)) {
+    queryObject = _.extend(queryObject, query);
   }
 
-  return api[resource].query(queryObject);
+  return api[resource].list(queryObject);
 };
 
 Data.prototype.get = function (resource, query) {

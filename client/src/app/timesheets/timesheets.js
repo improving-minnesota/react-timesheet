@@ -60,14 +60,4 @@ angular.module('app.timesheets', [
           saveText: 'Create'
         }
       });
-  })
-
-  .run(function (api) {
-    api.add({
-      resource: 'timesheets',
-      url: '/users/:user_id/timesheets',
-      params: {
-        user_id: '@user_id'
-      }
-    });
   }); 

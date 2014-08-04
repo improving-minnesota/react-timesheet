@@ -7,12 +7,22 @@ var Api = function () {};
 
 Api.prototype.add = function (config) {
 
-  var resource = {
-    url: config.url,
-    id: '_id'
+  // Default parameter for all resources is the id.
+  var params = {
+    '_id': '_id'
   };
 
-  this[config.resource] = new Request(resource);
+  config.params = _.defaults(config.params, params);
+
+  // If the url is not sent in with the configuration, create
+  // it from the resource name. 
+  if (_.isUndefined(config.url)) {
+    config.url = '/' + config.resource;
+  }
+  // Append the id to the end of the url. 
+  config.url = config.url + '/:_id';
+
+  this[config.resource] = new Request(config);
   return this;
 };
 
