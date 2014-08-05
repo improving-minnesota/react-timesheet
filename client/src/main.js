@@ -8,95 +8,76 @@ var Route = require('react-router').Route;
 require('./data/resources')();
 
 // Initialize the routes
-var App = require('./app/app');
-
-var Projects = require('./app/projects/projects');
-var ProjectDetail = require('./app/projects/project.detail');
-var ProjectCreate = require('./app/projects/project.create');
-
-var Employees = require('./app/employees/employees');
-var EmployeeDetail = require('./app/employees/employee.detail');
-var EmployeeCreate = require('./app/employees/employee.create');
-
-var Timesheets = require('./app/timesheets/timesheets');
-var TimesheetDetail = require('./app/timesheets/timesheet.detail');
-var TimesheetCreate = require('./app/timesheets/timesheet.create');
-var TimesheetEdit = require('./app/timesheets/timesheet.edit');
-
-var TimeunitCreate = require('./app/timesheets/timeunits/timeunit.create');
-var TimeunitEdit = require('./app/timesheets/timeunits/timeunit.edit');
-
-
 React.renderComponent((
   Routes({},
-    Route({handler: App}, 
+    Route({handler: require('./app/app')}, 
 
       // projects
       Route({
         name: 'projects', 
         path: '/projects', 
-        handler: Projects
+        handler: require('./app/projects/projects')
       }),
       Route({
         name: 'projects.detail', 
         path: '/projects/detail/:_id', 
-        handler: ProjectDetail
+        handler: require('./app/projects/project.detail')
       }),
       Route({
         name: 'projects.create', 
         path: '/projects/create', 
-        handler: ProjectCreate
+        handler: require('./app/projects/project.create')
       }),
 
       // employees
       Route({
         name: 'employees', 
         path: '/employees', 
-        handler: Employees
+        handler: require('./app/employees/employees')
       }),
       Route({
         name: 'employees.detail', 
         path: '/employees/detail/:_id', 
-        handler: EmployeeDetail
+        handler: require('./app/employees/employee.detail')
       }),
       Route({
         name: 'employees.create', 
         path: '/employees/create', 
-        handler: EmployeeCreate
+        handler: require('./app/employees/employee.create')
       }),
 
       // timesheets
       Route({
         name: 'timesheets', 
         path: '/users/:user_id/timesheets', 
-        handler: Timesheets
+        handler: require('./app/timesheets/timesheets')
       }),
       Route({
         name: 'timesheets.create', 
         path: '/users/:user_id/timesheets/create', 
-        handler: TimesheetCreate
+        handler: require('./app/timesheets/timesheet.detail')
       }),
       Route({
         name: 'timesheets.detail', 
         path: '/users/:user_id/timesheets/detail/:_id', 
-        handler: TimesheetDetail
+        handler: require('./app/timesheets/timesheet.create')
       }),
       Route({
         name: 'timesheets.detail.edit', 
         path: '/users/:user_id/timesheets/detail/:_id/edit', 
-        handler: TimesheetEdit
+        handler: require('./app/timesheets/timesheet.edit')
       }),
          
       // timeunits 
       Route({
         name: 'timesheets.detail.timeunits.create', 
         path: '/users/:user_id/timesheets/detail/:_id/timeunits/create',
-        handler: TimeunitCreate
+        handler: require('./app/timesheets/timeunits/timeunit.create')
       }),
       Route({
         name: 'timesheets.detail.timeunits.edit',
         path: '/users/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id',
-        handler: TimeunitEdit
+        handler: require('./app/timesheets/timeunits/timeunit.edit')
       })
     )
   )
