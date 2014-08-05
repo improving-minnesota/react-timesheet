@@ -57,7 +57,7 @@ var NavBar = React.createClass({
               <Link to="employees">Employees</Link>
             </li>
             <li className={timesheetsClasses}>
-              <a ui-sref="timesheets({user_id: loggedInUser._id})">Timesheets</a>
+              <Link to="timesheets" user_id="123">Timesheets</Link>
             </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">

@@ -24,7 +24,7 @@ var ProjectCreate = React.createClass({
   },
 
   cancel: function () {
-    // Router.transitionTo('app.projects', {}, {reload: true});
+    Router.transitionTo('projects');
   },
   
   render : function () {

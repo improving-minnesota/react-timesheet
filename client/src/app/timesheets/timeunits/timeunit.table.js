@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var TimeunitRow = require('./timeunits.row');
+var TimeunitRow = require('./timeunit.row');
 
 var TimeunitTable = React.createClass({
 

@@ -63,9 +63,9 @@ var TimeunitRow = React.createClass({
     return (
       <tr className={rowClasses} onClick={this.showDetail}>
 
-        <td>{{timeunit.project}}</td>
-        <td>{{timeunit.dateWorked | momentShortDate}}</td>
-        <td>{{timeunit.hoursWorked}}</td>
+        <td>{timeunit.project}</td>
+        <td>{timeunit.dateWorked | momentShortDate}</td>
+        <td>{timeunit.hoursWorked}</td>
         <td>
           <button className={buttonClasses} onClick={timeunit.deleted ? this.restore : this.remove}>
             {timeunit.deleted ? 'Restore' : 'Delete'}

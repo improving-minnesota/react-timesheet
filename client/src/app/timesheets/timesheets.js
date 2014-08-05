@@ -18,7 +18,7 @@ var Timesheets = React.createClass({
   },
 
   createNew: function () {
-    Router.transitionTo('timesheets.create');
+    return Router.transitionTo('timesheets.create', {user_id: '123'});
   },
 
   render: function () {
@@ -27,7 +27,7 @@ var Timesheets = React.createClass({
         <div>
           <div className="row tsz-form-row">
             <div className="col-sm-2 pull-right">
-              <button className="btn btn-primary btn-block" type="button" onClick={this.createNew()}>
+              <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
                 <i className="icon-plus"/> New Timesheet
               </button>
             </div>

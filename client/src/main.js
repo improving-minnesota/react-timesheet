@@ -23,7 +23,6 @@ var TimesheetDetail = require('./app/timesheets/timesheet.detail');
 var TimesheetCreate = require('./app/timesheets/timesheet.create');
 var TimesheetEdit = require('./app/timesheets/timesheet.edit');
 
-var Timeunits = require('./app/timesheets/timeunits/timeunits');
 var TimeunitCreate = require('./app/timesheets/timeunits/timeunit.create');
 var TimeunitEdit = require('./app/timesheets/timeunits/timeunit.edit');
 
@@ -31,6 +30,8 @@ var TimeunitEdit = require('./app/timesheets/timeunits/timeunit.edit');
 React.renderComponent((
   Routes({},
     Route({handler: App}, 
+
+      // projects
       Route({
         name: 'projects', 
         path: '/projects', 
@@ -47,6 +48,7 @@ React.renderComponent((
         handler: ProjectCreate
       }),
 
+      // employees
       Route({
         name: 'employees', 
         path: '/employees', 
@@ -63,6 +65,7 @@ React.renderComponent((
         handler: EmployeeCreate
       }),
 
+      // timesheets
       Route({
         name: 'timesheets', 
         path: '/users/:user_id/timesheets', 
@@ -83,13 +86,8 @@ React.renderComponent((
         path: '/users/:user_id/timesheets/detail/:_id/edit', 
         handler: TimesheetEdit
       }),
-
-      Route({
-        name: 'timesheets.detail.timeunits', 
-        path: '/users/:user_id/timesheets/detail/:_id/timeunits',
-        handler: Timeunits
-      }),
-          
+         
+      // timeunits 
       Route({
         name: 'timesheets.detail.timeunits.create', 
         path: '/users/:user_id/timesheets/detail/:_id/timeunits/create',

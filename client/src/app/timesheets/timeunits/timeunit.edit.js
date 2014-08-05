@@ -3,6 +3,8 @@
 var React = require('react/addons');
 var Router = require('react-router');
 
+var TimeunitForm = require('./timeunit.form');
+
 var TimeunitEdit = React.createClass({
 
   getInitialState: function () {
@@ -10,7 +12,9 @@ var TimeunitEdit = React.createClass({
   },
 
   render: function () {
-    return ();
+    return (
+      <TimeunitForm timeunit={this.props.timeunit} />
+    );
   }
 });
 

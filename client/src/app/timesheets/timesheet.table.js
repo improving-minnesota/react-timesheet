@@ -13,7 +13,7 @@ var TimesheetTable = React.createClass({
     
     var timesheetRows = this.props.timesheets.map(function (timesheet) {
       return (
-        <TimesheetRow timesheet{timesheet} key={timesheet._id} />
+        <TimesheetRow timesheet={timesheet} key={timesheet._id} />
       );
     });
 

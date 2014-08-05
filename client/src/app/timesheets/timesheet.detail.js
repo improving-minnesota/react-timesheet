@@ -4,7 +4,7 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var TimesheetForm = require('./timesheet.form');
-var TimeunitTable = require('./timeunits/timeunits.table');
+var TimeunitTable = require('./timeunits/timeunit.table');
 
 var TimesheetDetail = React.createClass({
 
