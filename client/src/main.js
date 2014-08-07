@@ -3,6 +3,7 @@
 var React = require('react');
 var Routes = require('react-router').Routes;
 var Route = require('react-router').Route;
+var Fluxxor = require('fluxxor');
 
 // Initialize the rest api
 require('./data/resources')();
