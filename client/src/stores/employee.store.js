@@ -1,14 +1,22 @@
+var merge = require('react/lib/merge');
+
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
 var data = require('../data/data');
-var merge = require('react/lib/merge');
+var notifications = require('../services/notifications');
 
 var EmployeeStore = merge(store.prototype, {
   
   initialize: function () {
-    this.register({
-      
-    });
+    var events = {};
+    events[constants.GET_EMPLOYEE] = this.get;
+    events[constants.UPDATE_EMPLOYEE] = this.update;
+    events[constants.DELETE_EMPLOYEE] = this.remove;
+    events[constants.RESTORE_EMPLOYEE] = this.restore;
+    events[constants.CREATE_EMPLOYEE] = this.create;
+
+    this.register(events);
+    return this;
   },
 
   get: function (payload) {

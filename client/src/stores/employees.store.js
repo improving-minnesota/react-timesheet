@@ -1,28 +1,31 @@
+var merge = require('react/lib/merge');
+
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
-var merge = require('react/lib/merge');
+var data = require('../data/data');
+var notifications = require('../services/notifications');
 
 var EmployeesStore = merge(store.prototype, {
   
   initialize: function () {
-    this.employees = [];
+    var config = {};
+    config[constants.LIST_EMPLOYEES] = this.list;
 
-    this.bindActions(
-      constants.LIST_EMPLOYEES, this.list
-    );
+    this.register(config);
+    return this;
   },
 
   list: function () {
+    var self = this;
 
-    this.emit('change');
-  },
-
-  getState: function () {
-    return {
-      employees: this.employees
-    };
+    data.list('employees')
+      .then(function (employees) {
+        self.setState({employees: employees});
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to retrieve employees.');
+      });
   }
-
 });
 
 module.exports = EmployeesStore;

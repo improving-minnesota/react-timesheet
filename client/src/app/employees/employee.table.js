@@ -5,10 +5,6 @@ var EmployeeRow = require('./employee.row');
 
 var EmployeeTable = React.createClass({
 
-  getInitialState: function () {
-    return {};
-  },
-  
   render: function () {
 
     var employeeRows = this.props.employees.map(function (employee) {

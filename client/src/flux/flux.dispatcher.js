@@ -1,6 +1,7 @@
 var Dispatcher = require('flux').Dispatcher;
 var copyProperties = require('react/lib/copyProperties');
-var AppDispatcher = copyProperties(new Dispatcher(), {
+
+var dispatcher = copyProperties(new Dispatcher(), {
 
   /**
    * A bridge function between the views and the dispatcher, marking the action
@@ -16,4 +17,4 @@ var AppDispatcher = copyProperties(new Dispatcher(), {
 
 });
 
-module.exports = AppDispatcher;
+module.exports = dispatcher;

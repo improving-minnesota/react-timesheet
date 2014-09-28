@@ -2,17 +2,10 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var ProjectForm = require('./project.form.js');
 
 var ProjectDetail = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React),
-    StoreWatchMixin('ProjectStore')
-  ],
 
   getProject: function (projectId) {
     // return data.get('projects', $stateParams);

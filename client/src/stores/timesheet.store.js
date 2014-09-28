@@ -1,6 +1,8 @@
+var merge = require('react/lib/merge');
+
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
-var merge = require('react/lib/merge');
+var notifications = require('../services/notifications');
 
 var TimesheetStore = merge(store.prototype, {
   

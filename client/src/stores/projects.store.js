@@ -1,35 +1,29 @@
+var merge = require('react/lib/merge');
+
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
-var merge = require('react/lib/merge');
+var notifications = require('../services/notifications');
 
 var ProjectsStore = merge(store.prototype, {
   
   initialize: function () {
-    this.projects = [];
+    var config = {};
+    config[constants.LIST_PROJECTS] = this.list;
 
-    this.bindActions(
-      constants.LIST_PROJECTS, this.list
-    );
+    this.register(config);
+    return this;
   },
 
   list: function () {
-    // var query = {
-    //   page: page || $scope.pageConfig.page,
-    //   sort: {username: 1}
-    // };
+    var self = this;
 
-    // data.page('projects', query)
-    //   .then(function (pageConfig) {
-    //     $scope.pageConfig = pageConfig;
-    //   });
-
-    this.emit('change');
-  },
-
-  getState: function () {
-    return {
-      projects: this.projects
-    };
+    data.list('projects')
+      .then(function (projects) {
+        self.setState({projects: projects});
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to retrieve projects.');
+      });
   }
 
 });

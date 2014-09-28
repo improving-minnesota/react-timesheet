@@ -1,15 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var ProjectRow = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React),
-    StoreWatchMixin('projects')
-  ],
 
   getInitialState: function () {
     return {};
@@ -30,12 +23,10 @@ var ProjectRow = React.createClass({
 
   remove: function remove (e) {
     e.stopPropagation();
-    this.getFlux().actions.remove(this.props.project);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
-    this.getFlux().actions.restore(this.props.project);
   },
   
   render: function () {

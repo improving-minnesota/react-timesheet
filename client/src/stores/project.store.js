@@ -1,75 +1,86 @@
+var merge = require('react/lib/merge');
+
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
-var merge = require('react/lib/merge');
+var notifications = require('../services/notifications');
+var data = require('../data/data');
 
 var ProjectStore = merge(store.prototype, {
   
   initialize: function () {
-    this.project = {};
+    var events = {};
+    events[constants.GET_PROJECT] = this.get;
+    events[constants.UPDATE_PROJECT] = this.update;
+    events[constants.DELETE_PROJECT] = this.remove;
+    events[constants.CREATE_PROJECT] = this.create;
 
-    this.bindActions(
-      constants.GET_PROJECT, this.get,
-      constants.UPDATE_PROJECT, this.update,
-      constants.DELETE_PROJECT, this.remove,
-      constants.CREATE_PROJECT, this.create
-    );
+    this.register(events);
+    return this;
   },
 
   get: function (id) {
+    var self = this;
 
-    this.emit('change');
+    data.get('projects', {_id: payload.id})
+      .then(function (project) {
+        self.setState({project: project});
+      })
+      .catch(function (data) {
+        notifications.error('There was an error getting the project');
+      });
   },
 
-  update: function (employee) {
-    // data.create('projects', $scope.project)
-    //   .then(function (created) {
-    //     notifications.success('Project : ' + created.username + ', created.');
-    //     Router.transitionTo('app.projects.detail', {_id: created._id});
-    //   })
-    //   .catch(function (x) {
-    //     notifications.error('There was an error creating project.');
-    //   });
+  update: function (payload) {
+    var self = this;
 
-    this.emit('change');
+    data.update('projects', payload.project)
+      .then(function (updated) {
+        self.setState({project: updated});    
+        notifications.success('Project : ' + updated.name + ', updated.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error updating project.');
+      });
   },
 
-  remove: function (employee) {
-    // data.remove('projects', project) 
-    //   .then(function () {
-    //     notifications.success('project : ' + project.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     project.deleted = false;
-    //     notifications.error('Error attempting to delete project.');
-    //   });
+  remove: function (payload) {
+    var self = this;
 
-    this.emit('change');
+    data.remove('projects', payload.project) 
+      .then(function (removed) {
+        self.setState({project: removed});
+        notifications.success('Project : ' + removed.name + ', was deleted.');
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to delete project.');
+      });
   },
 
-  restore: function (employee) {
-    // data.restore('projects', project)
-    //    .then(function (restored) {
-    //      notifications.success('project was restored.');
-    //    })
-    //    .catch(function (x) {
-    //      project.deleted = true;
-    //      notifications.error('Error restoring project.');
-    //    });
-    this.emit('change');
+  restore: function (payload) {
+    var self = this;
+
+    data.remove('projects', payload.project) 
+      .then(function (restored) {
+        self.setState({project: restored});
+        notifications.success('Project : ' + project.name + ', was deleted.');
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to restore project.');
+      });
   },
 
-  create: function (create) {
+  create: function (payload) {
+    var self = this;
 
-
-    this.emit('change');
-  },
-
-  getState: function () {
-    return {
-      project: this.project
-    };
+    data.create('projects', payload.project)
+      .then(function (created) {
+        self.setState({project: created});
+        notifications.success('Project : ' + created.name + ', created.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error creating project.');
+      });
   }
-
 });
 
 module.exports = ProjectStore;

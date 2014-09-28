@@ -2,37 +2,29 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var EmployeeTable = require('./employee.table');
-var data = require('../../data/data');
+var actions = require('../actions/employee.actions');
+var store = require('../stores/employees.store');
 
 var Employees = React.createClass({
 
-  mixins: [
-    FluxChildMixin(React),
-    StoreWatchMixin('employees')
-  ],
-
   getInitialState: function () {
-    return {
-      employees: []
-    };
+    return store.getState();
   },
 
-  getStateFromFlux: function () {
-    return {
-      employees: this.getFlux().store('employees').employees
-    };
+  onChange: function () {
+    this.setState(store.getState());
   },
 
-  requestEmployees: function requestEmployees () {
-    this.getFlux().actions.employees.list();
-  },
+  requestEmployees: actions.listEmployees,
 
   createNew: function createNew () {
     Router.transitionTo('employees.create');
+  },
+
+  componentWillMount: function () {
+    store.addChangeListener(this.onChange);
   },
 
   componentDidMount: function () {

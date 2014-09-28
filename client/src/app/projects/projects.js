@@ -2,18 +2,10 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var Fluxxor = require('fluxxor');
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ProjectTable = require('./project.table');
 
 var Projects = React.createClass({
-
-  mixins: [
-    FluxChildMixin,
-    StoreWatchMixin('projects')
-  ],
 
   getInitialState: function () {
     return {
@@ -21,16 +13,7 @@ var Projects = React.createClass({
     };
   },
 
-  getStateFromFlux: function () {
-    var flux = this.getFlux();
-    return {
-      projects: flux.store('projects').projects
-    };
-  },
-
   requestProjects: function () {
-    //this.getFlux().actions.projects.list();
-
     return [
       {"_id": "111", "name": "Project1", "description": "This is your first project"},
       {"_id": "222", "name": "Project2", "description": "This is your second project"},

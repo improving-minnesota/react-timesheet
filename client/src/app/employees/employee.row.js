@@ -2,22 +2,12 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var notifications = require('../../services/notifications');
-var data = require('../../data/data');
 var yesNo = require('../../filters/boolean');
+var actions = require('../../actions/employee.actions');
 
 var EmployeeRow = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React)
-  ],
-
-  getInitialState: function () {
-    return {};
-  },
 
   showDetail: function showDetail () {
     if (this.props.employee.deleted) {
@@ -29,12 +19,12 @@ var EmployeeRow = React.createClass({
 
   remove: function remove (e) {
     e.stopPropagation();
-    this.getFlux().actions.employees.remove(this.props.employee);
+    actions.deleteEmployee(this.props.employee);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
-    this.getFlux().actions.employees.restore(this.props.employee);
+    actions.restoreEmployee(this.props.employee);
   },
   
   render: function () {
