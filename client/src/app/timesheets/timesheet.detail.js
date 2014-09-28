@@ -2,11 +2,18 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetForm = require('./timesheet.form');
 var TimeunitTable = require('./timeunits/timeunit.table');
 
 var TimesheetDetail = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('timesheets')
+  ],
 
   getInitialState: function () {
     return {
@@ -14,12 +21,12 @@ var TimesheetDetail = React.createClass({
     };
   },
 
-  getTimesheet: function (timesheetId) {
-
+  getStateFromFlux: function () {
+    this.getFlux().stores('timesheet').getState();
   },
 
-  saveTimesheet: function () {
-
+  save: function () {
+    this.getFlux().actions.timesheets.update(this.props.timesheet);
   },
 
   cancel: function () {
@@ -27,7 +34,7 @@ var TimesheetDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.getTimesheet();
+    this.getFlux().actions.timesheets.get(this.props.params._id);
   },
 
   render: function () {
@@ -36,7 +43,7 @@ var TimesheetDetail = React.createClass({
         <div>
           <div className="row">
             <div className="col-xs-12">
-              <TimesheetForm timesheet={this.props.timesheet} />
+              <TimesheetForm timesheet={this.props.timesheet} save={this.save} cancel={this.cancel} />
             </div>
           </div>
 

@@ -1,46 +1,36 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetRow = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React)
+  ],
 
   getInitialState: function () {
     return {};
   },
 
   showDetail: function showDetail () {
-    alert('show detail');
-    // if (timesheet.deleted) {
-    //   notifications.error('You cannot edit a deleted timesheet.');
-    //   return;
-    // }
-    // Router.transitionTo('app.timesheets.detail', timesheet);
+    var timesheet = this.props.timesheet;
+    if (timesheet.deleted) {
+      //notifications.error('You cannot edit a deleted timesheet.');
+      return;
+    }
+    Router.transitionTo('timesheets.detail', timesheet);
   },
 
-  remove: function remove () {
-    alert('remove!');
-    // data.remove('timesheets', timesheet) 
-    //   .then(function () {
-    //     notifications.success('timesheet : ' + timesheet.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     timesheet.deleted = false;
-    //     notifications.error('Error attempting to delete timesheet.');
-    //   });
-// $event.stopPropagation();
+  remove: function remove (e) {
+    e.stopPropagation();
+    this.getFlux().actions.timesheets.remove(this.props.timesheet);
   },
 
-  restore: function restore () {
-   alert('restore!');
-   // data.restore('timesheets', timesheet)
-   //    .then(function (restored) {
-   //      notifications.success('timesheet was restored.');
-   //    })
-   //    .catch(function (x) {
-   //      timesheet.deleted = true;
-   //      notifications.error('Error restoring timesheet.');
-   //    });
-// $event.stopPropagation();
+  restore: function restore (e) {
+   e.stopPropagation();
+   this.getFlux().actions.timesheets.restore(this.props.timesheet);
   },
   
   render: function () {

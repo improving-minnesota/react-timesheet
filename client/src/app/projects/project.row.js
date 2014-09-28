@@ -1,11 +1,22 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var ProjectRow = React.createClass({
 
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('projects')
+  ],
+
   getInitialState: function () {
     return {};
+  },
+
+  getStateFromFlux: function () {
+
   },
 
   showDetail: function showDetail () {
@@ -17,30 +28,14 @@ var ProjectRow = React.createClass({
     // Router.transitionTo('app.projects.detail', project);
   },
 
-  remove: function remove () {
-    alert('remove!');
-    // data.remove('projects', project) 
-    //   .then(function () {
-    //     notifications.success('project : ' + project.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     project.deleted = false;
-    //     notifications.error('Error attempting to delete project.');
-    //   });
-// $event.stopPropagation();
+  remove: function remove (e) {
+    e.stopPropagation();
+    this.getFlux().actions.remove(this.props.project);
   },
 
-  restore: function restore () {
-   alert('restore!');
-   // data.restore('projects', project)
-   //    .then(function (restored) {
-   //      notifications.success('project was restored.');
-   //    })
-   //    .catch(function (x) {
-   //      project.deleted = true;
-   //      notifications.error('Error restoring project.');
-   //    });
-// $event.stopPropagation();
+  restore: function restore (e) {
+    e.stopPropagation();
+    this.getFlux().actions.restore(this.props.project);
   },
   
   render: function () {

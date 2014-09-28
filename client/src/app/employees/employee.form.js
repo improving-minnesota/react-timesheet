@@ -7,13 +7,6 @@ var yesNo = require('../../filters/boolean');
 
 var EmployeeForm = React.createClass({
 
-  propTypes: {
-    employee: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    saveText: PropTypes.string
-  },
-
   toggleAdmin: function () {
     this.props.employee.admin = !this.props.employee.admin;
   },

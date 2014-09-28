@@ -1,28 +1,60 @@
-var Fluxxor = require('fluxxor');
+var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
+var merge = require('react/lib/merge');
 
-var projects = require('../../../api/data/projects.json');
-
-var TimesheetStore = Fluxxor.createStore({
+var ProjectStore = merge(store.prototype, {
   
-  actions: {
-    constants.UPDATE_PROJECT: 'update',
-    constants.DELETE_PROJECT: 'remove',
-    constants.CREATE_PROJECT: 'create'
+  initialize: function () {
+    this.project = {};
+
+    this.bindActions(
+      constants.GET_PROJECT, this.get,
+      constants.UPDATE_PROJECT, this.update,
+      constants.DELETE_PROJECT, this.remove,
+      constants.CREATE_PROJECT, this.create
+    );
   },
 
-  initialize: function () {
-    this.projects = [];
+  get: function (id) {
+
+    this.emit('change');
   },
 
   update: function (employee) {
+    // data.create('projects', $scope.project)
+    //   .then(function (created) {
+    //     notifications.success('Project : ' + created.username + ', created.');
+    //     Router.transitionTo('app.projects.detail', {_id: created._id});
+    //   })
+    //   .catch(function (x) {
+    //     notifications.error('There was an error creating project.');
+    //   });
 
     this.emit('change');
   },
 
   remove: function (employee) {
+    // data.remove('projects', project) 
+    //   .then(function () {
+    //     notifications.success('project : ' + project.username + ', was deleted.');
+    //   })
+    //   .catch(function (x) {
+    //     project.deleted = false;
+    //     notifications.error('Error attempting to delete project.');
+    //   });
 
+    this.emit('change');
+  },
 
+  restore: function (employee) {
+    // data.restore('projects', project)
+    //    .then(function (restored) {
+    //      notifications.success('project was restored.');
+    //    })
+    //    .catch(function (x) {
+    //      project.deleted = true;
+    //      notifications.error('Error restoring project.');
+    //    });
     this.emit('change');
   },
 
@@ -34,10 +66,10 @@ var TimesheetStore = Fluxxor.createStore({
 
   getState: function () {
     return {
-      projects: projects;
+      project: this.project
     };
   }
 
 });
 
-module.exports = TimesheetStore;
+module.exports = ProjectStore;

@@ -1,18 +1,23 @@
-var Fluxxor = require('fluxxor');
+var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
+var merge = require('react/lib/merge');
 
-var timesheets = require('../../../api/data/user.timesheets.json');
-
-var TimesheetStore = Fluxxor.createStore({
+var TimesheetStore = merge(store.prototype, {
   
-  actions: {
-    constants.UPDATE_TIMESHEET: 'update',
-    constants.DELETE_TIMESHEET: 'remove',
-    constants.CREATE_TIMESHEET: 'create'
+  initialize: function () {
+    this.timesheet = {};
+
+    this.bindActions(
+      constants.GET_TIMESHEET, this.get,
+      constants.UPDATE_TIMESHEET, this.update,
+      constants.DELETE_TIMESHEET, this.remove,
+      constants.CREATE_TIMESHEET, this.create
+    );
   },
 
-  initialize: function () {
-    this.timesheets = [];
+  get: function (id) {
+    
+    this.emit('change');
   },
 
   update: function (employee) {
@@ -21,7 +26,27 @@ var TimesheetStore = Fluxxor.createStore({
   },
 
   remove: function (employee) {
+    // data.remove('timesheets', timesheet) 
+    //   .then(function () {
+    //     notifications.success('timesheet : ' + timesheet.username + ', was deleted.');
+    //   })
+    //   .catch(function (x) {
+    //     timesheet.deleted = false;
+    //     notifications.error('Error attempting to delete timesheet.');
+    //   });
 
+    this.emit('change');
+  },
+
+  restore: function (employee) {
+    // data.restore('timesheets', timesheet)
+   //    .then(function (restored) {
+   //      notifications.success('timesheet was restored.');
+   //    })
+   //    .catch(function (x) {
+   //      timesheet.deleted = true;
+   //      notifications.error('Error restoring timesheet.');
+   //    });
 
     this.emit('change');
   },
@@ -34,7 +59,7 @@ var TimesheetStore = Fluxxor.createStore({
 
   getState: function () {
     return {
-      timesheets: timesheets;
+      timesheet: this.timesheet
     };
   }
 

@@ -1,43 +1,79 @@
-var Fluxxor = require('fluxxor');
+var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
+var data = require('../data/data');
+var merge = require('react/lib/merge');
 
-var employees = require('../../../api/data/users.json');
-
-var EmployeeStore = Fluxxor.createStore({
+var EmployeeStore = merge(store.prototype, {
   
-  actions: {
-    constants.UPDATE_EMPLOYEE: 'update',
-    constants.DELETE_EMPLOYEE: 'remove',
-    constants.CREATE_EMPLOYEE: 'create'
-  },
-
   initialize: function () {
-    this.employees = [];
+    this.register({
+      
+    });
   },
 
-  update: function (employee) {
+  get: function (payload) {
+    var self = this;
 
-    this.emit('change');
+    data.get('employees', {_id: payload.id})
+      .then(function (employee) {
+        self.setState({employee: employee});
+      })
+      .catch(function (data) {
+        notifications.error('There was an error getting the employee');
+      });
   },
 
-  remove: function (employee) {
+  update: function (payload) {
+    var self = this;
 
-
-    this.emit('change');
+    data.update('employees', payload.employee)
+      .then(function (updated) {
+        self.setState({employee: updated});    
+        notifications.success('Employee : ' + updated.username + ', updated.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error updating employee.');
+      });
   },
 
-  create: function (create) {
+  remove: function (payload) {
+    var self = this;
 
-
-    this.emit('change');
+    data.remove('employees', payload.employee) 
+      .then(function (removed) {
+        self.setState({employee: removed});
+        notifications.success('Employee : ' + employee.username + ', was deleted.');
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to delete employee.');
+      });
   },
 
-  getState: function () {
-    return {
-      employees: employees;
-    };
+  restore: function (payload) {
+    var self = this;
+
+    data.remove('employees', payload.employee) 
+      .then(function (restored) {
+        self.setState({employee: restored});
+        notifications.success('Employee : ' + employee.username + ', was deleted.');
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to restore employee.');
+      });
+  },
+
+  create: function (payload) {
+    var self = this;
+
+    data.create('employees', payload.employee)
+      .then(function (created) {
+        self.setState({employee: created});
+        notifications.success('Employee : ' + created.username + ', created.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error creating employee.');
+      });
   }
-
 });
 
 module.exports = EmployeeStore;

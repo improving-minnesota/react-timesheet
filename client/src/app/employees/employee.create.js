@@ -2,28 +2,28 @@
 
 var React = require('react');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var EmployeeForm = require('./employee.form');
-var data = require('../../data/data');
 
 var EmployeeCreate = React.createClass({
 
+  mixins: [
+    FluxChildMixin(React), 
+    StoreWatchMixin('employee')
+  ],
+
   getInitialState: function () {
     return {
-      saveText: 'Create',
-      employee: {admin: false}
+      saveText: 'Create'
     };
   },
 
   saveEmployee: function () {
-    data.create('employees', this.state.employee)
-      .then(function (created) {
-        notifications.success('Employee : ' + created.username + ', created.');
-        Router.transitionTo('employees');
-      })
-      .catch(function (x) {
-        notifications.error('There was an error creating employee.');
-      });
+    return {
+      employee: this.getFlux().stores('employee').employee
+    };
   },
 
   cancel: function () {

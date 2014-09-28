@@ -2,27 +2,34 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var Fluxxor = require('fluxxor');
+var FluxChildMixin = Fluxxor.FluxChildMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ProjectTable = require('./project.table');
 
 var Projects = React.createClass({
 
+  mixins: [
+    FluxChildMixin,
+    StoreWatchMixin('projects')
+  ],
+
   getInitialState: function () {
     return {
-      projects: this.requestProjects()
+      projects: []
+    };
+  },
+
+  getStateFromFlux: function () {
+    var flux = this.getFlux();
+    return {
+      projects: flux.store('projects').projects
     };
   },
 
   requestProjects: function () {
-    // var query = {
-    //   page: page || $scope.pageConfig.page,
-    //   sort: {username: 1}
-    // };
-
-    // data.page('projects', query)
-    //   .then(function (pageConfig) {
-    //     $scope.pageConfig = pageConfig;
-    //   });
+    //this.getFlux().actions.projects.list();
 
     return [
       {"_id": "111", "name": "Project1", "description": "This is your first project"},
@@ -33,6 +40,10 @@ var Projects = React.createClass({
 
   createNew: function () {
     Router.transitionTo('projects.create');
+  },
+
+  componentDidMount: function () {
+    this.requestProjects();
   },
   
   render: function () {

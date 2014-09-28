@@ -2,8 +2,16 @@
 
 var React = require('React');
 var ProjectForm = require('./project.form');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
+
 
 var ProjectCreate = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React), 
+    StoreWatchMixin('projects')
+  ],
 
   getInitialState: function () {
     return {

@@ -2,23 +2,24 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
+
 var ProjectForm = require('./project.form.js');
 
 var ProjectDetail = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('ProjectStore')
+  ],
 
   getProject: function (projectId) {
     // return data.get('projects', $stateParams);
   },
 
   saveProject: function () {
-    // data.create('projects', $scope.project)
-    //   .then(function (created) {
-    //     notifications.success('Project : ' + created.username + ', created.');
-    //     Router.transitionTo('app.projects.detail', {_id: created._id});
-    //   })
-    //   .catch(function (x) {
-    //     notifications.error('There was an error creating project.');
-    //   });
+    this.getFlux().actions.projects.update(this.state.project);
   },
 
   cancel: function () {
@@ -30,6 +31,10 @@ var ProjectDetail = React.createClass({
       saveText: 'Update'
     };
   },  
+
+  getStateFromFlux: function () {
+    return this.getFlux().store('ProjectStore').getState();
+  },
 
   componentDidMount: function() {
     this.getProject();

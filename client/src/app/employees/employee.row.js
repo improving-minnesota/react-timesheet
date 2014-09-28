@@ -2,12 +2,18 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var notifications = require('../../services/notifications');
 var data = require('../../data/data');
 var yesNo = require('../../filters/boolean');
 
 var EmployeeRow = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React)
+  ],
 
   getInitialState: function () {
     return {};
@@ -22,31 +28,13 @@ var EmployeeRow = React.createClass({
   },
 
   remove: function remove (e) {
-    var self = this;
     e.stopPropagation();
-
-    data.remove('employees', this.props.employee) 
-      .then(function () {
-        notifications.success('Employee : ' + employee.username + ', was deleted.');
-      })
-      .catch(function (x) {
-        this.props.employee.deleted = false;
-        notifications.error('Error attempting to delete employee.');
-      });
+    this.getFlux().actions.employees.remove(this.props.employee);
   },
 
   restore: function restore (e) {
-    var self = this;
     e.stopPropagation();
-
-    data.restore('employees', this.props.employee)
-      .then(function (restored) {
-        notifications.success('Employee was restored.');
-      })
-      .catch(function (x) {
-        this.props.employee.deleted = true;
-        notifications.error('Error restoring employee.');
-      });
+    this.getFlux().actions.employees.restore(this.props.employee);
   },
   
   render: function () {

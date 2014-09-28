@@ -2,11 +2,18 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var EmployeeTable = require('./employee.table');
 var data = require('../../data/data');
 
 var Employees = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('employees')
+  ],
 
   getInitialState: function () {
     return {
@@ -14,18 +21,14 @@ var Employees = React.createClass({
     };
   },
 
-  requestEmployees: function requestEmployees () {
-    var self = this;
-    // var query = {
-    //   page: this.state.page || 1,
-    //   sort: {username: 1}
-    // };
+  getStateFromFlux: function () {
+    return {
+      employees: this.getFlux().store('employees').employees
+    };
+  },
 
-    // data.page('employees', query)
-    data.list('employees')
-      .then(function (employees) {
-        self.setState({employees: employees});
-      });
+  requestEmployees: function requestEmployees () {
+    this.getFlux().actions.employees.list();
   },
 
   createNew: function createNew () {

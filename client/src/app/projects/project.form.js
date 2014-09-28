@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
-
 var React = require('React');
+
+var FieldWrap = require('../../form/field.wrap');
 
 var ProjectForm = React.createClass({
   
@@ -11,23 +12,19 @@ var ProjectForm = React.createClass({
           <div className="col-xs-12">
             <form className="form-horizontal" novalidate name="projectForm">
 
-              <div className="form-group">
-                <div tsz-field-wrap input-id="project-name" label="Name">
-                  <input type="text" className="form-control" 
-                    name="project-name" placeholder="Project Name"
-                    ng-model="project.name" 
-                    ng-minlength="1" ng-maxlength="40" required />
-                </div>
-              </div>
+              <FieldWrap inputId="project-name" label="Name" formField={
+                <input type="text" className="form-control" 
+                  name="project-name" placeholder="Project Name"
+                  ng-model="project.name" 
+                  ng-minlength="1" ng-maxlength="40" required />
+              }/>
 
-              <div className="form-group">
-                <div tsz-field-wrap input-id="project-description" label="Description">
-                  <input type="text" className="form-control" 
-                    name="project-description" placeholder="Project Description"
-                    ng-model="project.description" 
-                    ng-minlength="1" ng-maxlength="255" required />
-                </div>
-              </div>
+              <FieldWrap inputId="project-description" label="Description" formField={
+                <input type="text" className="form-control" 
+                  name="project-description" placeholder="Project Description"
+                  ng-model="project.description" 
+                  ng-minlength="1" ng-maxlength="255" required />
+              }/>
 
               <div className="row">
                 <hr/>

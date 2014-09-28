@@ -2,33 +2,21 @@
 
 var React = require('react');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var EmployeeForm = require('./employee.form');
 var data = require('../../data/data');
 
 var EmployeeDetail = React.createClass({
 
-  getEmployee: function () {
-    var self = this;
-
-    data.get('employees', {_id: this.props.params._id})
-      .then(function (employee) {
-        self.setState({employee: employee});
-      })
-      .catch(function (data) {
-        notifications.error('There was an error getting the employee');
-      });
-  },
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('employee.store')
+  ],
 
   saveEmployee: function () {
-    data.update('employees', this.state.employee)
-      .then(function (updated) {
-        notifications.success('Employee : ' + updated.username + ', updated.');
-        Router.transitionTo('employees');
-      })
-      .catch(function (x) {
-        notifications.error('There was an error creating employee.');
-      });
+    this.getFlux().actions().employees.update(this.state.employee);
   },
 
   cancel: function () {
@@ -38,13 +26,16 @@ var EmployeeDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      section: 'Update Employee',
-      employee: {admin: false}
+      section: 'Update Employee'
     };
   },  
 
+  getStateFromFlux: function () {
+    return this.getFlux().stores('employee').getState();
+  },
+
   componentDidMount: function() {
-    this.getEmployee();
+    this.getFlux().actions.employees.get();
   },
   
   render : function () {

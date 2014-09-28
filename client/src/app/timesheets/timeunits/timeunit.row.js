@@ -1,46 +1,36 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimeunitRow = React.createClass({
+
+  mixins: [
+    FluxChildMixin(React)
+  ],
 
   getInitialState: function () {
     return {};
   },
 
   showDetail: function showDetail () {
-    alert('show detail');
-    // if (timeunit.deleted) {
-    //   notifications.error('You cannot edit a deleted timeunit.');
-    //   return;
-    // }
-    // Router.transitionTo('app.timeunits.detail', timeunit);
+    var timeunit = this.props.timeunit;
+    if (timeunit.deleted) {
+      // notifications.error('You cannot edit a deleted timeunit.');
+      return;
+    }
+    Router.transitionTo('timeunits.detail', timeunit);
   },
 
-  remove: function remove () {
-    alert('remove!');
-    // data.remove('timeunits', timeunit) 
-    //   .then(function () {
-    //     notifications.success('timeunit : ' + timeunit.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     timeunit.deleted = false;
-    //     notifications.error('Error attempting to delete timeunit.');
-    //   });
-// $event.stopPropagation();
+  remove: function remove (e) {
+    e.stopPropagation();
+    this.getFlux().stores.actions.remove(this.props.timeunit);
   },
 
-  restore: function restore () {
-   alert('restore!');
-   // data.restore('timeunits', timeunit)
-   //    .then(function (restored) {
-   //      notifications.success('timeunit was restored.');
-   //    })
-   //    .catch(function (x) {
-   //      timeunit.deleted = true;
-   //      notifications.error('Error restoring timeunit.');
-   //    });
-// $event.stopPropagation();
+  restore: function restore (e) {
+   e.stopPropagation();
+   this.getFlux().stores.actions.restore(this.props.timeunit);
   },
   
   render: function () {

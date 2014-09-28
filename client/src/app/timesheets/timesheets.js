@@ -2,16 +2,17 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var FluxChildMixin = require('fluxxor').FluxChildMixin;
+var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetTable = require('./timesheet.table');
 
 var Timesheets = React.createClass({
 
-  getInitialState: function () {
-    return {
-      timesheets: this.requestTimesheets()
-    };
-  },
+  mixins: [
+    FluxChildMixin(React),
+    StoreWatchMixin('timesheets')
+  ],
 
   requestTimesheets: function () {
     return [];
@@ -19,6 +20,16 @@ var Timesheets = React.createClass({
 
   createNew: function () {
     return Router.transitionTo('timesheets.create', {user_id: '123'});
+  },
+
+  getInitialState: function () {
+    return {
+      timesheets: this.requestTimesheets()
+    };
+  },
+
+  getStateFromFlux: function () {
+    return this.getFlux().stores('timesheets').getState();
   },
 
   render: function () {
