@@ -2,16 +2,10 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetForm = require('./timesheet.form');
 
 var TimesheetCreate = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React)
-  ],
 
   getInitialState: function () {
     return {

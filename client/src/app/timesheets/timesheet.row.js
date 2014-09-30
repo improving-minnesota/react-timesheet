@@ -1,14 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetRow = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React)
-  ],
 
   getInitialState: function () {
     return {};
@@ -25,12 +19,12 @@ var TimesheetRow = React.createClass({
 
   remove: function remove (e) {
     e.stopPropagation();
-    this.getFlux().actions.timesheets.remove(this.props.timesheet);
+    
   },
 
   restore: function restore (e) {
    e.stopPropagation();
-   this.getFlux().actions.timesheets.restore(this.props.timesheet);
+   
   },
   
   render: function () {

@@ -1,14 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimeunitRow = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React)
-  ],
 
   getInitialState: function () {
     return {};

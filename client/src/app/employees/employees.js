@@ -4,17 +4,19 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var EmployeeTable = require('./employee.table');
-var actions = require('../actions/employee.actions');
-var store = require('../stores/employees.store');
+var actions = require('../../actions/employee.actions');
+var EmployeeStore = require('../../stores/employee.store');
 
 var Employees = React.createClass({
 
+  store: EmployeeStore.initialize(),
+
   getInitialState: function () {
-    return store.getState();
+    return this.store.getState();
   },
 
   onChange: function () {
-    this.setState(store.getState());
+    this.setState(this.store.getState());
   },
 
   requestEmployees: actions.listEmployees,
@@ -24,7 +26,11 @@ var Employees = React.createClass({
   },
 
   componentWillMount: function () {
-    store.addChangeListener(this.onChange);
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   componentDidMount: function () {

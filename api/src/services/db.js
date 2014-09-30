@@ -76,7 +76,7 @@ module.exports = (function () {
 
       db[model].update(query, body, options, function (err, numChanged, upsert) {
         if (numChanged > 0) {
-          deferred.resolve();
+          deferred.resolve(body);
         }
         else {
           deferred.reject(err);

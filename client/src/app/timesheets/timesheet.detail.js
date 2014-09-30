@@ -2,18 +2,11 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
-var FluxChildMixin = require('fluxxor').FluxChildMixin;
-var StoreWatchMixin = require('fluxxor').StoreWatchMixin;
 
 var TimesheetForm = require('./timesheet.form');
 var TimeunitTable = require('./timeunits/timeunit.table');
 
 var TimesheetDetail = React.createClass({
-
-  mixins: [
-    FluxChildMixin(React),
-    StoreWatchMixin('timesheets')
-  ],
 
   getInitialState: function () {
     return {
@@ -21,12 +14,8 @@ var TimesheetDetail = React.createClass({
     };
   },
 
-  getStateFromFlux: function () {
-    this.getFlux().stores('timesheet').getState();
-  },
-
   save: function () {
-    this.getFlux().actions.timesheets.update(this.props.timesheet);
+
   },
 
   cancel: function () {
@@ -34,7 +23,7 @@ var TimesheetDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.getFlux().actions.timesheets.get(this.props.params._id);
+    
   },
 
   render: function () {

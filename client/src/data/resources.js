@@ -5,18 +5,18 @@ module.exports = function () {
   api
     .add({
       resource: 'employees',
-      url: '/users'
+      url: '/users',
+      params: ['_id']
     })
 
     .add({
-      resource: 'projects'
+      resource: 'projects',
+      params: ['_id']
     })
 
     .add({
       resource: 'timesheets',
       url: '/users/:user_id/timesheets',
-      params: {
-        user_id: '@user_id'
-      }
+      params: ['_id', 'user_id']
     });
 };

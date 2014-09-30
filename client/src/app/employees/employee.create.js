@@ -5,24 +5,25 @@ var Router = require('react-router');
 
 var EmployeeForm = require('./employee.form');
 var actions = require('../../actions/employee.actions');
-var store = require('../../stores/employee.store');
+var EmployeeStore = require('../../stores/employee.store');
 
 var EmployeeCreate = React.createClass({
+
+  store: EmployeeStore.initialize(),
 
   getInitialState: function () {
     return {
       saveText: 'Create',
-      section: 'Create Employee',
-      employee: this.props.employee
+      section: 'Create Employee'
     };
   },
 
   onChange: function () {
-    this.setState(store.getState());
+    this.setState(this.getState());
   },
 
   componentWillMount: function () {
-    store.addChangeListener(this.onChange);
+    this.store.addChangeListener(this.onChange);
   },
 
   saveEmployee: function () {
@@ -35,7 +36,7 @@ var EmployeeCreate = React.createClass({
   
   render : function () {
     return (
-      <EmployeeForm employee={this.state.employee} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
+      <EmployeeForm employee={this.state.employee || {}} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
     );
   }
 });

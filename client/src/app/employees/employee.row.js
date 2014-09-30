@@ -9,27 +9,37 @@ var actions = require('../../actions/employee.actions');
 
 var EmployeeRow = React.createClass({
 
+  getInitialState: function () {
+    return {
+      employee: this.props.employee
+    };
+  },
+
   showDetail: function showDetail () {
     if (this.props.employee.deleted) {
       notifications.error('You cannot edit a deleted employee.');
       return;
     }
-    Router.transitionTo('employees.detail', this.props.employee);
+    Router.transitionTo('employees.detail', this.state.employee);
   },
 
   remove: function remove (e) {
     e.stopPropagation();
-    actions.deleteEmployee(this.props.employee);
+    this.state.employee.deleted = true;
+    actions.deleteEmployee(this.state.employee);
+    this.render();
   },
 
   restore: function restore (e) {
     e.stopPropagation();
-    actions.restoreEmployee(this.props.employee);
+    this.state.employee.deleted = false;
+    actions.restoreEmployee(this.state.employee);
+    this.render();
   },
   
   render: function () {
     var cx = React.addons.classSet;
-    var employee = this.props.employee;
+    var employee = this.state.employee;
 
     var classNames = cx({
       'repeated-item': true,

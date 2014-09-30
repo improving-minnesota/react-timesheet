@@ -10,11 +10,11 @@ var Store = merge(EventEmitter.prototype, {
   state: {},
 
   getState: function () {
-    return state;
+    return this.state;
   },
 
   setState: function (state) {
-    this.state = state;
+    this.state = _.extend(this.state, state);
   },
 
   emitChange: function () {
@@ -35,11 +35,13 @@ var Store = merge(EventEmitter.prototype, {
     dispatcher.register(function (payload) {
       var action = payload.action;
       var events = config;
-      var callback = events[action.actionType];
+      var promise = events[action.actionType];
 
-      if (_.isDefined(callback)) {
-        callback.apply(self, [payload]);
-        self.emitChange();
+      if (!_.isUndefined(promise)) {
+        promise.apply(self, [payload])
+          .then(function () {
+            self.emitChange();
+          });
       }
       return true;
     });

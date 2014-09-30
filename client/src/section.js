@@ -4,7 +4,9 @@ var React = require('react');
 var Router = require('react-router');
 
 var SectionHeader = React.createClass({
-  mixins: [Router.ActiveState],
+  mixins: [
+    Router.ActiveState
+  ],
   
   getInitialState: function () {
     return {

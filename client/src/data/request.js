@@ -68,12 +68,12 @@ Request.prototype.generateUrl = function (model) {
   var url = this.url;
 
   // All resources at least have an id parameter. 
-  _.each(this.params, function (value, key) {
-    var token = '/:' + key;
+  _.forEach(this.params, function (param) {
+    var token = '/:' + param;
 
     // if the parameter doesn't exist on the params, just blank it out.  
-    var param = !_.isUndefined(model[key]) ? '/' + model[key] : '';
-    url = url.replace(token, param);
+    var value = !_.isUndefined(model[param]) ? '/' + model[param] : '';
+    url = url.replace(token, value);
   }); 
 
   // clean up the :_id if an id was not included

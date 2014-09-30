@@ -53,6 +53,7 @@ module.exports = {
 
     db.update('users', {_id: id}, req.body)
       .then(function (user) {
+        console.log('responding ' + JSON.stringify(user));
         res.json(user);
       })
       .fail(function (err) {

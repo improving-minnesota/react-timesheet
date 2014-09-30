@@ -2,16 +2,13 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Fluxxor = require('fluxxor');
-var FluxChildMixin = Fluxxor.FluxChildMixin(React);
 
 var NavBar = require('../navbar');
 var SectionHeader = require('../section');
 
 var App = React.createClass({
   mixins: [
-    Router.ActiveState,
-    FluxChildMixin
+    Router.ActiveState
   ],
 
   render : function () {

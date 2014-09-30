@@ -1,5 +1,6 @@
 /*global Messenger window */
 var Messenger = require('Messenger');
+var _ = require('lodash');
 
 Messenger.options = {
   extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
@@ -10,8 +11,8 @@ function Notifications () {}
 Notifications.prototype.message = function (message, config) {
   message.hideAfter = 3;
 
-  if (angular.isDefined(config) && angular.isObject(config)) {
-    message = angular.extend(message, config);
+  if (!_.isUndefined(config) && _.isObject(config)) {
+    message = _.extend(message, config);
   }
 
   // types : success, error, info

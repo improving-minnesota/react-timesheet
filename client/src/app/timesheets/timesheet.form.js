@@ -82,7 +82,6 @@ var TimesheetForm = React.createClass({
           </div>
         </div>
       </div>
-
     );
   }
 });

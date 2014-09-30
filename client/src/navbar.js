@@ -6,7 +6,9 @@ var Link = Router.Link;
 var ActiveState = Router.ActiveState;
 
 var NavBar = React.createClass({
-  mixins: [ Router.ActiveState ],
+  mixins: [ 
+    Router.ActiveState 
+  ],
 
   getInitialState: function () {
     return {
@@ -57,7 +59,7 @@ var NavBar = React.createClass({
               <Link to="employees">Employees</Link>
             </li>
             <li className={timesheetsClasses}>
-              <Link to="timesheets" user_id="123">Timesheets</Link>
+              <Link to="timesheets" params={{user_id: 123}}>Timesheets</Link>
             </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
