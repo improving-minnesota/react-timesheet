@@ -2,11 +2,10 @@ var merge = require('react/lib/merge');
 
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
-var data = require('../data/data');
 var notifications = require('../services/notifications');
 
 var TimeunitStore = merge(store.prototype, {
-  
+
   initialize: function () {
 
     this.bindActions(
@@ -17,7 +16,7 @@ var TimeunitStore = merge(store.prototype, {
   },
 
   update: function (timeunit) {
-    
+
 
     this.emit('change');
   },
@@ -25,7 +24,7 @@ var TimeunitStore = merge(store.prototype, {
   remove: function (timeunit) {
     var self = this;
 
-    data.remove('timeunits', timeunit) 
+    data.remove('timeunits', timeunit)
       .then(function () {
         //notifications.success('timeunit : ' + timeunit.username + ', was deleted.');
       })

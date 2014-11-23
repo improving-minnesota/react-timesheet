@@ -3,10 +3,14 @@ var merge = require('react/lib/merge');
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
 var notifications = require('../services/notifications');
-var data = require('../data/data');
+
+// .add({
+//   resource: 'projects',
+//   params: ['_id']
+// })
 
 var ProjectStore = merge(store.prototype, {
-  
+
   initialize: function () {
     var events = {};
     events[constants.GET_PROJECT] = this.get;
@@ -35,7 +39,7 @@ var ProjectStore = merge(store.prototype, {
 
     data.update('projects', payload.project)
       .then(function (updated) {
-        self.setState({project: updated});    
+        self.setState({project: updated});
         notifications.success('Project : ' + updated.name + ', updated.');
       })
       .catch(function (x) {
@@ -46,7 +50,7 @@ var ProjectStore = merge(store.prototype, {
   remove: function (payload) {
     var self = this;
 
-    data.remove('projects', payload.project) 
+    data.remove('projects', payload.project)
       .then(function (removed) {
         self.setState({project: removed});
         notifications.success('Project : ' + removed.name + ', was deleted.');
@@ -59,7 +63,7 @@ var ProjectStore = merge(store.prototype, {
   restore: function (payload) {
     var self = this;
 
-    data.remove('projects', payload.project) 
+    data.remove('projects', payload.project)
       .then(function (restored) {
         self.setState({project: restored});
         notifications.success('Project : ' + project.name + ', was deleted.');

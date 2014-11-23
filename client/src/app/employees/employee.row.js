@@ -27,16 +27,14 @@ var EmployeeRow = React.createClass({
     e.stopPropagation();
     this.state.employee.deleted = true;
     actions.deleteEmployee(this.state.employee);
-    this.render();
   },
 
   restore: function restore (e) {
     e.stopPropagation();
     this.state.employee.deleted = false;
     actions.restoreEmployee(this.state.employee);
-    this.render();
   },
-  
+
   render: function () {
     var cx = React.addons.classSet;
     var employee = this.state.employee;
@@ -70,6 +68,6 @@ var EmployeeRow = React.createClass({
       </tr>
     );
   }
-}); 
+});
 
 module.exports = EmployeeRow;

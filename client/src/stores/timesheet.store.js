@@ -4,8 +4,14 @@ var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
 var notifications = require('../services/notifications');
 
+// .add({
+//   resource: 'timesheets',
+//   url: '/users/:user_id/timesheets',
+//   params: ['_id', 'user_id']
+// });
+
 var TimesheetStore = merge(store.prototype, {
-  
+
   initialize: function () {
     this.timesheet = {};
 
@@ -18,7 +24,7 @@ var TimesheetStore = merge(store.prototype, {
   },
 
   get: function (id) {
-    
+
     this.emit('change');
   },
 
@@ -28,7 +34,7 @@ var TimesheetStore = merge(store.prototype, {
   },
 
   remove: function (employee) {
-    // data.remove('timesheets', timesheet) 
+    // data.remove('timesheets', timesheet)
     //   .then(function () {
     //     notifications.success('timesheet : ' + timesheet.username + ', was deleted.');
     //   })
