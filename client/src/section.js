@@ -7,7 +7,7 @@ var SectionHeader = React.createClass({
   mixins: [
     Router.ActiveState
   ],
-  
+
   getInitialState: function () {
     return {
       section: 'Employees'
@@ -16,7 +16,7 @@ var SectionHeader = React.createClass({
 
   updateActiveState: function () {
     var section;
-    
+
     if (SectionHeader.isActive('employees')) {
       section = 'Employees';
     } else if (SectionHeader.isActive('employees.create')) {
@@ -42,8 +42,8 @@ var SectionHeader = React.createClass({
       <div className="row">
         <div className="col-xs-12">
           <h2>{this.state.section}</h2>
-          <hr/>   
-        </div>  
+          <hr/>
+        </div>
       </div>
     );
   }

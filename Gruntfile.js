@@ -4,7 +4,7 @@
 //
 module.exports = function (grunt) {
 
-  var filesConfig = require('./files.config'),
+  var filesConfig = require('./config/files.config'),
     watchedFiles = filesConfig.watchedFiles,
     jshintrc = grunt.file.readJSON('.jshintrc');
 
@@ -49,7 +49,7 @@ module.exports = function (grunt) {
 
     browserify: {
       options: {
-        transform:[ 
+        transform:[
           require('browserify-shim'),
           require('grunt-react').browserify
         ]
@@ -250,11 +250,11 @@ module.exports = function (grunt) {
       },
       development: {
         files: watchedFiles,
-        tasks: ['development'] 
+        tasks: ['development']
       },
       production: {
         files: watchedFiles,
-        tasks: ['production'] 
+        tasks: ['production']
       }
     },
 
@@ -266,14 +266,14 @@ module.exports = function (grunt) {
     karma : {
       unit : {
         reporters: 'dots',
-        configFile: 'karma.config.js'
+        configFile: './config/karma.config.js'
       }
     },
 
     // Starts the protractor e2e tests.
     protractor: {
       options: {
-        configFile: 'protractor.config.js',
+        configFile: './config/protractor.config.js',
         keepAlive: true,
         noColor: false
       },
@@ -295,13 +295,13 @@ module.exports = function (grunt) {
   // **********************************************************************************************
   // The default task is the development task
   grunt.registerTask('default', [
-    'clean', 
+    'clean',
     'browserify:app',
-    //'jshint', 
-    'less', 
-    'concat:css', 
+    //'jshint',
+    'less',
+    'concat:css',
     'jade:development',
-    'copy:vendor', 
+    'copy:vendor',
     'copy:development'
   ]);
 

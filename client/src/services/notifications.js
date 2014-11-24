@@ -1,5 +1,5 @@
-/*global Messenger window */
-var Messenger = require('Messenger');
+/*global window */
+var Messenger = require('messenger');
 var _ = require('lodash');
 
 Messenger.options = {

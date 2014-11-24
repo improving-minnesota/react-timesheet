@@ -4,12 +4,12 @@
   "main": "./api/server.js",
   "description": "Timesheet application for React training labs",
   "version": "0.0.1",
-  "browserify-shim": {
-    "./client/assets/js/messenger/build/js/messenger.js": {
-      "depends": "./node_modules/jquery/dist/jquery.js",
-      "exports": "Messenger"
-    }
+  "browser": {
+    "messenger": "./client/assets/js/messenger/build/js/messenger.js",
+    "jquery": "./node_modules/jquery/dist/jquery.js"
   },
+  "browserify-shim": "./config/shims.js",
+
   "dependencies": {
     "body-parser": "^1.8.3",
     "bootable": "^0.2.3",
@@ -27,7 +27,6 @@
     "jade": "^1.7.0",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
-    "messenger": "^0.0.9",
     "moment": "^2.8.3",
     "nedb": "^0.11.1",
     "nprogress": "^0.1.6",

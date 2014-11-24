@@ -19,10 +19,11 @@ var EmployeeDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      section: 'Update Employee'
+      section: 'Update Employee',
+      employee: this.props.employee
     };
-  }, 
-  
+  },
+
   render : function () {
     return (
       <EmployeeForm employee={this.props.employee} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
@@ -30,5 +31,4 @@ var EmployeeDetail = React.createClass({
   }
 });
 
-module.exports = EmployeeDetail; 
-
+module.exports = EmployeeDetail;
