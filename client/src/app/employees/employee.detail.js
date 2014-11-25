@@ -1,32 +1,61 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Router = require('react-router');
+var _ = require('lodash');
 
 var EmployeeForm = require('./employee.form');
 var actions = require('../../actions/employee.actions');
 
+var ChangeMixin = require('../../mixins/change.mixin');
+var EmployeeMixin = require('../../mixins/employee.mixin');
+
 var EmployeeDetail = React.createClass({
 
-  saveEmployee: function () {
-    actions.updateEmployee(this.props.employee);
+  mixins: [
+    ChangeMixin,
+    EmployeeMixin
+  ],
+
+  saveEmployee: function (event) {
+    actions.updateEmployee(this.state.employee);
+    this.goToEmployeesTable();
   },
 
-  cancel: function () {
-    Router.transitionTo('employees');
+  getEmployee: function (employeeId) {
+    var employee = this.store.getState().employee;
+    if (_.isEmpty(employee)) {
+      actions.getEmployee(employeeId);
+    }
+    else {
+      this.onChange();
+    }
+  },
+
+  handleChange: function (event) {
+    this.state.employee[event.target.name] = event.target.value;
+    this.setState(this.state.employee);
   },
 
   getInitialState: function () {
     return {
       saveText: 'Update',
       section: 'Update Employee',
-      employee: this.props.employee
+      employee: {}
     };
+  },
+
+  componentDidMount: function () {
+    this.getEmployee(this.props.params._id);
   },
 
   render : function () {
     return (
-      <EmployeeForm employee={this.props.employee} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
+      <EmployeeForm employee={this.state.employee}
+        saveText={this.state.saveText}
+        onSave={this.saveEmployee}
+        onCancel={this.goToEmployeesTable}
+        handleChange={this.handleChange}
+        toggleAdmin={this.toggleAdmin} />
     );
   }
 });

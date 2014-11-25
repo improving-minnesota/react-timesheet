@@ -6,38 +6,34 @@ var Router = require('react-router');
 var notifications = require('../../services/notifications');
 var yesNo = require('../../filters/boolean');
 var actions = require('../../actions/employee.actions');
+var store = require('../../stores/employee.store');
 
 var EmployeeRow = React.createClass({
-
-  getInitialState: function () {
-    return {
-      employee: this.props.employee
-    };
-  },
 
   showDetail: function showDetail () {
     if (this.props.employee.deleted) {
       notifications.error('You cannot edit a deleted employee.');
       return;
     }
-    Router.transitionTo('employees.detail', this.state.employee);
+    store.setState({employee: this.props.employee});
+    Router.transitionTo('employees.detail', {_id: this.props.employee._id});
   },
 
   remove: function remove (e) {
     e.stopPropagation();
-    this.state.employee.deleted = true;
-    actions.deleteEmployee(this.state.employee);
+    this.props.employee.deleted = true;
+    actions.deleteEmployee(this.props.employee);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
-    this.state.employee.deleted = false;
-    actions.restoreEmployee(this.state.employee);
+    this.props.employee.deleted = false;
+    actions.restoreEmployee(this.props.employee);
   },
 
   render: function () {
     var cx = React.addons.classSet;
-    var employee = this.state.employee;
+    var employee = this.props.employee;
 
     var classNames = cx({
       'repeated-item': true,

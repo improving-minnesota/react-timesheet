@@ -12,7 +12,7 @@ var EmployeeActions = {
   getEmployee: function (id) {
     dispatcher.handleViewAction({
       actionType: constants.GET_EMPLOYEE,
-      employee: {id: id}
+      employee: {_id: id}
     });
   },
 

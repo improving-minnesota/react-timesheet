@@ -1,15 +1,19 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Router = require('react-router');
 
 var EmployeeForm = require('./employee.form');
 var actions = require('../../actions/employee.actions');
-var EmployeeStore = require('../../stores/employee.store');
+
+var EmployeeMixin = require('../../mixins/employee.mixin')
+var ChangeMixin = require('../../mixins/change.mixin');
 
 var EmployeeCreate = React.createClass({
 
-  store: EmployeeStore.initialize(),
+  mixins : [
+    ChangeMixin,
+    EmployeeMixin
+  ],
 
   getInitialState: function () {
     return {
@@ -18,27 +22,19 @@ var EmployeeCreate = React.createClass({
     };
   },
 
-  onChange: function () {
-    this.setState(this.getState());
-  },
-
-  componentWillMount: function () {
-    this.store.addChangeListener(this.onChange);
-  },
-
-  saveEmployee: function () {
+  saveEmployee: function (event) {
     actions.createEmployee(this.state.employee);
+    this.goToEmployeesTable();
   },
 
-  cancel: function () {
-    Router.transitionTo('employees');
-  },
-  
   render : function () {
     return (
-      <EmployeeForm employee={this.state.employee || {}} saveText={this.state.saveText} onSave={this.saveEmployee} onCancel={this.cancel}/>
+      <EmployeeForm employee={this.state.employee || {}}
+        saveText={this.state.saveText}
+        onSave={this.saveEmployee}
+        onCancel={this.goToEmployeesTable} />
     );
   }
 });
 
-module.exports = EmployeeCreate; 
+module.exports = EmployeeCreate;

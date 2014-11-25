@@ -7,22 +7,28 @@ var agent = require('superagent-promise');
 
 var EmployeeStore = merge(store, {
 
+  initialized: false,
+
   initialize: function () {
-    var events = {};
-    events[constants.LIST_EMPLOYEES] = this.list;
-    events[constants.GET_EMPLOYEE] = this.get;
-    events[constants.UPDATE_EMPLOYEE] = this.update;
-    events[constants.DELETE_EMPLOYEE] = this.remove;
-    events[constants.RESTORE_EMPLOYEE] = this.restore;
-    events[constants.CREATE_EMPLOYEE] = this.create;
+    if (!this.initialized) {
+      var events = {};
+      events[constants.LIST_EMPLOYEES]   = this.list;
+      events[constants.GET_EMPLOYEE]     = this.get;
+      events[constants.UPDATE_EMPLOYEE]  = this.update;
+      events[constants.DELETE_EMPLOYEE]  = this.remove;
+      events[constants.RESTORE_EMPLOYEE] = this.restore;
+      events[constants.CREATE_EMPLOYEE]  = this.create;
 
-    this.url = '/users';
+      this.url = '/users';
 
-    this.register(events);
-    this.setState({
-      employee: {},
-      employees: []
-    });
+      this.register(events);
+      this.setState({
+        employee: {},
+        employees: []
+      });
+
+      this.initialized = true;
+    }
 
     return this;
   },
@@ -61,7 +67,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + updated.username + ', updated.');
+        notifications.success('Employee : ' + employee.username + ', updated.');
       },
       function (x) {
         notifications.error('There was an error updating employee.');
@@ -78,7 +84,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + employee.username + ', was restored.');
+        notifications.success('Employee : ' + res.body.username + ', was restored.');
         return true;
       },
       function (x) {
@@ -92,9 +98,9 @@ var EmployeeStore = merge(store, {
     employee.deleted = false;
 
     var prom = agent.put(this.url + '/' +employee._id).send(employee).end()
-      .then(function (restored) {
-        self.setState({employee: restored});
-        notifications.success('Employee : ' + employee.username + ', was deleted.');
+      .then(function (res) {
+        self.setState({employee: res.body});
+        notifications.success('Employee : ' + res.body.username + ', was deleted.');
         return true;
       },
       function (x) {
@@ -110,9 +116,9 @@ var EmployeeStore = merge(store, {
     return agent.post(this.url)
       .send(payload.action.employee)
       .end()
-      .then(function (created) {
-        self.setState({employee: created});
-        notifications.success('Employee : ' + created.username + ', created.');
+      .then(function (res) {
+        self.setState({employee: res.body});
+        notifications.success('Employee : ' + res.body.username + ', created.');
       })
       .catch(function (x) {
         notifications.error('There was an error creating employee.');

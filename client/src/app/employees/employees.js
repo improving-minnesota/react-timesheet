@@ -7,36 +7,30 @@ var EmployeeTable = require('./employee.table');
 var actions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
+var EmployeeMixin = require('../../mixins/employee.mixin');
+
 var Employees = React.createClass({
 
+  mixins: [
+    EmployeeMixin
+  ],
+
   store: EmployeeStore.initialize(),
+
+  requestEmployees: actions.listEmployees,
 
   getInitialState: function () {
     return this.store.getState();
   },
 
-  onChange: function () {
-    this.setState(this.store.getState());
-  },
-
-  requestEmployees: actions.listEmployees,
-
   createNew: function createNew () {
     Router.transitionTo('employees.create');
-  },
-
-  componentWillMount: function () {
-    this.store.addChangeListener(this.onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.store.removeChangeListener(this.onChange);
   },
 
   componentDidMount: function () {
     this.requestEmployees();
   },
-  
+
   render: function () {
     return (
       <div className="tsz-employee-list">
@@ -50,17 +44,17 @@ var Employees = React.createClass({
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <EmployeeTable employees={this.state.employees} />
+              <EmployeeTable employees={this.state.employees} store={this.store}/>
             </div>
           </div>
 
           <div className="text-center">
             <div pagination
-              total-items="pageConfig.totalItems" 
-              ng-model="pageConfig.page" 
-              items-per-page="pageConfig.limit" 
-              boundary-links="true" 
-              rotate="true" 
+              total-items="pageConfig.totalItems"
+              ng-model="pageConfig.page"
+              items-per-page="pageConfig.limit"
+              boundary-links="true"
+              rotate="true"
               ng-change="requestEmployees(page)">
             </div>
           </div>
@@ -71,6 +65,6 @@ var Employees = React.createClass({
       </div>
     );
   }
-}); 
+});
 
 module.exports = Employees;
