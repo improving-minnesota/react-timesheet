@@ -2,7 +2,7 @@
 
 var React = require('React');
 
-var FieldWrap = require('../../form/field.wrap');
+var FieldWrap = require('..//common/field.wrap');
 
 var TimesheetForm = React.createClass({
   

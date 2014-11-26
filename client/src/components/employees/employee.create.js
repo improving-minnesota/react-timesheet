@@ -18,7 +18,10 @@ var EmployeeCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Create',
-      section: 'Create Employee'
+      section: 'Create Employee',
+      employee: {
+        admin:false
+      }
     };
   },
 
@@ -29,10 +32,12 @@ var EmployeeCreate = React.createClass({
 
   render : function () {
     return (
-      <EmployeeForm employee={this.state.employee || {}}
+      <EmployeeForm employee={this.state.employee}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
-        onCancel={this.goToEmployeesTable} />
+        onCancel={this.goToEmployeesTable}
+        handleChange={this.handleChange}
+        toggleAdmin={this.toggleAdmin} />
     );
   }
 });

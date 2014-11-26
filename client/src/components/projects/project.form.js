@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('React');
 
-var FieldWrap = require('../../form/field.wrap');
+var FieldWrap = require('..//common/field.wrap');
 
 var ProjectForm = React.createClass({
   

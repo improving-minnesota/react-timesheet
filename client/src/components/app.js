@@ -3,8 +3,8 @@
 var React = require('react');
 var Router = require('react-router');
 
-var NavBar = require('../navbar');
-var SectionHeader = require('../section');
+var NavBar = require('./common/navbar');
+var SectionHeader = require('./common/section');
 
 var App = React.createClass({
   mixins: [

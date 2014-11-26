@@ -2,7 +2,7 @@
 var React = require('React');
 var PropTypes = React.PropTypes;
 
-var FieldWrap = require('../../form/field.wrap');
+var FieldWrap = require('..//common/field.wrap');
 var yesNo = require('../../filters/boolean');
 
 var EmployeeForm = React.createClass({

@@ -28,42 +28,36 @@ var Projects = React.createClass({
   componentDidMount: function () {
     this.requestProjects();
   },
-  
+
   render: function () {
     return (
       <div className="tsz-project-list">
-        <div>
-          <div className="row tsz-form-row">
-            <div className="col-sm-2 pull-right">
-              <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
-                <i className="icon-plus"/> New Project
-              </button>
-            </div>
+        <div className="row tsz-form-row">
+          <div className="col-sm-2 pull-right">
+            <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
+              <i className="icon-plus"/> New Project
+            </button>
           </div>
-          <div className="row">
-            <div className="col-xs-12">
-              <ProjectTable projects={this.state.projects} />
-            </div>
-          </div>
-
-          <div className="text-center">
-            <div pagination
-              total-items="pageConfig.totalItems" 
-              ng-model="pageConfig.page" 
-              items-per-page="pageConfig.limit" 
-              boundary-links="true" 
-              rotate="true" 
-              ng-change="requestProjects(page)">
-            </div>
-          </div>
-
         </div>
-        
-        <this.props.activeRouteHandler />
+        <div className="row">
+          <div className="col-xs-12">
+            <ProjectTable projects={this.state.projects} />
+          </div>
+        </div>
+
+        <div className="text-center">
+          <div pagination
+            total-items="pageConfig.totalItems"
+            ng-model="pageConfig.page"
+            items-per-page="pageConfig.limit"
+            boundary-links="true"
+            rotate="true"
+            ng-change="requestProjects(page)">
+          </div>
+        </div>
       </div>
     );
   }
-}); 
+});
 
 module.exports = Projects;
-

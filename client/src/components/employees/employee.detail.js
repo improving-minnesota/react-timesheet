@@ -31,11 +31,6 @@ var EmployeeDetail = React.createClass({
     }
   },
 
-  handleChange: function (event) {
-    this.state.employee[event.target.name] = event.target.value;
-    this.setState(this.state.employee);
-  },
-
   getInitialState: function () {
     return {
       saveText: 'Update',

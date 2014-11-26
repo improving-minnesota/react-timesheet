@@ -5,6 +5,11 @@ module.exports = {
 
   store: EmployeeStore.initialize(),
 
+  handleChange: function (event) {
+    this.state.employee[event.target.name] = event.target.value;
+    this.setState(this.state.employee);
+  },
+
   goToEmployeesTable: function () {
     Router.transitionTo('employees');
   },

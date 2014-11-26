@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
 var EmployeeRow = require('./employee.row');
 
 var EmployeeTable = React.createClass({
@@ -31,6 +31,6 @@ var EmployeeTable = React.createClass({
       </table>
     );
   }
-}); 
+});
 
 module.exports = EmployeeTable;
