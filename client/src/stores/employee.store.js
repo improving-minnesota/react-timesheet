@@ -3,7 +3,7 @@ var merge = require('react/lib/merge');
 var store = require('../flux/flux.store');
 var constants = require('../flux/flux.constants');
 var notifications = require('../services/notifications');
-var agent = require('superagent-promise');
+var agent = require('../services/agent.promise');
 
 var EmployeeStore = merge(store, {
 
@@ -36,11 +36,12 @@ var EmployeeStore = merge(store, {
   list: function () {
     var self = this;
 
-    return agent.get(this.url).end()
+    return agent.get(this.url)
+      .end()
       .then(function (res) {
         self.setState({employees: res.body});
-      },
-      function (x) {
+      })
+      .catch(function (x) {
         notifications.error('Error attempting to retrieve employees.');
       });
   },
@@ -48,12 +49,13 @@ var EmployeeStore = merge(store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url + '/' + payload.action.employee._id).end()
+    return agent.get(this.url + '/' + payload.action.employee._id)
+      .end()
       .then(function (res) {
         self.setState({employee: res.body});
         return true;
-      },
-      function (data) {
+      })
+      .catch(function (data) {
         notifications.error('There was an error getting the employee');
       });
   },
@@ -68,8 +70,8 @@ var EmployeeStore = merge(store, {
       .then(function (res) {
         self.setState({employee: res.body});
         notifications.success('Employee : ' + employee.username + ', updated.');
-      },
-      function (x) {
+      })
+      .catch(function (x) {
         notifications.error('There was an error updating employee.');
       });
   },
@@ -86,8 +88,8 @@ var EmployeeStore = merge(store, {
         self.setState({employee: res.body});
         notifications.success('Employee : ' + res.body.username + ', was restored.');
         return true;
-      },
-      function (x) {
+      })
+      .catch(function (x) {
         notifications.error('Error attempting to delete employee.');
       });
   },
@@ -97,13 +99,15 @@ var EmployeeStore = merge(store, {
     var employee = payload.action.employee;
     employee.deleted = false;
 
-    var prom = agent.put(this.url + '/' +employee._id).send(employee).end()
+    var prom = agent.put(this.url + '/' +employee._id)
+      .send(employee)
+      .end()
       .then(function (res) {
         self.setState({employee: res.body});
         notifications.success('Employee : ' + res.body.username + ', was deleted.');
         return true;
-      },
-      function (x) {
+      })
+      .catch(function (x) {
         notifications.error('Error attempting to restore employee.');
       });
 
