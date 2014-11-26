@@ -6,8 +6,8 @@ var Link = Router.Link;
 var ActiveState = Router.ActiveState;
 
 var NavBar = React.createClass({
-  mixins: [ 
-    Router.ActiveState 
+  mixins: [
+    Router.ActiveState
   ],
 
   getInitialState: function () {
@@ -64,7 +64,7 @@ var NavBar = React.createClass({
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a className="navbar-brand logout" onClick={this.logout}>  
+              <a className="navbar-brand logout" onClick={this.logout}>
                 <i className="fa fa-power-off"/> Logout
               </a>
             </li>

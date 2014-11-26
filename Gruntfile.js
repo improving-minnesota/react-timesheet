@@ -65,8 +65,8 @@ module.exports = function (grunt) {
     concat:{
       css: {
         src: [
-          '<%= components %>/select2/select2.css',
-          '<%= components %>/nprogress/nprogress.css',
+          'node_modules/select2/select2.css',
+          'node_modules/nprogress/nprogress.css',
           '<%= components %>/messenger/build/css/messenger.css',
           '<%= clientdist %>/assets/css/style.css'
         ],
