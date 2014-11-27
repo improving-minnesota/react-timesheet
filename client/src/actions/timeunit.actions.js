@@ -1,45 +1,51 @@
-var constants = require('../flux/flux.constants');
 var dispatcher = require('../flux/flux.dispatcher');
 
 var TimeunitActions = {
 
+  LIST: 'LIST_TIMEUNITS',
+  GET: 'GET_TIMEUNIT',
+  CREATE: 'CREATE_TIMEUNIT',
+  UPDATE: 'UPDATE_TIMEUNIT',
+  DELETE: 'DELETE_TIMEUNIT',
+  RESTORE: 'RESTORE_TIMEUNIT',
+
   listTimeunits: function () {
     dispatcher.handleViewAction({
-      actionType: constants.LIST_TIMEUNITS
+      actionType: TimeunitActions.LIST
     });
   },
 
   getTimeunit: function (id) {
     dispatcher.handleViewAction({
-      actionType: constants.GET_TIMEUNIT,
+      actionType: TimeunitActions.GET,
       timeunit: {_id: id}
     });
   },
 
   createTimeunit: function (timeunit) {
     dispatcher.handleViewAction({
-      actionType: constants.CREATE_TIMEUNIT,
+      actionType: TimeunitActions.CREATE,
       timeunit: timeunit
     });
   },
 
   updateTimeunit: function (timeunit) {
     dispatcher.handleViewAction({
-      actionType: constants.UPDATE_TIMEUNIT,
+      actionType: TimeunitActions.UPDATE,
       timeunit: timeunit
     });
   },
 
   deleteTimeunit: function (timeunit) {
     dispatcher.handleViewAction({
-      actionType: constants.DELETE_TIMEUNIT,
+      actionType: TimeunitActions.DELETE,
       timeunit: timeunit
     });
   },
 
   restoreTimeunit: function (timeunit) {
     dispatcher.handleViewAction({
-      actionType: constants.RESTORE_TIMEUNIT,
+      actionType: TimeunitActions.RESTORE,
       timeunit: timeunit
     });
   }

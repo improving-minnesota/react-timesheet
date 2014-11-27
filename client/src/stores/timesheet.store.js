@@ -1,76 +1,133 @@
 var merge = require('react/lib/merge');
 
 var store = require('../flux/flux.store');
-var constants = require('../flux/flux.constants');
+var actions = require('../actions/timesheet.actions');
 var notifications = require('../services/notifications');
+var agent = require('../services/agent.promise');
 
-// .add({
-//   resource: 'timesheets',
-//   url: '/users/:user_id/timesheets',
-//   params: ['_id', 'user_id']
-// });
+var EmployeeStore = merge(store, {
 
-var TimesheetStore = merge(store.prototype, {
+  initialized: false,
 
   initialize: function () {
-    this.timesheet = {};
+    if (!this.initialized) {
+      var events = {};
+      events[actions.LIST]    = this.list;
+      events[actions.GET]     = this.get;
+      events[actions.UPDATE]  = this.update;
+      events[actions.DELETE]  = this.remove;
+      events[actions.RESTORE] = this.restore;
+      events[actions.CREATE]  = this.create;
 
-    this.bindActions(
-      constants.GET_TIMESHEET, this.get,
-      constants.UPDATE_TIMESHEET, this.update,
-      constants.DELETE_TIMESHEET, this.remove,
-      constants.CREATE_TIMESHEET, this.create
-    );
+      this.url = '/users';
+
+      this.register(events);
+      this.setState({
+        timesheet: {},
+        timesheets: []
+      });
+
+      this.initialized = true;
+    }
+
+    return this;
   },
 
-  get: function (id) {
+  list: function () {
+    var self = this;
 
-    this.emit('change');
+    return agent.get(this.url)
+      .end()
+      .then(function (res) {
+        self.setState({timesheets: res.body});
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to retrieve timesheets.');
+      });
   },
 
-  update: function (employee) {
+  get: function (payload) {
+    var self = this;
 
-    this.emit('change');
+    return agent.get(this.url + '/' + payload.action.timesheet._id)
+      .end()
+      .then(function (res) {
+        self.setState({timesheet: res.body});
+        return true;
+      })
+      .catch(function (data) {
+        notifications.error('There was an error getting the timesheet');
+      });
   },
 
-  remove: function (employee) {
-    // data.remove('timesheets', timesheet)
-    //   .then(function () {
-    //     notifications.success('timesheet : ' + timesheet.username + ', was deleted.');
-    //   })
-    //   .catch(function (x) {
-    //     timesheet.deleted = false;
-    //     notifications.error('Error attempting to delete timesheet.');
-    //   });
+  update: function (payload) {
+    var self = this;
+    var timesheet = payload.action.timesheet;
 
-    this.emit('change');
+    return agent.put(this.url + '/' + timesheet._id)
+      .send(timesheet)
+      .end()
+      .then(function (res) {
+        self.setState({timesheet: res.body});
+        notifications.success('Timesheet : ' + timesheet.username + ', updated.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error updating timesheet.');
+      });
   },
 
-  restore: function (employee) {
-    // data.restore('timesheets', timesheet)
-   //    .then(function (restored) {
-   //      notifications.success('timesheet was restored.');
-   //    })
-   //    .catch(function (x) {
-   //      timesheet.deleted = true;
-   //      notifications.error('Error restoring timesheet.');
-   //    });
+  remove: function (payload) {
+    var self = this;
+    var timesheet = payload.action.timesheet;
+    timesheet.deleted = true;
 
-    this.emit('change');
+    return agent.put(this.url + '/' + timesheet._id)
+      .send(timesheet)
+      .end()
+      .then(function (res) {
+        self.setState({timesheet: res.body});
+        notifications.success('Timesheet : ' + res.body.username + ', was restored.');
+        return true;
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to delete timesheet.');
+      });
   },
 
-  create: function (create) {
+  restore: function (payload) {
+    var self = this;
+    var timesheet = payload.action.timesheet;
+    timesheet.deleted = false;
 
+    var prom = agent.put(this.url + '/' +timesheet._id)
+      .send(timesheet)
+      .end()
+      .then(function (res) {
+        self.setState({timesheet: res.body});
+        notifications.success('Timesheet : ' + res.body.username + ', was deleted.');
+        return true;
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to restore timesheet.');
+      });
 
-    this.emit('change');
+    return prom;
   },
 
-  getState: function () {
-    return {
-      timesheet: this.timesheet
-    };
+  create: function (payload) {
+    var self = this;
+
+    return agent.post(this.url)
+      .send(payload.action.timesheet)
+      .end()
+      .then(function (res) {
+        self.setState({timesheet: res.body});
+        notifications.success('Timesheet : ' + res.body.username + ', created.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error creating timesheet.');
+      });
   }
-
 });
 
-module.exports = TimesheetStore;
+module.exports = EmployeeStore;

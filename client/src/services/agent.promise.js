@@ -1,5 +1,6 @@
 var q = require('q');
 var NProgress = require('nprogress');
+var securityInterceptor = require('./response.interceptor');
 
 function wrap(superagent) {
   /**

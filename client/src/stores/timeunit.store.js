@@ -1,77 +1,133 @@
 var merge = require('react/lib/merge');
 
 var store = require('../flux/flux.store');
-var constants = require('../flux/flux.constants');
+var actions = require('../actions/timeunit.actions');
 var notifications = require('../services/notifications');
+var agent = require('../services/agent.promise');
 
-var TimeunitStore = merge(store.prototype, {
+var EmployeeStore = merge(store, {
+
+  initialized: false,
 
   initialize: function () {
+    if (!this.initialized) {
+      var events = {};
+      events[actions.LIST]    = this.list;
+      events[actions.GET]     = this.get;
+      events[actions.UPDATE]  = this.update;
+      events[actions.DELETE]  = this.remove;
+      events[actions.RESTORE] = this.restore;
+      events[actions.CREATE]  = this.create;
 
-    this.bindActions(
-      constants.UPDATE_TIMEUNIT, this.update,
-      constants.DELETE_TIMEUNIT, this.remove,
-      constants.CREATE_TIMEUNIT, this.create
-    );
+      this.url = '/users';
+
+      this.register(events);
+      this.setState({
+        timeunit: {},
+        timeunits: []
+      });
+
+      this.initialized = true;
+    }
+
+    return this;
   },
 
-  update: function (timeunit) {
-
-
-    this.emit('change');
-  },
-
-  remove: function (timeunit) {
+  list: function () {
     var self = this;
 
-    data.remove('timeunits', timeunit)
-      .then(function () {
-        //notifications.success('timeunit : ' + timeunit.username + ', was deleted.');
+    return agent.get(this.url)
+      .end()
+      .then(function (res) {
+        self.setState({timeunits: res.body});
       })
       .catch(function (x) {
-        self.timeunit.deleted = false;
-        //notifications.error('Error attempting to delete timeunit.');
-      })
-      .finally(function () {
-        this.emit('change');
+        notifications.error('Error attempting to retrieve timeunits.');
       });
   },
 
-  restore: function (timeunit) {
+  get: function (payload) {
     var self = this;
 
-    data.restore('timeunits', timeunit)
-      .then(function (restored) {
-        //notifications.success('timeunit was restored.');
+    return agent.get(this.url + '/' + payload.action.timeunit._id)
+      .end()
+      .then(function (res) {
+        self.setState({timeunit: res.body});
+        return true;
       })
-      .catch(function (x) {
-        self.timeunit.deleted = true;
-        //notifications.error('Error restoring timeunit.');
-      })
-      .finally(function () {
-        this.emit('change');
+      .catch(function (data) {
+        notifications.error('There was an error getting the timeunit');
       });
   },
 
-  create: function (timeunit) {
-    data.create('timeunits', timeunit)
-      .then(function (created) {
+  update: function (payload) {
+    var self = this;
+    var timeunit = payload.action.timeunit;
 
+    return agent.put(this.url + '/' + timeunit._id)
+      .send(timeunit)
+      .end()
+      .then(function (res) {
+        self.setState({timeunit: res.body});
+        notifications.success('Timeunit : ' + timeunit.username + ', updated.');
       })
       .catch(function (x) {
-
-      })
-      .finally(function () {
-        this.emit('change');
+        notifications.error('There was an error updating timeunit.');
       });
   },
 
-  getState: function () {
-    return {
-      timeunit: this.timeunit
-    };
+  remove: function (payload) {
+    var self = this;
+    var timeunit = payload.action.timeunit;
+    timeunit.deleted = true;
+
+    return agent.put(this.url + '/' + timeunit._id)
+      .send(timeunit)
+      .end()
+      .then(function (res) {
+        self.setState({timeunit: res.body});
+        notifications.success('Timeunit : ' + res.body.username + ', was restored.');
+        return true;
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to delete timeunit.');
+      });
+  },
+
+  restore: function (payload) {
+    var self = this;
+    var timeunit = payload.action.timeunit;
+    timeunit.deleted = false;
+
+    var prom = agent.put(this.url + '/' +timeunit._id)
+      .send(timeunit)
+      .end()
+      .then(function (res) {
+        self.setState({timeunit: res.body});
+        notifications.success('Timeunit : ' + res.body.username + ', was deleted.');
+        return true;
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to restore timeunit.');
+      });
+
+    return prom;
+  },
+
+  create: function (payload) {
+    var self = this;
+
+    return agent.post(this.url)
+      .send(payload.action.timeunit)
+      .end()
+      .then(function (res) {
+        self.setState({timeunit: res.body});
+        notifications.success('Timeunit : ' + res.body.username + ', created.');
+      })
+      .catch(function (x) {
+        notifications.error('There was an error creating timeunit.');
+      });
   }
-
 });
 
-module.exports = TimeunitStore;
+module.exports = EmployeeStore;

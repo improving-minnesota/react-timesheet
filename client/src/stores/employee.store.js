@@ -1,7 +1,7 @@
 var merge = require('react/lib/merge');
 
 var store = require('../flux/flux.store');
-var constants = require('../flux/flux.constants');
+var actions = require('../actions/employee.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
@@ -12,12 +12,12 @@ var EmployeeStore = merge(store, {
   initialize: function () {
     if (!this.initialized) {
       var events = {};
-      events[constants.LIST_EMPLOYEES]   = this.list;
-      events[constants.GET_EMPLOYEE]     = this.get;
-      events[constants.UPDATE_EMPLOYEE]  = this.update;
-      events[constants.DELETE_EMPLOYEE]  = this.remove;
-      events[constants.RESTORE_EMPLOYEE] = this.restore;
-      events[constants.CREATE_EMPLOYEE]  = this.create;
+      events[actions.LIST]    = this.list;
+      events[actions.GET]     = this.get;
+      events[actions.UPDATE]  = this.update;
+      events[actions.DELETE]  = this.remove;
+      events[actions.RESTORE] = this.restore;
+      events[actions.CREATE]  = this.create;
 
       this.url = '/users';
 
@@ -99,7 +99,7 @@ var EmployeeStore = merge(store, {
     var employee = payload.action.employee;
     employee.deleted = false;
 
-    var prom = agent.put(this.url + '/' +employee._id)
+    return agent.put(this.url + '/' +employee._id)
       .send(employee)
       .end()
       .then(function (res) {
@@ -110,8 +110,6 @@ var EmployeeStore = merge(store, {
       .catch(function (x) {
         notifications.error('Error attempting to restore employee.');
       });
-
-    return prom;
   },
 
   create: function (payload) {

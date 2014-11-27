@@ -6,6 +6,8 @@ var Routes = require('react-router').Routes;
 var Route = require('react-router').Route;
 
 var app = require('./components/app');
+var login = require('./security/login');
+
 var projects = require('./components/projects/projects');
 var projectsDetail = require('./components/projects/project.detail');
 var projectsCreate = require('./components/projects/project.create');
@@ -33,6 +35,8 @@ var AppRoutes = React.createClass({
     return (
        <Routes>
         <Route handler={app}>
+          <Route name='login' path='/login?redirect' handler={login} />
+
           <Route name='projects' path='/projects' handler={projects} />
           <Route name='projects.detail' path='/projects/detail/:_id' handler={projectsDetail} />
           <Route name='projects.create' path='/projects/create' handler={projectsCreate} />

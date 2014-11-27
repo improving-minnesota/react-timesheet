@@ -1,33 +1,59 @@
 var merge = require('react/lib/merge');
 
 var store = require('../flux/flux.store');
-var constants = require('../flux/flux.constants');
+var actions = require('../actions/project.actions');
 var notifications = require('../services/notifications');
+var agent = require('../services/agent.promise');
 
-// .add({
-//   resource: 'projects',
-//   params: ['_id']
-// })
+var EmployeeStore = merge(store, {
 
-var ProjectStore = merge(store.prototype, {
+  initialized: false,
 
   initialize: function () {
-    var events = {};
-    events[constants.GET_PROJECT] = this.get;
-    events[constants.UPDATE_PROJECT] = this.update;
-    events[constants.DELETE_PROJECT] = this.remove;
-    events[constants.CREATE_PROJECT] = this.create;
+    if (!this.initialized) {
+      var events = {};
+      events[actions.LIST]    = this.list;
+      events[actions.GET]     = this.get;
+      events[actions.UPDATE]  = this.update;
+      events[actions.DELETE]  = this.remove;
+      events[actions.RESTORE] = this.restore;
+      events[actions.CREATE]  = this.create;
 
-    this.register(events);
+      this.url = '/projects';
+
+      this.register(events);
+      this.setState({
+        project: {},
+        projects: []
+      });
+
+      this.initialized = true;
+    }
+
     return this;
   },
 
-  get: function (id) {
+  list: function () {
     var self = this;
 
-    data.get('projects', {_id: payload.id})
-      .then(function (project) {
-        self.setState({project: project});
+    return agent.get(this.url)
+      .end()
+      .then(function (res) {
+        self.setState({projects: res.body});
+      })
+      .catch(function (x) {
+        notifications.error('Error attempting to retrieve projects.');
+      });
+  },
+
+  get: function (payload) {
+    var self = this;
+
+    return agent.get(this.url + '/' + payload.action.project._id)
+      .end()
+      .then(function (res) {
+        self.setState({project: res.body});
+        return true;
       })
       .catch(function (data) {
         notifications.error('There was an error getting the project');
@@ -36,11 +62,14 @@ var ProjectStore = merge(store.prototype, {
 
   update: function (payload) {
     var self = this;
+    var project = payload.action.project;
 
-    data.update('projects', payload.project)
-      .then(function (updated) {
-        self.setState({project: updated});
-        notifications.success('Project : ' + updated.name + ', updated.');
+    return agent.put(this.url + '/' + project._id)
+      .send(project)
+      .end()
+      .then(function (res) {
+        self.setState({project: res.body});
+        notifications.success('Project : ' + project.username + ', updated.');
       })
       .catch(function (x) {
         notifications.error('There was an error updating project.');
@@ -49,11 +78,16 @@ var ProjectStore = merge(store.prototype, {
 
   remove: function (payload) {
     var self = this;
+    var project = payload.action.project;
+    project.deleted = true;
 
-    data.remove('projects', payload.project)
-      .then(function (removed) {
-        self.setState({project: removed});
-        notifications.success('Project : ' + removed.name + ', was deleted.');
+    return agent.put(this.url + '/' + project._id)
+      .send(project)
+      .end()
+      .then(function (res) {
+        self.setState({project: res.body});
+        notifications.success('Project : ' + res.body.username + ', was restored.');
+        return true;
       })
       .catch(function (x) {
         notifications.error('Error attempting to delete project.');
@@ -62,24 +96,33 @@ var ProjectStore = merge(store.prototype, {
 
   restore: function (payload) {
     var self = this;
+    var project = payload.action.project;
+    project.deleted = false;
 
-    data.remove('projects', payload.project)
-      .then(function (restored) {
-        self.setState({project: restored});
-        notifications.success('Project : ' + project.name + ', was deleted.');
+    var prom = agent.put(this.url + '/' +project._id)
+      .send(project)
+      .end()
+      .then(function (res) {
+        self.setState({project: res.body});
+        notifications.success('Project : ' + res.body.username + ', was deleted.');
+        return true;
       })
       .catch(function (x) {
         notifications.error('Error attempting to restore project.');
       });
+
+    return prom;
   },
 
   create: function (payload) {
     var self = this;
 
-    data.create('projects', payload.project)
-      .then(function (created) {
-        self.setState({project: created});
-        notifications.success('Project : ' + created.name + ', created.');
+    return agent.post(this.url)
+      .send(payload.action.project)
+      .end()
+      .then(function (res) {
+        self.setState({project: res.body});
+        notifications.success('Project : ' + res.body.username + ', created.');
       })
       .catch(function (x) {
         notifications.error('There was an error creating project.');
@@ -87,4 +130,4 @@ var ProjectStore = merge(store.prototype, {
   }
 });
 
-module.exports = ProjectStore;
+module.exports = EmployeeStore;

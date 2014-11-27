@@ -1,45 +1,51 @@
-var constants = require('../flux/flux.constants');
 var dispatcher = require('../flux/flux.dispatcher');
 
 var EmployeeActions = {
 
+  LIST: 'LIST_EMPLOYEES',
+  GET: 'GET_EMPLOYEE',
+  CREATE: 'CREATE_EMPLOYEE',
+  UPDATE: 'UPDATE_EMPLOYEE',
+  DELETE: 'DELETE_EMPLOYEE',
+  RESTORE: 'RESTORE_EMPLOYEE',
+
   listEmployees: function () {
     dispatcher.handleViewAction({
-      actionType: constants.LIST_EMPLOYEES
+      actionType: EmployeeActions.LIST
     });
   },
 
   getEmployee: function (id) {
     dispatcher.handleViewAction({
-      actionType: constants.GET_EMPLOYEE,
+      actionType: EmployeeActions.GET,
       employee: {_id: id}
     });
   },
 
   createEmployee: function (employee) {
     dispatcher.handleViewAction({
-      actionType: constants.CREATE_EMPLOYEE,
+      actionType: EmployeeActions.CREATE,
       employee: employee
     });
   },
 
   updateEmployee: function (employee) {
     dispatcher.handleViewAction({
-      actionType: constants.UPDATE_EMPLOYEE,
+      actionType: EmployeeActions.UPDATE,
       employee: employee
     });
   },
 
   deleteEmployee: function (employee) {
     dispatcher.handleViewAction({
-      actionType: constants.DELETE_EMPLOYEE,
+      actionType: EmployeeActions.DELETE,
       employee: employee
     });
   },
 
   restoreEmployee: function (employee) {
     dispatcher.handleViewAction({
-      actionType: constants.RESTORE_EMPLOYEE,
+      actionType: EmployeeActions.RESTORE,
       employee: employee
     });
   }

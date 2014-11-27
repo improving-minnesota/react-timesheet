@@ -1,45 +1,51 @@
-var constants = require('../flux/flux.constants');
 var dispatcher = require('../flux/flux.dispatcher');
 
 var TimesheetActions = {
 
+  LIST: 'LIST_TIMESHEETS',
+  GET: 'GET_TIMESHEET',
+  CREATE: 'CREATE_TIMESHEET',
+  UPDATE: 'UPDATE_TIMESHEET',
+  DELETE: 'DELETE_TIMESHEET',
+  RESTORE: 'RESTORE_TIMESHEET',
+
   listTimesheets: function () {
     dispatcher.handleViewAction({
-      actionType: constants.LIST_TIMESHEETS
+      actionType: TimesheetActions.LIST
     });
   },
 
   getTimesheet: function (id) {
     dispatcher.handleViewAction({
-      actionType: constants.GET_TIMESHEET,
+      actionType: TimesheetActions.GET,
       timesheet: {_id: id}
     });
   },
 
   createTimesheet: function (timesheet) {
     dispatcher.handleViewAction({
-      actionType: constants.CREATE_TIMESHEET,
+      actionType: TimesheetActions.CREATE,
       timesheet: timesheet
     });
   },
 
   updateTimesheet: function (timesheet) {
     dispatcher.handleViewAction({
-      actionType: constants.UPDATE_TIMESHEET,
+      actionType: TimesheetActions.UPDATE,
       timesheet: timesheet
     });
   },
 
   deleteTimesheet: function (timesheet) {
     dispatcher.handleViewAction({
-      actionType: constants.DELETE_TIMESHEET,
+      actionType: TimesheetActions.DELETE,
       timesheet: timesheet
     });
   },
 
   restoreTimesheet: function (timesheet) {
     dispatcher.handleViewAction({
-      actionType: constants.RESTORE_TIMESHEET,
+      actionType: TimesheetActions.RESTORE,
       timesheet: timesheet
     });
   }

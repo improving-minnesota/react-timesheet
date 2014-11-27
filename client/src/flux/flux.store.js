@@ -3,10 +3,10 @@ var merge = require('react/lib/merge');
 var _ = require('lodash');
 
 var dispatcher = require('./flux.dispatcher');
-var constants = require('./flux.constants');
+var CHANGE_EVENT = 'CHANGE_EVENT';
 
 var Store = merge(EventEmitter.prototype, {
-  
+
   state: {},
 
   getState: function () {
@@ -18,15 +18,15 @@ var Store = merge(EventEmitter.prototype, {
   },
 
   emitChange: function () {
-    this.emit(constants.CHANGE_EVENT);
+    this.emit(CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
-    this.on(constants.CHANGE_EVENT, callback);
+    this.on(CHANGE_EVENT, callback);
   },
 
   removeChangeListener: function(callback) {
-    this.removeListener(constants.CHANGE_EVENT, callback);
+    this.removeListener(CHANGE_EVENT, callback);
   },
 
   register: function (config) {
