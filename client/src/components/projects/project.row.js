@@ -1,34 +1,36 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-router');
+
+var ProjectActions = require('../../actions/project.actions');
+var ProjectStore = require('../../stores/project.store');
+
+var notifications = require('../../services/notifications');
 
 var ProjectRow = React.createClass({
 
-  getInitialState: function () {
-    return {};
-  },
-
-  getStateFromFlux: function () {
-
-  },
-
   showDetail: function showDetail () {
-    alert('show detail');
-    // if (project.deleted) {
-    //   notifications.error('You cannot edit a deleted project.');
-    //   return;
-    // }
-    // Router.transitionTo('app.projects.detail', project);
+    if (this.props.project.deleted) {
+      notifications.error('You cannot edit a deleted project.');
+      return;
+    }
+    ProjectStore.setState({project: this.props.project});
+    Router.transitionTo('projects.detail', {_id: this.props.project._id});
   },
 
   remove: function remove (e) {
     e.stopPropagation();
+    this.props.project.deleted = true;
+    ProjectActions.remove(this.props.project);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
+    this.props.project.deleted = false;
+    ProjectActions.restore(this.props.project);
   },
-  
+
   render: function () {
     var cx = React.addons.classSet;
     var project = this.props.project;
@@ -59,6 +61,6 @@ var ProjectRow = React.createClass({
       </tr>
     );
   }
-}); 
+});
 
 module.exports = ProjectRow;

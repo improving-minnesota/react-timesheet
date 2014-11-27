@@ -1,44 +1,57 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var Router = require('react-router');
+var _ = require('lodash');
 
 var ProjectForm = require('./project.form.js');
+var ProjectActions = require('../../actions/project.actions');
+
+var ChangeMixin = require('../../mixins/change.mixin');
+var ProjectMixin = require('../../mixins/project.mixin');
 
 var ProjectDetail = React.createClass({
 
-  getProject: function (projectId) {
-    // return data.get('projects', $stateParams);
-  },
+  mixins: [
+    ChangeMixin,
+    ProjectMixin
+  ],
 
   saveProject: function () {
-    this.getFlux().actions.projects.update(this.state.project);
+    ProjectActions.update(this.state.project);
+    this.goToProjectsTable();
   },
 
-  cancel: function () {
-    Router.transitionTo('projects');
+  get: function (projectId) {
+    var project = this.store.getState().project;
+    if (_.isEmpty(project)) {
+      ProjectActions.get(projectId);
+    }
+    else {
+      this.onChange();
+    }
   },
 
   getInitialState: function () {
     return {
-      saveText: 'Update'
+      saveText: 'Update',
+      section: 'Update Project',
+      project: {}
     };
-  },  
-
-  getStateFromFlux: function () {
-    return this.getFlux().store('ProjectStore').getState();
   },
 
   componentDidMount: function() {
-    this.getProject();
+    this.get(this.props.params._id);
   },
-  
+
   render : function () {
     return (
-      <ProjectForm project={this.state.project} />
+      <ProjectForm project={this.state.project}
+        saveText={this.state.saveText}
+        onSave={this.saveProject}
+        onCancel={this.goToProjectsTable}
+        validate={this.validate} />
     );
   }
 });
 
-module.exports = ProjectDetail; 
-
+module.exports = ProjectDetail;

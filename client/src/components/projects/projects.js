@@ -4,21 +4,23 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var ProjectTable = require('./project.table');
+var ChangeMixin = require('../../mixins/change.mixin');
+
+var ProjectActions = require('../../actions/project.actions');
+var ProjectStore = require('../../stores/project.store');
 
 var Projects = React.createClass({
 
-  getInitialState: function () {
-    return {
-      projects: []
-    };
-  },
+  mixins: [
+    ChangeMixin
+  ],
 
-  requestProjects: function () {
-    return [
-      {"_id": "111", "name": "Project1", "description": "This is your first project"},
-      {"_id": "222", "name": "Project2", "description": "This is your second project"},
-      {"_id": "333", "name": "Project3", "description": "This is the third project"}
-    ];
+  store: ProjectStore,
+
+  requestProjects: ProjectActions.list,
+
+  getInitialState: function () {
+    return this.store.getState();
   },
 
   createNew: function () {

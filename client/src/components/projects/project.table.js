@@ -5,10 +5,6 @@ var ProjectRow = require('./project.row');
 
 var ProjectTable = React.createClass({
 
-  getInitialState: function () {
-    return {};
-  },
-  
   render: function () {
 
     var projectRows = this.props.projects.map(function (project) {
@@ -32,6 +28,6 @@ var ProjectTable = React.createClass({
       </table>
     );
   }
-}); 
+});
 
 module.exports = ProjectTable;

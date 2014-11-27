@@ -3,9 +3,9 @@ var EmployeeStore = require('../stores/employee.store');
 
 module.exports = {
 
-  store: EmployeeStore.initialize(),
+  store: EmployeeStore,
 
-  handleChange: function (event) {
+  validate: function (event) {
     this.state.employee[event.target.name] = event.target.value;
     this.setState(this.state.employee);
   },

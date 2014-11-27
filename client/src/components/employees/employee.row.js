@@ -3,10 +3,11 @@
 var React = require('react/addons');
 var Router = require('react-router');
 
+var EmployeeActions = require('../../actions/employee.actions');
+var EmployeeStore = require('../../stores/employee.store');
+
 var notifications = require('../../services/notifications');
 var yesNo = require('../../filters/boolean');
-var actions = require('../../actions/employee.actions');
-var store = require('../../stores/employee.store');
 
 var EmployeeRow = React.createClass({
 
@@ -15,20 +16,20 @@ var EmployeeRow = React.createClass({
       notifications.error('You cannot edit a deleted employee.');
       return;
     }
-    store.setState({employee: this.props.employee});
+    EmployeeStore.setState({employee: this.props.employee});
     Router.transitionTo('employees.detail', {_id: this.props.employee._id});
   },
 
   remove: function remove (e) {
     e.stopPropagation();
     this.props.employee.deleted = true;
-    actions.deleteEmployee(this.props.employee);
+    EmployeeActions.remove(this.props.employee);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
     this.props.employee.deleted = false;
-    actions.restoreEmployee(this.props.employee);
+    EmployeeActions.restore(this.props.employee);
   },
 
   render: function () {

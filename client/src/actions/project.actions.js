@@ -9,43 +9,43 @@ var ProjectActions = {
   DELETE: 'DELETE_PROJECT',
   RESTORE: 'RESTORE_PROJECT',
 
-  listProjects: function () {
+  list: function () {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.LIST_PROJECTS
+      actionType: ProjectActions.LIST
     });
   },
 
-  getProject: function (id) {
+  get: function (id) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.GET_PROJECT,
+      actionType: ProjectActions.GET,
       project: {_id: id}
     });
   },
 
-  createProject: function (project) {
+  create: function (project) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.CREATE_PROJECT,
+      actionType: ProjectActions.CREATE,
       project: project
     });
   },
 
-  updateProject: function (project) {
+  update: function (project) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.UPDATE_PROJECT,
+      actionType: ProjectActions.UPDATE,
       project: project
     });
   },
 
-  deleteProject: function (project) {
+  remove: function (project) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.DELETE_PROJECT,
+      actionType: ProjectActions.DELETE,
       project: project
     });
   },
 
-  restoreProject: function (project) {
+  restore: function (project) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.RESTORE_PROJECT,
+      actionType: ProjectActions.RESTORE,
       project: project
     });
   }

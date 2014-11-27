@@ -9,41 +9,41 @@ var EmployeeActions = {
   DELETE: 'DELETE_EMPLOYEE',
   RESTORE: 'RESTORE_EMPLOYEE',
 
-  listEmployees: function () {
+  list: function () {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.LIST
     });
   },
 
-  getEmployee: function (id) {
+  get: function (id) {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.GET,
       employee: {_id: id}
     });
   },
 
-  createEmployee: function (employee) {
+  create: function (employee) {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.CREATE,
       employee: employee
     });
   },
 
-  updateEmployee: function (employee) {
+  update: function (employee) {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.UPDATE,
       employee: employee
     });
   },
 
-  deleteEmployee: function (employee) {
+  remove: function (employee) {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.DELETE,
       employee: employee
     });
   },
 
-  restoreEmployee: function (employee) {
+  restore: function (employee) {
     dispatcher.handleViewAction({
       actionType: EmployeeActions.RESTORE,
       employee: employee

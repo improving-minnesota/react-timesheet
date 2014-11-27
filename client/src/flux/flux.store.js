@@ -29,12 +29,11 @@ var Store = merge(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  register: function (config) {
+  register: function (events) {
     var self = this;
 
     dispatcher.register(function (payload) {
       var action = payload.action;
-      var events = config;
       var promise = events[action.actionType];
 
       if (!_.isUndefined(promise)) {

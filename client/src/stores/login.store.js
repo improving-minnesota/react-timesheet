@@ -7,26 +7,21 @@ var agent = require('../services/agent.promise');
 
 var LoginStore = merge(store, {
 
-  initialized: false,
-
   initialize: function () {
-    if (!this.initialized) {
-      var events = {};
-      events[actions.LOGIN]   = this.login;
-      events[actions.LOGOUT]  = this.logout;
-      events[actions.CURRENT_USER] = this.current
 
-      this.loginUrl = '/login';
-      this.logoutUrl = '/logout';
+    this.loginUrl = '/login';
+    this.logoutUrl = '/logout';
 
-      this.register(events);
-      this.setState({
-        current: {},
-        context: {}
-      });
+    var events = {};
+    events[actions.LOGIN]   = this.login;
+    events[actions.LOGOUT]  = this.logout;
+    events[actions.CURRENT_USER] = this.current
+    this.register(events);
 
-      this.initialized = true;
-    }
+    this.setState({
+      current: {},
+      context: {}
+    });
 
     return this;
   },
@@ -74,4 +69,4 @@ var LoginStore = merge(store, {
   }
 });
 
-module.exports = LoginStore;
+module.exports = LoginStore.initialize();

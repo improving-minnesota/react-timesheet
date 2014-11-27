@@ -5,30 +5,24 @@ var actions = require('../actions/project.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var EmployeeStore = merge(store, {
-
-  initialized: false,
+var ProjectStore = merge(store, {
 
   initialize: function () {
-    if (!this.initialized) {
-      var events = {};
-      events[actions.LIST]    = this.list;
-      events[actions.GET]     = this.get;
-      events[actions.UPDATE]  = this.update;
-      events[actions.DELETE]  = this.remove;
-      events[actions.RESTORE] = this.restore;
-      events[actions.CREATE]  = this.create;
+    this.url = '/projects';
 
-      this.url = '/projects';
+    var events = {};
+    events[actions.LIST]    = this.list;
+    events[actions.GET]     = this.get;
+    events[actions.UPDATE]  = this.update;
+    events[actions.DELETE]  = this.remove;
+    events[actions.RESTORE] = this.restore;
+    events[actions.CREATE]  = this.create;
+    this.register(events);
 
-      this.register(events);
-      this.setState({
-        project: {},
-        projects: []
-      });
-
-      this.initialized = true;
-    }
+    this.setState({
+      project: {},
+      projects: []
+    });
 
     return this;
   },
@@ -40,6 +34,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({projects: res.body});
+        return true;
       })
       .catch(function (x) {
         notifications.error('Error attempting to retrieve projects.');
@@ -69,7 +64,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + project.username + ', updated.');
+        notifications.success('Project : ' + project.name + ', updated.');
       })
       .catch(function (x) {
         notifications.error('There was an error updating project.');
@@ -86,7 +81,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.username + ', was restored.');
+        notifications.success('Project : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
@@ -104,7 +99,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.username + ', was deleted.');
+        notifications.success('Project : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -122,7 +117,7 @@ var EmployeeStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.username + ', created.');
+        notifications.success('Project : ' + res.body.name + ', created.');
       })
       .catch(function (x) {
         notifications.error('There was an error creating project.');
@@ -130,4 +125,4 @@ var EmployeeStore = merge(store, {
   }
 });
 
-module.exports = EmployeeStore;
+module.exports = ProjectStore.initialize();

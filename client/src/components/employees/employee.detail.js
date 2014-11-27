@@ -4,7 +4,7 @@ var React = require('react');
 var _ = require('lodash');
 
 var EmployeeForm = require('./employee.form');
-var actions = require('../../actions/employee.actions');
+var EmployeeActions = require('../../actions/employee.actions');
 
 var ChangeMixin = require('../../mixins/change.mixin');
 var EmployeeMixin = require('../../mixins/employee.mixin');
@@ -17,14 +17,14 @@ var EmployeeDetail = React.createClass({
   ],
 
   saveEmployee: function (event) {
-    actions.updateEmployee(this.state.employee);
+    EmployeeActions.update(this.state.employee);
     this.goToEmployeesTable();
   },
 
-  getEmployee: function (employeeId) {
+  get: function (employeeId) {
     var employee = this.store.getState().employee;
     if (_.isEmpty(employee)) {
-      actions.getEmployee(employeeId);
+      EmployeeActions.get(employeeId);
     }
     else {
       this.onChange();
@@ -40,7 +40,7 @@ var EmployeeDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.getEmployee(this.props.params._id);
+    this.get(this.props.params._id);
   },
 
   render : function () {
@@ -49,7 +49,7 @@ var EmployeeDetail = React.createClass({
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
         onCancel={this.goToEmployeesTable}
-        handleChange={this.handleChange}
+        validate={this.validate}
         toggleAdmin={this.toggleAdmin} />
     );
   }

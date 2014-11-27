@@ -9,41 +9,41 @@ var TimesheetActions = {
   DELETE: 'DELETE_TIMESHEET',
   RESTORE: 'RESTORE_TIMESHEET',
 
-  listTimesheets: function () {
+  list: function () {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.LIST
     });
   },
 
-  getTimesheet: function (id) {
+  get: function (id) {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.GET,
       timesheet: {_id: id}
     });
   },
 
-  createTimesheet: function (timesheet) {
+  create: function (timesheet) {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.CREATE,
       timesheet: timesheet
     });
   },
 
-  updateTimesheet: function (timesheet) {
+  update: function (timesheet) {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.UPDATE,
       timesheet: timesheet
     });
   },
 
-  deleteTimesheet: function (timesheet) {
+  remove: function (timesheet) {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.DELETE,
       timesheet: timesheet
     });
   },
 
-  restoreTimesheet: function (timesheet) {
+  restore: function (timesheet) {
     dispatcher.handleViewAction({
       actionType: TimesheetActions.RESTORE,
       timesheet: timesheet

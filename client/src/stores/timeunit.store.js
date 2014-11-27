@@ -5,30 +5,24 @@ var actions = require('../actions/timeunit.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var EmployeeStore = merge(store, {
-
-  initialized: false,
+var TimeunitStore = merge(store, {
 
   initialize: function () {
-    if (!this.initialized) {
-      var events = {};
-      events[actions.LIST]    = this.list;
-      events[actions.GET]     = this.get;
-      events[actions.UPDATE]  = this.update;
-      events[actions.DELETE]  = this.remove;
-      events[actions.RESTORE] = this.restore;
-      events[actions.CREATE]  = this.create;
+    this.url = '/users';
 
-      this.url = '/users';
+    var events = {};
+    events[actions.LIST]    = this.list;
+    events[actions.GET]     = this.get;
+    events[actions.UPDATE]  = this.update;
+    events[actions.DELETE]  = this.remove;
+    events[actions.RESTORE] = this.restore;
+    events[actions.CREATE]  = this.create;
+    this.register(events);
 
-      this.register(events);
-      this.setState({
-        timeunit: {},
-        timeunits: []
-      });
-
-      this.initialized = true;
-    }
+    this.setState({
+      timeunit: {},
+      timeunits: []
+    });
 
     return this;
   },
@@ -130,4 +124,4 @@ var EmployeeStore = merge(store, {
   }
 });
 
-module.exports = EmployeeStore;
+module.exports = EmployeeStore.initialize();

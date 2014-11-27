@@ -328,14 +328,14 @@ describe('Timesheets', function() {
         });
       });
 
-      describe('restoreTimeunit', function () {
+      describe('restore', function () {
         beforeEach(function () {
           timeunit.deleted = true;
         });
 
         it('should send a restore request for the specified timeunit', function () {
           $httpBackend.expect('PUT', '/users/1234567890/timesheets/asdfghjklqwerty/timeunits/aaaaaaaaaa').respond(200);
-          $scope.restoreTimeunit(timeunit);
+          $scope.restore(timeunit);
           $httpBackend.flush();
         });
 
@@ -345,12 +345,12 @@ describe('Timesheets', function() {
           });
 
           it('should set the timeunit to not deleted for the ui', function () {
-            $scope.restoreTimeunit(timeunit);
+            $scope.restore(timeunit);
             $httpBackend.flush();
             expect(timeunit.deleted).to.be.false;
           });
           it('should notify the user of the deletion', function () {
-            $scope.restoreTimeunit(timeunit);
+            $scope.restore(timeunit);
             $httpBackend.flush();
             expect(spies.success).to.have.been.called;
             expect(spies.error).to.not.have.been.called;
@@ -363,12 +363,12 @@ describe('Timesheets', function() {
           });
 
           it('should set deleted to true for the timeunit in the ui', function () {
-            $scope.restoreTimeunit(timeunit);
+            $scope.restore(timeunit);
             $httpBackend.flush();
             expect(timeunit.deleted).to.be.true;
           });
           it('should notify the user of the error', function () {
-            $scope.restoreTimeunit(timeunit);
+            $scope.restore(timeunit);
             $httpBackend.flush();
             expect(spies.error).to.have.been.called;
             expect(spies.success).to.not.have.been.called;

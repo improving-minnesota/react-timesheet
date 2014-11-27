@@ -4,10 +4,10 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var EmployeeTable = require('./employee.table');
-var actions = require('../../actions/employee.actions');
-var EmployeeStore = require('../../stores/employee.store');
-
 var ChangeMixin = require('../../mixins/change.mixin');
+
+var EmployeeActions = require('../../actions/employee.actions');
+var EmployeeStore = require('../../stores/employee.store');
 
 var Employees = React.createClass({
 
@@ -15,9 +15,9 @@ var Employees = React.createClass({
     ChangeMixin
   ],
 
-  store: EmployeeStore.initialize(),
+  store: EmployeeStore,
 
-  requestEmployees: actions.listEmployees,
+  requestEmployees: EmployeeActions.list,
 
   getInitialState: function () {
     return this.store.getState();

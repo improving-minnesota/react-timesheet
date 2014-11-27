@@ -1,8 +1,9 @@
 /** @jsx React.DOM */
+
 var React = require('React');
 var PropTypes = React.PropTypes;
 
-var FieldWrap = require('..//common/field.wrap');
+var FieldWrap = require('../common/field.wrap');
 var yesNo = require('../../filters/boolean');
 
 var EmployeeForm = React.createClass({
@@ -15,31 +16,32 @@ var EmployeeForm = React.createClass({
             <form className="form-horizontal" name="employeeForm">
 
               <FieldWrap inputId="username" label="Username" formField={
-                <input className="form-control"
+                <input type='text' className="form-control"
                   name="username" placeholder="Employee Username"
                   ref="username" value={this.props.employee.username}
-                  onChange={this.props.handleChange}/>
+                  minLength={1} maxLength={40}
+                  onChange={this.props.validate}/>
                }/>
 
               <FieldWrap inputId="email" label="Email" formField={
-                <input className="form-control"
+                <input type='text' className="form-control"
                   name="email" placeholder="Employee Email"
                   ref="email" value={this.props.employee.email}
-                  onChange={this.props.handleChange}/>
+                  onChange={this.props.validate}/>
               }/>
 
               <FieldWrap inputId="firstName" label="First Name" formField={
-                <input className="form-control"
+                <input type='text' className="form-control"
                   name="firstName" placeholder="First Name"
                   ref="firstName" value={this.props.employee.firstName}
-                  onChange={this.props.handleChange} />
+                  onChange={this.props.validate} />
               }/>
 
               <FieldWrap inputId="lastName" label="Last Name" formField={
-                <input className="form-control"
+                <input type='text' className="form-control"
                   name="lastName" placeholder="Last Name"
                   ref="lastName" value={this.props.employee.lastName}
-                  onChange={this.props.handleChange} />
+                  onChange={this.props.validate} />
               }/>
 
               <FieldWrap inputId="admin" label="Admin" formField={

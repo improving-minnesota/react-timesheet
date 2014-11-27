@@ -9,41 +9,41 @@ var TimeunitActions = {
   DELETE: 'DELETE_TIMEUNIT',
   RESTORE: 'RESTORE_TIMEUNIT',
 
-  listTimeunits: function () {
+  list: function () {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.LIST
     });
   },
 
-  getTimeunit: function (id) {
+  get: function (id) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.GET,
       timeunit: {_id: id}
     });
   },
 
-  createTimeunit: function (timeunit) {
+  create: function (timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.CREATE,
       timeunit: timeunit
     });
   },
 
-  updateTimeunit: function (timeunit) {
+  update: function (timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.UPDATE,
       timeunit: timeunit
     });
   },
 
-  deleteTimeunit: function (timeunit) {
+  remove: function (timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.DELETE,
       timeunit: timeunit
     });
   },
 
-  restoreTimeunit: function (timeunit) {
+  restore: function (timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.RESTORE,
       timeunit: timeunit
