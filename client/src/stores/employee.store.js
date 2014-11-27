@@ -27,10 +27,19 @@ var EmployeeStore = merge(store, {
     return this;
   },
 
+  url: function (employeeId) {
+    var url = '/users';
+    if (employeeId) {
+      url += '/' + employeeId;
+    }
+
+    return url;
+  },
+
   list: function () {
     var self = this;
 
-    return agent.get(this.url)
+    return agent.get(this.url())
       .end()
       .then(function (res) {
         self.setState({employees: res.body});
@@ -43,7 +52,7 @@ var EmployeeStore = merge(store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url + '/' + payload.action.employee._id)
+    return agent.get(this.url(payload.action.employee._id))
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
@@ -58,7 +67,7 @@ var EmployeeStore = merge(store, {
     var self = this;
     var employee = payload.action.employee;
 
-    return agent.put(this.url + '/' + employee._id)
+    return agent.put(this.url(employee._id))
       .send(employee)
       .end()
       .then(function (res) {
@@ -75,7 +84,7 @@ var EmployeeStore = merge(store, {
     var employee = payload.action.employee;
     employee.deleted = true;
 
-    return agent.put(this.url + '/' + employee._id)
+    return agent.put(this.url(employee._id))
       .send(employee)
       .end()
       .then(function (res) {
@@ -93,7 +102,7 @@ var EmployeeStore = merge(store, {
     var employee = payload.action.employee;
     employee.deleted = false;
 
-    return agent.put(this.url + '/' +employee._id)
+    return agent.put(this.url(employee._id))
       .send(employee)
       .end()
       .then(function (res) {
@@ -109,7 +118,7 @@ var EmployeeStore = merge(store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url)
+    return agent.post(this.url())
       .send(payload.action.employee)
       .end()
       .then(function (res) {

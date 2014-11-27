@@ -9,44 +9,50 @@ var TimeunitActions = {
   DELETE: 'DELETE_TIMEUNIT',
   RESTORE: 'RESTORE_TIMEUNIT',
 
-  list: function () {
+  list: function (timesheet) {
     dispatcher.handleViewAction({
-      actionType: TimeunitActions.LIST
+      actionType: TimeunitActions.LIST,
+      timesheet: timesheet
     });
   },
 
-  get: function (id) {
+  get: function (timesheet, id) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.GET,
-      timeunit: {_id: id}
+      timeunit: {_id: id},
+      timesheet: timesheet
     });
   },
 
-  create: function (timeunit) {
+  create: function (timesheet, timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.CREATE,
-      timeunit: timeunit
+      timeunit: timeunit,
+      timesheet: timesheet
     });
   },
 
-  update: function (timeunit) {
+  update: function (timesheet, timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.UPDATE,
-      timeunit: timeunit
+      timeunit: timeunit,
+      timesheet: timesheet
     });
   },
 
-  remove: function (timeunit) {
+  remove: function (timesheet, timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.DELETE,
-      timeunit: timeunit
+      timeunit: timeunit,
+      timesheet: timesheet
     });
   },
 
-  restore: function (timeunit) {
+  restore: function (timesheet, timeunit) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.RESTORE,
-      timeunit: timeunit
+      timeunit: timeunit,
+      timesheet: timesheet
     });
   }
 };

@@ -5,12 +5,8 @@ var TimesheetRow = require('./timesheet.row');
 
 var TimesheetTable = React.createClass({
 
-  getInitialState: function () {
-    return {};
-  },
-
   render: function () {
-    
+
     var timesheetRows = this.props.timesheets.map(function (timesheet) {
       return (
         <TimesheetRow timesheet={timesheet} key={timesheet._id} />

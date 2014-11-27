@@ -2,10 +2,10 @@
 
 var React = require('React');
 
-var FieldWrap = require('..//common/field.wrap');
+var FieldWrap = require('../common/field.wrap');
 
 var TimesheetForm = React.createClass({
-  
+
   render : function () {
     return (
       <div className="tsz-timesheet-form" ng-cloak>
@@ -14,27 +14,27 @@ var TimesheetForm = React.createClass({
             <form className="form-horizontal" name="timesheetForm">
 
               <FieldWrap inputId="timesheet-name" label="Name" formField={
-                <input type="text" className="form-control" 
-                  name="timesheet-name" placeholder="Timesheet Name"
-                  value={this.props.timesheet.name}
-                  ng-minlength="1" ng-maxlength="40" required />
+                <input type="text" className="form-control"
+                  name="name" placeholder="Timesheet Name"
+                  ref="name" value={this.props.timesheet.name}
+                  minLength={1} maxLength={40} required />
               }/>
 
               <FieldWrap inputId="timesheet-description" label="Description" formField={
-                <input type="text" className="form-control" 
-                  name="timesheet-description" placeholder="Timesheet Description"
-                  value={this.props.timesheet.description}
-                  ng-minlength="1" ng-maxlength="255" required />
+                <input type="text" className="form-control"
+                  name="description" placeholder="Timesheet Description"
+                  ref="description" value={this.props.timesheet.description}
+                  minLength={1} maxLength={255} required />
               }/>
 
               <FieldWrap inputId="timesheet-beginDate" label="Begin Date" formField={
                 <div>
-                  <input type="text" className="form-control" 
+                  <input type="text" className="form-control"
                     datepicker-popup="MM/dd/yyyy"
                     value={this.props.timesheet.beginDate}
                     show-weeks="false"
                     show-button-bar="false"
-                    required 
+                    required
                     close-text="Close" />
                   <span className="input-group-btn">
                     <button className="btn btn-default">
@@ -46,13 +46,13 @@ var TimesheetForm = React.createClass({
 
               <FieldWrap inputId="timesheet-endDate" label="End Date" formField={
                 <div>
-                  <input type="text" className="form-control" 
+                  <input type="text" className="form-control"
                     datepicker-popup="MM/dd/yyyy"
                     value={this.props.timesheet.endDate}
                     show-weeks="false"
                     show-button-bar="false"
-                    min="timesheet.beginDate"
-                    required 
+                    min={this.props.timesheet.beginDate}
+                    required
                     close-text="Close" />
                   <span className="input-group-btn">
                     <button className="btn btn-default">
@@ -62,23 +62,23 @@ var TimesheetForm = React.createClass({
                 </div>
               }/>
 
-              <div className="row">
-                <hr/>
-              </div>
-
-              <div className="row">
-                <div className="col-sm-2 col-sm-offset-8">
-                  <button className="btn btn-primary btn-block" 
-                    onClick={this.props.save}
-                    ng-disabled="timesheetForm.$invalid">{this.state.saveText}</button>
-                </div>
-                <div className="col-sm-2">
-                  <button className="btn btn-danger btn-block" 
-                    onClick={this.props.cancel}>Cancel</button>
-                </div>
-              </div>
-
             </form>
+
+            <div className="row">
+              <hr/>
+            </div>
+
+            <div className="row">
+              <div className="col-sm-2 col-sm-offset-8">
+                <button className="btn btn-primary btn-block"
+                  onClick={this.props.onSave}
+                  ng-disabled="timesheetForm.$invalid">{this.props.saveText}</button>
+              </div>
+              <div className="col-sm-2">
+                <button className="btn btn-danger btn-block"
+                  onClick={this.props.onCancel}>Cancel</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

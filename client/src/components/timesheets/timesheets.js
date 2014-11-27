@@ -4,21 +4,31 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var TimesheetTable = require('./timesheet.table');
+var ChangeMixin = require('../../mixins/change.mixin');
+
+var TimesheetActions = require('../../actions/timesheet.actions');
+var TimesheetStore = require('../../stores/timesheet.store');
 
 var Timesheets = React.createClass({
 
-  requestTimesheets: function () {
-    return [];
+  mixins: [
+    ChangeMixin
+  ],
+
+  store: TimesheetStore,
+
+  requestTimesheets: TimesheetActions.list,
+
+  getInitialState: function () {
+    return this.store.getState();
   },
 
   createNew: function () {
     return Router.transitionTo('timesheets.create', {user_id: '123'});
   },
 
-  getInitialState: function () {
-    return {
-      timesheets: this.requestTimesheets()
-    };
+  componentDidMount: function () {
+    this.requestTimesheets();
   },
 
   render: function () {
@@ -40,20 +50,17 @@ var Timesheets = React.createClass({
 
           <div className="text-center">
             <div pagination
-              total-items="pageConfig.totalItems" 
-              ng-model="pageConfig.page" 
-              items-per-page="pageConfig.limit" 
-              boundary-links="true" 
-              rotate="true" 
+              total-items="pageConfig.totalItems"
+              ng-model="pageConfig.page"
+              items-per-page="pageConfig.limit"
+              boundary-links="true"
+              rotate="true"
               ng-change="requestTimesheets(page)">
             </div>
           </div>
 
         </div>
-        
-        <this.props.activeRouteHandler />
       </div>
-
     );
   }
 });

@@ -1,32 +1,37 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-router');
+
+var TimesheetActions = require('../../actions/timesheet.actions');
+var TimesheetStore = require('../../stores/timesheet.store');
+
+var notifications = require('../../services/notifications');
 
 var TimesheetRow = React.createClass({
-
-  getInitialState: function () {
-    return {};
-  },
 
   showDetail: function showDetail () {
     var timesheet = this.props.timesheet;
     if (timesheet.deleted) {
-      //notifications.error('You cannot edit a deleted timesheet.');
+      notifications.error('You cannot edit a deleted timesheet.');
       return;
     }
-    Router.transitionTo('timesheets.detail', timesheet);
+    TimesheetStore.setState({timesheet: timesheet});
+    Router.transitionTo('timesheets.detail', {_id: timesheet._id});
   },
 
   remove: function remove (e) {
     e.stopPropagation();
-    
+    this.props.timesheet.deleted = true;
+    TimesheetActions.remove(this.props.timesheet);
   },
 
   restore: function restore (e) {
    e.stopPropagation();
-   
+   this.props.timesheet.deleted = false;
+   TimesheetActions.restor(this.props.timesheet);
   },
-  
+
   render: function () {
     var cx = React.addons.classSet;
     var timesheet = this.props.timesheet;
@@ -59,6 +64,6 @@ var TimesheetRow = React.createClass({
       </tr>
     );
   }
-}); 
+});
 
 module.exports = TimesheetRow;

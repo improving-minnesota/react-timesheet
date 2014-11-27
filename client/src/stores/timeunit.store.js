@@ -8,8 +8,6 @@ var agent = require('../services/agent.promise');
 var TimeunitStore = merge(store, {
 
   initialize: function () {
-    this.url = '/users';
-
     var events = {};
     events[actions.LIST]    = this.list;
     events[actions.GET]     = this.get;
@@ -27,10 +25,19 @@ var TimeunitStore = merge(store, {
     return this;
   },
 
-  list: function () {
-    var self = this;
+  url: function (userId, timesheetId, timeunitId) {
+    var url = '/users' + userId + '/timesheets' + timesheetId;
+    if (timeunitId) {
+      url += '/' + timeunitId;
+    }
+    return url;
+  },
 
-    return agent.get(this.url)
+  list: function (payload) {
+    var self = this;
+    var timesheet = payload.action.timesheet;
+
+    return agent.get(this.url('any', timesheet._id))
       .end()
       .then(function (res) {
         self.setState({timeunits: res.body});
@@ -42,8 +49,10 @@ var TimeunitStore = merge(store, {
 
   get: function (payload) {
     var self = this;
+    var timesheet = payload.action.timesheet;
+    var timeunit = payload.action.timeunit;
 
-    return agent.get(this.url + '/' + payload.action.timeunit._id)
+    return agent.get(this.url('any', timesheet._id, timeunit._id))
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
@@ -56,9 +65,10 @@ var TimeunitStore = merge(store, {
 
   update: function (payload) {
     var self = this;
+    var timesheet = payload.action.timesheet;
     var timeunit = payload.action.timeunit;
 
-    return agent.put(this.url + '/' + timeunit._id)
+    return agent.put(this.url('any', timesheet._id, timeunit._id))
       .send(timeunit)
       .end()
       .then(function (res) {
@@ -72,10 +82,11 @@ var TimeunitStore = merge(store, {
 
   remove: function (payload) {
     var self = this;
+    var timesheet = payload.action.timesheet;
     var timeunit = payload.action.timeunit;
     timeunit.deleted = true;
 
-    return agent.put(this.url + '/' + timeunit._id)
+    return agent.put(this.url('any', timesheet._id, timeunit._id))
       .send(timeunit)
       .end()
       .then(function (res) {
@@ -90,10 +101,11 @@ var TimeunitStore = merge(store, {
 
   restore: function (payload) {
     var self = this;
+    var timesheet = payload.action.timesheet;
     var timeunit = payload.action.timeunit;
     timeunit.deleted = false;
 
-    var prom = agent.put(this.url + '/' +timeunit._id)
+    var prom = agent.put(this.url('any', timesheet._id, timeunit._id))
       .send(timeunit)
       .end()
       .then(function (res) {
@@ -110,8 +122,9 @@ var TimeunitStore = merge(store, {
 
   create: function (payload) {
     var self = this;
+    var timesheet = payload.action.timesheet;
 
-    return agent.post(this.url)
+    return agent.post(this.url('any', timesheet._id))
       .send(payload.action.timeunit)
       .end()
       .then(function (res) {
@@ -124,4 +137,4 @@ var TimeunitStore = merge(store, {
   }
 });
 
-module.exports = EmployeeStore.initialize();
+module.exports = TimeunitStore.initialize();

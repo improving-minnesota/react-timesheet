@@ -12,12 +12,13 @@ var yesNo = require('../../filters/boolean');
 var EmployeeRow = React.createClass({
 
   showDetail: function showDetail () {
-    if (this.props.employee.deleted) {
+    var employee = this.props.employee;
+    if (employee.deleted) {
       notifications.error('You cannot edit a deleted employee.');
       return;
     }
-    EmployeeStore.setState({employee: this.props.employee});
-    Router.transitionTo('employees.detail', {_id: this.props.employee._id});
+    EmployeeStore.setState({employee: employee});
+    Router.transitionTo('employees.detail', {_id: employee._id});
   },
 
   remove: function remove (e) {

@@ -8,8 +8,6 @@ var agent = require('../services/agent.promise');
 var ProjectStore = merge(store, {
 
   initialize: function () {
-    this.url = '/projects';
-
     var events = {};
     events[actions.LIST]    = this.list;
     events[actions.GET]     = this.get;
@@ -27,10 +25,19 @@ var ProjectStore = merge(store, {
     return this;
   },
 
+  url: function (projectId) {
+    var url = '/projects';
+    if (projectId) {
+      url += '/' + projectId;
+    }
+
+    return url;
+  },
+
   list: function () {
     var self = this;
 
-    return agent.get(this.url)
+    return agent.get(this.url())
       .end()
       .then(function (res) {
         self.setState({projects: res.body});
@@ -44,7 +51,7 @@ var ProjectStore = merge(store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url + '/' + payload.action.project._id)
+    return agent.get(this.url(payload.action.project._id))
       .end()
       .then(function (res) {
         self.setState({project: res.body});
@@ -59,7 +66,7 @@ var ProjectStore = merge(store, {
     var self = this;
     var project = payload.action.project;
 
-    return agent.put(this.url + '/' + project._id)
+    return agent.put(this.url(project._id))
       .send(project)
       .end()
       .then(function (res) {
@@ -76,7 +83,7 @@ var ProjectStore = merge(store, {
     var project = payload.action.project;
     project.deleted = true;
 
-    return agent.put(this.url + '/' + project._id)
+    return agent.put(this.url(project._id))
       .send(project)
       .end()
       .then(function (res) {
@@ -94,7 +101,7 @@ var ProjectStore = merge(store, {
     var project = payload.action.project;
     project.deleted = false;
 
-    var prom = agent.put(this.url + '/' +project._id)
+    var prom = agent.put(this.url(project._id))
       .send(project)
       .end()
       .then(function (res) {
@@ -112,7 +119,7 @@ var ProjectStore = merge(store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url)
+    return agent.post(this.url())
       .send(payload.action.project)
       .end()
       .then(function (res) {

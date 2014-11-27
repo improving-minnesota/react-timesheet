@@ -8,8 +8,6 @@ var agent = require('../services/agent.promise');
 var TimesheetStore = merge(store, {
 
   initialize: function () {
-    this.url = '/timesheets';
-
     var events = {};
     events[actions.LIST]    = this.list;
     events[actions.GET]     = this.get;
@@ -27,10 +25,19 @@ var TimesheetStore = merge(store, {
     return this;
   },
 
+  url: function (timesheetId) {
+    var url = 'users/any/timesheets';
+    if (timesheetId) {
+      url += '/' + timesheetId;
+    }
+
+    return url;
+  },
+
   list: function () {
     var self = this;
 
-    return agent.get(this.url)
+    return agent.get(this.url())
       .end()
       .then(function (res) {
         self.setState({timesheets: res.body});
@@ -43,7 +50,7 @@ var TimesheetStore = merge(store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url + '/' + payload.action.timesheet._id)
+    return agent.get(this.url(payload.action.timesheet._id))
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
@@ -58,7 +65,7 @@ var TimesheetStore = merge(store, {
     var self = this;
     var timesheet = payload.action.timesheet;
 
-    return agent.put(this.url + '/' + timesheet._id)
+    return agent.put(this.url(timesheet._id))
       .send(timesheet)
       .end()
       .then(function (res) {
@@ -75,7 +82,7 @@ var TimesheetStore = merge(store, {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = true;
 
-    return agent.put(this.url + '/' + timesheet._id)
+    return agent.put(this.url(timesheet._id))
       .send(timesheet)
       .end()
       .then(function (res) {
@@ -93,7 +100,7 @@ var TimesheetStore = merge(store, {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = false;
 
-    var prom = agent.put(this.url + '/' +timesheet._id)
+    var prom = agent.put(this.url(timesheet._id))
       .send(timesheet)
       .end()
       .then(function (res) {
@@ -111,7 +118,7 @@ var TimesheetStore = merge(store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url)
+    return agent.post(this.url())
       .send(payload.action.timesheet)
       .end()
       .then(function (res) {
@@ -124,4 +131,4 @@ var TimesheetStore = merge(store, {
   }
 });
 
-module.exports = EmployeeStore.initialize();
+module.exports = TimesheetStore.initialize();

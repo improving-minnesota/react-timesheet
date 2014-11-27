@@ -2,28 +2,46 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var _ = require('lodash');
 
 var TimesheetForm = require('./timesheet.form');
-var TimeunitTable = require('./timeunits/timeunit.table');
+var Timeunits = require('./timeunits/timeunits');
+var TimesheetActions = require('../../actions/timesheet.actions');
+
+var ChangeMixin = require('../../mixins/change.mixin');
+var TimesheetMixin = require('../../mixins/timesheet.mixin');
 
 var TimesheetDetail = React.createClass({
 
+  mixins: [
+    ChangeMixin,
+    TimesheetMixin
+  ],
+
+  editTimesheet: function (event) {
+    Router.transitionTo('timesheets.edit', {_id: this.props.timesheet._id});
+  },
+
+  get: function (timesheetId) {
+    var timesheet = this.store.getState().timesheet;
+    if (_.isEmpty(timesheet)) {
+      TimesheetActions.get(timesheetId);
+    }
+    else {
+      this.onChange();
+    }
+  },
+
   getInitialState: function () {
     return {
-      saveText: 'Update'
+      saveText: 'Edit',
+      section: 'Timesheet Details',
+      timesheet: {}
     };
   },
 
-  save: function () {
-
-  },
-
-  cancel: function () {
-    Router.transitionTo('timesheets');
-  },
-
   componentDidMount: function () {
-    
+    this.get(this.props.params._id);
   },
 
   render: function () {
@@ -32,7 +50,10 @@ var TimesheetDetail = React.createClass({
         <div>
           <div className="row">
             <div className="col-xs-12">
-              <TimesheetForm timesheet={this.props.timesheet} save={this.save} cancel={this.cancel} />
+              <TimesheetForm timesheet={this.state.timesheet}
+                saveText={this.state.saveText}
+                onSave={this.editTimesheet}
+                onCancel={this.onCancel} />
             </div>
           </div>
 
@@ -40,21 +61,7 @@ var TimesheetDetail = React.createClass({
             <hr/>
           </div>
 
-          <div tsz-form-section-header header="Time Units">
-            <div className="row">
-              <div className="col-sm-4 col-sm-offset-8 pull-right">
-                <button type="button" className="btn btn-primary btn-block" onClick={this.logTime}>Log Time</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-xs-12">
-              <div className="tsz-responsive-table-container">
-                <TimeunitTable timeunits={this.props.timesheet.timeunits} />
-              </div>
-            </div>
-          </div>
+          <Timeunits timesheet={this.state.timesheet} />
         </div>
       </div>
     );

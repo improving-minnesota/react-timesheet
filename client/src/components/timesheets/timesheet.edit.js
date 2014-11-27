@@ -1,33 +1,55 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
-var Router = require('react-router');
+var _ = require('lodash');
 
 var TimesheetForm = require('./timesheet.form');
+var TimesheetActions = require('../../actions/timesheet.actions');
+
+var ChangeMixin = require('../../mixins/change.mixin');
+var TimesheetMixin = require('../../mixins/timesheet.mixin');
 
 var TimesheetEdit = React.createClass({
 
+  mixins: [
+    ChangeMixin,
+    TimesheetMixin
+  ],
+
+  saveTimesheet: function (event) {
+    TimesheetActions.update(this.state.timesheet);
+    this.goToTimesheetsTable();
+  },
+
+  get: function (timesheetId) {
+    var timesheet = this.store.getState().timesheet;
+    if (_.isEmpty(timesheet)) {
+      TimesheetActions.get(timesheetId);
+    }
+    else {
+      this.onChange();
+    }
+  },
+
   getInitialState: function () {
     return {
-      saveText: 'Update'
+      saveText: 'Update',
+      section: 'Update Timesheet',
+      timesheet: {}
     };
   },
 
-  save: function () {
-    
-  },
-
-  cancel: function () {
-    Router.transistionTo('timesheets');
-  },
-
   componentDidMount: function () {
-    
+    this.get(this.props.params._id);
   },
 
   render: function () {
     return (
-      <TimesheetForm timesheet={this.state.timesheet} save={this.save} cancel={this.cancel} />
+      <TimesheetForm timesheet={this.state.timesheet}
+        saveText={this.state.saveText}
+        onSave={this.saveTimesheet}
+        onCancel={this.gotToTimesheetsTable}
+        validate={this.validate}/>
     );
   }
 });
