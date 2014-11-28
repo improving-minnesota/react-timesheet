@@ -11,8 +11,14 @@
   "browserify-shim": "./config/shims.js",
   "jest": {
     "rootDir": "client",
-    "testPathDirs": ["<rootDir>/test"],
-    "testDirectoryName" : "unit"
+    "testPathDirs": [
+      "<rootDir>/test/unit"
+    ],
+    "testDirectoryName": "unit",
+    "scriptPreprocessor": "<rootDir>/test/utils/react.preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/../node_modules/react"
+    ]
   },
   "dependencies": {
     "body-parser": "^1.8.3",
