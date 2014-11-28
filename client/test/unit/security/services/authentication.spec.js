@@ -106,13 +106,13 @@ describe('Authentication', function() {
     });
   });
 
-  describe('requestCurrentUser', function() {
+  describe('verifyCurrentUser', function() {
     
     it('makes a GET request to retrieve the current user', function() {
       expect(securityContext.authenticated).to.be.false;
       $httpBackend.expect('GET', '/login');
 
-      authentication.requestCurrentUser().then(function(data) {
+      authentication.verifyCurrentUser().then(function(data) {
         resolved = true;
         expect(securityContext.authenticated).to.be.true;
       expect(securityContext.user._id).to.equal(userInfo._id);
@@ -126,7 +126,7 @@ describe('Authentication', function() {
       userInfo = {authenticated: true, user: {_id: 1}};
       securityContext = userInfo;
       expect(securityContext.authenticated).to.be.true;
-      authentication.requestCurrentUser().then(function(data) {
+      authentication.verifyCurrentUser().then(function(data) {
         resolved = true;
         expect(securityContext.user._id).to.equal(userInfo.user._id);
       });

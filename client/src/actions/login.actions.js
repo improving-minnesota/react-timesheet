@@ -12,9 +12,10 @@ var LoginActions = {
     });
   },
 
-  login: function () {
+  login: function (credentials) {
     dispatcher.handleViewAction({
-      actionType: LoginActions.LOGIN
+      actionType: LoginActions.LOGIN,
+      credentials: credentials
     });
   },
 

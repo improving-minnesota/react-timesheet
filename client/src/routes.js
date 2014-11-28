@@ -2,11 +2,13 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Routes = require('react-router').Routes;
-var Route = require('react-router').Route;
+var Routes = Router.Routes;
+var Route = Router.Route;
+var Redirect = Router.Redirect;
+var NotFoundRoute = Router.NotFoundRoute;
 
 var app = require('./components/app');
-var login = require('./security/login');
+var login = require('./components/login/login');
 
 var projects = require('./components/projects/projects');
 var projectsDetail = require('./components/projects/project.detail');
@@ -34,8 +36,8 @@ var AppRoutes = React.createClass({
 
     return (
        <Routes>
-        <Route handler={app}>
-          <Route name='login' path='/login?redirect' handler={login} />
+        <Route name='login' path='/login' handler={login} />
+        <Route name='app' path='/' handler={app}>
 
           <Route name='projects' path='/projects' handler={projects} />
           <Route name='projects.detail' path='/projects/detail/:_id' handler={projectsDetail} />
@@ -52,6 +54,9 @@ var AppRoutes = React.createClass({
 
           <Route name='timesheets.detail.timeunits.create' path='/users/:user_id/timesheets/detail/:_id/timeunits/create' handler={timeunitsCreate} />
           <Route name='timesheets.detail.timeunits.edit'path='/users/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={timeunitsEdit} />
+
+          <Redirect from="app" to="employees" />
+          <NotFoundRoute handler={employees} />
         </Route>
       </Routes>
     );

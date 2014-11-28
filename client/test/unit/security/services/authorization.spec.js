@@ -35,7 +35,7 @@ describe('Authorization', function() {
     resolved = false;
 
     spies = {
-      currentUser : sinon.stub(authentication, 'requestCurrentUser', function () {
+      currentUser : sinon.stub(authentication, 'verifyCurrentUser', function () {
         securityContext.setAuthentication(securityContextResponse);
         // You will need to call $digest to resolve the promise. 
         return $injector.get('$q').when(securityContext);

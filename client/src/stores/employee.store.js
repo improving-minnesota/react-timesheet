@@ -8,8 +8,6 @@ var agent = require('../services/agent.promise');
 var EmployeeStore = merge(store, {
 
   initialize: function () {
-    this.url = '/users';
-
     var events = {};
     events[actions.LIST]    = this.list;
     events[actions.GET]     = this.get;

@@ -5,6 +5,9 @@ var Router = require('react-router');
 var Link = Router.Link;
 var ActiveState = Router.ActiveState;
 
+var LoginStore = require('../../stores/login.store');
+var LoginActions = require('../../actions/login.actions');
+
 var NavBar = React.createClass({
   mixins: [
     Router.ActiveState
@@ -12,12 +15,11 @@ var NavBar = React.createClass({
 
   getInitialState: function () {
     return {
-      title: 'Timesheetz'
+      title: 'Timesheetz',
+      user: {
+        _id: 'any'
+      }
     };
-  },
-
-  logout: function () {
-    alert('logging out');
   },
 
   updateActiveState: function () {
@@ -26,6 +28,24 @@ var NavBar = React.createClass({
       employeesActive: NavBar.isActive('employees'),
       timesheetsActive: NavBar.isActive('timesheets')
     });
+  },
+
+  logout: function () {
+    LoginActions.logout();
+  },
+
+  onLoginChange: function () {
+    this.setState({
+      user: LoginStore.getState().user
+    });
+  },
+
+  componentWillMount: function () {
+    LoginStore.addChangeListener(this.onLoginChange);
+  },
+
+  componentWillUnmount: function () {
+    LoginStore.removeChangeListener(this.onLoginChange);
   },
 
   render : function () {
@@ -59,7 +79,7 @@ var NavBar = React.createClass({
               <Link to="employees">Employees</Link>
             </li>
             <li className={timesheetsClasses}>
-              <Link to="timesheets" params={{user_id: 123}}>Timesheets</Link>
+              <Link to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
             </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
