@@ -5,7 +5,7 @@ var Router = require('react-router');
 var _ = require('lodash');
 
 var TimesheetForm = require('./timesheet.form');
-var Timeunits = require('./timeunits/timeunits');
+var Timeunits = require('../timeunits/timeunits');
 var TimesheetActions = require('../../actions/timesheet.actions');
 
 var ChangeMixin = require('../../mixins/change.mixin');

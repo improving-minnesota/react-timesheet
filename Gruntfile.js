@@ -17,7 +17,20 @@ module.exports = function (grunt) {
 
     // The clean task ensures all files are removed from the dist/ directory so
     // that no files linger from previous builds.
-    clean: ['dist', '<%= clientdist %>', 'client/docs', 'client/test-reports'],
+    clean: {
+      dist: {
+        src: ['dist']
+      },
+      clientDist: {
+        src: ['<%= clientdist %>']
+      },
+      docs: {
+        src: ['client/docs']
+      },
+      reports: {
+        src: ['client/test-reports']
+      }
+    },
 
     // The jshint option for scripturl is set to lax, because the anchor
     // override inside main.js needs to test for them so as to not accidentally
@@ -55,7 +68,7 @@ module.exports = function (grunt) {
         ]
       },
       app: {
-        src: ['client/src/*.js'],
+        src: ['client/src/main.js'],
         dest: '<%= clientdist %>/assets/js/app.js'
       }
     },
@@ -250,26 +263,38 @@ module.exports = function (grunt) {
       },
       development: {
         files: watchedFiles,
-        tasks: ['development']
+        tasks: ['dev', 'jest:unit']
       },
       production: {
         files: watchedFiles,
-        tasks: ['production']
+        tasks: ['prod', 'jest:unit']
+      }
+    },
+
+    concurrent: {
+      clean: ['clean:dist', 'clean:clientDist', 'clean:docs', 'clean:reports'],
+      dev1: ['browserify:app', 'less', 'jade:development'],
+      dev2: ['concat:css', 'copy:vendor'],
+      prod1:['cssmin', 'uglify', 'jade:production'],
+      development: {
+        tasks: ['watch:development', 'serve:development'],
+        options: {
+          logConcurrentOutput: true
+        }
+      },
+      production: {
+        tasks: ['watch:production', 'serve:production'],
+        options: {
+          logConcurrentOutput: true
+        }
       }
     },
 
   // *********************************************************************************************
   // New Tasks go below here !!!
 
-    // Starts the karma runner for unit and e2e tests.
-    // Tests are run when the task is re-invoked from the watch task.
-    karma : {
-      unit : {
-        reporters: 'dots',
-        configFile: './config/karma.config.js'
-      }
-    },
-
+    // Starts the Jest runner for unit tests.
+    // Tests are run when the task is re-invoked from the watch task
     jest: {
       unit: {
 
@@ -306,23 +331,22 @@ module.exports = function (grunt) {
   // **********************************************************************************************
   // The default task is the development task
   grunt.registerTask('default', [
-    'clean',
-    'browserify:app',
-    //'jshint',
-    'less',
-    'concat:css',
-    'jade:development',
-    'copy:vendor',
+    'concurrent:clean',
+    'concurrent:dev1',
+    'concurrent:dev2',
     'copy:development'
   ]);
 
-  grunt.registerTask('development', ['default']);
+  grunt.registerTask('dev', ['default']);
 
   // Task to minify the codez for production and prepare for deployment
-  grunt.registerTask('production', ['development', 'cssmin', 'uglify', 'jade:production', 'copy:production']);
+  grunt.registerTask('prod', ['dev',  'concurrent:prod1', 'copy:production']);
 
   // Tasks to run the node server and rest api
   grunt.registerTask('serve:development', ['env:development', 'shell:server']);
   grunt.registerTask('serve:production', ['env:production', 'shell:server']);
   grunt.registerTask('debugger', ['env:development', 'shell:debug']);
+
+  grunt.registerTask('development', ['concurrent:development']);
+  grunt.registerTask('production', ['concurrent:production'])
 };

@@ -4,10 +4,10 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var TimeunitTable = require('./timeunit.table');
-var ChangeMixin = require('../../../mixins/change.mixin');
+var ChangeMixin = require('../../mixins/change.mixin');
 
-var TimeunitActions = require('../../../actions/timeunit.actions');
-var TimeunitStore = require('../../../stores/timeunit.store');
+var TimeunitActions = require('../../actions/timeunit.actions');
+var TimeunitStore = require('../../stores/timeunit.store');
 
 var Timeunits = React.createClass({
 

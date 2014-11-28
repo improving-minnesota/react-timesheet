@@ -2,10 +2,10 @@
 
 var React = require('React');
 
-var FieldWrap = require('../..//common/field.wrap');
+var FieldWrap = require('../common/field.wrap');
 
 var TimeunitForm = React.createClass({
-  
+
   render : function () {
     // options : project in projects
 
@@ -22,13 +22,13 @@ var TimeunitForm = React.createClass({
                   value={this.props.timeunit.project}
                   ref="project"
                   data-placeholder="Select Project..." required>
-                  
+
                 </select>
               }/>
 
               <FieldWrap inputId="timeunit-dateWorked" label="Date" formField={
                 <div>
-                  <input type="text" class="form-control" 
+                  <input type="text" class="form-control"
                     datepicker-popup="MM/dd/yyyy"
                     value={this.props.timeunit.dateWorked}
                     ref="dateWorked"
@@ -36,7 +36,7 @@ var TimeunitForm = React.createClass({
                     show-button-bar="false"
                     min="timesheet.beginDate"
                     max="timesheet.endDate"
-                    ng-required="true" 
+                    ng-required="true"
                     close-text="Close" />
                   <span class="input-group-btn">
                     <button class="btn btn-default">
@@ -47,8 +47,8 @@ var TimeunitForm = React.createClass({
               }/>
 
               <FieldWrap inpuId="timeunit-hoursWorked" label="Hours" formField={
-                <input type="number" class="form-control" 
-                  name="timeunit-hoursWorked" 
+                <input type="number" class="form-control"
+                  name="timeunit-hoursWorked"
                   placeholder="Hours Worked"
                   value={this.props.timeunit.hoursWorked}
                   ref="hoursWorked"
@@ -61,7 +61,7 @@ var TimeunitForm = React.createClass({
 
               <div class="row">
                 <div class="col-sm-2 col-sm-offset-8">
-                  <button class="btn btn-primary btn-block" 
+                  <button class="btn btn-primary btn-block"
                     onClick={this.props.save}
                     ng-disabled="timeunitForm.$invalid">Save</button>
                 </div>

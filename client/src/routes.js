@@ -23,8 +23,8 @@ var timesheetsDetail = require('./components/timesheets/timesheet.detail');
 var timesheetsCreate = require('./components/timesheets/timesheet.create');
 var timesheetsEdit = require('./components/timesheets/timesheet.edit');
 
-var timeunitsCreate = require('./components/timesheets/timeunits/timeunit.create');
-var timeunitsEdit = require('./components/timesheets/timeunits/timeunit.edit');
+var timeunitsCreate = require('./components/timeunits/timeunit.create');
+var timeunitsEdit = require('./components/timeunits/timeunit.edit');
 
 // Initialize the routes
 var AppRoutes = React.createClass({
