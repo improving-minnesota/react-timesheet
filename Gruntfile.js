@@ -270,6 +270,17 @@ module.exports = function (grunt) {
       }
     },
 
+    jest: {
+      unit: {
+
+      },
+      coverage: {
+        options: {
+          coverage: true
+        }
+      }
+    },
+
     // Starts the protractor e2e tests.
     protractor: {
       options: {

@@ -1,5 +1,4 @@
 describe('Boolean filters:', function () {
-  var expect = chai.expect;
 
   beforeEach(module('boolean.filters'));
 

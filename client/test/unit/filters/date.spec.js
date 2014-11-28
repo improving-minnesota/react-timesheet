@@ -1,5 +1,4 @@
 describe('Date filters:', function () {
-  var expect = chai.expect;
 
   beforeEach(module('date.filters'));
 
