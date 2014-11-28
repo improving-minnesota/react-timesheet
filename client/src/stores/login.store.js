@@ -1,11 +1,11 @@
 var merge = require('react/lib/merge');
+var Router = require('react-router');
 var q = require('q');
 
 var store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
-var queue = require('../services/retry.queue');
 
 var LoginStore = merge(store, {
 
@@ -24,7 +24,8 @@ var LoginStore = merge(store, {
     this.setState({
       user: {},
       authenticated: false,
-      credentials: {}
+      credentials: {},
+      pausedTransition: null
     });
 
     return this;
@@ -44,7 +45,6 @@ var LoginStore = merge(store, {
             authenticated: res.body.authenticated,
             user: res.body.user
           });
-          return true;
         })
         .catch(function (data) {
           notifications.error('There was an error getting the current user');
@@ -65,9 +65,7 @@ var LoginStore = merge(store, {
           user: res.body.user
         });
 
-        // if we've successfully authenticated, retry any delayed requests
         if (authenticated) {
-          queue.retryAll();
           self.setState({authError: false, authReason: false});
           notifications.success('Welcome back, ' + res.body.user.username + '.');
         }
@@ -96,6 +94,25 @@ var LoginStore = merge(store, {
       .catch(function (x) {
         notifications.error('There was an error logging out.');
       });
+  },
+
+  requireAuthenticatedUser: function (transition) {
+    var self = this;
+    var deferred = q.defer();
+
+    var authCheckInterval = setInterval(function () {
+      if (self.getState().authenticated) {
+        clearInterval(authCheckInterval);
+        deferred.resolve(true);
+      }
+    }, 200);
+
+    if (!self.getState().authenticated) {
+      self.setState({pausedTransition: transition});
+      Router.transitionTo('login');
+    }
+
+    return deferred.promise;
   }
 });
 

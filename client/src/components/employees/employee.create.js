@@ -5,7 +5,7 @@ var React = require('react');
 var EmployeeForm = require('./employee.form');
 var EmployeeActions = require('../../actions/employee.actions');
 
-var EmployeeMixin = require('../../mixins/employee.mixin')
+var EmployeeMixin = require('../../mixins/employee.mixin');
 var ChangeMixin = require('../../mixins/change.mixin');
 
 var EmployeeCreate = React.createClass({

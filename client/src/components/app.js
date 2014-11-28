@@ -5,21 +5,24 @@ var Router = require('react-router');
 
 var NavBar = require('./common/navbar');
 var SectionHeader = require('./common/section');
-var Authentication = require('../services/security');
+var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
   mixins: [
     Router.ActiveState
   ],
 
-  // statics: {
-  //   willTransitionTo: function (transition, params) {
-  //     return Authentication.requireAuthenticatedUser()
-  //       .then(function () {
-  //         //transition.abort();
-  //       });
-  //   }
-  // },
+  statics: {
+    willTransitionTo: function (transition, params) {
+      return LoginStore.requireAuthenticatedUser()
+        .then(function () {
+          transition.retry();
+        })
+        .catch(function () {
+          transition.abort();
+        });
+    }
+  },
 
   render : function () {
 
