@@ -12,6 +12,7 @@ var TimesheetStore = require('../../stores/timesheet.store');
 var Timesheets = React.createClass({
 
   mixins: [
+    Router.Navigation,
     ChangeMixin
   ],
 
@@ -24,7 +25,7 @@ var Timesheets = React.createClass({
   },
 
   createNew: function () {
-    return Router.transitionTo('timesheets.create', {user_id: '123'});
+    return this.transitionTo('timesheets.create', {user_id: '123'});
   },
 
   componentDidMount: function () {

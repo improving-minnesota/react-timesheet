@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-router');
 var _ = require('lodash');
 
 var TimesheetForm = require('./timesheet.form');
@@ -12,6 +13,8 @@ var TimesheetMixin = require('../../mixins/timesheet.mixin');
 var TimesheetEdit = React.createClass({
 
   mixins: [
+    Router.Navigation,
+    Router.State,
     ChangeMixin,
     TimesheetMixin
   ],
@@ -40,7 +43,7 @@ var TimesheetEdit = React.createClass({
   },
 
   componentDidMount: function () {
-    this.get(this.props.params._id);
+    this.get(this.getParams()._id);
   },
 
   render: function () {

@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var Router = require('react-router');
 var _ = require('lodash');
 
 var EmployeeForm = require('./employee.form');
@@ -12,6 +13,8 @@ var EmployeeMixin = require('../../mixins/employee.mixin');
 var EmployeeDetail = React.createClass({
 
   mixins: [
+    Router.Navigation,
+    Router.State,
     ChangeMixin,
     EmployeeMixin
   ],
@@ -40,7 +43,7 @@ var EmployeeDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.get(this.props.params._id);
+    this.get(this.getParams()._id);
   },
 
   render : function () {

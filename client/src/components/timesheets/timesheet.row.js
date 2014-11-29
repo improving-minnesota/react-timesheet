@@ -5,10 +5,16 @@ var Router = require('react-router');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
+var LoginStore = require('../../stores/login.store');
 
 var notifications = require('../../services/notifications');
+var DateFilter = require('../../filters/date');
 
 var TimesheetRow = React.createClass({
+
+  mixins: [
+    Router.Navigation
+  ],
 
   showDetail: function showDetail () {
     var timesheet = this.props.timesheet;
@@ -17,7 +23,8 @@ var TimesheetRow = React.createClass({
       return;
     }
     TimesheetStore.setState({timesheet: timesheet});
-    Router.transitionTo('timesheets.detail', {_id: timesheet._id});
+    this.transitionTo('timesheets.detail',
+      {user_id: timesheet.user_id, _id: timesheet._id});
   },
 
   remove: function remove (e) {
@@ -29,7 +36,7 @@ var TimesheetRow = React.createClass({
   restore: function restore (e) {
    e.stopPropagation();
    this.props.timesheet.deleted = false;
-   TimesheetActions.restor(this.props.timesheet);
+   TimesheetActions.restore(this.props.timesheet);
   },
 
   render: function () {
@@ -52,8 +59,8 @@ var TimesheetRow = React.createClass({
     return (
       <tr className={rowClasses} onClick={this.showDetail}>
 
-        <td>{timesheet.beginDate}</td>
-        <td>{timesheet.endDate}</td>
+        <td>{DateFilter.momentShortDate(timesheet.beginDate)}</td>
+        <td>{DateFilter.momentShortDate(timesheet.endDate)}</td>
         <td>{timesheet.name}</td>
         <td>{timesheet.description}</td>
         <td>

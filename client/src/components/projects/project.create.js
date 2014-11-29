@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
+var Router = require('react-router');
 
 var ProjectForm = require('./project.form');
 var ProjectActions = require('../../actions/project.actions');
@@ -11,6 +12,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 var ProjectCreate = React.createClass({
 
   mixins: [
+    Router.Navigation,
     ChangeMixin,
     EmployeeMixin
   ],

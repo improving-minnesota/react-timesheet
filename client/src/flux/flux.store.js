@@ -1,11 +1,10 @@
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
 var _ = require('lodash');
 
 var dispatcher = require('./flux.dispatcher');
 var CHANGE_EVENT = 'CHANGE_EVENT';
 
-var Store = merge(EventEmitter.prototype, {
+var Store = _.extend(EventEmitter.prototype, {
 
   state: {},
 

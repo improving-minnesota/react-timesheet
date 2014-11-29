@@ -10,13 +10,17 @@ var notifications = require('../../services/notifications');
 
 var ProjectRow = React.createClass({
 
+  mixins: [
+    Router.Navigation
+  ],
+
   showDetail: function showDetail () {
     if (this.props.project.deleted) {
       notifications.error('You cannot edit a deleted project.');
       return;
     }
     ProjectStore.setState({project: this.props.project});
-    Router.transitionTo('projects.detail', {_id: this.props.project._id});
+    this.transitionTo('projects.detail', {_id: this.props.project._id});
   },
 
   remove: function remove (e) {

@@ -3,9 +3,14 @@
 var React = require('react/addons');
 var Router = require('react-router');
 
+var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetForm = require('./timesheet.form');
 
 var TimesheetCreate = React.createClass({
+
+  mixins: [
+    Router.Navigation
+  ],
 
   getInitialState: function () {
     return {
@@ -15,11 +20,11 @@ var TimesheetCreate = React.createClass({
   },
 
   save: function () {
-    this.getFlux().actions.timesheets.create(this.state.timesheet);
+    TimesheetActions.create(this.state.timesheet);
   },
 
   cancel: function () {
-    Router.transitionTo('timesheets');
+    this.transitionTo('timesheets');
   },
 
   render: function () {

@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
 
 var NavBar = require('./common/navbar');
 var SectionHeader = require('./common/section');
@@ -9,7 +10,7 @@ var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
   mixins: [
-    Router.ActiveState
+    Router.State
   ],
 
   statics: {
@@ -33,7 +34,7 @@ var App = React.createClass({
           <SectionHeader />
           <div className="row">
             <div className="col-xs-12">
-              <this.props.activeRouteHandler />
+              <RouteHandler />
             </div>
           </div>
         </div>

@@ -11,6 +11,10 @@ var yesNo = require('../../filters/boolean');
 
 var EmployeeRow = React.createClass({
 
+  mixins: [
+    Router.Navigation
+  ],
+
   showDetail: function showDetail () {
     var employee = this.props.employee;
     if (employee.deleted) {
@@ -18,7 +22,7 @@ var EmployeeRow = React.createClass({
       return;
     }
     EmployeeStore.setState({employee: employee});
-    Router.transitionTo('employees.detail', {_id: employee._id});
+    this.transitionTo('employees.detail', {_id: employee._id});
   },
 
   remove: function remove (e) {

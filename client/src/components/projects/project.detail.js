@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var Router = require('react-router');
 var _ = require('lodash');
 
 var ProjectForm = require('./project.form.js');
@@ -12,6 +13,8 @@ var ProjectMixin = require('../../mixins/project.mixin');
 var ProjectDetail = React.createClass({
 
   mixins: [
+    Router.Navigation,
+    Router.State,
     ChangeMixin,
     ProjectMixin
   ],
@@ -40,7 +43,7 @@ var ProjectDetail = React.createClass({
   },
 
   componentDidMount: function() {
-    this.get(this.props.params._id);
+    this.get(this.getParams()._id);
   },
 
   render : function () {

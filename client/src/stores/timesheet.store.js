@@ -1,11 +1,11 @@
-var merge = require('react/lib/merge');
-
+var _ = require('lodash');
 var store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
+var LoginStore = require('./login.store');
 
-var TimesheetStore = merge(store, {
+var TimesheetStore = _.extend(store, {
 
   initialize: function () {
     var events = {};
@@ -26,7 +26,7 @@ var TimesheetStore = merge(store, {
   },
 
   url: function (timesheetId) {
-    var url = 'users/any/timesheets';
+    var url = 'users/' + LoginStore.getUserId() + '/timesheets';
     if (timesheetId) {
       url += '/' + timesheetId;
     }
@@ -70,7 +70,7 @@ var TimesheetStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + timesheet.username + ', updated.');
+        notifications.success('Timesheet : ' + timesheet.name + ', updated.');
       })
       .catch(function (x) {
         notifications.error('There was an error updating timesheet.');
@@ -87,7 +87,7 @@ var TimesheetStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.username + ', was restored.');
+        notifications.success('Timesheet : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
@@ -105,7 +105,7 @@ var TimesheetStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.username + ', was deleted.');
+        notifications.success('Timesheet : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -123,7 +123,7 @@ var TimesheetStore = merge(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.username + ', created.');
+        notifications.success('Timesheet : ' + res.body.name + ', created.');
       })
       .catch(function (x) {
         notifications.error('There was an error creating timesheet.');

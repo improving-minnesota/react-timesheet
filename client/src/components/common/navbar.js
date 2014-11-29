@@ -1,32 +1,34 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var _ = require('lodash');
 var Router = require('react-router');
 var Link = Router.Link;
-var ActiveState = Router.ActiveState;
+var ActiveState = Router.State;
 
 var LoginStore = require('../../stores/login.store');
 var LoginActions = require('../../actions/login.actions');
 
 var NavBar = React.createClass({
   mixins: [
-    Router.ActiveState
+    Router.State
   ],
 
   getInitialState: function () {
     return {
       title: 'Timesheetz',
       user: {
-        _id: 'any'
+        _id: LoginStore.getState().user._id || 'all'
       }
     };
   },
 
   updateActiveState: function () {
+    var activeRoutes = this.getRoutes();
     this.setState({
-      projectsActive: NavBar.isActive('projects'),
-      employeesActive: NavBar.isActive('employees'),
-      timesheetsActive: NavBar.isActive('timesheets')
+      projectsActive: _.contains(activeRoutes, 'projects'),
+      employeesActive: _.contains(activeRoutes, 'employees'),
+      timesheetsActive: _.contains(activeRoutes, 'timesheets')
     });
   },
 

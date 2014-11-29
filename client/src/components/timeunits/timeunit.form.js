@@ -7,7 +7,6 @@ var FieldWrap = require('../common/field.wrap');
 var TimeunitForm = React.createClass({
 
   render : function () {
-    // options : project in projects
 
     return (
 

@@ -15,6 +15,6 @@ module.exports = {
   },
 
   goToProjectsTable: function () {
-    Router.transitionTo('projects');
+    this.transitionTo('projects');
   }
 };

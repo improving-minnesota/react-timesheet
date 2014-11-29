@@ -1,7 +1,7 @@
 var Dispatcher = require('flux').Dispatcher;
-var copyProperties = require('react/lib/copyProperties');
+var _ = require('lodash');
 
-var dispatcher = copyProperties(new Dispatcher(), {
+var dispatcher = _.extend(new Dispatcher(), {
 
   /**
    * A bridge function between the views and the dispatcher, marking the action

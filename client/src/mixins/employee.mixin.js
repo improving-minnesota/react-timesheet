@@ -1,4 +1,3 @@
-var Router = require('react-router');
 var EmployeeStore = require('../stores/employee.store');
 
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
   },
 
   goToEmployeesTable: function () {
-    Router.transitionTo('employees');
+    this.transitionTo('employees');
   },
 
   toggleAdmin: function () {

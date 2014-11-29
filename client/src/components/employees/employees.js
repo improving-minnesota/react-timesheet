@@ -12,6 +12,7 @@ var EmployeeStore = require('../../stores/employee.store');
 var Employees = React.createClass({
 
   mixins: [
+    Router.Navigation,
     ChangeMixin
   ],
 
@@ -24,7 +25,7 @@ var Employees = React.createClass({
   },
 
   createNew: function createNew () {
-    Router.transitionTo('employees.create');
+    this.transitionTo('employees.create');
   },
 
   componentDidMount: function () {

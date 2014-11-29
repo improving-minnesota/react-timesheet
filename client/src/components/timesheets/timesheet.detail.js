@@ -14,12 +14,14 @@ var TimesheetMixin = require('../../mixins/timesheet.mixin');
 var TimesheetDetail = React.createClass({
 
   mixins: [
+    Router.Navigation,
+    Router.State,
     ChangeMixin,
     TimesheetMixin
   ],
 
   editTimesheet: function (event) {
-    Router.transitionTo('timesheets.edit', {_id: this.props.timesheet._id});
+    this.transitionTo('timesheets.edit', {_id: this.props.timesheet._id});
   },
 
   get: function (timesheetId) {
@@ -41,7 +43,7 @@ var TimesheetDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.get(this.props.params._id);
+    this.get(this.getParams()._id);
   },
 
   render: function () {

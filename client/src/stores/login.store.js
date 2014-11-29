@@ -1,4 +1,4 @@
-var merge = require('react/lib/merge');
+var _ = require('lodash');
 var Router = require('react-router');
 var q = require('q');
 
@@ -7,7 +7,7 @@ var actions = require('../actions/login.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var LoginStore = merge(store, {
+var LoginStore = _.extend(store, {
 
   initialize: function () {
 
@@ -31,20 +31,25 @@ var LoginStore = merge(store, {
     return this;
   },
 
+  getUserId: function () {
+    return this.getState().user._id || 'all';
+  },
+
   current: function (payload) {
     var self = this;
 
     if (this.getState().authenticated) {
-      return q.when(true);
+      return q.when(self.getState());
     }
     else {
-      return agent.get(this.loginUrl)
+      return agent.get(self.loginUrl)
         .end()
         .then(function (res) {
           self.setState({
             authenticated: res.body.authenticated,
             user: res.body.user
           });
+          return self.getState();
         })
         .catch(function (data) {
           notifications.error('There was an error getting the current user');
@@ -109,7 +114,7 @@ var LoginStore = merge(store, {
 
     if (!self.getState().authenticated) {
       self.setState({pausedTransition: transition});
-      Router.transitionTo('login');
+      this.transitionTo('login');
     }
 
     return deferred.promise;

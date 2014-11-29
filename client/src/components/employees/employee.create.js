@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var Navigation = require('react-router').Navigation;
 
 var EmployeeForm = require('./employee.form');
 var EmployeeActions = require('../../actions/employee.actions');
@@ -11,6 +12,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 var EmployeeCreate = React.createClass({
 
   mixins : [
+    Navigation,
     ChangeMixin,
     EmployeeMixin
   ],

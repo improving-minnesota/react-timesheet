@@ -5,35 +5,30 @@ var Router = require('react-router');
 
 var SectionHeader = React.createClass({
   mixins: [
-    Router.ActiveState
+    Router.State,
+    Router.Navigation
   ],
 
-  getInitialState: function () {
-    return {
-      section: 'Employees'
-    };
-  },
+  getSectionName: function () {
+    var sectionName;
 
-  updateActiveState: function () {
-    var section;
-
-    if (SectionHeader.isActive('employees')) {
-      section = 'Employees';
-    } else if (SectionHeader.isActive('employees.create')) {
-      section = 'Create Employee';
-    } else if (SectionHeader.isActive('employees.detail')) {
-      section = 'Update Employee';
-    } else if (SectionHeader.isActive('projects')) {
-      section = 'Projects';
-    } else if (SectionHeader.isActive('projects.create')) {
-      section = 'Create Project';
-    } else if (SectionHeader.isActive('projects.detail')) {
-      section = 'Update Project';
-    } else if (SectionHeader.isActive('timesheets')) {
-      section = 'Timesheets';
+    if (this.isActive('employees')) {
+      sectionName = 'Employees';
+    } else if (this.isActive('employees.create')) {
+      sectionName = 'Create Employee';
+    } else if (this.isActive('employees.detail')) {
+      sectionName = 'Update Employee';
+    } else if (this.isActive('projects')) {
+      sectionName = 'Projects';
+    } else if (this.isActive('projects.create')) {
+      sectionName = 'Create Project';
+    } else if (this.isActive('projects.detail')) {
+      sectionName = 'Update Project';
+    } else if (this.isActive('timesheets')) {
+      sectionName = 'Timesheets';
     }
 
-    this.setState({section: section});
+    return sectionName;
   },
 
   render : function () {
@@ -41,7 +36,7 @@ var SectionHeader = React.createClass({
     return (
       <div className="row">
         <div className="col-xs-12">
-          <h2>{this.state.section}</h2>
+          <h2>{this.getSectionName()}</h2>
           <hr/>
         </div>
       </div>

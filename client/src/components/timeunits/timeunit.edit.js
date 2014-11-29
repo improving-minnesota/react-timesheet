@@ -7,16 +7,20 @@ var TimeunitForm = require('./timeunit.form');
 
 var TimeunitEdit = React.createClass({
 
+  mixins: [
+    Router.Navigation
+  ],
+
   getInitialState: function () {
 
   },
 
   save: function () {
-    
+
   },
 
   cancel: function () {
-    Router.transitionTo('timesheet.detail.timeunit.detail', {});
+    this.transitionTo('timesheet.detail.timeunit.detail', {});
   },
 
   render: function () {

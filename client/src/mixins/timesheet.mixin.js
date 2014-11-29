@@ -11,6 +11,6 @@ module.exports = {
   },
 
   goToTimesheetsTable: function () {
-    Router.transitionTo('timesheets');
+    this.transitionTo('timesheets');
   }
 };

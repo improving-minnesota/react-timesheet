@@ -1,11 +1,10 @@
-var merge = require('react/lib/merge');
-
+var _ = require('lodash');
 var store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var ProjectStore = merge(store, {
+var ProjectStore = _.extend(store, {
 
   initialize: function () {
     var events = {};

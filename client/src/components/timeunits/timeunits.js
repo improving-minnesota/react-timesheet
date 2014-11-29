@@ -2,17 +2,19 @@
 
 var React = require('react/addons');
 var Router = require('react-router');
+var _ = require('lodash');
 
 var TimeunitTable = require('./timeunit.table');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitStore = require('../../stores/timeunit.store');
+var TimesheetStore = require('../../stores/timesheet.store');
+var LoginStore = require('../../stores/login.store');
 
 var Timeunits = React.createClass({
 
   mixins: [
-    ChangeMixin
+    Router.Navigation
   ],
 
   store: TimeunitStore,
@@ -24,11 +26,26 @@ var Timeunits = React.createClass({
   },
 
   logTime: function () {
-    Router.transitionTo('timesheets.detail.timeunits.create', {user_id: '123', _id: this.props.timesheet._id});
+    this.transitionTo('timesheets.detail.timeunits.create',
+      {user_id: LoginStore.getUserId(), _id: this.props.timesheet._id});
   },
 
-  componentDidMount: function () {
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  onTimesheetChange: function () {
     this.requestTimeunits(this.props.timesheet);
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+    TimesheetStore.addChangeListener(this.onTimesheetChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
+    TimesheetStore.addChangeListener(this.onTimesheetChange);
   },
 
   render: function () {
@@ -46,7 +63,7 @@ var Timeunits = React.createClass({
         <div className="row">
           <div className="col-xs-12">
             <div className="tsz-responsive-table-container">
-              <TimeunitTable timeunits={this.state.timesheet.timeunits} />
+              <TimeunitTable timeunits={this.state.timeunits} timesheet={this.props.timesheet}/>
             </div>
           </div>
         </div>

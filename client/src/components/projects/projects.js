@@ -12,6 +12,7 @@ var ProjectStore = require('../../stores/project.store');
 var Projects = React.createClass({
 
   mixins: [
+    Router.Navigation,
     ChangeMixin
   ],
 
@@ -24,7 +25,7 @@ var Projects = React.createClass({
   },
 
   createNew: function () {
-    Router.transitionTo('projects.create');
+    this.transitionTo('projects.create');
   },
 
   componentDidMount: function () {
