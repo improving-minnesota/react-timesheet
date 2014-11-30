@@ -1,10 +1,10 @@
 var _ = require('lodash');
-var store = require('../flux/flux.store');
+var Store = require('../flux/flux.store');
 var actions = require('../actions/employee.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var EmployeeStore = _.extend(store, {
+var EmployeeStore = _.extend(_.clone(Store), {
 
   initialize: function () {
     var events = {};
@@ -86,7 +86,7 @@ var EmployeeStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + res.body.username + ', was restored.');
+        notifications.success('Employee : ' + res.body.username + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -104,7 +104,7 @@ var EmployeeStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + res.body.username + ', was deleted.');
+        notifications.success('Employee : ' + res.body.username + ', was restored.');
         return true;
       })
       .catch(function (x) {

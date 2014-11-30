@@ -1,11 +1,11 @@
 var _ = require('lodash');
-var store = require('../flux/flux.store');
+var Store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 var LoginStore = require('./login.store');
 
-var TimesheetStore = _.extend(store, {
+var TimesheetStore = _.extend(_.clone(Store), {
 
   initialize: function () {
     var events = {};
@@ -87,7 +87,7 @@ var TimesheetStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.name + ', was restored.');
+        notifications.success('Timesheet : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -105,7 +105,7 @@ var TimesheetStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.name + ', was deleted.');
+        notifications.success('Timesheet : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {

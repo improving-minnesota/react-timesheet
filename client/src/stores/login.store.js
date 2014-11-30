@@ -2,12 +2,12 @@ var _ = require('lodash');
 var Router = require('react-router');
 var q = require('q');
 
-var store = require('../flux/flux.store');
+var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var LoginStore = _.extend(store, {
+var LoginStore = _.extend(_.clone(Store), {
 
   initialize: function () {
 
@@ -21,18 +21,23 @@ var LoginStore = _.extend(store, {
     events[actions.CURRENT_USER] = this.current;
     this.register(events);
 
+    this.initState();
+
+    return this;
+  },
+
+  initState: function () {
     this.setState({
       user: {},
       authenticated: false,
       credentials: {},
       pausedTransition: null
     });
-
-    return this;
   },
 
   getUserId: function () {
-    return this.getState().user._id || 'all';
+    var user = this.getState().user;
+    return (user !== null && user._id) ? user._id : 'all';
   },
 
   current: function (payload) {
@@ -89,12 +94,9 @@ var LoginStore = _.extend(store, {
     return agent.post(this.logoutUrl)
       .end()
       .then(function (res) {
-        self.setState({
-          user: {},
-          authenticated: false
-        });
+        self.initState();
         // navigate away from wherever we are and back to login page
-        window.location.assign('/');
+        window.location.assign('/#/login');
       })
       .catch(function (x) {
         notifications.error('There was an error logging out.');
@@ -114,7 +116,6 @@ var LoginStore = _.extend(store, {
 
     if (!self.getState().authenticated) {
       self.setState({pausedTransition: transition});
-      this.transitionTo('login');
     }
 
     return deferred.promise;

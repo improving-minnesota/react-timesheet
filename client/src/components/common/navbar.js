@@ -11,25 +11,20 @@ var LoginActions = require('../../actions/login.actions');
 
 var NavBar = React.createClass({
   mixins: [
-    Router.State
+    Router.State,
+    Router.Navigation
   ],
 
   getInitialState: function () {
+    var loggedInUser = LoginStore.getState().user;
+    var userId = (loggedInUser !== null && loggedInUser._id) ? loggedInUser._id : 'all';
+
     return {
       title: 'Timesheetz',
       user: {
-        _id: LoginStore.getState().user._id || 'all'
+        _id: userId
       }
     };
-  },
-
-  updateActiveState: function () {
-    var activeRoutes = this.getRoutes();
-    this.setState({
-      projectsActive: _.contains(activeRoutes, 'projects'),
-      employeesActive: _.contains(activeRoutes, 'employees'),
-      timesheetsActive: _.contains(activeRoutes, 'timesheets')
-    });
   },
 
   logout: function () {
@@ -37,8 +32,10 @@ var NavBar = React.createClass({
   },
 
   onLoginChange: function () {
+    var loginState = LoginStore.getState();
+
     this.setState({
-      user: LoginStore.getState().user
+      user: loginState.user
     });
   },
 
@@ -52,17 +49,18 @@ var NavBar = React.createClass({
 
   render : function () {
     var cx = React.addons.classSet;
+    var activeRoutes = _.pluck(this.getRoutes(), 'name').join('.').split('.');
 
     var projectsClasses = cx({
-      active: this.state.projectsActive
+      active: _.contains(activeRoutes, 'projects')
     });
 
     var employeesClasses = cx({
-      active: this.state.employeesActive
+      active: _.contains(activeRoutes, 'employees')
     });
 
     var timesheetsClasses = cx({
-      active: this.state.timesheetsActive
+      active: _.contains(activeRoutes, 'timesheets')
     });
 
     return (

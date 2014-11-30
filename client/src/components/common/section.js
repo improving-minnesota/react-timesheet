@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var _ = require('lodash');
 var React = require('react');
 var Router = require('react-router');
 
@@ -10,25 +11,18 @@ var SectionHeader = React.createClass({
   ],
 
   getSectionName: function () {
-    var sectionName;
+    var activeRoute = _.last(this.getRoutes()).name;
+    var sectionNames = {
+      'employees': 'Employees',
+      'employees.create': 'Create Employee',
+      'employees.detail': 'Edit Employee',
+      'projects': 'Projects',
+      'projects.create': 'Create Project',
+      'projects.detail': 'Update Project',
+      'timesheets': 'Timesheets'
+    };
 
-    if (this.isActive('employees')) {
-      sectionName = 'Employees';
-    } else if (this.isActive('employees.create')) {
-      sectionName = 'Create Employee';
-    } else if (this.isActive('employees.detail')) {
-      sectionName = 'Update Employee';
-    } else if (this.isActive('projects')) {
-      sectionName = 'Projects';
-    } else if (this.isActive('projects.create')) {
-      sectionName = 'Create Project';
-    } else if (this.isActive('projects.detail')) {
-      sectionName = 'Update Project';
-    } else if (this.isActive('timesheets')) {
-      sectionName = 'Timesheets';
-    }
-
-    return sectionName;
+    return sectionNames[activeRoute] || '';
   },
 
   render : function () {

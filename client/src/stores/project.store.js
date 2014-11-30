@@ -1,10 +1,10 @@
 var _ = require('lodash');
-var store = require('../flux/flux.store');
+var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
 var notifications = require('../services/notifications');
 var agent = require('../services/agent.promise');
 
-var ProjectStore = _.extend(store, {
+var ProjectStore = _.extend(_.clone(Store), {
 
   initialize: function () {
     var events = {};
@@ -87,7 +87,7 @@ var ProjectStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was restored.');
+        notifications.success('Project : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -105,7 +105,7 @@ var ProjectStore = _.extend(store, {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was deleted.');
+        notifications.success('Project : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {

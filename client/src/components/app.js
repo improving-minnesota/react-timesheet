@@ -9,22 +9,7 @@ var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
-  mixins: [
-    Router.State
-  ],
-
-  statics: {
-    willTransitionTo: function (transition, params) {
-      return LoginStore.requireAuthenticatedUser()
-        .then(function () {
-          transition.retry();
-        })
-        .catch(function () {
-          transition.abort();
-        });
-    }
-  },
-
+  
   render : function () {
 
     return (
