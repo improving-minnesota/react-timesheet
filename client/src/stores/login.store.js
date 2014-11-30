@@ -20,7 +20,6 @@ var LoginStore = _.extend(_.clone(Store), {
     events[actions.LOGOUT]  = this.logout;
     events[actions.CURRENT_USER] = this.current;
     this.register(events);
-
     this.initState();
 
     return this;
@@ -62,6 +61,10 @@ var LoginStore = _.extend(_.clone(Store), {
     }
   },
 
+  showLogin: function () {
+    window.location.assign('/#/login');
+  },
+
   login: function (payload) {
     var self = this;
 
@@ -76,7 +79,17 @@ var LoginStore = _.extend(_.clone(Store), {
         });
 
         if (authenticated) {
-          self.setState({authError: false, authReason: false});
+          self.setState({authError: null, authReason: null});
+
+          var pausedTransition = self.getState().pausedTransition;
+          if (pausedTransition) {
+            pausedTransition.retry();
+            self.setState({pausedTransition: null});
+          }
+          else {
+            window.location.assign('/');
+          }
+
           notifications.success('Welcome back, ' + res.body.user.username + '.');
         }
         else {
@@ -95,8 +108,7 @@ var LoginStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.initState();
-        // navigate away from wherever we are and back to login page
-        window.location.assign('/#/login');
+        self.showLogin();
       })
       .catch(function (x) {
         notifications.error('There was an error logging out.');
@@ -115,7 +127,9 @@ var LoginStore = _.extend(_.clone(Store), {
     }, 200);
 
     if (!self.getState().authenticated) {
+      transition.wait(deferred.promise);
       self.setState({pausedTransition: transition});
+      self.showLogin();
     }
 
     return deferred.promise;

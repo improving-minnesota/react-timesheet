@@ -7,8 +7,8 @@ var Redirect = Router.Redirect;
 var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 
+var Index = require('./components/index');
 var App = require('./components/app');
-var Security = require('./components/security');
 var Login = require('./components/login/login');
 
 var Projects = require('./components/projects/projects');
@@ -29,7 +29,7 @@ var TimeunitsEdit = require('./components/timeunits/timeunit.edit');
 
 // Initialize the routes
 module.exports = (
-  <Route name="security" path="/" handler={Security}>
+  <Route name="index" path="/" handler={Index}>
     <Route name='login' path='/login' handler={Login} />
 
     <Route name='app' path="/" handler={App}>
@@ -50,7 +50,7 @@ module.exports = (
       <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create' handler={TimeunitsCreate} />
       <Route name='timesheets.detail.timeunits.edit'path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
 
-      <Redirect from="security" to="employees" />
+      <Redirect from="index" to="employees" />
       <Redirect from="app" to="employees" />
       <DefaultRoute handler={Employees} />
       <NotFoundRoute handler={Employees} />

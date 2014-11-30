@@ -10,6 +10,12 @@ var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
   
+  statics: {
+    willTransitionTo: function (transition, params) {
+      return LoginStore.requireAuthenticatedUser(transition);
+    }
+  },
+
   render : function () {
 
     return (
