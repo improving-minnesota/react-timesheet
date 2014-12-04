@@ -20,7 +20,6 @@ var ProjectCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Create',
-      section: 'Create Project',
       project: {}
     };
   },
@@ -35,7 +34,7 @@ var ProjectCreate = React.createClass({
       <ProjectForm project={this.state.project}
         saveText={this.state.saveText}
         onSave={this.saveProject}
-        onCancel={this.goToProjectsTable}
+        onCancel={this.goBack}
         validate={this.validate} />
     );
   }

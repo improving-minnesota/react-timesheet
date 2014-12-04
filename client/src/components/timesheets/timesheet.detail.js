@@ -37,7 +37,6 @@ var TimesheetDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Edit',
-      section: 'Timesheet Details',
       timesheet: {}
     };
   },
@@ -55,7 +54,7 @@ var TimesheetDetail = React.createClass({
               <TimesheetForm timesheet={this.state.timesheet}
                 saveText={this.state.saveText}
                 onSave={this.editTimesheet}
-                onCancel={this.onCancel} />
+                onCancel={this.goBack} />
             </div>
           </div>
 

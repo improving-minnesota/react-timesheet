@@ -21,7 +21,7 @@ var TimesheetEdit = React.createClass({
 
   saveTimesheet: function (event) {
     TimesheetActions.update(this.state.timesheet);
-    this.goToTimesheetsTable();
+    this.goBack();
   },
 
   get: function (timesheetId) {
@@ -37,7 +37,6 @@ var TimesheetEdit = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      section: 'Update Timesheet',
       timesheet: {}
     };
   },
@@ -51,7 +50,7 @@ var TimesheetEdit = React.createClass({
       <TimesheetForm timesheet={this.state.timesheet}
         saveText={this.state.saveText}
         onSave={this.saveTimesheet}
-        onCancel={this.gotToTimesheetsTable}
+        onCancel={this.gotBack}
         validate={this.validate}/>
     );
   }

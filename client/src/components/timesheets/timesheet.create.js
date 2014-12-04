@@ -5,11 +5,13 @@ var Router = require('react-router');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetForm = require('./timesheet.form');
+var TimesheetMixin = require('../../mixins/timesheet.mixin');
 
 var TimesheetCreate = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    TimesheetMixin
   ],
 
   getInitialState: function () {
@@ -19,17 +21,16 @@ var TimesheetCreate = React.createClass({
     };
   },
 
-  save: function () {
+  onSave: function () {
     TimesheetActions.create(this.state.timesheet);
-  },
-
-  cancel: function () {
-    this.transitionTo('timesheets');
+    this.goBack();
   },
 
   render: function () {
     return (
-      <TimesheetForm timesheet={this.state.timesheet} save={this.save} cancel={this.cancel} />
+      <TimesheetForm timesheet={this.state.timesheet}
+        onSave={this.onSave}
+        onCancel={this.goBack} />
     );
   }
 });

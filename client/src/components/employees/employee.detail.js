@@ -37,7 +37,6 @@ var EmployeeDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      section: 'Update Employee',
       employee: {}
     };
   },
@@ -51,7 +50,7 @@ var EmployeeDetail = React.createClass({
       <EmployeeForm employee={this.state.employee}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
-        onCancel={this.goToEmployeesTable}
+        onCancel={this.goBack}
         validate={this.validate}
         toggleAdmin={this.toggleAdmin} />
     );

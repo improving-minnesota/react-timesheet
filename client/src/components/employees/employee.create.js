@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Navigation = require('react-router').Navigation;
+var Router = require('react-router');
 
 var EmployeeForm = require('./employee.form');
 var EmployeeActions = require('../../actions/employee.actions');
@@ -12,7 +12,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 var EmployeeCreate = React.createClass({
 
   mixins : [
-    Navigation,
+    Router.Navigation,
     ChangeMixin,
     EmployeeMixin
   ],
@@ -20,7 +20,6 @@ var EmployeeCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Create',
-      section: 'Create Employee',
       employee: {
         admin:false
       }
@@ -37,7 +36,7 @@ var EmployeeCreate = React.createClass({
       <EmployeeForm employee={this.state.employee}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
-        onCancel={this.goToEmployeesTable}
+        onCancel={this.goBack}
         validate={this.validate}
         toggleAdmin={this.toggleAdmin} />
     );

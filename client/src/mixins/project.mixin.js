@@ -12,9 +12,5 @@ module.exports = {
 
     this.state.project[event.target.name] = event.target.value;
     this.setState(this.state.project);
-  },
-
-  goToProjectsTable: function () {
-    this.transitionTo('projects');
   }
 };

@@ -9,10 +9,6 @@ module.exports = {
     this.setState(this.state.employee);
   },
 
-  goToEmployeesTable: function () {
-    this.transitionTo('employees');
-  },
-
   toggleAdmin: function () {
     var employee = this.state.employee;
     employee.admin = !employee.admin;

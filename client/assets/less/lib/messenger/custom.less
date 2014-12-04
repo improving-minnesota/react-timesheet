@@ -1,5 +1,68 @@
-ul.messenger.messenger-fixed.messenger-on-top {
+ul.messenger {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 10000;
   top: 70px;
+  left: 50%;
+  width: 800px;
+  margin-left: -400px;
+  right: 20px;
+  left: auto;
+  width: 350px;
+
+  .messenger-message {
+    min-width: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &.messenger-empty {
+    display: none;
+  }
+
+  .messenger-message {
+    overflow: hidden;
+    *zoom: 1;
+
+    &.messenger-hidden {
+      display: none;
+    }
+
+    .messenger-actions {
+      float: right;
+    }
+
+    .messenger-phrase,
+    .messenger-actions a {
+      padding-right: 5px;
+    }
+
+    .messenger-actions a {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    ul, ol {
+      margin: 10px 18px 0;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  /* line 54, ../../src/sass/messenger.sass */
+  ul.messenger.messenger-fixed.messenger-on-top, ul.messenger.messenger-fixed.messenger-on-bottom {
+    left: 10%;
+    width: 80%;
+    margin-left: 0px;
+  }
 }
 
 ul.messenger-theme-air .messenger-message.alert-success .messenger-message-inner:before {

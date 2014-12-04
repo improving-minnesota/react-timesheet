@@ -19,7 +19,12 @@ var SectionHeader = React.createClass({
       'projects': 'Projects',
       'projects.create': 'Create Project',
       'projects.detail': 'Update Project',
-      'timesheets': 'Timesheets'
+      'timesheets': 'Timesheets',
+      'timesheets.detail': 'Timesheet Detail',
+      'timesheets.edit': 'Edit Timesheet',
+      'timesheets.create': 'Create Timesheet',
+      'timesheets.detail.timeunits.edit': 'Update Time',
+      'timesheets.detail.timeunits.create': 'Log Time'
     };
 
     return sectionNames[activeRoute] || '';
