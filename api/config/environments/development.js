@@ -3,11 +3,8 @@ var express = require('express'),
 
 module.exports = function () {
   console.log(" * Applying development configurations");
-  
-  this.set('port', properties.server.dev.port);
 
-  // Serve static content
-  this.use('/assets', express.static(__dirname + '/../../../client/dist/assets'));
+  this.set('port', properties.server.dev.port);
 
   this.use(function (req, res) {
     res.send(404);

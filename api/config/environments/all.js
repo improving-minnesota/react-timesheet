@@ -10,6 +10,9 @@ module.exports = function() {
 
   this.set('views', __dirname + '/../../src/views');
 
+  // Serve static content
+  this.use(express.static(__dirname + '/../../../client/dist'));
+
   // Setup jade templates
   this.set('view engine', 'jade');
   this.engine('jade', require('jade').__express);
@@ -19,14 +22,14 @@ module.exports = function() {
   }));
 
   this.use(require('cookie-parser')(properties.security.cookieSecret));
-  
+
   this.use(require('body-parser')());
 
-  this.use(session({ 
+  this.use(session({
     secret: properties.session.secret,
-    key: properties.session.key, 
+    key: properties.session.key,
     store: new NedbStore({filename: 'api/data/db/session.json'}),
-    cookie: { 
+    cookie: {
       path: '/',
       httpOnly: true,
       maxAge: 24 * 3600 * 1000
