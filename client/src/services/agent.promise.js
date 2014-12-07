@@ -48,54 +48,21 @@ function wrap(superagent) {
 
   request.wrap = wrap;
 
-  /** Helper for making a get request */
-  request.get = function(url, data) {
-    var req = request('GET', url);
-    if (data) {
-      req.query(data);
-    }
-    return req;
-  };
 
-  /** Helper for making a head request */
-  request.head = function(url, data) {
-    var req = request('HEAD', url);
-    if (data) {
-      req.send(data);
-    }
-    return req;
-  };
+  // create helper methods
+  ['put', 'post', 'get', 'head', 'patch'].forEach(function (method) {
+    request[method] = function (url, data) {
+      var req = request(method.toUpperCase(), url);
+      if (data) {
+        req.send(data);
+      }
+      return req;
+    };
+  });
 
   /** Helper for making a delete request */
   request.del = function(url) {
     return request('DELETE', url);
-  };
-
-  /** Helper for making a patch request */
-  request.patch = function(url, data) {
-    var req = request('PATCH', url);
-    if (data) {
-      req.send(data);
-    }
-    return req;
-  };
-
-  /** Helper for making a post request */
-  request.post = function(url, data) {
-    var req = request('POST', url);
-    if (data) {
-      req.send(data);
-    }
-    return req;
-  };
-
-  /** Helper for making a put request */
-  request.put = function(url, data) {
-    var req = request('PUT', url);
-    if (data) {
-      req.send(data);
-    }
-    return req;
   };
 
   // Export the request builder
