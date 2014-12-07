@@ -6,7 +6,7 @@ var Router = require('react-router');
 var ProjectForm = require('./project.form');
 var ProjectActions = require('../../actions/project.actions');
 
-var EmployeeMixin = require('../../mixins/project.mixin');
+var ProjectMixin = require('../../mixins/project.mixin');
 var ChangeMixin = require('../../mixins/change.mixin');
 
 var ProjectCreate = React.createClass({
@@ -14,7 +14,7 @@ var ProjectCreate = React.createClass({
   mixins: [
     Router.Navigation,
     ChangeMixin,
-    EmployeeMixin
+    ProjectMixin
   ],
 
   getInitialState: function () {
@@ -24,9 +24,10 @@ var ProjectCreate = React.createClass({
     };
   },
 
-  saveProject: function () {
+  saveProject: function (event) {
+    event.preventDefault();
     ProjectActions.create(this.state.project);
-    this.goToProjectsTable();
+    this.goBack();
   },
 
   render : function () {
@@ -34,7 +35,6 @@ var ProjectCreate = React.createClass({
       <ProjectForm project={this.state.project}
         saveText={this.state.saveText}
         onSave={this.saveProject}
-        onCancel={this.goBack}
         validate={this.validate} />
     );
   }

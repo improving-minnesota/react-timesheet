@@ -2,30 +2,28 @@
 
 var moment = require('moment');
 var React = require('react/addons');
+var Router = require('react-router');
 
 var FieldWrap = require('../common/field.wrap');
 var DatePicker = require('../common/datepicker/datepicker');
 var Select2 = require('../common/select2');
 
-// React.renderComponent(
-//   <ReactSelect2 defaultValue="gorilla"
-//   onChange={function(e) {
-//     console.log("new value:", e.target.value);
-//   }}>
-//   <option value="monkey">Monkey</option>
-//   <option value="gorilla">Gorilla</option>
-//   <option value="giraffe">Giraffe</option>
-//   </ReactSelect2>,
-//   document.body
-// );
-
 var TimeunitForm = React.createClass({
+
+  mixins: [
+    Router.Navigation
+  ],
 
   options: [
     {key: 'project1', value: 'project1', label: 'Project 1'},
     {key: 'project2', value: 'project2', label: 'Project 2'},
     {key: 'project3', value: 'project3', label: 'Project 3'}
   ],
+
+  onCancel: function (event) {
+    event.preventDefault();
+    this.goBack();
+  },
 
   render : function () {
 
@@ -40,7 +38,7 @@ var TimeunitForm = React.createClass({
       <div className="tsz-timeunit-form">
         <div className="row">
           <div className="col-xs-12">
-            <form className="form-horizontal" name="timeunitForm">
+            <form className="form-horizontal" name="timeunitForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="timeunit-project" label="Project" formField={
                 <Select2 name="timeunit-project"
@@ -76,12 +74,12 @@ var TimeunitForm = React.createClass({
 
               <div className="row">
                 <div className="col-sm-2 col-sm-offset-8">
-                  <button className="btn btn-primary btn-block"
-                    onClick={this.props.save}
-                    ng-disabled="timeunitForm.$invalid">Save</button>
+                  <button className="btn btn-primary btn-block" type="submit"
+                    ng-disabled="timeunitForm.$invalid">{this.props.saveText}</button>
                 </div>
                 <div className="col-sm-2">
-                  <button className="btn btn-danger btn-block" onClick={this.props.cancel}>Cancel</button>
+                  <button className="btn btn-danger btn-block" type="button"
+                    onClick={this.onCancel}>Cancel</button>
                 </div>
               </div>
             </form>

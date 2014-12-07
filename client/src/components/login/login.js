@@ -26,7 +26,8 @@ var LoginForm = React.createClass({
     this.setState(this.state.credentials);
   },
 
-  login: function () {
+  login: function (event) {
+    event.preventDefault();
     LoginActions.login(this.state.credentials);
   },
 
@@ -52,7 +53,7 @@ var LoginForm = React.createClass({
 
                 <div className="row">
                   <div className="col-xs-12">
-                    <form novalidate className="form-horizontal" name="loginForm">
+                    <form novalidate className="form-horizontal" name="loginForm" onSubmit={this.login}>
                       <div className="form-group">
                         <label className="col-sm-2 control-label" htmlFor="login">Username</label>
                         <div className="col-sm-10">
@@ -71,13 +72,12 @@ var LoginForm = React.createClass({
                             onChange={this.validate} required />
                         </div>
                       </div>
-                    </form>
-                    <div className="form-group">
-                      <div className="col-xs-12 col-sm-3 col-sm-offset-9">
-                        <button className="btn btn-primary login btn-block"
-                          onClick={this.login}>Login</button>
+                      <div className="form-group">
+                        <div className="col-xs-12 col-sm-3 col-sm-offset-9">
+                          <button className="btn btn-primary login btn-block">Login</button>
+                        </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>

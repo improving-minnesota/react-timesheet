@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
+var Router = require('react-router');
 var PropTypes = React.PropTypes;
 
 var FieldWrap = require('../common/field.wrap');
@@ -8,12 +9,21 @@ var yesNo = require('../../filters/boolean');
 
 var EmployeeForm = React.createClass({
 
+  mixins: [
+    Router.Navigation
+  ],
+
+  onCancel: function (event) {
+    event.preventDefault();
+    this.goBack();
+  },
+
   render : function () {
     return (
       <div className="tsz-form">
         <div className="row">
           <div className="col-xs-12">
-            <form className="form-horizontal" name="employeeForm">
+            <form className="form-horizontal" name="employeeForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="username" label="Username" formField={
                 <input type='text' className="form-control"
@@ -51,22 +61,20 @@ var EmployeeForm = React.createClass({
                 </button>
               }/>
 
+              <div className="row">
+                <hr/>
+              </div>
+
+              <div className="row">
+                <div className="col-sm-2 col-sm-offset-8">
+                  <button className="btn btn-primary btn-block">{this.props.saveText}</button>
+                </div>
+                <div className="col-sm-2">
+                  <button className="btn btn-danger btn-block" type='button'
+                    onClick={this.onCancel}>Cancel</button>
+                </div>
+              </div>
             </form>
-
-            <div className="row">
-              <hr/>
-            </div>
-
-            <div className="row">
-              <div className="col-sm-2 col-sm-offset-8">
-                <button className="btn btn-primary btn-block"
-                  onClick={this.props.onSave}>{this.props.saveText}</button>
-              </div>
-              <div className="col-sm-2">
-                <button className="btn btn-danger btn-block"
-                  onClick={this.props.onCancel}>Cancel</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

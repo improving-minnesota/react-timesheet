@@ -16,11 +16,13 @@ var TimeunitCreate = React.createClass({
 
   getInitialState: function () {
     return {
+      saveText: 'Save',
       timeunit: {}
     };
   },
 
   saveTimeunit: function () {
+    this.preventDefault();
     TimeunitActions.create(this.props.timesheet, this.state.timeunit);
     this.goBack();
   },
@@ -28,8 +30,8 @@ var TimeunitCreate = React.createClass({
   render: function () {
     return (
       <TimeunitForm timeunit={this.state.timeunit}
-        onSave={this.saveTimeunit}
-        onCancel={this.goBack} />
+        saveText={this.state.saveText}
+        onSave={this.saveTimeunit} />
     );
   }
 });

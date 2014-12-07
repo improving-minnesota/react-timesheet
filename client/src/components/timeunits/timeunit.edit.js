@@ -19,11 +19,13 @@ var TimeunitEdit = React.createClass({
 
   getInitialState: function () {
     return {
+      saveText: 'Update',
       timeunit: {}
     };
   },
 
-  saveTimeunit: function () {
+  saveTimeunit: function (event) {
+    event.preventDefault();
     TimeunitActions.update(this.props.timesheet, this.state.timeunit);
     this.goBack();
   },
@@ -31,8 +33,8 @@ var TimeunitEdit = React.createClass({
   render: function () {
     return (
       <TimeunitForm timeunit={this.state.timeunit}
-        onSave={this.saveTimeunit}
-        onCancel={this.goBack} />
+        saveText={this.state.saveText}
+        onSave={this.saveTimeunit} />
     );
   }
 });

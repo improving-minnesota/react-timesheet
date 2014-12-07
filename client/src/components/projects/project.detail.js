@@ -19,9 +19,10 @@ var ProjectDetail = React.createClass({
     ProjectMixin
   ],
 
-  saveProject: function () {
+  saveProject: function (event) {
+    event.preventDefault();
     ProjectActions.update(this.state.project);
-    this.goToProjectsTable();
+    this.goBack();
   },
 
   get: function (projectId) {
@@ -50,7 +51,6 @@ var ProjectDetail = React.createClass({
       <ProjectForm project={this.state.project}
         saveText={this.state.saveText}
         onSave={this.saveProject}
-        onCancel={this.goBack}
         validate={this.validate} />
     );
   }

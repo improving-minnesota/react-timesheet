@@ -21,7 +21,8 @@ var TimesheetCreate = React.createClass({
     };
   },
 
-  onSave: function () {
+  onSave: function (event) {
+    event.preventDefault();
     TimesheetActions.create(this.state.timesheet);
     this.goBack();
   },
@@ -29,7 +30,6 @@ var TimesheetCreate = React.createClass({
   render: function () {
     return (
       <TimesheetForm timesheet={this.state.timesheet}
-        onSave={this.onSave}
         onCancel={this.goBack} />
     );
   }
