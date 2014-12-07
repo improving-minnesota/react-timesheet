@@ -4,5 +4,8 @@ module.exports = {
       jquery: "jQuery"
     },
     exports: "Messenger"
+  },
+  tether: {
+    exports: "Tether"
   }
 };

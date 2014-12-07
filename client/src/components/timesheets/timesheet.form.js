@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
+var moment = require('moment');
+var DatePicker = require('../common/datepicker/datepicker');
 
 var FieldWrap = require('../common/field.wrap');
 
@@ -28,38 +30,15 @@ var TimesheetForm = React.createClass({
               }/>
 
               <FieldWrap inputId="timesheet-beginDate" label="Begin Date" formField={
-                <div>
-                  <input type="text" className="form-control"
-                    datepicker-popup="MM/dd/yyyy"
-                    value={this.props.timesheet.beginDate}
-                    show-weeks="false"
-                    show-button-bar="false"
-                    required
-                    close-text="Close" />
-                  <span className="input-group-btn">
-                    <button className="btn btn-default">
-                      <i className="fa fa-fw fa-calendar"/>
-                    </button>
-                  </span>
-                </div>
+                <DatePicker key='ts-begin' className="form-control"
+                  selected={moment(this.props.timesheet.beginDate)}
+                  onChange={this.props.validate} />
               }/>
 
               <FieldWrap inputId="timesheet-endDate" label="End Date" formField={
-                <div>
-                  <input type="text" className="form-control"
-                    datepicker-popup="MM/dd/yyyy"
-                    value={this.props.timesheet.endDate}
-                    show-weeks="false"
-                    show-button-bar="false"
-                    min={this.props.timesheet.beginDate}
-                    required
-                    close-text="Close" />
-                  <span className="input-group-btn">
-                    <button className="btn btn-default">
-                      <i className="fa fa-fw fa-calendar"/>
-                    </button>
-                  </span>
-                </div>
+                <DatePicker key='ts-end' className="form-control"
+                  selected={moment(this.props.timesheet.endDate)}
+                  onChange={this.props.validate} />
               }/>
 
             </form>

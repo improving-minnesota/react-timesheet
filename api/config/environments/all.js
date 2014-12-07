@@ -7,6 +7,7 @@ var express = require('express'),
 
 module.exports = function() {
   console.log(" * Applying base configurations");
+  console.log(" * Environment: " + process.env.NODE_ENV);
 
   this.set('views', __dirname + '/../../src/views');
 

@@ -14,6 +14,8 @@ var Notifications = React.createClass({
 
   render: function () {
 
+    switch(this.state.type)
+
     return (
       <div className="notifications-container">
         <div className="notification alert-success">

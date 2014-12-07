@@ -6,10 +6,10 @@ var filesize = require('gulp-filesize');
 var jade = require('gulp-jade');
 var jest = require('gulp-jest');
 var less = require('gulp-less');
+var livereload = require('gulp-livereload');
 var cssmin = require('gulp-minify-css');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
-var react = require('gulp-react');
 var rename = require('gulp-rename');
 var shell = require('gulp-shell');
 var uglify = require('gulp-uglify');
@@ -36,7 +36,7 @@ gulp.task('serve:prod', shell.task(['NODE_ENV=production nodemon api/server.js']
 gulp.task('debug', shell.task(['node-debug api/server.js']));
 
 // setup the global watches
-gulp.task('watch:dev', ['dev'], function () {
+gulp.task('watch:dev', function () {
   gulp.watch(client('/less/**/*.less'), function () {
     gulp.start('concat:css');
   });
@@ -45,11 +45,11 @@ gulp.task('watch:dev', ['dev'], function () {
 });
 
 gulp.task('watch:prod', function () {
-  watch('./client/**/*.less', function () {
+  watch(client('/less/**/*.less'), function () {
     gulp.start('concat:css');
   });
 
-  watch([dist('/js/app.js')], function () {
+  watch(dist('/js/app.js'), function () {
     gulp.start('uglify');
   });
 
@@ -79,7 +79,8 @@ gulp.task('jade:dev', ['clean:index'], function () {
         env: 'development'
       }
     }))
-    .pipe(gulp.dest('./client/dist'));
+    .pipe(gulp.dest('./client/dist'))
+    .pipe(livereload());
 });
 
 gulp.task('jade:prod', ['clean:index'], function () {
@@ -93,7 +94,8 @@ gulp.task('jade:prod', ['clean:index'], function () {
         debug: false
       }
     }))
-    .pipe(gulp.dest('./client/dist'));
+    .pipe(gulp.dest('./client/dist'))
+    .pipe(livereload());
 });
 
 // clean and copy assets
@@ -140,6 +142,7 @@ gulp.task('concat:css', ['less'], function () {
     .pipe(cssmin())
     .pipe(rename({extname: '.min.css'}))
     .pipe(gulp.dest(dist('/css')))
+    .pipe(livereload())
     .on('error', gutil.log.bind(gutil, 'Error concatenating CSS'));
 });
 
@@ -156,7 +159,8 @@ gulp.task('watchify', function() {
     // log errors if they happen
     .on('error', gutil.log.bind(gutil, 'Browserify error'))
     .pipe(source('app.js'))
-    .pipe(gulp.dest(dist('/js')));
+    .pipe(gulp.dest(dist('/js')))
+    .pipe(livereload());
   }
 
   return rebundle();
@@ -168,6 +172,7 @@ gulp.task('uglify', ['watchify'], function () {
   .pipe(uglify())
   .pipe(rename({extname: '.min.js'}))
   .pipe(gulp.dest(dist('/js')))
+  .pipe(livereload())
   .on('error', gutil.log.bind(gutil, 'Error during minification.'));
 });
 

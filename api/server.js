@@ -16,7 +16,7 @@ app.phase(bootable.initializers('api/config/initializers'));
 
 // Serve the index.html from root
 app.get("/", function(req, res) {
-  return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
+  return res.sendfile("dist/index.html", {root: __dirname + '/../client'});
 });
 
 // Boot the application
@@ -38,5 +38,5 @@ app.boot(function(err) {
       process.send({ status: 'ready' });
     }
   });
-  
+
 });
