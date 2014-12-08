@@ -5,8 +5,39 @@ module.exports = {
   store: EmployeeStore,
 
   validate: function (event) {
-    this.state.employee[event.target.name] = event.target.value;
-    this.setState(this.state.employee);
+    var field = event.target.name;
+    var value = event.target.value;
+
+    this.state.employee[field] = value;
+    this.state.errors[field] = this.validator[field](value);
+    return this.setState({employee: this.state.employee, errors: this.state.errors});
+  },
+
+  hasErrors: function () {
+    var errors = this.state.errors;
+    return !!(errors.username || errors.email || errors.firstName || errors.lastName);
+  },
+
+  validator : {
+    // username min 1 max 40
+    username: function (value) {
+
+    },
+
+    email: function (value) {
+
+    },
+
+    firstName: function (value) {
+
+    },
+
+    lastName: function (value) {
+
+    }
+    // email
+    // firstName min 1
+    // lastName min 1
   },
 
   toggleAdmin: function () {

@@ -129,22 +129,25 @@ var DateInput = React.createClass({
 
   render: function() {
     return (
-      <div className="input-group">
-        <input
-          ref="input"
-          type="text"
-          value={this.state.value}
-          onBlur={this.props.onBlur}
-          onClick={this.handleClick}
-          onKeyDown={this.handleKeyDown}
-          onFocus={this.props.onFocus}
-          onChange={this.handleChange}
-          className="form-control" />
-        <span className="input-group-btn">
-          <button className="btn btn-default" onClick={this.handleButtonClick}>
-            <i className="fa fa-fw fa-calendar"></i>
-          </button>
-        </span>
+      <div>
+        <div className="input-group">
+          <input
+            ref="input"
+            type="text"
+            value={this.state.value}
+            onBlur={this.props.onBlur}
+            onClick={this.handleClick}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.props.onFocus}
+            onChange={this.handleChange}
+            className="form-control" />
+          <span className="input-group-btn">
+            <button className="btn btn-default" onClick={this.handleButtonClick}>
+              <i className="fa fa-fw fa-calendar"></i>
+            </button>
+          </span>
+        </div>
+        <div className="text-danger">{this.props.error}</div>
       </div>
     );
   }

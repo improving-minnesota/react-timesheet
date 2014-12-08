@@ -38,7 +38,8 @@ var EmployeeDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      employee: {}
+      employee: {},
+      errors: {}
     };
   },
 
@@ -49,6 +50,8 @@ var EmployeeDetail = React.createClass({
   render : function () {
     return (
       <EmployeeForm employee={this.state.employee}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
         validate={this.validate}

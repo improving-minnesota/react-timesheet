@@ -5,6 +5,10 @@ var Router = require('react-router');
 var PropTypes = React.PropTypes;
 
 var FieldWrap = require('../common/field.wrap');
+var TextInput = require('../common/text.input');
+var SaveButton = require('../common/save.button');
+var CancelButton = require('../common/cancel.button');
+var Separator = require('../common/form.separator');
 var yesNo = require('../../filters/boolean');
 
 var EmployeeForm = React.createClass({
@@ -25,33 +29,40 @@ var EmployeeForm = React.createClass({
           <div className="col-xs-12">
             <form className="form-horizontal" name="employeeForm" onSubmit={this.props.onSave}>
 
-              <FieldWrap inputId="username" label="Username" formField={
-                <input type='text' className="form-control"
-                  name="username" placeholder="Employee Username"
-                  ref="username" value={this.props.employee.username}
-                  minLength={1} maxLength={40}
-                  onChange={this.props.validate}/>
+              <FieldWrap inputId="username" label="Username"
+                error={this.props.errors.username}
+                formField={
+                  <TextInput name="username" placeholder="Employee Username"
+                    value={this.props.employee.username}
+                    error={this.props.errors.username}
+                    onChange={this.props.validate} />
                }/>
 
-              <FieldWrap inputId="email" label="Email" formField={
-                <input type='text' className="form-control"
-                  name="email" placeholder="Employee Email"
-                  ref="email" value={this.props.employee.email}
-                  onChange={this.props.validate}/>
+              <FieldWrap inputId="email" label="Email"
+                error={this.props.errors.email}
+                formField={
+                  <TextInput name="email" placeholder="Employee Email"
+                    value={this.props.employee.email}
+                    error={this.props.errors.email}
+                    onChange={this.props.validate} />
               }/>
 
-              <FieldWrap inputId="firstName" label="First Name" formField={
-                <input type='text' className="form-control"
-                  name="firstName" placeholder="First Name"
-                  ref="firstName" value={this.props.employee.firstName}
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="firstName" label="First Name"
+                error={this.props.errors.firstName}
+                formField={
+                  <TextInput name="firstName" placeholder="First Name"
+                    value={this.props.employee.firstName}
+                    error={this.props.errors.firstName}
+                    onChange={this.props.validate} />
               }/>
 
-              <FieldWrap inputId="lastName" label="Last Name" formField={
-                <input type='text' className="form-control"
-                  name="lastName" placeholder="Last Name"
-                  ref="lastName" value={this.props.employee.lastName}
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="lastName" label="Last Name"
+                error={this.props.errors.lastName}
+                formField={
+                  <TextInput name="lastName" placeholder="Last Name"
+                    value={this.props.employee.lastName}
+                    error={this.props.errors.lastName}
+                    onChange={this.props.validate} />
               }/>
 
               <FieldWrap inputId="admin" label="Admin" formField={
@@ -61,18 +72,11 @@ var EmployeeForm = React.createClass({
                 </button>
               }/>
 
-              <div className="row">
-                <hr/>
-              </div>
+              <Separator />
 
               <div className="row">
-                <div className="col-sm-2 col-sm-offset-8">
-                  <button className="btn btn-primary btn-block">{this.props.saveText}</button>
-                </div>
-                <div className="col-sm-2">
-                  <button className="btn btn-danger btn-block" type='button'
-                    onClick={this.onCancel}>Cancel</button>
-                </div>
+                <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+                <CancelButton onCancel={this.onCancel} />
               </div>
             </form>
           </div>

@@ -109,9 +109,6 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   var fa = gulp.src(client('/js/font-awesome/fonts/**'))
     .pipe(gulp.dest(dist('/font/font-awesome')));
 
-  var lato = gulp.src(client('/js/lato/font/**'))
-    .pipe(gulp.dest(dist('/font/lato')));
-
   var img = gulp.src(client('/img/**'))
     .pipe(gulp.dest(dist('/img')));
 

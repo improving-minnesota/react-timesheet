@@ -13,7 +13,7 @@ var Input = React.createClass({
 
     return (
       <div>
-        <input type="text" className="form-control"
+        <input type="number" className="form-control"
           name={this.props.name} placeholder={this.props.placeholder}
           ref={this.props.name} value={this.props.value}
           onChange={this.props.onChange} />

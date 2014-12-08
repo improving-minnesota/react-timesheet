@@ -20,7 +20,8 @@ var ProjectCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Create',
-      project: {}
+      project: {},
+      errors: {}
     };
   },
 
@@ -33,6 +34,8 @@ var ProjectCreate = React.createClass({
   render : function () {
     return (
       <ProjectForm project={this.state.project}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveProject}
         validate={this.validate} />

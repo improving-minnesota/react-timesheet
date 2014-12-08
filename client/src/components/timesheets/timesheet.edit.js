@@ -38,7 +38,8 @@ var TimesheetEdit = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      timesheet: {}
+      timesheet: {},
+      errors: {}
     };
   },
 
@@ -49,6 +50,8 @@ var TimesheetEdit = React.createClass({
   render: function () {
     return (
       <TimesheetForm timesheet={this.state.timesheet}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveTimesheet}
         validate={this.validate}/>

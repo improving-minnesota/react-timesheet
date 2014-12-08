@@ -17,7 +17,8 @@ var TimeunitCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Save',
-      timeunit: {}
+      timeunit: {},
+      errors: {}
     };
   },
 
@@ -30,6 +31,8 @@ var TimeunitCreate = React.createClass({
   render: function () {
     return (
       <TimeunitForm timeunit={this.state.timeunit}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveTimeunit} />
     );

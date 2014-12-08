@@ -22,7 +22,8 @@ var EmployeeCreate = React.createClass({
       saveText: 'Create',
       employee: {
         admin:false
-      }
+      },
+      errors: {}
     };
   },
 
@@ -35,6 +36,8 @@ var EmployeeCreate = React.createClass({
   render : function () {
     return (
       <EmployeeForm employee={this.state.employee}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}
         validate={this.validate}

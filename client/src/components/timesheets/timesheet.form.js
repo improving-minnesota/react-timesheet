@@ -3,9 +3,13 @@
 var React = require('react/addons');
 var Router = require('react-router');
 var moment = require('moment');
-var DatePicker = require('../common/datepicker/datepicker');
 
+var DatePicker = require('../common/datepicker/datepicker');
 var FieldWrap = require('../common/field.wrap');
+var TextInput = require('../common/text.input');
+var SaveButton = require('../common/save.button');
+var CancelButton = require('../common/cancel.button');
+var Separator = require('../common/form.separator');
 
 var TimesheetForm = React.createClass({
 
@@ -25,45 +29,45 @@ var TimesheetForm = React.createClass({
           <div className="col-xs-12">
             <form className="form-horizontal" name="timesheetForm" onSubmit={this.props.onSave}>
 
-              <FieldWrap inputId="timesheet-name" label="Name" formField={
-                <input type="text" className="form-control"
-                  name="name" placeholder="Timesheet Name"
-                  ref="name" value={this.props.timesheet.name}
-                  minLength={1} maxLength={40} required />
+              <FieldWrap inputId="timesheet-name" label="Name"
+                error={this.props.errors.name}
+                formField={
+                  <TextInput name="name" placeholder="Timesheet Name"
+                    value={this.props.timesheet.name}
+                    error={this.props.errors.name}
+                    onChange={this.props.validate} />
               }/>
 
-              <FieldWrap inputId="timesheet-description" label="Description" formField={
-                <input type="text" className="form-control"
-                  name="description" placeholder="Timesheet Description"
-                  ref="description" value={this.props.timesheet.description}
-                  minLength={1} maxLength={255} required />
+              <FieldWrap inputId="timesheet-description" label="Description"
+                error={this.props.errors.description}
+                formField={
+                  <TextInput name="name" placeholder="Timesheet Description"
+                    value={this.props.timesheet.description}
+                    error={this.props.errors.description}
+                    onChange={this.props.validate} />
               }/>
 
-              <FieldWrap inputId="timesheet-beginDate" label="Begin Date" formField={
-                <DatePicker key='ts-begin' className="form-control"
-                  selected={moment(this.props.timesheet.beginDate)}
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="timesheet-beginDate" label="Begin Date"
+                error={this.props.errors.beginDate}
+                formField={
+                  <DatePicker key='ts-begin' className="form-control"
+                    selected={moment(this.props.timesheet.beginDate)}
+                    onChange={this.props.validate} />
               }/>
 
-              <FieldWrap inputId="timesheet-endDate" label="End Date" formField={
-                <DatePicker key='ts-end' className="form-control"
-                  selected={moment(this.props.timesheet.endDate)}
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="timesheet-endDate" label="End Date"
+                error={this.props.errors.endDate}
+                formField={
+                  <DatePicker key='ts-end' className="form-control"
+                    selected={moment(this.props.timesheet.endDate)}
+                    onChange={this.props.validate} />
               }/>
+
+              <Separator />
 
               <div className="row">
-                <hr/>
-              </div>
-
-              <div className="row">
-                <div className="col-sm-2 col-sm-offset-8">
-                  <button className="btn btn-primary btn-block" type="submit"
-                    ng-disabled="timesheetForm.$invalid">{this.props.saveText}</button>
-                </div>
-                <div className="col-sm-2">
-                  <button className="btn btn-danger btn-block" type="button"
-                    onClick={this.onCancel}>Cancel</button>
-                </div>
+                <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+                <CancelButton onCancel={this.onCancel} />
               </div>
             </form>
           </div>

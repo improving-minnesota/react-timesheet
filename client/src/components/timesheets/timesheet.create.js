@@ -17,7 +17,8 @@ var TimesheetCreate = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Create',
-      timesheet: {}
+      timesheet: {},
+      errors: {}
     };
   },
 
@@ -30,6 +31,8 @@ var TimesheetCreate = React.createClass({
   render: function () {
     return (
       <TimesheetForm timesheet={this.state.timesheet}
+        errors={this.state.errors}
+        hasErrors={this.hasErrors}
         onCancel={this.goBack} />
     );
   }

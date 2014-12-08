@@ -17,6 +17,10 @@ module.exports = {
     return this.setState({project: this.state.project, errors: this.state.errors});
   },
 
+  hasErrors: function () {
+    return this.state.errors.name || this.state.errors.description;
+  },
+
   validator: {
     name: function (value) {
       // min length 1

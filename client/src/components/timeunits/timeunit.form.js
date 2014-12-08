@@ -7,6 +7,11 @@ var Router = require('react-router');
 var FieldWrap = require('../common/field.wrap');
 var DatePicker = require('../common/datepicker/datepicker');
 var Select2 = require('../common/select2');
+var TextInput = require('../common/text.input');
+var NumberInput = require('../common/number.input');
+var SaveButton = require('../common/save.button');
+var CancelButton = require('../common/cancel.button');
+var Separator = require('../common/form.separator');
 
 var TimeunitForm = React.createClass({
 
@@ -40,47 +45,41 @@ var TimeunitForm = React.createClass({
           <div className="col-xs-12">
             <form className="form-horizontal" name="timeunitForm" onSubmit={this.props.onSave}>
 
-              <FieldWrap inputId="timeunit-project" label="Project" formField={
-                <Select2 name="timeunit-project"
-                  value={this.props.timeunit.project}
-                  ref="project"
-                  placeholder="Select Project..."
-                  onChange={this.props.onChange}
-                  className="form-control">
-                  {projectOptions}
-                </Select2>
+              <FieldWrap inputId="timeunit-project" label="Project"
+                error={this.props.errors.project}
+                formField={
+                  <Select2 name="project"
+                    value={this.props.timeunit.project}
+                    placeholder="Select Project"
+                    onChange={this.props.onChange}>
+                    {projectOptions}
+                  </Select2>
               }/>
 
-              <FieldWrap inputId="timeunit-dateWorked" label="Date" formField={
-                <DatePicker key='tu-worked' className="form-control"
-                  selected={moment(this.props.timeunit.dateWorked)}
-                  onChange={this.props.validate}
-                  min="timesheet.beginDate"
-                  max="timesheet.endDate"/>
+              <FieldWrap inputId="timeunit-dateWorked" label="Date"
+                error={this.props.errors.dateWorked}
+                formField={
+                  <DatePicker key='tu-worked' className="form-control"
+                    selected={moment(this.props.timeunit.dateWorked)}
+                    onChange={this.props.validate}
+                    min="timesheet.beginDate"
+                    max="timesheet.endDate"/>
               }/>
 
-              <FieldWrap inpuId="timeunit-hoursWorked" label="Hours" formField={
-                <input type="number" className="form-control"
-                  name="timeunit-hoursWorked"
-                  placeholder="Hours Worked"
-                  value={this.props.timeunit.hoursWorked}
-                  ref="hoursWorked"
-                  required />
+              <FieldWrap inpuId="timeunit-hoursWorked" label="Hours"
+                error={this.props.errors.hoursWorked}
+                formField={
+                  <NumberInput name="hoursWorked" placeholder="Hours Worked"
+                    value={this.props.timeunit.hoursWorked}
+                    error={this.props.errors.hoursWorked}
+                    onChange={this.props.validate} />
               }/>
+
+              <Separator />
 
               <div className="row">
-                <hr/>
-              </div>
-
-              <div className="row">
-                <div className="col-sm-2 col-sm-offset-8">
-                  <button className="btn btn-primary btn-block" type="submit"
-                    ng-disabled="timeunitForm.$invalid">{this.props.saveText}</button>
-                </div>
-                <div className="col-sm-2">
-                  <button className="btn btn-danger btn-block" type="button"
-                    onClick={this.onCancel}>Cancel</button>
-                </div>
+                <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+                <CancelButton onCancel={this.onCancel} />
               </div>
             </form>
           </div>
