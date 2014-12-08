@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var cx = React.addons.classSet;
 var PropTypes = React.PropTypes;
 
 var FieldWrap = React.createClass({
@@ -10,8 +11,14 @@ var FieldWrap = React.createClass({
     label: PropTypes.string,
     formField: PropTypes.component
   },
-  
+
   render: function () {
+
+    var wrapperClasses = cx({
+      'tsz-field-wrapper': true,
+      'has-error': this.props.error,
+      'has-success': !this.props.error
+    });
 
     var labelCol = this.props.labelCol || '2';
     var labelClasses = "control-label col-sm-" + labelCol;
@@ -21,7 +28,7 @@ var FieldWrap = React.createClass({
 
     return (
       <div className="form-group">
-        <div className="tsz-field-wrapper">
+        <div className={wrapperClasses}>
           <label htmlFor={this.props.inputId} className={labelClasses}>{this.props.label}</label>
           <div className={fieldClasses}>
             {this.props.formField}
@@ -30,6 +37,6 @@ var FieldWrap = React.createClass({
       </div>
     );
   }
-}); 
+});
 
 module.exports = FieldWrap;

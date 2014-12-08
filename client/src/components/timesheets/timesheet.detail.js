@@ -53,8 +53,7 @@ var TimesheetDetail = React.createClass({
             <div className="col-xs-12">
               <TimesheetForm timesheet={this.state.timesheet}
                 saveText={this.state.saveText}
-                onSave={this.editTimesheet}
-                onCancel={this.goBack} />
+                onSave={this.editTimesheet}/>
             </div>
           </div>
 

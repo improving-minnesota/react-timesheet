@@ -1,16 +1,26 @@
 /** @jsx React.DOM */
 
-var React = require('React');
+var React = require('react/addons');
+var cx = React.addons.classSet;
 var PropTypes = React.PropTypes;
 
 var Input = React.createClass({
 
   render: function () {
+    var classNames = cx({
+      'form-control': true
+    });
+
     return (
-      <input type="text" className="form-control"
-        name={this.props.name} placeholder={this.props.placeholder}
-        ref={this.props.name} value={this.props.value}
-        onChange={this.validate} />
+      <div>
+        <input type="text" className="form-control"
+          name={this.props.name} placeholder={this.props.placeholder}
+          ref={this.props.name} value={this.props.value}
+          onChange={this.props.onChange} />
+        <div className="pull-right">{this.props.error}</div>
+      </div>
     );
   }
 });
+
+module.exports = Input;

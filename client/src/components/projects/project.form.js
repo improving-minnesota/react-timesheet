@@ -23,20 +23,24 @@ var ProjectForm = React.createClass({
           <div className="col-xs-12">
             <form className="form-horizontal" novalidate name="projectForm" onSubmit={this.props.onSave}>
 
-              <FieldWrap inputId="project-name" label="Name" formField={
-                <input type="text" className="form-control"
-                  name="name" placeholder="Project Name"
-                  ref='name' value={this.props.project.name}
-                  minlength={1} maxlength={40} required
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="project-name" label="Name" error={this.props.errors.name} formField={
+                <div>
+                  <input type="text" className="form-control"
+                    name="name" placeholder="Project Name"
+                    ref='name' value={this.props.project.name}
+                    onChange={this.props.validate} />
+                  <div className="text-danger">{this.props.errors.name}</div>
+                </div>
               }/>
 
-              <FieldWrap inputId="project-description" label="Description" formField={
-                <input type="text" className="form-control"
-                  name="description" placeholder="Project Description"
-                  ref="description" value={this.props.project.description}
-                  minlength={1} maxlength={255} required
-                  onChange={this.props.validate} />
+              <FieldWrap inputId="project-description" label="Description" error={this.props.errors.description} formField={
+                <div>
+                  <input type="text" className="form-control"
+                    name="description" placeholder="Project Description"
+                    ref="description" value={this.props.project.description}
+                    onChange={this.props.validate} />
+                  <div className="text-danger">{this.props.errors.description}</div>
+                </div>
               }/>
 
               <div className="row">

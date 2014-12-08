@@ -38,7 +38,8 @@ var ProjectDetail = React.createClass({
   getInitialState: function () {
     return {
       saveText: 'Update',
-      project: {}
+      project: {},
+      errors: {}
     };
   },
 
@@ -49,9 +50,10 @@ var ProjectDetail = React.createClass({
   render : function () {
     return (
       <ProjectForm project={this.state.project}
+        errors={this.state.errors}
         saveText={this.state.saveText}
         onSave={this.saveProject}
-        validate={this.validate} />
+        validate={this.validate}/>
     );
   }
 });

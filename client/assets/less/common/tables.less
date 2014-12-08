@@ -15,15 +15,10 @@
 // Used to fade the text of a role (deleted, etc.)
 .fadeable-row {
   &.faded {
-    background-color: lighten(@body-bg, 5%);
-    color: lighten(@body-bg, 15%);
+    color: @gray-light;
     cursor: not-allowed;
     [class*=" icon-"] {
       display: none;
-    }
-    
-    button {
-      color: @brand-primary;
     }
   }
 }

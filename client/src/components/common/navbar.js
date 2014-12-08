@@ -64,7 +64,7 @@ var NavBar = React.createClass({
     });
 
     return (
-      <div className="navbar navbar-default navbar-static-top">
+      <div className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand" href="#">
