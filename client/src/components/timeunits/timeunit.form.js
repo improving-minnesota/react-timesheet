@@ -62,8 +62,7 @@ var TimeunitForm = React.createClass({
                   <DatePicker key='tu-worked' className="form-control"
                     selected={moment(this.props.timeunit.dateWorked)}
                     onChange={this.props.validate}
-                    min="timesheet.beginDate"
-                    max="timesheet.endDate"/>
+                    error={this.props.errors.dateWorked}/>
               }/>
 
               <FieldWrap inpuId="timeunit-hoursWorked" label="Hours"

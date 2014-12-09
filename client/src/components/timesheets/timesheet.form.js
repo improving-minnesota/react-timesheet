@@ -22,9 +22,19 @@ var TimesheetForm = React.createClass({
     this.goBack();
   },
 
+  setEndDate: function (date) {
+    this.props.validate({target:{name: 'endDate', value: date}});
+    this.props.validate({target:{name: 'beginDate', value: this.props.timesheet.beginDate}});
+  },
+
+  setBeginDate: function (date) {
+    this.props.validate({target:{name: 'beginDate', value: date}});
+    this.props.validate({target: {name: 'endDate', value: this.props.timesheet.endDate}});
+  },
+
   render : function () {
     return (
-      <div className="tsz-timesheet-form" ng-cloak>
+      <div className="tsz-timesheet-form">
         <div className="row">
           <div className="col-xs-12">
             <form className="form-horizontal" name="timesheetForm" onSubmit={this.props.onSave}>
@@ -41,7 +51,7 @@ var TimesheetForm = React.createClass({
               <FieldWrap inputId="timesheet-description" label="Description"
                 error={this.props.errors.description}
                 formField={
-                  <TextInput name="name" placeholder="Timesheet Description"
+                  <TextInput name="description" placeholder="Timesheet Description"
                     value={this.props.timesheet.description}
                     error={this.props.errors.description}
                     onChange={this.props.validate} />
@@ -50,17 +60,21 @@ var TimesheetForm = React.createClass({
               <FieldWrap inputId="timesheet-beginDate" label="Begin Date"
                 error={this.props.errors.beginDate}
                 formField={
-                  <DatePicker key='ts-begin' className="form-control"
+                  <DatePicker key='ts-begin' className="form-control" ref="beginDate"
                     selected={moment(this.props.timesheet.beginDate)}
-                    onChange={this.props.validate} />
+                    value={this.props.timesheet.beginDate}
+                    onChange={this.setBeginDate}
+                    error={this.props.errors.beginDate}/>
               }/>
 
               <FieldWrap inputId="timesheet-endDate" label="End Date"
                 error={this.props.errors.endDate}
                 formField={
-                  <DatePicker key='ts-end' className="form-control"
+                  <DatePicker key='ts-end' className="form-control" ref="endDate"
                     selected={moment(this.props.timesheet.endDate)}
-                    onChange={this.props.validate} />
+                    value={this.props.timesheet.endDate}
+                    onChange={this.setEndDate}
+                    error={this.props.errors.endDate} />
               }/>
 
               <Separator />

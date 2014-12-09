@@ -21,23 +21,41 @@ module.exports = {
   validator : {
     // username min 1 max 40
     username: function (value) {
-
+      // min length 1
+      if (value.length < 1) {
+        return 'You must provide a username.';
+      }
+      // max length 40
+      else if (value.length > 40) {
+        return 'Username can only be 40 characters long.';
+      }
+      return null;
     },
 
     email: function (value) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(value)) {
+        return 'Email must be valid';
+      }
 
+      return null;
     },
 
     firstName: function (value) {
+      if (value.length < 1) {
+        return 'You must provide a first name.';
+      }
 
+      return null;
     },
 
     lastName: function (value) {
+      if (value.length < 1) {
+        return 'You must provide a last name.';
+      }
 
+      return null;
     }
-    // email
-    // firstName min 1
-    // lastName min 1
   },
 
   toggleAdmin: function () {

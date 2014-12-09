@@ -31,9 +31,11 @@ var TimesheetCreate = React.createClass({
   render: function () {
     return (
       <TimesheetForm timesheet={this.state.timesheet}
+        saveText={this.state.saveText}
         errors={this.state.errors}
         hasErrors={this.hasErrors}
-        onCancel={this.goBack} />
+        onSave={this.onSave}
+        validate={this.validate} />
     );
   }
 });

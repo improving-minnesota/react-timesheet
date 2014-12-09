@@ -13,7 +13,7 @@ module.exports = {
     var value = event.target.value;
 
     this.state.project[field] = value;
-    this.state.errors[field] = this.validator[field](value);
+    this.state.errors[field] = this.validator[field].bind(this, value);
     return this.setState({project: this.state.project, errors: this.state.errors});
   },
 
