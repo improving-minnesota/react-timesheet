@@ -51,7 +51,8 @@ var TimeunitForm = React.createClass({
                   <Select2 name="project"
                     value={this.props.timeunit.project}
                     placeholder="Select Project"
-                    onChange={this.props.onChange}>
+                    onChange={this.props.onChange}
+                    error={this.props.errors.project}>
                     {projectOptions}
                   </Select2>
               }/>

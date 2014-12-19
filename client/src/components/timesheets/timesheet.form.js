@@ -60,7 +60,7 @@ var TimesheetForm = React.createClass({
               <FieldWrap inputId="timesheet-beginDate" label="Begin Date"
                 error={this.props.errors.beginDate}
                 formField={
-                  <DatePicker key='ts-begin' className="form-control" ref="beginDate"
+                  <DatePicker key='ts-begin' className="form-control"
                     selected={moment(this.props.timesheet.beginDate)}
                     value={this.props.timesheet.beginDate}
                     onChange={this.setBeginDate}
@@ -70,7 +70,7 @@ var TimesheetForm = React.createClass({
               <FieldWrap inputId="timesheet-endDate" label="End Date"
                 error={this.props.errors.endDate}
                 formField={
-                  <DatePicker key='ts-end' className="form-control" ref="endDate"
+                  <DatePicker key='ts-end' className="form-control"
                     selected={moment(this.props.timesheet.endDate)}
                     value={this.props.timesheet.endDate}
                     onChange={this.setEndDate}

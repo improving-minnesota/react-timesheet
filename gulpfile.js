@@ -31,9 +31,9 @@ gulp.task('dev', ['core', 'jade:dev']);
 gulp.task('prod', ['core', 'jade:prod', 'uglify']);
 
 // server tasks
-gulp.task('serve:dev', shell.task(['NODE_ENV=development nodemon api/server.js']));
-gulp.task('serve:prod', shell.task(['NODE_ENV=production nodemon api/server.js']));
-gulp.task('debug', shell.task(['node-debug api/server.js']));
+gulp.task('serve:dev', shell.task([pkg.scripts.run_dev]));
+gulp.task('serve:prod', shell.task([pkg.scripts.run_prod]));
+gulp.task('debug', shell.task([pkg.scripts.debug]));
 
 // setup the global watches
 gulp.task('watch:dev', function () {
@@ -112,7 +112,7 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   var img = gulp.src(client('/img/**'))
     .pipe(gulp.dest(dist('/img')));
 
-  return merge(fa, lato, img);
+  return merge(fa, img);
 });
 
 // Compile and concatenate less into css

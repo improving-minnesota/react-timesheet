@@ -4,6 +4,11 @@
   "main": "./api/server.js",
   "description": "Timesheet application for React training labs",
   "version": "0.0.1",
+  "scripts": {
+    "run_dev": "NODE_ENV=development nodemon api/server.js",
+    "run_prod": "NODE_ENV=production nodemon api/server.js",
+    "debug": "node-debug api/server.js"
+  },
   "browser": {
     "messenger": "./client/assets/js/messenger/build/js/messenger.js",
     "jquery": "./node_modules/jquery/dist/jquery.js",

@@ -28,7 +28,8 @@ var ReactSelect2 = React.createClass({
         defaultValue={this.props.defaultValue}
         name={this.props.name}
         ref={this.props.name}
-        multiple={this.props.multiple}>
+        multiple={this.props.multiple}
+        error={this.props.error}>
 
         {this.props.children}
       </select>
