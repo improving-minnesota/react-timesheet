@@ -1,18 +1,18 @@
 'use strict';
 
-var projectsController = require('../controllers/projects.controller'),
-  router = require('express').Router();
+var projectsController = require('../controllers/projects.controller');
 
-module.exports = function (app) {
+module.exports = function (server) {
 
-  router.route('/projects')
-    .get(projectsController.index)
-    .post(projectsController.create);
+  var projects =  '/projects';
+  var projectId = '/projects/{projectId}';
 
-  router.route('/projects/:projectId')
-    .get(projectsController.show)
-    .put(projectsController.update)
-    .delete(projectsController.destroy);
+  server.route([
+    {method: 'GET',     path: projects, handler: projectsController.index},
+    {method: 'POST',    path: projects, handler: projectsController.create},
+    {method: 'GET',     path: projectId, handler: projectsController.show},
+    {method: 'PUT',     path: projectId, handler: projectsController.update},
+    {method: 'DELETE',  path: projectId, handler: projectsController.destroy}
+  ]);
 
-  return router;
 };

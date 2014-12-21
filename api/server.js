@@ -1,42 +1,35 @@
-var Q = require('q'),
-  bootable = require('bootable'),
-  express = require('express'),
-  http = require('http');
+var Hapi = require('hapi');
+var Good = require('good');
+var Path = require('path');
 
-console.log("Booting Development Server");
+console.log('Booting Development Server');
 
-// Wrap express with bootable
-var app = bootable(express());
+var server = new Hapi.Server();
 
-// Add environement phases to configure express for the target environment
-app.phase(require('bootable-environment')('api/config/environments'));
-
-// Run the initializers
-app.phase(bootable.initializers('api/config/initializers'));
-
-// Serve the index.html from root
-app.get("/", function(req, res) {
-  return res.sendfile("dist/index.html", {root: __dirname + '/../client'});
+server.connection({
+  port: 8000,
+  host: 'localhost'
 });
 
-// Boot the application
-app.boot(function(err) {
-  if (err) { throw err; }
+// set up the environment
+require('./config/environments/all')(server);
 
-  // Start the HTTP server
-  Q.fcall(function() {
-    var deferred = Q.defer();
-    http.createServer(app).listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-      deferred.resolve();
-    });
-    return deferred.promise;
-  })
-  // Then send the ready to any parent processes
-  .then(function() {
-    if (process.send) {
-      process.send({ status: 'ready' });
-    }
-  });
+// run the initializers
 
+// server.route({
+//   method: 'GET',
+//   path: '/',
+//   handler: {
+//     view: 'index'
+//   }
+// });
+
+server.register({
+  register: require('./src/plugins/index.route.plugin')
+},
+function (err) {
+  if (err) console.log('Error registering index route: ' + err);
 });
+
+
+server.start();

@@ -2,37 +2,38 @@
 
 var usersController = require('../controllers/users.controller'),
   timesheetsController = require('../controllers/timesheets.controller'),
-  timeunitsController = require('../controllers/timeunits.controller'),
-  router = require('express').Router();
+  timeunitsController = require('../controllers/timeunits.controller');
 
-module.exports = function (app) {
+module.exports = function (server) {
 
-  router.route('/users')
-    .get(usersController.index)
-    .post(usersController.create);
+  var users = '/users';
+  var userId = '/users/{userId}';
+  var timesheets = '/users/{userId}/timesheets';
+  var timesheetId = '/users/{userId}/timesheets/{timesheetId}';
+  var timeunits = '/users/{userId}/timesheets/{timesheetId}/timeunits';
+  var timeunitId = '/users/{userId}/timesheets/{timesheetId}/timeunits/{timeunitId}';
 
-  router.route('/users/:userId')
-    .get(usersController.show)
-    .put(usersController.update)
-    .delete(usersController.destroy);
+  server.route([
+    {method: 'GET',     path: users, handler: usersController.index},
+    {method: 'POST',    path: users, handler: usersController.create},
+    {method: 'GET',     path: userId, handler: usersController.show},
+    {method: 'PUT',     path: userId, handler: usersController.update},
+    {method: 'DELETE',  path: userId, handler: usersController.destroy}
+  ]);
 
-  router.route('/users/:userId/timesheets')
-    .get(timesheetsController.index)
-    .post(timesheetsController.create);
+  server.route([
+    {method: 'GET',     path: timesheets, handler: timesheetsController.index},
+    {method: 'POST',    path: timesheets, handler: timesheetsController.create},
+    {method: 'GET',     path: timesheetId, handler: timesheetsController.show},
+    {method: 'PUT',     path: timesheetId, handler: timesheetsController.update},
+    {method: 'DELETE',  path: timesheetId, handler: timesheetsController.destroy}
+  ]);
 
-  router.route('/users/:userId/timesheets/:timesheetId')
-    .get(timesheetsController.show)
-    .put(timesheetsController.update)
-    .delete(timesheetsController.destroy);
-
-  router.route('/users/:userId/timesheets/:timesheetId/timeunits')
-    .get(timeunitsController.index)
-    .post(timeunitsController.create);
-
-  router.route('/users/:userId/timesheets/:timesheetId/timeunits/:timeunitId')
-    .get(timeunitsController.show)
-    .put(timeunitsController.update)
-    .delete(timeunitsController.destroy);
-
-  return router;
+  server.route([
+    {method: 'GET',     path: timeunits, handler: timeunitsController.index},
+    {method: 'POST',    path: timeunits, handler: timeunitsController.create},
+    {method: 'GET',     path: timeunitId, handler: timeunitsController.show},
+    {method: 'PUT',     path: timeunitId, handler: timeunitsController.update},
+    {method: 'DELETE',  path: timeunitId, handler: timeunitsController.destroy}
+  ]);
 };

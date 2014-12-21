@@ -1,17 +1,17 @@
 'use strict';
 
 var loginController = require('../controllers/login.controller'),
-  logoutController = require('../controllers/logout.controller'),
-  router = require('express').Router();
+  logoutController = require('../controllers/logout.controller');
 
-module.exports = function (app) {
+module.exports = function (server) {
 
-  router.route('/login')
-    .get(loginController.index)
-    .post(loginController.create);
+  var login = '/login';
+  var logout = '/logout';
 
-  router.route('/logout')
-    .post(logoutController.create);
+  server.route([
+    {method: 'GET',   path: login,  handler: loginController.index},
+    {method: 'POST',  path: login,  handler: loginController.create},
+    {method: 'POST',  path: logout, handler: logoutController.create}
+  ]);
 
-  return router;
 };
