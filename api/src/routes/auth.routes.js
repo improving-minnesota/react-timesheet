@@ -9,9 +9,9 @@ module.exports = function (server) {
   var logout = '/logout';
 
   server.route([
-    {method: 'GET',   path: login,  handler: loginController.index},
-    {method: 'POST',  path: login,  handler: loginController.create},
-    {method: 'POST',  path: logout, handler: logoutController.create}
+    {method: 'POST', path: login, config: {handler: loginController.login, auth: false}},
+    {method: 'GET',  path: login,  config: {handler: loginController.index, auth: false}},
+    {method: 'POST',  path: logout, handler: logoutController.logout}
   ]);
 
 };

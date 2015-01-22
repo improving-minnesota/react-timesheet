@@ -1,6 +1,7 @@
 var _ = require('lodash'),
   db = require('../../src/services/db.js'),
-  Q = require('q'); 
+  Q = require('q'),
+  bcrypt = require('bcrypt');
 
 
 ////////////  USERS //////////////////
@@ -17,47 +18,51 @@ function seed() {
     db.insert('projects', projects[2])
   ])
 
-  .then(function () { 
+  .then(function () {
     var userPromises = [];
 
     _.forEach(users, function (user) {
       console.log("Seeding " + user.username);
 
-      db.insert('users', user)
-        .then(function (newUser) {
+      bcrypt.hash(user.password, 10, function (err, hash) {
+        user.password = hash;
 
-          console.log("Created " + newUser.username);
-          
-          var timesheets = user.username === "admin" ? adminTimesheets: userTimesheets;
+        db.insert('users', user)
+          .then(function (newUser) {
 
-          _.forEach(timesheets, function (timesheet) {
-            var timesheetModel = _.omit(timesheet, 'timeunits');
-            timesheetModel.user_id = newUser._id;
+            console.log("Created " + newUser.username);
 
-            db.insert('timesheets', timesheetModel)
-              .then(function (newTimesheet) {
+            var timesheets = user.username === "admin" ? adminTimesheets: userTimesheets;
 
-                console.log("Seeding timeunits : " + timesheet.timeunits.length);
-                
-                _.forEach(timesheet.timeunits, function (timeunit) {
-                  timeunit.timesheet_id = newTimesheet._id;
+            _.forEach(timesheets, function (timesheet) {
+              var timesheetModel = _.omit(timesheet, 'timeunits');
+              timesheetModel.user_id = newUser._id;
 
-                  console.log("Attempting to seed timeunit : " + timeunit.project);
-                  db.findOne('projects', {name: timeunit.project})
-                    .then(function (project) {
-                      timeunit.project_id = project._id;
-                      return db.insert('timeunits', timeunit);
-                    })
-                    .then(function (newTimeunit) {
-                      console.log("Created timeunit for " + newTimeunit.dateWorked);
-                    })
-                    .fail(function (err) {
-                      console.log("Error : " + err);
-                    });
+              db.insert('timesheets', timesheetModel)
+                .then(function (newTimesheet) {
+
+                  console.log("Seeding timeunits : " + timesheet.timeunits.length);
+
+                  _.forEach(timesheet.timeunits, function (timeunit) {
+                    timeunit.timesheet_id = newTimesheet._id;
+
+                    console.log("Attempting to seed timeunit : " + timeunit.project);
+                    db.findOne('projects', {name: timeunit.project})
+                      .then(function (project) {
+                        timeunit.project_id = project._id;
+                        return db.insert('timeunits', timeunit);
+                      })
+                      .then(function (newTimeunit) {
+                        console.log("Created timeunit for " + newTimeunit.dateWorked);
+                      })
+                      .fail(function (err) {
+                        console.log("Error : " + err);
+                      });
+                  });
                 });
-              });
+            });
           });
-        });
+      });
     });
   })
 
@@ -77,4 +82,4 @@ db.findOne('users', {username: 'admin'})
   })
   .fail(function (err) {
     console.log("Error : " + err);
-  }); 
+  });

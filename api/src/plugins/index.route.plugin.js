@@ -9,8 +9,11 @@ exports.register = function (server, options, next) {
   server.route({
     method: 'GET',
     path: '/',
-    handler: {
-      file: 'dist/index.html'
+    config: {
+      handler: {
+        file: 'dist/index.html'
+      },
+      auth: false
     }
   });
 

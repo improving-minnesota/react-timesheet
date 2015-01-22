@@ -1,6 +1,70 @@
 var passport = require('passport');
+var Bcrypt = require('bcrypt');
+var db = require('./db');
 
-var sanitize = function (user) {
+module.exports = {
+  sendCurrentUser: sendCurrentUser,
+  login: login
+};
+
+function sendCurrentUser (request, reply) {
+  var currentUser = sanitize(request.auth.user);
+  reply(currentUser);
+}
+
+function login (request, reply) {
+
+  var message = '';
+  var account = null;
+
+  db.findOne('users', {username: request.payload.username})
+    .then(function (user) {
+      reply(user);
+    })
+    .fail(function (err) {
+      reply(err).code(500);
+    });
+
+
+  if (!request.payload.username || !request.payload.password) {
+    message = 'Missing username or password';
+  }
+  else {
+    account = users[request.payload.username];
+
+    if (!account || account.password !== request.payload.password) {
+      message = 'Invalid username or password';
+    }
+  }
+
+
+  var sid = String(++uuid);
+
+  request.server.app.cache.set(sid, { user: user }, 0, function (err) {
+
+    if (err) {
+      reply(err);
+    }
+
+    request.auth.session.set({ sid: sid });
+    return reply(user);
+  });
+};
+
+
+function validate (username, password, callback) {
+  var user = users[username];
+
+  if (!user) {
+    return callback(null, false);
+  }
+
+  Bcrypt.compare(password, user.password, function (err, isValid) {
+    callback(err, isValid, { id: user.id, name: user.name });
+  });
+}
+
+function sanitize (user) {
   if ( user ) {
     return {
       authenticated: true,
@@ -16,56 +80,3 @@ var sanitize = function (user) {
     return { user: null };
   }
 };
-
-var security = {
-
-  authenticationRequired: function (req, res, next) {
-    console.log('authRequired');
-    if (req.isAuthenticated()) {
-      next();
-    } else {
-      res.json(401, sanitize(req.user));
-    }
-  },
-
-  adminRequired: function (req, res, next) {
-    console.log('adminRequired');
-    if (req.user && req.user.admin ) {
-      next();
-    } else {
-      res.json(401, sanitize(req.user));
-    }
-  },
-
-  sendCurrentUser: function (req, res, next) {
-    var currentUser = sanitize(req.user);
-
-    res.json(200, currentUser);
-  },
-
-  login: function (req, res, next) {
-    
-    function authenticationFailed(err, user, info) {
-      if (err) { return next(err); }
-
-      console.log('user: ' + user);
-      console.log('info: ' + JSON.stringify(info));
-      if (!user) { return res.json(sanitize(user)); }
-
-      req.login(user, function (err) {
-        if ( err ) { return next(err); }
-        console.log("req.login");
-        return res.json(sanitize(user));
-      });
-    }
-
-    return passport.authenticate('local', authenticationFailed)(req, res, next);
-  },
-
-  logout: function (req, res, next) {
-    req.logout();
-    res.send(204);
-  }
-};
-
-module.exports = security;

@@ -1,76 +1,75 @@
 var Q = require('q'),
-  db = require('../services/db');
+  db = require('../services/db'),
+  Boom = require('boom');
 
 module.exports = {
-  index: function (req, res, next) {
-    
-    var query = req.query;
+  index: function (request, reply) {
+
+    var query = request.query;
 
     if (query.page) {
-      
+
       db.page('projects', query)
-        .then(function (projects) {
-          res.json(projects);
-        })
+        .then(reply)
         .fail(function (err) {
-          res.status(500).json(err);
+          reply(Boom.badImplementation(err));
         });
     } else {
-      
+
       db.find('projects', query)
         .then(function (projects) {
-          res.json(projects);
+          reply(projects);
         })
         .fail(function (err) {
-          res.status(500).json(err);
+          reply(Boom.badImplementation(err));
         });
     }
   },
 
-  create: function (req, res, next) {
+  create: function (request, reply) {
 
-    db.insert('projects', req.body)
+    db.insert('projects', request.payload)
       .then(function (project) {
-        res.json(project);
+        reply(project);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  show: function (req, res, next) {
-    var id = req.params.projectId;
+  show: function (request, reply) {
+    var id = request.params.projectId;
 
     db.findOne('projects', {_id: id})
       .then(function (project) {
-        res.json(project);
+        reply(project);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  update: function (req, res, next) {
-    var id = req.params.projectId;
+  update: function (request, reply) {
+    var id = request.params.projectId;
 
-    db.update('projects', {_id: id}, req.body)
+    db.update('projects', {_id: id}, request.payload)
       .then(function (project) {
-        res.json(project);
+        reply(project);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  destroy: function (req, res, next) {
-    var id = req.params.projectId;
+  destroy: function (request, reply) {
+    var id = request.params.projectId;
 
     db.remove('projects', {_id: id})
       .then(function () {
-        res.send(200);
+        reply().code(200);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   }
 };

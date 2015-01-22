@@ -1,62 +1,55 @@
 var Q = require('q'),
   db = require('../services/db'),
-  _ = require('lodash');
+  _ = require('lodash'),
+  Boom = require('boom');
 
 module.exports = {
-  index: function (req, res, next) {
-    var timesheetId = req.params.timesheetId;
+  index: function (request, reply) {
+    var timesheetId = request.params.timesheetId;
     var query = _.extend({timesheet_id: timesheetId}, req.query);
-    
+
     db.find('timeunits', query)
-      .then(function (timeunits) {
-        res.json(timeunits);
-      });
+      .then(reply);
   },
 
-  create: function (req, res, next) {
+  create: function (request, reply) {
 
-    db.insert('timeunits', req.body)
-      .then(function (timeunit) {
-        res.json(timeunit);
-      })
+    db.insert('timeunits', request.payload)
+      .then(reply)
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  show: function (req, res, next) {
-    var id = req.params.timeunitId;
+  show: function (request, reply) {
+    var id = request.params.timeunitId;
 
     db.findOne('timeunits', {_id: id})
-      .then(function (timeunit) {
-        res.json(timeunit);
-      })
+      .then(reply)
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  update: function (req, res, next) {
-    var id = req.params.timeunitId;
+  update: function (request, reply) {
+    var id = request.params.timeunitId;
 
-    db.update('timeunits', {_id: id}, req.body)
-      .then(function (timeunit) {
-        res.json(timeunit);
-      })
+    db.update('timeunits', {_id: id}, request.payload)
+      .then(reply)
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   },
 
-  destroy: function (req, res, next) {
-    var id = req.params.timeunitId;
+  destroy: function (request, reply) {
+    var id = request.params.timeunitId;
 
     db.remove('timeunits', {_id: id})
       .then(function () {
-        res.send(200);
+        reply().code(204);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(Boom.badImplementation(err));
       });
   }
 };

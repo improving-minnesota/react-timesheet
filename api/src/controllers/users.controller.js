@@ -1,75 +1,74 @@
 var db = require('../services/db');
 
 module.exports = {
-  index: function (req, res, next) {
-    var query = req.query;
+  index: function (request, reply) {
+    var query = request.query;
 
     if (query.page) {
-      
+
       db.page('users', query)
         .then(function (users) {
-          res.json(users);
+          reply(users);
         })
         .fail(function (err) {
-          res.status(500).json(err);
+          reply(err).code(500);
         });
     } else {
-      
+
       db.find('users', query)
         .then(function (users) {
-          res.json(users);
+          reply(users);
         })
         .fail(function (err) {
-          res.status(500).json(err);
+          reply(err).code(500);
         });
     }
   },
 
-  create: function (req, res, next) {
+  create: function (request, reply) {
 
-    db.insert('users', req.body)
+    db.insert('users', request.payload)
       .then(function (user) {
-        res.json(user);
+        reply(user);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(err).code(500);
       });
   },
 
-  show: function (req, res, next) {
-    var id = req.params.userId;
+  show: function (request, reply) {
+    var id = request.params.userId;
 
     db.findOne('users', {_id: id})
       .then(function (user) {
-        res.json(user);
+        reply(user);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(err).code(500);
       });
   },
 
-  update: function (req, res, next) {
-    var id = req.params.userId;
+  update: function (request, reply) {
+    var id = request.params.userId;
 
-    db.update('users', {_id: id}, req.body)
+    db.update('users', {_id: id}, request.payload)
       .then(function (user) {
-        console.log('responding ' + JSON.stringify(user));
-        res.json(user);
+        reply(user);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(err).code(500);
       });
   },
 
-  destroy: function (req, res, next) {
-    var id = req.params.userId;
+  destroy: function (request, reply) {
+    var id = request.params.userId;
 
     db.remove('users', {_id: id})
       .then(function () {
         res.send(200);
       })
       .fail(function (err) {
-        res.status(500).json(err);
+        reply(err).code(500);
       });
   }
 };

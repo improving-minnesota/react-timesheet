@@ -1,7 +1,8 @@
 var security = require('../services/security.js');
 
 module.exports = {
-  create: function (req, res, next) {
-    security.logout(req, res, next);
+  logout: function (request, reply) {
+    request.auth.session.clear();
+    return reply();
   }
 };

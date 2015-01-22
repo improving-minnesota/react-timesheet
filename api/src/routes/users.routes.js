@@ -6,12 +6,12 @@ var usersController = require('../controllers/users.controller'),
 
 module.exports = function (server) {
 
-  var users = '/users';
-  var userId = '/users/{userId}';
-  var timesheets = '/users/{userId}/timesheets';
-  var timesheetId = '/users/{userId}/timesheets/{timesheetId}';
-  var timeunits = '/users/{userId}/timesheets/{timesheetId}/timeunits';
-  var timeunitId = '/users/{userId}/timesheets/{timesheetId}/timeunits/{timeunitId}';
+  var users =         '/users';
+  var userId =        '/users/{userId}';
+  var timesheets =    '/users/{userId}/timesheets';
+  var timesheetId =   '/users/{userId}/timesheets/{timesheetId}';
+  var timeunits =     '/users/{userId}/timesheets/{timesheetId}/timeunits';
+  var timeunitId =    '/users/{userId}/timesheets/{timesheetId}/timeunits/{timeunitId}';
 
   server.route([
     {method: 'GET',     path: users, handler: usersController.index},
