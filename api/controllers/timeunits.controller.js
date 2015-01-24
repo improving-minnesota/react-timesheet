@@ -6,7 +6,7 @@ var Q = require('q'),
 module.exports = {
   index: function (request, reply) {
     var timesheetId = request.params.timesheetId;
-    var query = _.extend({timesheet_id: timesheetId}, req.query);
+    var query = _.extend({timesheet_id: timesheetId}, request.query);
 
     db.find('timeunits', query)
       .then(reply);
