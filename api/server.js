@@ -2,6 +2,7 @@ var Hapi = require('hapi');
 var Good = require('good');
 var Path = require('path');
 var cookie = require('hapi-auth-cookie');
+var data = require('./config/initializers/data');
 var props = require('./config/properties');
 
 console.log('Booting Development Server');
@@ -9,12 +10,43 @@ console.log('Booting Development Server');
 var server = new Hapi.Server();
 
 server.connection({
-  port: 8000,
+  port: props.server.port,
   host: 'localhost'
 });
 
 // set up the environment
-require('./config/environments/all')(server);
+server.views({
+  engines: {
+    jade: require('jade')
+  },
+  path: Path.join(__dirname, 'src/views')
+});
+
+// Serve static content
+server.route({
+  method: 'GET',
+  path: '/assets/{files*}',
+  config: {
+    handler: {
+      directory: {
+        path: Path.join(__dirname, '../client/dist/assets')
+      }
+    },
+    auth: false
+  }
+});
+
+// Initialize the routes
+require('./config/util').walk(Path.join(__dirname, 'src/routes'), null, function (path) {
+  require(path)(server);
+});
+
+server.register({
+  register: require('./src/plugins/index.route.plugin')
+},
+function (err) {
+  if (err) console.log('Error registering index route: ' + err);
+});
 
 
 server.register(cookie, function (err) {
@@ -36,18 +68,11 @@ server.register(cookie, function (err) {
           return callback(err, false);
         }
 
-        return callback(null, true, cached.account)
+        return callback(null, true, cached.user)
       })
     }
   });
-
-  server.register({
-    register: require('./src/plugins/index.route.plugin')
-  },
-  function (err) {
-    if (err) console.log('Error registering index route: ' + err);
-  });
-
-
-  server.start();
 });
+
+data.init();
+server.start();

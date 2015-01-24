@@ -15,12 +15,6 @@ module.exports = {
   },
 
   server : {
-    dev : {
-      port: 3000
-    },
-
-    prod : {
-      port: 3001
-    }
+    port: 3000
   }
 };

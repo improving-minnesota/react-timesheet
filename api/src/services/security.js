@@ -1,6 +1,8 @@
-var passport = require('passport');
+var Q = require('q');
+var Boom = require('Boom');
 var Bcrypt = require('bcrypt');
 var db = require('./db');
+var props = require('../../config/properties');
 
 module.exports = {
   sendCurrentUser: sendCurrentUser,
@@ -8,60 +10,48 @@ module.exports = {
 };
 
 function sendCurrentUser (request, reply) {
-  var currentUser = sanitize(request.auth.user);
-  reply(currentUser);
+  request.server.app.cache.get(props.session.secret, function (err, auth) {
+    var currentUser = auth ? auth.user : null;
+    reply(sanitize(currentUser));
+  });
 }
 
 function login (request, reply) {
 
-  var message = '';
-  var account = null;
+  var authenticatedUser;
+
+  if (!request.payload.username || !request.payload.password) {
+      return reply(Boom.unauthorized('Missing username or password')).code(401);
+  }
 
   db.findOne('users', {username: request.payload.username})
     .then(function (user) {
-      reply(user);
+      authenticatedUser = user;
+      return validate(request.payload.password, user.password);
+    })
+    .then(function (isValid) {
+
+      if (!isValid) {
+        Q.reject(Boom.unauthorized('Invalid username or password'));
+      }
+
+      return setSession(request, props.session.secret, {user: authenticatedUser});
+    })
+    .then(function () {
+      request.auth.session.set({ sid: props.session.secret });
+      return reply(sanitize(authenticatedUser));
     })
     .fail(function (err) {
-      reply(err).code(500);
+      reply(Boom.unauthorized(err.message)).code(401);
     });
+}
 
+function validate (password, userPassword) {
+  return Q.ninvoke(Bcrypt, 'compare', password, userPassword);
+}
 
-  if (!request.payload.username || !request.payload.password) {
-    message = 'Missing username or password';
-  }
-  else {
-    account = users[request.payload.username];
-
-    if (!account || account.password !== request.payload.password) {
-      message = 'Invalid username or password';
-    }
-  }
-
-
-  var sid = String(++uuid);
-
-  request.server.app.cache.set(sid, { user: user }, 0, function (err) {
-
-    if (err) {
-      reply(err);
-    }
-
-    request.auth.session.set({ sid: sid });
-    return reply(user);
-  });
-};
-
-
-function validate (username, password, callback) {
-  var user = users[username];
-
-  if (!user) {
-    return callback(null, false);
-  }
-
-  Bcrypt.compare(password, user.password, function (err, isValid) {
-    callback(err, isValid, { id: user.id, name: user.name });
-  });
+function setSession (request, sid, cacheObject) {
+  return Q.ninvoke(request.server.app.cache, 'set', sid, cacheObject, 0);
 }
 
 function sanitize (user) {
@@ -79,4 +69,4 @@ function sanitize (user) {
   } else {
     return { user: null };
   }
-};
+}

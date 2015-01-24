@@ -3,6 +3,18 @@ var _ = require('lodash'),
   Q = require('q'),
   bcrypt = require('bcrypt');
 
+exports.init = init;
+
+function init () {
+  db.findOne('users', {username: 'admin'})
+  .then(function (user) {
+    console.log("Found user. DB already seeded.");
+    if (user === null) seed();
+  })
+  .fail(function (err) {
+    console.log("Error : " + err);
+  });
+}
 
 ////////////  USERS //////////////////
 function seed() {
@@ -74,12 +86,3 @@ function seed() {
     console.log("Error creating " + user.username + " : " + err);
   });
 }
-
-db.findOne('users', {username: 'admin'})
-  .then(function (user) {
-      console.log("Found user. DB already seeded.");
-      if (user === null) seed();
-  })
-  .fail(function (err) {
-    console.log("Error : " + err);
-  });
