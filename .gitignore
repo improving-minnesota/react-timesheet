@@ -30,3 +30,7 @@ api/data/db/*
 .bower-registry/*
 
 .bower-tmp/*
+
+semantic-ui/dist/*
+
+semantic-ui/node_modules/*

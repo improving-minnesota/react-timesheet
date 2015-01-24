@@ -1,39 +1,40 @@
-var gulp = require('gulp');
-var pkg = require('./package.json');
-var changed = require('gulp-changed');
-var concat = require('gulp-concat');
-var filesize = require('gulp-filesize');
-var jade = require('gulp-jade');
-var jest = require('gulp-jest');
-var less = require('gulp-less');
-var livereload = require('gulp-livereload');
-var cssmin = require('gulp-minify-css');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
-var rename = require('gulp-rename');
-var shell = require('gulp-shell');
-var uglify = require('gulp-uglify');
-var gutil = require('gulp-util');
-var watch = require('gulp-watch');
-var source = require('vinyl-source-stream');
-var watchify = require('watchify');
-var browserify = require('browserify');
-var del = require('del');
-var path = require('path');
-var reactify = require('reactify');
-var browserifyShim = require('browserify-shim');
-var merge = require('merge-stream');
-var filesConfig = require('./config/files.config');
+var
+  gulp =        require('gulp'),
+  pkg =         require('./package.json'),
+  changed =     require('gulp-changed'),
+  concat =      require('gulp-concat'),
+  filesize =    require('gulp-filesize'),
+  jade =        require('gulp-jade'),
+  jest =        require('gulp-jest'),
+  less =        require('gulp-less'),
+  livereload =  require('gulp-livereload'),
+  cssmin =      require('gulp-minify-css'),
+  notify =      require('gulp-notify'),
+  plumber =     require('gulp-plumber'),
+  rename =      require('gulp-rename'),
+  shell =       require('gulp-shell'),
+  uglify =      require('gulp-uglify'),
+  gutil =       require('gulp-util'),
+  watch =       require('gulp-watch'),
+  source =      require('vinyl-source-stream'),
+  watchify =    require('watchify'),
+  browserify =  require('browserify'),
+  del =         require('del'),
+  path =        require('path'),
+  reactify =    require('reactify'),
+  browserifyShim = require('browserify-shim'),
+  merge =       require('merge-stream'),
+  filesConfig = require('./config/files.config');
 
 // main tasks
 gulp.task('core', ['watchify', 'concat:css', 'copy:assets']);
-gulp.task('dev', ['core', 'jade:dev']);
+gulp.task('dev',  ['core', 'jade:dev']);
 gulp.task('prod', ['core', 'jade:prod', 'uglify']);
 
 // server tasks
-gulp.task('serve:dev', shell.task([pkg.scripts.run_dev]));
+gulp.task('serve:dev',  shell.task([pkg.scripts.run_dev]));
 gulp.task('serve:prod', shell.task([pkg.scripts.run_prod]));
-gulp.task('debug', shell.task([pkg.scripts.debug]));
+gulp.task('debug',      shell.task([pkg.scripts.debug]));
 
 // setup the global watches
 gulp.task('watch:dev', function () {
@@ -115,6 +116,24 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   return merge(fa, img);
 });
 
+gulp.task('copy:semantic', function (cb) {
+  gulp.src('./node_modules/semantic-ui/src/**')
+    .pipe(gulp.dest('./semantic-ui/src'));
+
+  gulp.src('./node_modules/semantic-ui/tasks/**')
+    .pipe(gulp.dest('./semantic-ui/tasks'));
+
+  gulp.src([
+    './node_modules/semantic-ui/gulpfile.js',
+    './node_modules/semantic-ui/package.json',
+    './node_modules/semantic-ui/semantic.json.example'
+  ])
+    .pipe(gulp.dest('./semantic-ui'));
+});
+
+gulp.task('install:semantic', shell.task(['cd semantic-ui && npm install && gulp install']));
+gulp.task('build:semantic',   shell.task(['cd semantic-ui && gulp build']));
+
 // Compile and concatenate less into css
 gulp.task('clean:css', function (cb) {
   return del([dist('/css')], cb);
@@ -132,6 +151,7 @@ gulp.task('concat:css', ['less'], function () {
   return gulp.src([
       './node_modules/select2/select2.css',
       './node_modules/nprogress/nprogress.css',
+      './node_modules/semantic-ui/dist/semantic.css',
       dist('/css/style.css')
     ])
     .pipe(concat('style.css'))
@@ -153,11 +173,11 @@ gulp.task('watchify', function() {
 
   function rebundle() {
     return bundler.bundle()
-    // log errors if they happen
-    .on('error', gutil.log.bind(gutil, 'Browserify error'))
-    .pipe(source('app.js'))
-    .pipe(gulp.dest(dist('/js')))
-    .pipe(livereload());
+      // log errors if they happen
+      .on('error', gutil.log.bind(gutil, 'Browserify error'))
+      .pipe(source('app.js'))
+      .pipe(gulp.dest(dist('/js')))
+      .pipe(livereload());
   }
 
   return rebundle();
@@ -165,12 +185,12 @@ gulp.task('watchify', function() {
 
 gulp.task('uglify', ['watchify'], function () {
   return gulp.src(dist('/js/app.js'))
-  .pipe(gulp.dest(dist('/js')))
-  .pipe(uglify())
-  .pipe(rename({extname: '.min.js'}))
-  .pipe(gulp.dest(dist('/js')))
-  .pipe(livereload())
-  .on('error', gutil.log.bind(gutil, 'Error during minification.'));
+    .pipe(gulp.dest(dist('/js')))
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest(dist('/js')))
+    .pipe(livereload())
+    .on('error', gutil.log.bind(gutil, 'Error during minification.'));
 });
 
 // helper to navigate to the dist assets dir
