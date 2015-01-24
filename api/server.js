@@ -2,7 +2,6 @@ var Hapi = require('hapi');
 var Good = require('good');
 var Path = require('path');
 var cookie = require('hapi-auth-cookie');
-var data = require('./services/data');
 var props = require('./properties');
 
 console.log('Booting Development Server');
@@ -14,7 +13,14 @@ server.connection({
   host: 'localhost'
 });
 
-// set up the environment
+// establish a session cache
+var cache = server.cache({
+  segment: 'sessions',
+  expiresIn: props.session.expires
+});
+server.app.cache = cache;
+
+// set up the view rendering
 server.views({
   engines: {
     jade: require('jade')
@@ -22,40 +28,21 @@ server.views({
   path: Path.join(__dirname, 'views')
 });
 
-// Serve static content
-server.route({
-  method: 'GET',
-  path: '/assets/{files*}',
-  config: {
-    handler: {
-      directory: {
-        path: Path.join(__dirname, '../client/dist/assets')
-      }
-    },
-    auth: false
-  }
-});
+// register the routes
+server.register([
+  require('./routes/file.route'),
+  require('./routes/auth.routes'),
+  require('./routes/projects.routes'),
+  require('./routes/users.routes'),
+  require('./routes/index.route')
 
-// Initialize the routes
-require('./util').walk(Path.join(__dirname, 'routes'), null, function (path) {
-  require(path)(server);
-});
-
-server.register({
-  register: require('./plugins/index.route.plugin')
-},
-function (err) {
-  if (err) console.log('Error registering index route: ' + err);
+], function (err) {
+  if (err) console.log('Error registering routes: ' + err);
 });
 
 
+// Setup security session and cookie
 server.register(cookie, function (err) {
-
-  var cache = server.cache({
-    segment: 'sessions',
-    expiresIn: props.session.expires
-  });
-  server.app.cache = cache;
 
   server.auth.strategy('session', 'cookie', true, {
     password: props.security.cookieSecret,
@@ -74,5 +61,8 @@ server.register(cookie, function (err) {
   });
 });
 
-data.init();
+// seed the database
+require('./services/data').init();
+
+// start em up
 server.start();

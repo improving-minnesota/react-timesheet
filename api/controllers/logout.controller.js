@@ -1,4 +1,4 @@
-var security = require('../services/security.js');
+'use strict';
 
 module.exports = {
   logout: function (request, reply) {

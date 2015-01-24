@@ -3,7 +3,7 @@
 var loginController = require('../controllers/login.controller'),
   logoutController = require('../controllers/logout.controller');
 
-module.exports = function (server) {
+exports.register = function (server, options, next) {
 
   var login = '/login';
   var logout = '/logout';
@@ -14,4 +14,10 @@ module.exports = function (server) {
     {method: 'POST',  path: logout, handler: logoutController.logout}
   ]);
 
+  return next();
+};
+
+exports.register.attributes = {
+  name: 'auth-routes',
+  version: '0.0.1'
 };

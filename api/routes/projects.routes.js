@@ -2,7 +2,7 @@
 
 var projectsController = require('../controllers/projects.controller');
 
-module.exports = function (server) {
+exports.register = function (server, options, next) {
 
   var projects =  '/projects';
   var projectId = '/projects/{projectId}';
@@ -15,4 +15,10 @@ module.exports = function (server) {
     {method: 'DELETE',  path: projectId, handler: projectsController.destroy}
   ]);
 
+  return next();
+};
+
+exports.register.attributes = {
+  name: 'projects-routes',
+  version: '0.0.1'
 };

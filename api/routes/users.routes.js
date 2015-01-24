@@ -4,7 +4,7 @@ var usersController = require('../controllers/users.controller'),
   timesheetsController = require('../controllers/timesheets.controller'),
   timeunitsController = require('../controllers/timeunits.controller');
 
-module.exports = function (server) {
+exports.register = function (server, options, next) {
 
   var users =         '/users';
   var userId =        '/users/{userId}';
@@ -36,4 +36,11 @@ module.exports = function (server) {
     {method: 'PUT',     path: timeunitId, handler: timeunitsController.update},
     {method: 'DELETE',  path: timeunitId, handler: timeunitsController.destroy}
   ]);
+
+  return next();
+};
+
+exports.register.attributes = {
+  name: 'user-routes',
+  version: '0.0.1'
 };
