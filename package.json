@@ -44,6 +44,7 @@
     "react-router": "^0.11.4",
     "request": "^2.49.0",
     "select2": "^3.5.1-browserify-fix",
+    "semantic-ui": "^1.8.0",
     "superagent": "^0.21.0",
     "tether": "^0.6.5",
     "tracer": "^0.7.3",

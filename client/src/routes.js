@@ -34,26 +34,26 @@ module.exports = (
 
     <Route name='app' path="/" handler={App}>
 
-      <Route name='projects' path='/projects' handler={Projects} />
-      <Route name='projects.detail' path='/projects/detail/:_id' handler={ProjectsDetail} />
-      <Route name='projects.create' path='/projects/create' handler={ProjectsCreate} />
+      <Route name='projects'                path='/projects'              handler={Projects} />
+      <Route name='projects.detail'         path='/projects/detail/:_id'  handler={ProjectsDetail} />
+      <Route name='projects.create'         path='/projects/create'       handler={ProjectsCreate} />
 
-      <Route name='employees' path='/employees' handler={Employees} />
-      <Route name='employees.detail' path='/employees/detail/:_id' handler={EmployeesDetail} />
-      <Route name='employees.create' path='/employees/create' handler={EmployeesCreate} />
+      <Route name='employees'               path='/employees'             handler={Employees} />
+      <Route name='employees.detail'        path='/employees/detail/:_id' handler={EmployeesDetail} />
+      <Route name='employees.create'        path='/employees/create'      handler={EmployeesCreate} />
 
-      <Route name='timesheets' path='/employees/:user_id/timesheets' handler={Timesheets} />
-      <Route name='timesheets.create' path='/employees/:user_id/timesheets/create' handler={TimesheetsCreate} />
-      <Route name='timesheets.detail' path='/employees/:user_id/timesheets/detail/:_id' handler={TimesheetsDetail} />
-      <Route name='timesheets.detail.edit' path='/employees/:user_id/timesheets/detail/:_id/edit' handler={TimesheetsEdit} />
+      <Route name='timesheets'              path='/employees/:user_id/timesheets'                   handler={Timesheets} />
+      <Route name='timesheets.create'       path='/employees/:user_id/timesheets/create'            handler={TimesheetsCreate} />
+      <Route name='timesheets.detail'       path='/employees/:user_id/timesheets/detail/:_id'       handler={TimesheetsDetail} />
+      <Route name='timesheets.detail.edit'  path='/employees/:user_id/timesheets/detail/:_id/edit'  handler={TimesheetsEdit} />
 
-      <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create' handler={TimeunitsCreate} />
-      <Route name='timesheets.detail.timeunits.edit'path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
+      <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create'            handler={TimeunitsCreate} />
+      <Route name='timesheets.detail.timeunits.edit'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
 
       <Redirect from="index" to="employees" />
       <Redirect from="app" to="employees" />
-      <DefaultRoute handler={Employees} />
-      <NotFoundRoute handler={Employees} />
+      <DefaultRoute handler={Projects} />
+      <NotFoundRoute handler={Projects} />
     </Route>
   </Route>
 );
