@@ -2,7 +2,7 @@ var Q = require('q');
 var Boom = require('Boom');
 var Bcrypt = require('bcrypt');
 var db = require('./db');
-var props = require('../../config/properties');
+var props = require('../properties');
 
 module.exports = {
   sendCurrentUser: sendCurrentUser,

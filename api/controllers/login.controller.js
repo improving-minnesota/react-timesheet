@@ -1,5 +1,5 @@
 var security = require('../services/security');
-var props = require('../../config/properties');
+var props = require('../properties');
 
 module.exports = {
   index: security.sendCurrentUser,

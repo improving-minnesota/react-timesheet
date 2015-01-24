@@ -2,8 +2,8 @@ var Hapi = require('hapi');
 var Good = require('good');
 var Path = require('path');
 var cookie = require('hapi-auth-cookie');
-var data = require('./config/initializers/data');
-var props = require('./config/properties');
+var data = require('./services/data');
+var props = require('./properties');
 
 console.log('Booting Development Server');
 
@@ -19,7 +19,7 @@ server.views({
   engines: {
     jade: require('jade')
   },
-  path: Path.join(__dirname, 'src/views')
+  path: Path.join(__dirname, 'views')
 });
 
 // Serve static content
@@ -37,12 +37,12 @@ server.route({
 });
 
 // Initialize the routes
-require('./config/util').walk(Path.join(__dirname, 'src/routes'), null, function (path) {
+require('./util').walk(Path.join(__dirname, 'routes'), null, function (path) {
   require(path)(server);
 });
 
 server.register({
-  register: require('./src/plugins/index.route.plugin')
+  register: require('./plugins/index.route.plugin')
 },
 function (err) {
   if (err) console.log('Error registering index route: ' + err);

@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-  db = require('../../src/services/db.js'),
+  db = require('./db'),
   Q = require('q'),
   bcrypt = require('bcrypt');
 
@@ -19,10 +19,10 @@ function init () {
 ////////////  USERS //////////////////
 function seed() {
   console.log('Seeding Users into DB');
-  var users = require('../../data/users').users;
-  var adminTimesheets = require('../../data/admin.timesheets').timesheets;
-  var userTimesheets = require('../../data/user.timesheets').timesheets;
-  var projects = require('../../data/projects').projects;
+  var users = require('../data/users').users;
+  var adminTimesheets = require('../data/admin.timesheets').timesheets;
+  var userTimesheets = require('../data/user.timesheets').timesheets;
+  var projects = require('../data/projects').projects;
 
   Q.all([
     db.insert('projects', projects[0]),
