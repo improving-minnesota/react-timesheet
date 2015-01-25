@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 window.$ = require('jquery');
-require('semantic-ui/dist/semantic');
+require('../../semantic-ui/dist/semantic');
 
 var React = window.React = require('react');
 var Router = require('react-router');

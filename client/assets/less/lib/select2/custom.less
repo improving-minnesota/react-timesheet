@@ -8,7 +8,7 @@
 	height: 46px;
 	padding: 9px 5px;
   background-image: none;
-  border: 1px solid @brand-success;
+  border: 1px solid @positiveBorderColor;
 
 	abbr {
 		background: url('../img/select2/select2.png') right top no-repeat;
@@ -16,7 +16,7 @@
 
 	.select2-arrow b {
   	background: url('../img/select2/select2.png') no-repeat 0 1px;
-    color: @body-bg;
+    color: @pageBackground;
 	}
 
 	> .select2-chosen {
@@ -27,15 +27,15 @@
 
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
-  color: @gray;
+  color: @grey;
   vertical-align: middle;
-  background-color: @body-bg;
-  border: 1px solid @gray;
+  background-color: @pageBackground;
+  border: 1px solid @grey;
   outline: none;
 }
 
 .select2-drop-active {
-  border: 1px solid @gray;
+  border: 1px solid @grey;
   border-top: none;
 }
 
@@ -44,42 +44,42 @@
 
 	input {
 		margin-top: 3px;
-	  background: @body-bg url('../img/select2/select2.png') no-repeat 100% -22px;
-    background: url('../img/select2/select2.png') no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, @body-bg), color-stop(0.99, @gray-light));
-    background: url('../img/select2/select2.png') no-repeat 100% -22px, -webkit-linear-gradient(center bottom, @body-bg 85%, @gray-light 99%);
-    background: url('../img/select2/select2.png') no-repeat 100% -22px, -moz-linear-gradient(center bottom, @body-bg 85%, @gray-light 99%);
-    background: url('../img/select2/select2.png') no-repeat 100% -22px, linear-gradient(top, @body-bg 85%, @gray-light 99%);
+	  background: @pageBackground url('../img/select2/select2.png') no-repeat 100% -22px;
+    background: url('../img/select2/select2.png') no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, @pageBackground), color-stop(0.99, @lightGrey));
+    background: url('../img/select2/select2.png') no-repeat 100% -22px, -webkit-linear-gradient(center bottom, @pageBackground 85%, @lightGrey 99%);
+    background: url('../img/select2/select2.png') no-repeat 100% -22px, -moz-linear-gradient(center bottom, @pageBackground 85%, @lightGrey 99%);
+    background: url('../img/select2/select2.png') no-repeat 100% -22px, linear-gradient(top, @pageBackground 85%, @lightGrey 99%);
   }
 }
 
 .select2-search input.select2-active {
-  background: @body-bg url('../img/select2/select2-spinner.gif') no-repeat 100%;
-  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, @body-bg), color-stop(0.99, @gray-light));
-  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -webkit-linear-gradient(center bottom, @body-bg 85%, @gray-light 99%);
-  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -moz-linear-gradient(center bottom, @body-bg 85%, @gray-light 99%);
-  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, linear-gradient(top, @body-bg 85%, @gray-light 99%);
+  background: @pageBackground url('../img/select2/select2-spinner.gif') no-repeat 100%;
+  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, @pageBackground), color-stop(0.99, @lightGrey));
+  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -webkit-linear-gradient(center bottom, @pageBackground 85%, @lightGrey 99%);
+  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, -moz-linear-gradient(center bottom, @pageBackground 85%, @lightGrey 99%);
+  background: url('../img/select2/select2-spinner.gif') no-repeat 100%, linear-gradient(top, @pageBackground 85%, @lightGrey 99%);
 }
 
 .select2-search-choice-close {
   background: url('../img/select2/select2.png') right top no-repeat;
-  background-color: @gray-dark;
+  background-color: @darkGrey;
 
   abbr {
-    background-color: @gray-dark;
+    background-color: @darkGrey;
   }
 }
 
 .select2-container .select2-choice .select2-arrow {
   width: 20px;
 
-  border-left: 1px solid @body-bg;
-  background: @gray-darker;
+  border-left: 1px solid @pageBackground;
+  background: @darkGrey;
   background-image: none;
 }
 
 .select2-results .select2-highlighted {
-  background: @gray-dark;
-  color: @body-bg;
+  background: @darkGrey;
+  color: @pageBackground;
 }
 
 .select2-more-results.select2-active {
@@ -87,7 +87,7 @@
 }
 
 .select2-container-multi .select2-choices .select2-search-field input.select2-active {
-  background: @body-bg url('../img/select2/select2-spinner.gif') no-repeat 100% !important;
+  background: @pageBackground url('../img/select2/select2-spinner.gif') no-repeat 100% !important;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)  {
