@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-window.$ = require('jquery');
+window.$ = window.jQuery = require('jquery');
 require('../../semantic-ui/dist/semantic');
 
 var React = window.React = require('react');

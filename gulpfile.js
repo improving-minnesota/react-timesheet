@@ -10,6 +10,7 @@ var
   less =        require('gulp-less'),
   livereload =  require('gulp-livereload'),
   cssmin =      require('gulp-minify-css'),
+  nodemon =     require('gulp-nodemon'),
   notify =      require('gulp-notify'),
   plumber =     require('gulp-plumber'),
   rename =      require('gulp-rename'),
@@ -33,12 +34,13 @@ gulp.task('dev',  ['core', 'jade:dev']);
 gulp.task('prod', ['core', 'jade:prod', 'uglify']);
 
 // server tasks
-gulp.task('serve:dev', function () {
-  nodemon({
-    script: './api/server.js',
-    env: {'NODE_ENV': 'development'}
-  });
-});
+gulp.task('serve:dev', shell.task([pkg.scripts.run_dev]));
+// gulp.task('serve:dev', function () {
+//   nodemon({
+//     script: './api/server.js',
+//     env: {'NODE_ENV': 'development'}
+//   });
+// });
 
 gulp.task('serve:prod', function () {
   nodemon({
@@ -75,9 +77,9 @@ gulp.task('clean:index', function (cb) {
 });
 
 gulp.task('jade:dev', ['clean:index'], function () {
-  return gulp.src('./api/src/views/index.jade')
+  return gulp.src('./api/views/index.jade')
     .pipe(plumber())
-    .pipe(watch('./api/src/views/index.jade'))
+    .pipe(watch('./api/views/index.jade'))
     .pipe(jade({
       pretty: true,
       data: {
@@ -89,9 +91,9 @@ gulp.task('jade:dev', ['clean:index'], function () {
 });
 
 gulp.task('jade:prod', ['clean:index'], function () {
-  return gulp.src('./api/src/views/index.jade')
+  return gulp.src('./api/views/index.jade')
     .pipe(plumber())
-    .pipe(watch('./api/src/views/index.jade'))
+    .pipe(watch('./api/views/index.jade'))
     .pipe(jade({
       pretty: true,
       data: {
