@@ -50,10 +50,12 @@ var TimesheetRow = React.createClass({
     });
 
     var buttonClasses = cx({
-      'btn': true,
-      'btn-sm': true,
-      'btn-default': timesheet.deleted,
-      'btn-danger': !timesheet.deleted
+      'ui': true,
+      'primary': true,
+      'button': true,
+      'small': true,
+      'positive': timesheet.deleted,
+      'negative': !timesheet.deleted
     });
 
     return (

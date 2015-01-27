@@ -26,8 +26,8 @@ var EmployeeForm = React.createClass({
     return (
       <div className="tsz-form">
         <div className="row">
-          <div className="col-xs-12">
-            <form className="form-horizontal" name="employeeForm" onSubmit={this.props.onSave}>
+          <div className="sixteen wide column">
+            <form className="ui inline form" name="employeeForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="username" label="Username"
                 error={this.props.errors.username}

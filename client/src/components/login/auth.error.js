@@ -8,8 +8,8 @@ var AuthError = React.createClass({
     if (this.props.authError) {
       return (
         <div className="row">
-          <div className="col-xs-12">
-            <div className="alert alert-danger">
+          <div className="sixteen wide column">
+            <div className="ui secondary inverted raised red segment">
               {this.props.authError}
             </div>
           </div>

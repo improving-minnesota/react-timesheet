@@ -6,8 +6,8 @@ var CancelButton = React.createClass({
 
   render: function () {
     return (
-      <div className="col-sm-2">
-        <button className="btn btn-danger btn-block" type="button"
+      <div className="four wide column">
+        <button className="ui primary button red" type="button"
           onClick={this.props.onCancel}>Cancel</button>
       </div>
     );

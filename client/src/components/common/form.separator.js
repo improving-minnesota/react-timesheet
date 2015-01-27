@@ -6,7 +6,7 @@ var FormSeparator = React.createClass({
 
   render: function () {
     return (
-      <div className="row"><hr/></div>
+      <div className="ui horizontal divider"></div>
     );
   }
 });

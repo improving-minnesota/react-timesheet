@@ -130,7 +130,7 @@ var DateInput = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="input-group">
+        <div className="inline field">
           <input
             ref="input"
             type="text"
@@ -147,7 +147,7 @@ var DateInput = React.createClass({
             </button>
           </span>
         </div>
-        <div className="text-danger">{this.props.error}</div>
+        <div className="red">{this.props.error}</div>
       </div>
     );
   }

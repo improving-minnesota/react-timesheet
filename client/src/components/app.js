@@ -24,7 +24,7 @@ var App = React.createClass({
         <div className="container">
           <SectionHeader />
           <div className="row">
-            <div className="col-xs-12">
+            <div className="row">
               <RouteHandler />
             </div>
           </div>

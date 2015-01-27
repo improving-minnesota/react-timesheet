@@ -36,8 +36,8 @@ var TimesheetForm = React.createClass({
     return (
       <div className="tsz-timesheet-form">
         <div className="row">
-          <div className="col-xs-12">
-            <form className="form-horizontal" name="timesheetForm" onSubmit={this.props.onSave}>
+          <div className="sixteen wide column">
+            <form className="ui inline form" name="timesheetForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="timesheet-name" label="Name"
                 error={this.props.errors.name}

@@ -53,15 +53,13 @@ var Timeunits = React.createClass({
       <div>
         <div tsz-form-section-header header="Time Units">
           <div className="row">
-            <div className="col-sm-4 col-sm-offset-8 pull-right">
-              <button type="button" className="btn btn-primary btn-block"
-                onClick={this.logTime}>Log Time</button>
-            </div>
+            <button type="button" className="ui right floated primary button"
+              onClick={this.logTime}>Log Time</button>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-xs-12">
+          <div className="sixteen wide column">
             <div className="tsz-responsive-table-container">
               <TimeunitTable timeunits={this.state.timeunits} timesheet={this.props.timesheet}/>
             </div>

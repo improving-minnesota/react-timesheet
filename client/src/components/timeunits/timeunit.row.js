@@ -51,10 +51,12 @@ var TimeunitRow = React.createClass({
     });
 
     var buttonClasses = cx({
-      'btn': true,
-      'btn-sm': true,
-      'btn-default': timeunit.deleted,
-      'btn-danger': !timeunit.deleted
+      'ui': true,
+      'primary': true,
+      'button': true,
+      'small': true,
+      'positive': timeunit.deleted,
+      'negative': !timeunit.deleted
     });
 
     return (

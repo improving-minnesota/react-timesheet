@@ -24,8 +24,8 @@ var ProjectForm = React.createClass({
     return (
       <div className="tsz-project-form">
         <div className="row">
-          <div className="col-xs-12">
-            <form className="form-horizontal" name="projectForm" onSubmit={this.props.onSave}>
+          <div className="sixteen wide column">
+            <form className="ui inline form" name="projectForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="project-name" label="Name"
                 error={this.props.errors.name}

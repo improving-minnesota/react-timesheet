@@ -24,7 +24,7 @@ var ReactSelect2 = React.createClass({
 
   render: function() {
     return (
-      <select className="form-control">
+      <select>
         defaultValue={this.props.defaultValue}
         name={this.props.name}
         ref={this.props.name}

@@ -1,7 +1,7 @@
 // Add additional margin to form rows
 // #/internal/users and #/internal/groups
 .tsz-form-row {
-  div[class*='col-'] {
+  .column {
     margin-bottom: 15px;
   }
   .form-group {
@@ -12,10 +12,12 @@
 // Forms inline with headings
 // See #/system/audits
 .tsz-inline-heading-control {
+
   label {
     vertical-align: middle;
     line-height: 32px;
   }
+
   .bootstrap-select.btn-group {
     margin-bottom: 0;
   }
@@ -41,6 +43,7 @@
 
 .tsz-form-section-header {
   margin-top: 5px;
+  
   h4 {
     font-weight: 500;
   }

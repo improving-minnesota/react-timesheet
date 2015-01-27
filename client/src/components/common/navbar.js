@@ -64,32 +64,18 @@ var NavBar = React.createClass({
     });
 
     return (
-      <div className="navbar navbar-default navbar-fixed-top">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <a className="navbar-brand" href="#">
-              <i className="fa fa-clock-o fa-lg"/> {this.state.title}
-            </a>
-          </div>
-          <ul if="authenticated" className="nav navbar-nav navbar-left">
-            <li className={projectsClasses}>
-              <Link to="projects">Projects</Link>
-            </li>
-            <li className={employeesClasses}>
-              <Link to="employees">Employees</Link>
-            </li>
-            <li className={timesheetsClasses}>
-              <Link to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
-            </li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a className="navbar-brand logout" onClick={this.logout}>
-                <i className="fa fa-power-off"/> Logout
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div className="ui menu fluid">
+        <a className="header item" href="#">
+          <i className="fa fa-clock-o fa-lg"/> {this.state.title}
+        </a>
+
+        <Link className="item" to="projects">Projects</Link>
+        <Link className="item" to="employees">Employees</Link>
+        <Link className="item" to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
+
+        <a className="right menu item logout" onClick={this.logout}>
+          <i className="fa fa-power-off"/> Logout
+        </a>
       </div>
     );
   }

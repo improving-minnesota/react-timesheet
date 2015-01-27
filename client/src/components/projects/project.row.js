@@ -46,10 +46,12 @@ var ProjectRow = React.createClass({
     });
 
     var buttonClasses = cx({
-      'btn': true,
-      'btn-sm': true,
-      'btn-default': project.deleted,
-      'btn-danger': !project.deleted
+      'ui': true,
+      'primary': true,
+      'button': true,
+      'small': true,
+      'positive': project.deleted,
+      'negative': !project.deleted
     });
 
     return (

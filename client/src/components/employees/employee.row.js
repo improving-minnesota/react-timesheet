@@ -48,10 +48,12 @@ var EmployeeRow = React.createClass({
     });
 
     var buttonClasses = cx({
-      'btn': true,
-      'btn-sm': true,
-      'btn-default': employee.deleted,
-      'btn-danger': !employee.deleted
+      'ui': true,
+      'primary': true,
+      'button': true,
+      'small': true,
+      'positive': employee.deleted,
+      'negative': !employee.deleted
     });
 
     return (

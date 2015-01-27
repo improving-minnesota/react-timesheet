@@ -16,9 +16,9 @@ var ProgressBar = React.createClass({
 
   render: function () {
     return (
-      <div className="progress" onClick={this.progressClicked}>
-        <div className="progress-bar" style={width: this.props.percentComplete + '%'}>
-          {Math.round(this.props.percentComplete)}%
+      <div className="ui progress" onClick={this.progressClicked}>
+        <div className="bar" style={width: this.props.percentComplete + '%'}>
+          <div className="progress">{Math.round(this.props.percentComplete)}%</div>
         </div>
       </div>
 

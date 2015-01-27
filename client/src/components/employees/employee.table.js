@@ -14,7 +14,7 @@ var EmployeeTable = React.createClass({
     });
 
     return (
-      <table className="table table-bordered table-hover tsz-table-row-cursor">
+      <table className="ui celled table tsz-table-row-cursor">
         <thead>
           <tr>
             <th>Username</th>

@@ -37,13 +37,13 @@ var Projects = React.createClass({
       <div className="tsz-project-list">
         <div className="row tsz-form-row">
           <div className="col-sm-2 pull-right">
-            <button className="btn btn-primary btn-block" type="button" onClick={this.createNew}>
+            <button className="ui right floated primary button" type="button" onClick={this.createNew}>
               <i className="icon-plus"/> New Project
             </button>
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-12">
+          <div className="row">
             <ProjectTable projects={this.state.projects} />
           </div>
         </div>

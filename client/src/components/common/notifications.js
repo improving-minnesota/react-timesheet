@@ -18,13 +18,13 @@ var Notifications = React.createClass({
 
     return (
       <div className="notifications-container">
-        <div className="notification alert-success">
+        <div className="notification green message">
           {this.state.success}
         </div>
-        <div className="notifications alert-info">
+        <div className="notifications blue message">
           {this.state.info}
         </div>
-        <div className="notifications alert-error">
+        <div className="notifications red message">
           {this.state.error}
         </div>
       </div>

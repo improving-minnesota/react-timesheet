@@ -51,18 +51,14 @@ var TimesheetDetail = React.createClass({
       <div className="tsz-timesheet-detail">
         <div>
           <div className="row">
-            <div className="col-xs-12">
-              <TimesheetForm timesheet={this.state.timesheet}
-                saveText={this.state.saveText}
-                onSave={this.editTimesheet}
-                errors={this.state.errors}
-                hasErrors={this.hasErrors} />
-            </div>t
+            <TimesheetForm timesheet={this.state.timesheet}
+              saveText={this.state.saveText}
+              onSave={this.editTimesheet}
+              errors={this.state.errors}
+              hasErrors={this.hasErrors} />
           </div>
 
-          <div className="row">
-            <hr/>
-          </div>
+          <div className="ui divider"></div>
 
           <Timeunits timesheet={this.state.timesheet} />
         </div>

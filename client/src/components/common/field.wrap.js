@@ -16,24 +16,16 @@ var FieldWrap = React.createClass({
 
     var wrapperClasses = cx({
       'tsz-field-wrapper': true,
+      'inline': true,
+      'field': true,
       'has-error': this.props.error,
       'has-success': !this.props.error
     });
 
-    var labelCol = this.props.labelCol || '2';
-    var labelClasses = "control-label col-sm-" + labelCol;
-
-    var fieldCol = this.props.fieldCol || '4';
-    var fieldClasses = "col-sm-" + fieldCol;
-
     return (
-      <div className="form-group">
-        <div className={wrapperClasses}>
-          <label htmlFor={this.props.inputId} className={labelClasses}>{this.props.label}</label>
-          <div className={fieldClasses}>
-            {this.props.formField}
-          </div>
-        </div>
+      <div className={wrapperClasses}>
+        <label htmlFor={this.props.inputId}>{this.props.label}</label>
+        {this.props.formField}
       </div>
     );
   }

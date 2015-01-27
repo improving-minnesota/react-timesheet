@@ -33,55 +33,41 @@ var LoginForm = React.createClass({
 
   render: function () {
     return (
-      <div className="tsz-login-form row" vertical-center-element=".tsz-view-container">
-        <div className="col-xs-12">
-          <div className="row">
-            <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-              <div className="well well-lg">
+      <div className="ui padded page grid">
+        <div className="two column centered row">
+          <div className="left aligned column">
+            <h4>Welcome to Timesheetz</h4>
+          </div>
+          <div className="right aligned column">
+            <h5>Please Login</h5>
+          </div>
+        </div>
 
-                <div className="row hidden-xs">
-                  <div className="col-xs-6">
-                    <p className="tsz-login-header">Welcome to Timesheetz</p>
-                    <hr/>
-                  </div>
-                  <div className="col-xs-6">
-                    <div className="tsz-login-header pull-right">Please Login</div>
-                  </div>
-                </div>
+        <hr/>
 
-                <AuthError authError={this.state.authError} />
+        <AuthError authError={this.state.authError} />
 
-                <div className="row">
-                  <div className="col-xs-12">
-                    <form novalidate className="form-horizontal" name="loginForm" onSubmit={this.login}>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label" htmlFor="login">Username</label>
-                        <div className="col-sm-10">
-                          <input type="text" className="form-control"
-                            name="username" ref="login"
-                            value={this.state.credentials.username}
-                            onChange={this.validate} required />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label" htmlFor="pass">Password</label>
-                        <div className="col-sm-10">
-                          <input type="password" className="form-control"
-                            name="password" ref="password"
-                            value={this.state.credentials.password}
-                            onChange={this.validate} required />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <div className="col-xs-12 col-sm-3 col-sm-offset-9">
-                          <button className="btn btn-primary login btn-block">Login</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+        <div className="centered row">
+          <div className="center aligned eight wide column">
+            <form className="ui form" name="loginForm" onSubmit={this.login}>
+              <div className="inline field">
+                <label htmlFor="login">Username</label>
+                <input type="text"
+                  name="username" ref="login"
+                  value={this.state.credentials.username}
+                  onChange={this.validate} required />
               </div>
-            </div>
+              <div className="inline field">
+                <label htmlFor="pass">Password</label>
+                <input type="password"
+                  name="password" ref="password"
+                  value={this.state.credentials.password}
+                  onChange={this.validate} required />
+              </div>
+              <div className="ui right aligned column">
+                <button className="ui primary login button">Login</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

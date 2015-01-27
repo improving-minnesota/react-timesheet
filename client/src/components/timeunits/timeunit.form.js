@@ -42,8 +42,8 @@ var TimeunitForm = React.createClass({
 
       <div className="tsz-timeunit-form">
         <div className="row">
-          <div className="col-xs-12">
-            <form className="form-horizontal" name="timeunitForm" onSubmit={this.props.onSave}>
+          <div className="sixteen wide column">
+            <form className="ui inline form" name="timeunitForm" onSubmit={this.props.onSave}>
 
               <FieldWrap inputId="timeunit-project" label="Project"
                 error={this.props.errors.project}

@@ -34,7 +34,7 @@ var SectionHeader = React.createClass({
 
     return (
       <div className="row">
-        <div className="col-xs-12">
+        <div className="sixteen wide column">
           <h2>{this.getSectionName()}</h2>
           <hr/>
         </div>
