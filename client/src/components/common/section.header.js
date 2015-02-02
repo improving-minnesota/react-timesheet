@@ -7,7 +7,7 @@ var FormSectionHeader = React.createClass({
   render: function () {
 
     return (
-      <div className="tsz-form-section-header two column row">
+      <div className="two column row">
         <div className="column">
           <h4>{this.props.header}</h4>
         </div>

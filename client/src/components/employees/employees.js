@@ -34,18 +34,15 @@ var Employees = React.createClass({
 
   render: function () {
     return (
-      <div className="tsz-employee-list">
-        <div className="one column row tsz-form-row">
-          <div className="right floated column">
-            <button className="ui right floated primary button" type="button" onClick={this.createNew}>
-              <i className="icon-plus"/> New Employee
-            </button>
-          </div>
-        </div>
+      <div>
         <div className="row">
-          <div className="sixteen wide column">
-            <EmployeeTable employees={this.state.employees}/>
-          </div>
+          <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
+            <i className="icon-plus"/> New Employee
+          </button>
+        </div>
+
+        <div className="row">
+          <EmployeeTable employees={this.state.employees}/>
         </div>
 
         <div className="center aligned">

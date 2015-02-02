@@ -34,18 +34,15 @@ var Projects = React.createClass({
 
   render: function () {
     return (
-      <div className="tsz-project-list">
-        <div className="row tsz-form-row">
-          <div className="col-sm-2 pull-right">
-            <button className="ui right floated primary button" type="button" onClick={this.createNew}>
-              <i className="icon-plus"/> New Project
-            </button>
-          </div>
+      <div>
+        <div className="one column row">
+          <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
+            <i className="icon-plus"/> New Project
+          </button>
         </div>
+
         <div className="row">
-          <div className="row">
-            <ProjectTable projects={this.state.projects} />
-          </div>
+          <ProjectTable projects={this.state.projects} />
         </div>
 
         <div className="text-center">

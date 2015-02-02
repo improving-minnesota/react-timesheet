@@ -24,9 +24,7 @@ var App = React.createClass({
         <div className="container">
           <SectionHeader />
           <div className="row">
-            <div className="row">
-              <RouteHandler />
-            </div>
+            <RouteHandler />
           </div>
         </div>
       </div>

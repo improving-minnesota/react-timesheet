@@ -29,7 +29,7 @@ var
   filesConfig = require('./config/files.config');
 
 // main tasks
-gulp.task('core', ['watchify', 'concat:css', 'copy:assets']);
+gulp.task('core', ['watchify', 'build:css', 'copy:assets']);
 gulp.task('dev',  ['core', 'jade:dev']);
 gulp.task('prod', ['core', 'jade:prod', 'uglify']);
 
@@ -53,12 +53,14 @@ gulp.task('debug', shell.task([pkg.scripts.debug]));
 
 // setup the global watches
 gulp.task('watch:dev', function () {
-  gulp.watch([client('/less/**/*.less'), './semantic-ui/src/**/*'], ['concat:css']);
+  gulp.watch([client('/less/**/*.less')], ['concat:css']);
+  gulp.watch(['./semantic-ui/src/**/*'], ['build:css']);
   gulp.start('dev');
 });
 
 gulp.task('watch:prod', function () {
-  gulp.watch([client('/less/**/*.less'), './semantic-ui/src/**/*'], ['concat:css']);
+  gulp.watch([client('/less/**/*.less')], ['concat:css']);
+  gulp.watch(['./semantic-ui/src/**/*'], ['build:css']);
   gulp.watch([dist('/js/app.js')], ['uglify']);
   gulp.start('prod');
 });
@@ -144,11 +146,27 @@ gulp.task('semantic:install', ['semantic:copy'], shell.task(['cd semantic-ui && 
 gulp.task('semantic:build',   shell.task(['cd semantic-ui && gulp build']));
 
 // Compile and concatenate less into css
-gulp.task('concat:css', ['semantic:build'], function () {
+gulp.task('clean:css', function (cb) {
+  return del([dist('/css')], cb);
+});
+
+
+gulp.task('less', ['clean:css'], function () {
+  return gulp.src(client('/less/style.less'))
+    .pipe(plumber())
+    .pipe(less({paths: [client('/less')]}))
+    .pipe(gulp.dest(dist('/css')))
+    .on('error', gutil.log.bind(gutil, 'Error compiling Less'));
+});
+
+
+// Compile and concatenate less into css
+gulp.task('concat:css', ['less'], function () {
   return gulp.src([
       './node_modules/select2/select2.css',
       './node_modules/nprogress/nprogress.css',
-      './semantic-ui/dist/semantic.css'
+      './semantic-ui/dist/semantic.css',
+      dist('/css/style.css')
     ])
     .pipe(concat('style.css'))
     .pipe(gulp.dest(dist('/css')))
@@ -157,6 +175,10 @@ gulp.task('concat:css', ['semantic:build'], function () {
     .pipe(gulp.dest(dist('/css')))
     .pipe(livereload())
     .on('error', gutil.log.bind(gutil, 'Error concatenating CSS'));
+});
+
+gulp.task('build:css', ['semantic:build', 'less'], function () {
+  return gulp.start('concat:css');
 });
 
 // Compile and minify the Javascripts

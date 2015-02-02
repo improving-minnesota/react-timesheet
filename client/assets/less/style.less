@@ -1,3 +1,9 @@
+// Import variables
+@import "../../../semantic-ui/src/site/globals/site.variables";
+@import "../../../semantic-ui/src/themes/default/globals/site.variables";
+@import "../../../semantic-ui/src/themes/material/globals/site.variables";
+@import "app/site.variables";
+
 // Import bower components
 // --------------------------------------------------\
 
@@ -23,11 +29,8 @@
 // Datepicker
 @import "lib/datepicker/datepicker.less";
 
-// Common
-// --------------------------------------------------
-@import "common/forms.less";
-@import "common/tables.less";
-
-
 // Application
 // --------------------------------------------------
+@import "app/container.less";
+@import "app/forms.less";
+@import "app/tables.less";
