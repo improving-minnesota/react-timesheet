@@ -15,7 +15,6 @@ var FieldWrap = React.createClass({
   render: function () {
 
     var wrapperClasses = cx({
-      'tsz-field-wrapper': true,
       'inline': true,
       'field': true,
       'has-error': this.props.error,

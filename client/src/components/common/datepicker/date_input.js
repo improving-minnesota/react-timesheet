@@ -130,7 +130,7 @@ var DateInput = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="inline field">
+        <div className="ui inline field">
           <input
             ref="input"
             type="text"
@@ -140,9 +140,9 @@ var DateInput = React.createClass({
             onKeyDown={this.handleKeyDown}
             onFocus={this.props.onFocus}
             onChange={this.handleChange}
-            className="form-control" />
-          <span className="input-group-btn">
-            <button className="btn btn-default" onClick={this.handleButtonClick}>
+            className="" />
+          <span className="six wide column">
+            <button className="ui secondary button" onClick={this.handleButtonClick}>
               <i className="fa fa-fw fa-calendar"></i>
             </button>
           </span>

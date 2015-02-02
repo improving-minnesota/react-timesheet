@@ -24,62 +24,60 @@ var EmployeeForm = React.createClass({
 
   render : function () {
     return (
-      <div className="tsz-form">
-        <div className="row">
-          <div className="sixteen wide column">
-            <form className="ui inline form" name="employeeForm" onSubmit={this.props.onSave}>
+      <div className="ui ten column centered grid">
+        <div className="ten wide column">
+          <form className="ui inline form" name="employeeForm" onSubmit={this.props.onSave}>
 
-              <FieldWrap inputId="username" label="Username"
-                error={this.props.errors.username}
-                formField={
-                  <TextInput name="username" placeholder="Employee Username"
-                    value={this.props.employee.username}
-                    error={this.props.errors.username}
-                    onChange={this.props.validate} />
-               }/>
+            <FieldWrap inputId="username" label="Username"
+              error={this.props.errors.username}
+              formField={
+                <TextInput name="username" placeholder="Employee Username"
+                  value={this.props.employee.username}
+                  error={this.props.errors.username}
+                  onChange={this.props.validate} />
+             }/>
 
-              <FieldWrap inputId="email" label="Email"
-                error={this.props.errors.email}
-                formField={
-                  <TextInput name="email" placeholder="Employee Email"
-                    value={this.props.employee.email}
-                    error={this.props.errors.email}
-                    onChange={this.props.validate} />
-              }/>
+            <FieldWrap inputId="email" label="Email"
+              error={this.props.errors.email}
+              formField={
+                <TextInput name="email" placeholder="Employee Email"
+                  value={this.props.employee.email}
+                  error={this.props.errors.email}
+                  onChange={this.props.validate} />
+            }/>
 
-              <FieldWrap inputId="firstName" label="First Name"
-                error={this.props.errors.firstName}
-                formField={
-                  <TextInput name="firstName" placeholder="First Name"
-                    value={this.props.employee.firstName}
-                    error={this.props.errors.firstName}
-                    onChange={this.props.validate} />
-              }/>
+            <FieldWrap inputId="firstName" label="First Name"
+              error={this.props.errors.firstName}
+              formField={
+                <TextInput name="firstName" placeholder="First Name"
+                  value={this.props.employee.firstName}
+                  error={this.props.errors.firstName}
+                  onChange={this.props.validate} />
+            }/>
 
-              <FieldWrap inputId="lastName" label="Last Name"
-                error={this.props.errors.lastName}
-                formField={
-                  <TextInput name="lastName" placeholder="Last Name"
-                    value={this.props.employee.lastName}
-                    error={this.props.errors.lastName}
-                    onChange={this.props.validate} />
-              }/>
+            <FieldWrap inputId="lastName" label="Last Name"
+              error={this.props.errors.lastName}
+              formField={
+                <TextInput name="lastName" placeholder="Last Name"
+                  value={this.props.employee.lastName}
+                  error={this.props.errors.lastName}
+                  onChange={this.props.validate} />
+            }/>
 
-              <FieldWrap inputId="admin" label="Admin" formField={
-                <button type="button" className="btn btn-primary"
-                  onClick={this.props.toggleAdmin}>
-                    {yesNo(this.props.employee.admin)}
-                </button>
-              }/>
+            <FieldWrap inputId="admin" label="Admin" formField={
+              <button type="button" className="btn btn-primary"
+                onClick={this.props.toggleAdmin}>
+                  {yesNo(this.props.employee.admin)}
+              </button>
+            }/>
 
-              <Separator />
+            <Separator />
 
-              <div className="row">
-                <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
-                <CancelButton onCancel={this.onCancel} />
-              </div>
-            </form>
-          </div>
+            <div className="ui sixteen column right floated grid">
+              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <CancelButton onCancel={this.onCancel} />
+            </div>
+          </form>
         </div>
       </div>
     );

@@ -34,10 +34,10 @@ var TimesheetForm = React.createClass({
 
   render : function () {
     return (
-      <div className="tsz-timesheet-form">
-        <div className="row">
-          <div className="sixteen wide column">
-            <form className="ui inline form" name="timesheetForm" onSubmit={this.props.onSave}>
+      <div className="ui ten column centered grid">
+        <div className="fourteen wide column">
+          <form className="ui inline form" name="timesheetForm" onSubmit={this.props.onSave}>
+            <div className="two fields">
 
               <FieldWrap inputId="timesheet-name" label="Name"
                 error={this.props.errors.name}
@@ -77,14 +77,15 @@ var TimesheetForm = React.createClass({
                     error={this.props.errors.endDate} />
               }/>
 
-              <Separator />
+            </div>
 
-              <div className="row">
-                <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
-                <CancelButton onCancel={this.onCancel} />
-              </div>
-            </form>
-          </div>
+            <Separator />
+
+            <div className="ui sixteen column right floated grid">
+              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <CancelButton onCancel={this.onCancel} />
+            </div>
+          </form>
         </div>
       </div>
     );
