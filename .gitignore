@@ -34,3 +34,5 @@ api/data/db/*
 semantic/dist/*
 
 semantic/node_modules/*
+
+npm-debug.log
