@@ -1,26 +1,21 @@
+// Import variables
+@import "../../../semantic/src/site/globals/site.variables";
+@import "../../../semantic/src/themes/default/globals/site.variables";
+@import "../../../semantic/src/themes/material/globals/site.variables";
+@import "app/site.variables";
+
 // Import bower components
 // --------------------------------------------------\
-// Bootstrap
-@import "lib/bootstrap/bootstrap.less";
 
 // FontAwesome
 @import "lib/font-awesome/font-awesome.less";
 
 // Libs and their overrides
 // --------------------------------------------------
-// Bootstrap variables and overrides
-@import "lib/bootstrap/custom.less";
-@import "lib/bootstrap/variables.less";
-
-// Angular
-@import "lib/angular/angular.less";
 
 // Font Awesome
 @import "lib/font-awesome/custom.less";
 @import "lib/font-awesome/variables.less";
-
-// Lato
-@import "lib/lato/variables.less";
 
 // NProgress
 @import "lib/nprogress/custom.less";
@@ -31,14 +26,12 @@
 // Messenger
 @import "lib/messenger/custom.less";
 
-// Common
-// --------------------------------------------------
-@import "common/forms.less";
-@import "common/tables.less";
-
-// Animation
-@import "animation/repeat.less";
+// Datepicker
+@import "lib/datepicker/datepicker.less";
 
 // Application
 // --------------------------------------------------
-@import "app/login.form.less";
+@import "app/container.less";
+@import "app/forms.less";
+@import "app/tables.less";
+@import "app/util.less";

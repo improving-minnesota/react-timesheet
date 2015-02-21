@@ -1,38 +1,30 @@
-/*global Messenger window */
+/*global window */
+// var Messenger = require('messenger');
+var _ = require('lodash');
 
-angular.module('notifications.services', [])
-  .factory('notifications', 
-    function () {
+function Notifications () {}
 
-      Messenger.options = {
-        extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
-      };
+Notifications.prototype.message = function (message, config) {
+  message.hideAfter = 3;
 
-      var notifications = {
+  if (!_.isUndefined(config) && _.isObject(config)) {
+    message = _.extend(message, config);
+  }
 
-        message : function (message, config) {
-          message.hideAfter = 3;
+  // types : success, error, info
+  // new Messenger().post(message);
+};
 
-          if (angular.isDefined(config) && angular.isObject(config)) {
-            message = angular.extend(message, config);
-          }
+Notifications.prototype.error = function (message, config) {
+  this.message({message: message, type: 'error', id: 'error-message'}, config);
+};
 
-          // types : success, error, info
-          new Messenger().post(message);
-        },
+Notifications.prototype.success = function (message, config) {
+  this.message({message: message, type: 'success', id: 'success-message'}, config);
+};
 
-        error : function (message, config) {
-          notifications.message({message: message, type: 'error', id: 'error-message'}, config);
-        },
+Notifications.prototype.info = function (message, config) {
+  this.message({message: message, type: 'info', id: 'info-message'}, config);
+};
 
-        success : function (message, config) {
-          notifications.message({message: message, type: 'success', id: 'success-message'}, config);
-        },
-
-        info: function (message, config) {
-          notifications.message({message: message, type: 'info', id: 'info-message'}, config);
-        }
-      };
-
-      return notifications;
-    });
+module.exports = new Notifications();

@@ -1,42 +1,68 @@
-var Q = require('q'),
-  bootable = require('bootable'),
-  express = require('express'),
-  http = require('http');
+var Hapi = require('hapi');
+var Good = require('good');
+var Path = require('path');
+var cookie = require('hapi-auth-cookie');
+var props = require('./properties');
 
-console.log("Booting Development Server");
+console.log('Booting Development Server');
 
-// Wrap express with bootable
-var app = bootable(express());
+var server = new Hapi.Server();
 
-// Add environement phases to configure express for the target environment
-app.phase(require('bootable-environment')('api/config/environments'));
-
-// Run the initializers
-app.phase(bootable.initializers('api/config/initializers'));
-
-// Serve the index.html from root
-app.get("/", function(req, res) {
-  return res.sendfile("assets/html/index.html", {root: __dirname + '/../client'});
+server.connection({
+  port: props.server.port,
+  host: 'localhost'
 });
 
-// Boot the application
-app.boot(function(err) {
-  if (err) { throw err; }
+// establish a session cache
+var cache = server.cache({
+  segment: 'sessions',
+  expiresIn: props.session.expires
+});
+server.app.cache = cache;
 
-  // Start the HTTP server
-  Q.fcall(function() {
-    var deferred = Q.defer();
-    http.createServer(app).listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-      deferred.resolve();
-    });
-    return deferred.promise;
-  })
-  // Then send the ready to any parent processes
-  .then(function() {
-    if (process.send) {
-      process.send({ status: 'ready' });
+// set up the view rendering
+server.views({
+  engines: {
+    jade: require('jade')
+  },
+  path: Path.join(__dirname, 'views')
+});
+
+// register the routes
+server.register([
+  require('./routes/file.route'),
+  require('./routes/auth.routes'),
+  require('./routes/projects.routes'),
+  require('./routes/users.routes'),
+  require('./routes/index.route')
+
+], function (err) {
+  if (err) console.log('Error registering routes: ' + err);
+});
+
+
+// Setup security session and cookie
+server.register(cookie, function (err) {
+
+  server.auth.strategy('session', 'cookie', true, {
+    password: props.security.cookieSecret,
+    isSecure: false,
+    validateFunc: function (session, callback) {
+
+      cache.get(session.sid, function (err, cached) {
+
+        if (err || !cached) {
+          return callback(err, false);
+        }
+
+        return callback(null, true, cached.user)
+      })
     }
   });
-  
 });
+
+// seed the database
+require('./services/data').init();
+
+// start em up
+server.start();

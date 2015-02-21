@@ -1,0 +1,198 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/opt/nvm/v0.10.33/bin/node',
+1 verbose cli   '/usr/local/opt/nvm/v0.10.33/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save',
+1 verbose cli   'es6-promise' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink /usr/local/opt/nvm/v0.10.33/bin/node
+5 warn package.json timesheetz@0.0.1 No repository field.
+6 warn package.json tether@0.6.5 No repository field.
+7 verbose readDependencies using package.json deps
+8 verbose cache add [ 'es6-promise', null ]
+9 verbose cache add name=undefined spec="es6-promise" args=["es6-promise",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'es6-promise',
+10 verbose parsed url   path: 'es6-promise',
+10 verbose parsed url   href: 'es6-promise' }
+11 silly lockFile 622dc92c-es6-promise es6-promise
+12 verbose lock es6-promise /Users/brucecoddington/.npm/622dc92c-es6-promise.lock
+13 silly lockFile 622dc92c-es6-promise es6-promise
+14 silly lockFile 622dc92c-es6-promise es6-promise
+15 verbose addNamed [ 'es6-promise', '' ]
+16 verbose addNamed [ null, '*' ]
+17 silly lockFile bac4a9a6-es6-promise es6-promise@
+18 verbose lock es6-promise@ /Users/brucecoddington/.npm/bac4a9a6-es6-promise.lock
+19 silly addNameRange { name: 'es6-promise', range: '*', hasData: false }
+20 verbose request where is /es6-promise
+21 verbose request registry https://registry.npmjs.org/
+22 verbose request id eb9e2660e183e51b
+23 verbose url raw /es6-promise
+24 verbose url resolving [ 'https://registry.npmjs.org/', './es6-promise' ]
+25 verbose url resolved https://registry.npmjs.org/es6-promise
+26 verbose request where is https://registry.npmjs.org/es6-promise
+27 info trying registry request attempt 1 at 12:42:58
+28 verbose etag "7CILOQ5J8HAQGNBNYA6UPFU7Y"
+29 http GET https://registry.npmjs.org/es6-promise
+30 http 304 https://registry.npmjs.org/es6-promise
+31 silly registry.get cb [ 304,
+31 silly registry.get   { date: 'Sat, 21 Feb 2015 18:42:59 GMT',
+31 silly registry.get     server: 'Apache',
+31 silly registry.get     via: '1.1 varnish',
+31 silly registry.get     'last-modified': 'Sat, 21 Feb 2015 18:42:59 GMT',
+31 silly registry.get     'cache-control': 'max-age=60',
+31 silly registry.get     etag: '"7CILOQ5J8HAQGNBNYA6UPFU7Y"',
+31 silly registry.get     age: '0',
+31 silly registry.get     'x-served-by': 'cache-dfw1823-DFW',
+31 silly registry.get     'x-cache': 'MISS',
+31 silly registry.get     'x-cache-hits': '0',
+31 silly registry.get     'x-timer': 'S1424544179.009773,VS0,VE252',
+31 silly registry.get     vary: 'Accept',
+31 silly registry.get     'content-length': '0',
+31 silly registry.get     'keep-alive': 'timeout=10, max=50',
+31 silly registry.get     connection: 'Keep-Alive' } ]
+32 verbose etag https://registry.npmjs.org/es6-promise from cache
+33 silly addNameRange number 2 { name: 'es6-promise', range: '*', hasData: true }
+34 silly addNameRange versions [ 'es6-promise',
+34 silly addNameRange   [ '0.1.0', '0.1.1', '0.1.2', '1.0.0', '2.0.0', '2.0.1' ] ]
+35 verbose addNamed [ 'es6-promise', '2.0.1' ]
+36 verbose addNamed [ '2.0.1', '2.0.1' ]
+37 silly lockFile 4db94e4b-es6-promise-2-0-1 es6-promise@2.0.1
+38 verbose lock es6-promise@2.0.1 /Users/brucecoddington/.npm/4db94e4b-es6-promise-2-0-1.lock
+39 silly lockFile 4db94e4b-es6-promise-2-0-1 es6-promise@2.0.1
+40 silly lockFile 4db94e4b-es6-promise-2-0-1 es6-promise@2.0.1
+41 silly lockFile bac4a9a6-es6-promise es6-promise@
+42 silly lockFile bac4a9a6-es6-promise es6-promise@
+43 silly resolved [ { name: 'es6-promise',
+43 silly resolved     namespace: 'es6-promise',
+43 silly resolved     version: '2.0.1',
+43 silly resolved     description: 'A lightweight library that provides tools for organizing asynchronous code',
+43 silly resolved     main: 'dist/es6-promise.js',
+43 silly resolved     directories: { lib: 'lib' },
+43 silly resolved     devDependencies:
+43 silly resolved      { bower: '^1.3.9',
+43 silly resolved        brfs: '0.0.8',
+43 silly resolved        'broccoli-closure-compiler': '^0.2.0',
+43 silly resolved        'broccoli-compile-modules': 'git+https://github.com/eventualbuddha/broccoli-compile-modules',
+43 silly resolved        'broccoli-concat': '0.0.7',
+43 silly resolved        'broccoli-es3-safe-recast': '0.0.8',
+43 silly resolved        'broccoli-file-mover': '^0.4.0',
+43 silly resolved        'broccoli-jshint': '^0.5.1',
+43 silly resolved        'broccoli-merge-trees': '^0.1.4',
+43 silly resolved        'broccoli-static-compiler': '^0.1.4',
+43 silly resolved        'broccoli-string-replace': '0.0.1',
+43 silly resolved        browserify: '^4.2.0',
+43 silly resolved        'ember-cli': '0.0.40',
+43 silly resolved        'ember-publisher': '0.0.7',
+43 silly resolved        'es6-module-transpiler-amd-formatter': '0.0.1',
+43 silly resolved        express: '^4.5.0',
+43 silly resolved        jshint: '~0.9.1',
+43 silly resolved        mkdirp: '^0.5.0',
+43 silly resolved        mocha: '^1.20.1',
+43 silly resolved        'promises-aplus-tests': 'git://github.com/stefanpenner/promises-tests.git',
+43 silly resolved        'release-it': '0.0.10',
+43 silly resolved        testem: '^0.6.17',
+43 silly resolved        json3: '^3.3.2' },
+43 silly resolved     scripts:
+43 silly resolved      { test: 'testem ci -R dot',
+43 silly resolved        'test-server': 'testem',
+43 silly resolved        lint: 'jshint lib',
+43 silly resolved        prepublish: 'ember build --environment production',
+43 silly resolved        aplus: 'browserify test/main.js',
+43 silly resolved        'build-all': 'ember build --environment production && browserify ./test/main.js -o tmp/test-bundle.js',
+43 silly resolved        'dry-run-release': 'ember build --environment production && release-it --dry-run --non-interactive' },
+43 silly resolved     repository:
+43 silly resolved      { type: 'git',
+43 silly resolved        url: 'git://github.com/jakearchibald/ES6-Promises.git' },
+43 silly resolved     bugs: { url: 'https://github.com/jakearchibald/ES6-Promises/issues' },
+43 silly resolved     keywords: [ 'promises', 'futures' ],
+43 silly resolved     author:
+43 silly resolved      { name: 'Yehuda Katz, Tom Dale, Stefan Penner and contributors',
+43 silly resolved        url: 'Conversion to ES6 API by Jake Archibald' },
+43 silly resolved     license: 'MIT',
+43 silly resolved     homepage: 'https://github.com/jakearchibald/ES6-Promises',
+43 silly resolved     _id: 'es6-promise@2.0.1',
+43 silly resolved     dist:
+43 silly resolved      { shasum: 'ccc4963e679f0ca9fb187c777b9e583d3c7573c2',
+43 silly resolved        tarball: 'http://registry.npmjs.org/es6-promise/-/es6-promise-2.0.1.tgz' },
+43 silly resolved     _from: 'es6-promise@',
+43 silly resolved     _npmVersion: '1.3.24',
+43 silly resolved     _npmUser: { name: 'jaffathecake', email: 'jaffathecake@gmail.com' },
+43 silly resolved     maintainers: [ [Object] ],
+43 silly resolved     _shasum: 'ccc4963e679f0ca9fb187c777b9e583d3c7573c2',
+43 silly resolved     _resolved: 'https://registry.npmjs.org/es6-promise/-/es6-promise-2.0.1.tgz',
+43 silly resolved     readme: 'ERROR: No README data found!' } ]
+44 info install es6-promise@2.0.1 into /Users/brucecoddington/dev/adaptive/reactive-timesheet
+45 info installOne es6-promise@2.0.1
+46 verbose node_modules/es6-promise unbuild
+47 verbose tar unpack /Users/brucecoddington/.npm/es6-promise/2.0.1/package.tgz
+48 silly lockFile a92bb911-mesheet-node-modules-es6-promise tar:///Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise
+49 verbose lock tar:///Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise /Users/brucecoddington/.npm/a92bb911-mesheet-node-modules-es6-promise.lock
+50 silly lockFile 37970a5f-pm-es6-promise-2-0-1-package-tgz tar:///Users/brucecoddington/.npm/es6-promise/2.0.1/package.tgz
+51 verbose lock tar:///Users/brucecoddington/.npm/es6-promise/2.0.1/package.tgz /Users/brucecoddington/.npm/37970a5f-pm-es6-promise-2-0-1-package-tgz.lock
+52 silly gunzTarPerm modes [ '755', '644' ]
+53 silly gunzTarPerm extractEntry package.json
+54 silly gunzTarPerm extractEntry README.md
+55 silly gunzTarPerm extractEntry LICENSE
+56 silly gunzTarPerm extractEntry Brocfile.js
+57 silly gunzTarPerm extractEntry bower.json
+58 silly gunzTarPerm extractEntry bin/publish_to_s3.js
+59 silly gunzTarPerm extractEntry .release.json
+60 silly gunzTarPerm extractEntry config/s3ProjectConfig.js
+61 silly gunzTarPerm extractEntry config/versionTemplate.txt
+62 silly gunzTarPerm extractEntry dist/es6-promise.js
+63 silly gunzTarPerm extractEntry dist/es6-promise.min.js
+64 silly gunzTarPerm extractEntry lib/calculateVersion.js
+65 silly gunzTarPerm extractEntry lib/es6-promise.umd.js
+66 silly gunzTarPerm extractEntry lib/es6-promise/-internal.js
+67 silly gunzTarPerm extractEntry lib/es6-promise/asap.js
+68 silly gunzTarPerm extractEntry lib/es6-promise/enumerator.js
+69 silly gunzTarPerm extractEntry lib/es6-promise/polyfill.js
+70 silly gunzTarPerm extractEntry lib/es6-promise/promise.js
+71 silly gunzTarPerm extractEntry lib/es6-promise/utils.js
+72 silly gunzTarPerm extractEntry lib/es6-promise/promise/all.js
+73 silly gunzTarPerm extractEntry lib/es6-promise/promise/race.js
+74 silly gunzTarPerm extractEntry lib/es6-promise/promise/reject.js
+75 silly gunzTarPerm extractEntry lib/es6-promise/promise/resolve.js
+76 silly gunzTarPerm extractEntry CHANGELOG.md
+77 silly gunzTarPerm extractEntry server/index.js
+78 silly gunzTarPerm extractEntry server/.jshintrc
+79 silly gunzTarPerm extractEntry testem.json
+80 silly lockFile a92bb911-mesheet-node-modules-es6-promise tar:///Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise
+81 silly lockFile a92bb911-mesheet-node-modules-es6-promise tar:///Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise
+82 silly lockFile 37970a5f-pm-es6-promise-2-0-1-package-tgz tar:///Users/brucecoddington/.npm/es6-promise/2.0.1/package.tgz
+83 silly lockFile 37970a5f-pm-es6-promise-2-0-1-package-tgz tar:///Users/brucecoddington/.npm/es6-promise/2.0.1/package.tgz
+84 info preinstall es6-promise@2.0.1
+85 verbose readDependencies using package.json deps
+86 verbose readDependencies using package.json deps
+87 silly resolved []
+88 verbose about to build /Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise
+89 info build /Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules/es6-promise
+90 verbose linkStuff [ false,
+90 verbose linkStuff   false,
+90 verbose linkStuff   false,
+90 verbose linkStuff   '/Users/brucecoddington/dev/adaptive/reactive-timesheet/node_modules' ]
+91 info linkStuff es6-promise@2.0.1
+92 verbose linkBins es6-promise@2.0.1
+93 verbose linkMans es6-promise@2.0.1
+94 verbose rebuildBundles es6-promise@2.0.1
+95 info install es6-promise@2.0.1
+96 info postinstall es6-promise@2.0.1
+97 error peerinvalid The package gulp-watch does not satisfy its siblings' peerDependencies requirements!
+97 error peerinvalid Peer semantic-ui@1.9.3 wants gulp-watch@2.*
+98 error System Darwin 14.0.0
+99 error command "/usr/local/opt/nvm/v0.10.33/bin/node" "/usr/local/opt/nvm/v0.10.33/bin/npm" "install" "--save" "es6-promise"
+100 error cwd /Users/brucecoddington/dev/adaptive/reactive-timesheet
+101 error node -v v0.10.33
+102 error npm -v 1.4.28
+103 error code EPEERINVALID
+104 verbose exit [ 1, true ]

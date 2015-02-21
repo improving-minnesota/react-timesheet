@@ -1,29 +1,17 @@
-angular.module('main', [
-  'templates-main',
-  'templates-lib',
-  'app',
-  'form.directives',
-  'date.filters',
-  'progress.interceptors',
-  'security.interceptors',
-  'ui.select2',
-  'ui.bootstrap.dateparser',
-  'ui.bootstrap.datepicker',
-  'ui.bootstrap.pagination',
-  'ui.bootstrap.buttons',
-  'ngSanitize',
-  'ngAnimate',
-  'ui.router'
-])
+window.$ = window.jQuery = require('jquery');
+require('../../semantic/dist/semantic');
 
-.config(function ($urlRouterProvider) {
-  $urlRouterProvider.otherwise("/app/projects");
-})
+var React = window.React = require('react/addons');
+var Router = require('react-router');
+var routes = require('./routes');
+var LoginStore = require('./stores/login.store');
 
-.run(function ($log, $state, $rootScope, $stateParams) {
-  // putting state into $rootScope so that these services are available in views
-  $rootScope.$state = $state;
-  $rootScope.$stateParams = $stateParams;
-  
-  $log.info("Application running.");
-});
+// Attempt to get a current user session
+LoginStore.current()
+  .then(function () {
+
+    // initialize the router and its routes
+    Router.run(routes, function (Handler) {
+      React.render(<Handler />, document.getElementById('app'));
+    });
+  });

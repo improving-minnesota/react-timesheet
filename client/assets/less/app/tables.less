@@ -1,0 +1,60 @@
+// Apply a pointer cursor to every table row
+.tsz-table-row-cursor {
+  tbody {
+    tr {
+      cursor: pointer;
+    }
+  }
+}
+
+// Limit the width of the delete button in the table
+.tsz-table-delete-column {
+  width: 5%;
+}
+
+// Used to fade the text of a role (deleted, etc.)
+.fadeable-row {
+  &.faded {
+    color: @lightGrey;
+    cursor: not-allowed;
+    [class*=" icon-"] {
+      display: none;
+    }
+  }
+}
+
+//Make the table horizontally scrollable at small page widths
+@media (max-width: @tabletBreakpoint) {
+  .tsz-responsive-table-container {
+    border-left: 1px solid @borderColor;
+    border-right: 1px solid @borderColor;
+    overflow-x: scroll;
+
+    table {
+      margin-bottom: 0;
+      tbody {
+        white-space: nowrap;
+      }
+    }
+    .table-bordered {
+      border-left: none;
+      border-right: none;
+      >thead>tr {
+        th:first-child {
+          border-left: none;
+        }
+        th:last-child {
+          border-right: none;
+        }
+      }
+      >tbody>tr {
+        td:first-child {
+          border-left: none;
+        }
+        td:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+}

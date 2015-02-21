@@ -1,0 +1,24 @@
+html(class="no-js")
+  head
+    base(href="/")
+    title Timesheetz
+
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1")
+    meta(name="description", content="Timesheet Demo Application")
+
+    - if (env == 'production')
+      link(href="/assets/css/style.min.css", rel="stylesheet", type="text/css")
+    - else
+      link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
+
+  body
+    .tsz-page-container.ui.padded
+      div(id="app")
+
+    case env
+      when 'production'
+        script(src="assets/js/app.min.js")
+
+      default
+        script(src="assets/js/app.js")
