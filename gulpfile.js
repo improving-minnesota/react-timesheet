@@ -54,13 +54,13 @@ gulp.task('debug', shell.task([pkg.scripts.debug]));
 // setup the global watches
 gulp.task('watch:dev', function () {
   gulp.watch([client('/less/**/*.less')], ['concat:css']);
-  gulp.watch(['./semantic-ui/src/**/*'], ['build:css']);
+  gulp.watch(['./semantic/src/**/*'], ['build:css']);
   gulp.start('dev');
 });
 
 gulp.task('watch:prod', function () {
   gulp.watch([client('/less/**/*.less')], ['concat:css']);
-  gulp.watch(['./semantic-ui/src/**/*'], ['build:css']);
+  gulp.watch(['./semantic/src/**/*'], ['build:css']);
   gulp.watch([dist('/js/app.js')], ['uglify']);
   gulp.start('prod');
 });
@@ -126,24 +126,24 @@ gulp.task('copy:assets', ['clean:assets'], function () {
 
 // semantic ui tasks
 gulp.task('semantic:copy', function (cb) {
-  var src = gulp.src('./node_modules/semantic-ui/src/**')
-    .pipe(gulp.dest('./semantic-ui/src'));
+  var src = gulp.src('./node_modules/semantic/src/**')
+    .pipe(gulp.dest('./semantic/src'));
 
-  var tasks = gulp.src('./node_modules/semantic-ui/tasks/**')
-    .pipe(gulp.dest('./semantic-ui/tasks'));
+  var tasks = gulp.src('./node_modules/semantic/tasks/**')
+    .pipe(gulp.dest('./semantic/tasks'));
 
   var files = gulp.src([
-    './node_modules/semantic-ui/gulpfile.js',
-    './node_modules/semantic-ui/package.json',
-    './node_modules/semantic-ui/semantic.json.example'
+    './node_modules/semantic/gulpfile.js',
+    './node_modules/semantic/package.json',
+    './node_modules/semantic/semantic.json.example'
   ])
-    .pipe(gulp.dest('./semantic-ui'));
+    .pipe(gulp.dest('./semantic'));
 
   return merge(src, tasks, files);
 });
 
-gulp.task('semantic:install', ['semantic:copy'], shell.task(['cd semantic-ui && npm install && gulp install']));
-gulp.task('semantic:build',   shell.task(['cd semantic-ui && gulp build']));
+gulp.task('semantic:install', ['semantic:copy'], shell.task(['cd semantic && npm install && gulp install']));
+gulp.task('semantic:build',   shell.task(['cd semantic && gulp build']));
 
 // Compile and concatenate less into css
 gulp.task('clean:css', function (cb) {
@@ -165,7 +165,7 @@ gulp.task('concat:css', ['less'], function () {
   return gulp.src([
       './node_modules/select2/select2.css',
       './node_modules/nprogress/nprogress.css',
-      './semantic-ui/dist/semantic.css',
+      './semantic/dist/semantic.css',
       dist('/css/style.css')
     ])
     .pipe(concat('style.css'))

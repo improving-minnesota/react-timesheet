@@ -31,6 +31,6 @@ api/data/db/*
 
 .bower-tmp/*
 
-semantic-ui/dist/*
+semantic/dist/*
 
-semantic-ui/node_modules/*
+semantic/node_modules/*
