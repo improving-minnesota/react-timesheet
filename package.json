@@ -26,7 +26,9 @@
     ]
   },
   "dependencies": {
+    "es6-promise": "^2.0.1",
     "flux": "^2.0.1",
+    "font-awesome": "^4.3.0",
     "hapi-auth-basic": "^2.0.0",
     "jade": "^1.9.2",
     "joi": "^5.1.0",
@@ -38,9 +40,11 @@
     "open": "0.0.5",
     "q": "^1.1.2",
     "react": "^0.12.2",
+    "react-growl": "^0.1.2",
+    "react-paginate": "^0.1.11",
     "react-router": "^0.12.0",
+    "react-select": "^0.3.2",
     "request": "^2.53.0",
-    "select2": "^3.5.2-browserify",
     "semantic-ui": "^1.9.3",
     "superagent": "^0.21.0",
     "tether": "^0.6.5",

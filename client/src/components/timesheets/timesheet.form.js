@@ -32,7 +32,7 @@ var TimesheetForm = React.createClass({
 
   render : function () {
     return (
-      <div className="ui ten column centered grid">
+      <div className="ui centered grid">
         <div className="fourteen wide column">
           <form className="ui inline form" name="timesheetForm" onSubmit={this.props.onSave}>
             <div className="two fields">

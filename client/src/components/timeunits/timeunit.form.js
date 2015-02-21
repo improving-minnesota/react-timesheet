@@ -4,7 +4,7 @@ var Router = require('react-router');
 
 var FieldWrap = require('../common/field.wrap');
 var DatePicker = require('../common/datepicker/datepicker');
-var Select2 = require('../common/select2');
+var Select = require('react-select');
 var TextInput = require('../common/text.input');
 var NumberInput = require('../common/number.input');
 var SaveButton = require('../common/save.button');
@@ -18,9 +18,9 @@ var TimeunitForm = React.createClass({
   ],
 
   options: [
-    {key: 'project1', value: 'project1', label: 'Project 1'},
-    {key: 'project2', value: 'project2', label: 'Project 2'},
-    {key: 'project3', value: 'project3', label: 'Project 3'}
+    {value: 'project1', label: 'Project 1'},
+    {value: 'project2', label: 'Project 2'},
+    {value: 'project3', label: 'Project 3'}
   ],
 
   onCancel: function (event) {
@@ -30,12 +30,6 @@ var TimeunitForm = React.createClass({
 
   render : function () {
 
-    var projectOptions = this.options.map(function (option) {
-      return (
-        <option value={option.value} key={option.key}>{option.label}</option>
-      );
-    });
-
     return (
       <div className="ui ten column centered grid">
         <div className="ten wide column">
@@ -43,13 +37,12 @@ var TimeunitForm = React.createClass({
             <FieldWrap inputId="timeunit-project" label="Project"
               error={this.props.errors.project}
               formField={
-                <Select2 name="project"
+                <Select name="project"
                   value={this.props.timeunit.project}
                   placeholder="Select Project"
                   onChange={this.props.onChange}
-                  error={this.props.errors.project}>
-                  {projectOptions}
-                </Select2>
+                  error={this.props.errors.project}
+                  options={this.options} />
             }/>
 
             <FieldWrap inputId="timeunit-dateWorked" label="Date"

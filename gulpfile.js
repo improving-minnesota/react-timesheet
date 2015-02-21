@@ -163,7 +163,6 @@ gulp.task('less', ['clean:css'], function () {
 // Compile and concatenate less into css
 gulp.task('concat:css', ['less'], function () {
   return gulp.src([
-      './node_modules/select2/select2.css',
       './node_modules/nprogress/nprogress.css',
       './semantic/dist/semantic.css',
       dist('/css/style.css')
