@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react/addons');
 var Router = require('react-router');
 
 var LoginActions = require('../../actions/login.actions');
@@ -24,7 +24,7 @@ var LoginForm = React.createClass({
     this.setState(this.state.credentials);
   },
 
-  login: function (event) {
+  handleSubmit: function (event) {
     event.preventDefault();
     LoginActions.login(this.state.credentials);
   },
@@ -47,7 +47,7 @@ var LoginForm = React.createClass({
 
         <div className="centered row">
           <div className="center aligned eight wide column">
-            <form className="ui form" name="loginForm" onSubmit={this.login}>
+            <form className="ui form" name="loginForm" onSubmit={this.handleSubmit}>
               <div className="inline field">
                 <label htmlFor="login">Username</label>
                 <input type="text"

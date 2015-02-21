@@ -1,7 +1,7 @@
 window.$ = window.jQuery = require('jquery');
 require('../../semantic/dist/semantic');
 
-var React = window.React = require('react');
+var React = window.React = require('react/addons');
 var Router = require('react-router');
 var routes = require('./routes');
 var LoginStore = require('./stores/login.store');

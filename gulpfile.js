@@ -115,7 +115,7 @@ gulp.task('clean:assets', function (cb) {
 });
 
 gulp.task('copy:assets', ['clean:assets'], function () {
-  var fa = gulp.src(client('/js/font-awesome/fonts/**'))
+  var fa = gulp.src('./node_modules/font-awesome/fonts/**')
     .pipe(gulp.dest(dist('/font/font-awesome')));
 
   var img = gulp.src(client('/img/**'))
