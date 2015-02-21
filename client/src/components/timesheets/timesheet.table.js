@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var TimesheetRow = require('./timesheet.row');
 

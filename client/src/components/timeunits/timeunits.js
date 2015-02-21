@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var Router = require('react-router');
 var _ = require('lodash');
@@ -50,20 +48,19 @@ var Timeunits = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <div tsz-form-section-header header="Time Units">
-          <div className="row">
+      <div className="ui grid">
+        <div className="two column row">
+          <div className="column">
+            <h4 className="ui pad-bottom pad-top hard">Time Units</h4>
+          </div>
+          <div className="column">
             <button type="button" className="ui right floated primary button"
               onClick={this.logTime}>Log Time</button>
           </div>
         </div>
 
-        <div className="row">
-          <div className="sixteen wide column">
-            <div className="tsz-responsive-table-container">
-              <TimeunitTable timeunits={this.state.timeunits} timesheet={this.props.timesheet}/>
-            </div>
-          </div>
+        <div className="sixteen wide column">
+          <TimeunitTable timeunits={this.state.timeunits} timesheet={this.props.timesheet}/>
         </div>
       </div>
     );

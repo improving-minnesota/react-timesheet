@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var Router = require('react-router');
 var moment = require('moment');
@@ -78,8 +76,6 @@ var TimesheetForm = React.createClass({
               }/>
 
             </div>
-
-            <Separator />
 
             <div className="ui sixteen column right floated grid">
               <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
