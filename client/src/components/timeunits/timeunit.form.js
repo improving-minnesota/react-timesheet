@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var moment = require('moment');
 var React = require('react/addons');
 var Router = require('react-router');

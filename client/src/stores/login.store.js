@@ -61,10 +61,6 @@ var LoginStore = _.extend(_.clone(Store), {
     }
   },
 
-  showLogin: function () {
-    window.location.assign('/#/login');
-  },
-
   login: function (payload) {
     var self = this;
 
@@ -126,10 +122,9 @@ var LoginStore = _.extend(_.clone(Store), {
       }
     }, 200);
 
-    if (!self.getState().authenticated) {
-      transition.wait(deferred.promise);
+    if (!self.getState().authenticated && transition.path !== '/login') {
       self.setState({pausedTransition: transition});
-      self.showLogin();
+      transition.redirect('/login');
     }
 
     return deferred.promise;

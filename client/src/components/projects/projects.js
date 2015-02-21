@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var Router = require('react-router');
 
@@ -33,6 +31,7 @@ var Projects = React.createClass({
   },
 
   render: function () {
+
     return (
       <div>
         <div className="one column row">

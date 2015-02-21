@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('React');
 var Router = require('react-router');
 
@@ -76,12 +74,3 @@ var LoginForm = React.createClass({
 });
 
 module.exports = LoginForm;
-
-//     // The reason that we are being asked to login - for instance because we tried to access something to which we are not authorized
-//     // We could do something diffent for each reason here but to keep it simple...
-//     $scope.authReason = null;
-//     if ( authentication.getLoginReason() ) {
-//       $scope.authReason = ( securityContext.authenticated ) ?
-//         "You are not authorized to perform this action." : "";
-//     }
-//

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var _ = require('lodash');
 var Router = require('react-router');
@@ -52,15 +50,18 @@ var NavBar = React.createClass({
     var activeRoutes = _.pluck(this.getRoutes(), 'name').join('.').split('.');
 
     var projectsClasses = cx({
-      active: _.contains(activeRoutes, 'projects')
+      active: _.contains(activeRoutes, 'projects'),
+      item: true
     });
 
     var employeesClasses = cx({
-      active: _.contains(activeRoutes, 'employees')
+      active: _.contains(activeRoutes, 'employees'),
+      item: true
     });
 
     var timesheetsClasses = cx({
-      active: _.contains(activeRoutes, 'timesheets')
+      active: _.contains(activeRoutes, 'timesheets'),
+      item: true
     });
 
     return (
@@ -69,9 +70,9 @@ var NavBar = React.createClass({
           <i className="fa fa-clock-o fa-lg"/> {this.state.title}
         </a>
 
-        <Link className="item" to="projects">Projects</Link>
-        <Link className="item" to="employees">Employees</Link>
-        <Link className="item" to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
+        <Link className={projectsClasses} to="projects">Projects</Link>
+        <Link className={employeesClasses} to="employees">Employees</Link>
+        <Link className={timesheetsClasses} to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
 
         <a className="right menu item logout" onClick={this.logout}>
           <i className="fa fa-power-off"/> Logout

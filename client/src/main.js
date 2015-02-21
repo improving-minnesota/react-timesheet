@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 window.$ = window.jQuery = require('jquery');
 require('../../semantic/dist/semantic');
 

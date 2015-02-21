@@ -1,10 +1,6 @@
 /*global window */
-var Messenger = require('messenger');
+// var Messenger = require('messenger');
 var _ = require('lodash');
-
-Messenger.options = {
-  extraClasses: 'messenger-fixed messenger-on-top messenger-on-right'
-};
 
 function Notifications () {}
 
@@ -16,7 +12,7 @@ Notifications.prototype.message = function (message, config) {
   }
 
   // types : success, error, info
-  new Messenger().post(message);
+  // new Messenger().post(message);
 };
 
 Notifications.prototype.error = function (message, config) {

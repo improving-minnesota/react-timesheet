@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var Router = require('react-router');
 var _ = require('lodash');

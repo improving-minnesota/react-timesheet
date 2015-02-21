@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var $ = require('jquery');
 var s2 = require('select2');

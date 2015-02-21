@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var moment = require('moment');
 var DateUtil = require('./date.util');
 
