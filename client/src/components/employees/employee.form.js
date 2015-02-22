@@ -63,10 +63,12 @@ var EmployeeForm = React.createClass({
             }/>
 
             <FieldWrap inputId="admin" label="Admin" formField={
-              <button type="button" className="btn btn-primary"
-                onClick={this.props.toggleAdmin}>
-                  {yesNo(this.props.employee.admin)}
-              </button>
+              <div className="ui toggle checkbox" onClick={this.props.toggleAdmin}>
+                <input type="checkbox" name="admin"
+                  checked={this.props.employee.admin}
+                  onChange={this.props.validate} />
+                <label htmlFor="admin">{yesNo(this.props.employee.admin)}</label>
+              </div>
             }/>
 
             <Separator />
