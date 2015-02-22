@@ -127,7 +127,7 @@ var DateInput = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="datepicker-input">
         <div className="ui inline field">
           <input
             ref="input"
@@ -137,9 +137,8 @@ var DateInput = React.createClass({
             onClick={this.handleClick}
             onKeyDown={this.handleKeyDown}
             onFocus={this.props.onFocus}
-            onChange={this.handleChange}
-            className="" />
-          <span className="six wide column">
+            onChange={this.handleChange} />
+          <span>
             <button className="ui secondary button" onClick={this.handleButtonClick}>
               <i className="fa fa-fw fa-calendar"></i>
             </button>

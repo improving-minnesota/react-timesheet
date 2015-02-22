@@ -65,7 +65,7 @@ var NavBar = React.createClass({
     });
 
     return (
-      <div className="ui menu fluid">
+      <div className="ui fixed menu fluid">
         <a className="header item" href="#">
           <i className="fa fa-clock-o fa-lg"/> {this.state.title}
         </a>
