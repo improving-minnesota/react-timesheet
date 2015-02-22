@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var Day = require('./day');
 var DateUtil = require('./date.util');
 

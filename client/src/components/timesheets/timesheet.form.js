@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react/addons');
 var Router = require('react-router');
 var moment = require('moment');
@@ -34,7 +32,7 @@ var TimesheetForm = React.createClass({
 
   render : function () {
     return (
-      <div className="ui ten column centered grid">
+      <div className="ui centered grid">
         <div className="fourteen wide column">
           <form className="ui inline form" name="timesheetForm" onSubmit={this.props.onSave}>
             <div className="two fields">
@@ -78,8 +76,6 @@ var TimesheetForm = React.createClass({
               }/>
 
             </div>
-
-            <Separator />
 
             <div className="ui sixteen column right floated grid">
               <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />

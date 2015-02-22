@@ -1,11 +1,13 @@
-// Import variables
-@import "../../../semantic/src/site/globals/site.variables";
-@import "../../../semantic/src/themes/default/globals/site.variables";
-@import "../../../semantic/src/themes/material/globals/site.variables";
-@import "app/site.variables";
+@node-modules: "../../../node_modules";
+@semantic-home: "../../../semantic/src";
 
-// Import bower components
-// --------------------------------------------------\
+// Import semantic ui variables
+@import "@{semantic-home}/site/globals/site.variables";
+@import "@{semantic-home}/themes/default/globals/site.variables";
+@import "@{semantic-home}/themes/material/globals/site.variables";
+
+// import site variables
+@import "app/site.variables";
 
 // FontAwesome
 @import "lib/font-awesome/font-awesome.less";
@@ -13,18 +15,15 @@
 // Libs and their overrides
 // --------------------------------------------------
 
+// React Select
+@import "lib/select/custom.less";
+
 // Font Awesome
 @import "lib/font-awesome/custom.less";
 @import "lib/font-awesome/variables.less";
 
 // NProgress
 @import "lib/nprogress/custom.less";
-
-// Select 2
-@import "lib/select2/custom.less";
-
-// Messenger
-@import "lib/messenger/custom.less";
 
 // Datepicker
 @import "lib/datepicker/datepicker.less";

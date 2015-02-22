@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var Popover   = require('./popover');
 var DateUtil  = require('./date.util');
 var Calendar  = require('./calendar');
