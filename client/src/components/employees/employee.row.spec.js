@@ -7,6 +7,6 @@ describe('Employee Row Component: ', function () {
   });
 
   it('should instantiate the EmployeeRow', function () {
-    // expect(EmployeeRow).toBeDefined();
+    // expect(EmployeeRow).to.be.defined;
   });
 });

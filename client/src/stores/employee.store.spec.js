@@ -7,6 +7,6 @@ describe('Employee Store: ', function () {
   });
 
   it('should instantiate the EmployeeStore', function () {
-    //expect(EmployeeStore).toBeDefined();
+    //expect(EmployeeStore).to.be.defined;
   });
 });

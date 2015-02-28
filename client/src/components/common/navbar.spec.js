@@ -7,6 +7,6 @@ describe('Navbar Component: ', function () {
   });
 
   it('should instantiate the Navbar', function () {
-    expect(Navbar).toBeDefined();
+    expect(Navbar).to.be.defined;
   });
 });

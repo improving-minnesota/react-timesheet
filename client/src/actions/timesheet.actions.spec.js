@@ -7,6 +7,6 @@ describe('Timesheet actions: ', function () {
   });
 
   it('should instantiate the TimesheetActions', function () {
-    expect(TimesheetActions).toBeDefined();
+    expect(TimesheetActions).to.be.defined;
   });
 });

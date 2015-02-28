@@ -7,6 +7,6 @@ describe('Project Row Component: ', function () {
   });
 
   it('should instantiate the ProjectRow', function () {
-    // expect(ProjectRow).toBeDefined();
+    // expect(ProjectRow).to.be.defined;
   });
 });

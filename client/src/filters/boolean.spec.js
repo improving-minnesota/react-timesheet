@@ -7,7 +7,7 @@ describe('Boolean filter: ', function () {
   });
 
   it('should instantiate the BooleanFilter', function () {
-    expect(BooleanFilter).toBeDefined();
+    expect(BooleanFilter).to.be.defined;
   });
 });
 

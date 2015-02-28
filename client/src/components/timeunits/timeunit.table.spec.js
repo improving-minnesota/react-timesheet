@@ -7,6 +7,6 @@ describe('Timeunit Table Component: ', function () {
   });
 
   it('should instantiate the TimeunitTable', function () {
-    // expect(TimeunitTable).toBeDefined();
+    // expect(TimeunitTable).to.be.defined;
   });
 });

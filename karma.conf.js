@@ -15,6 +15,7 @@ module.exports = function(config) {
       '../../node_modules/chai/chai.js',
       '../../node_modules/sinon-chai/lib/sinon-chai.js',
       '../../node_modules/sinon/pkg/sinon.js',
+      '../../config/test.globals.js',
 
       '**/*.spec.js'
     ],
@@ -33,7 +34,8 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      transform: [ 'reactify' ]
+      transform: [ 'reactify' ],
+      extensions: ['.js', '.jsx']
     },
 
 
@@ -53,7 +55,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_DEBUG,
+    logLevel: config.LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes

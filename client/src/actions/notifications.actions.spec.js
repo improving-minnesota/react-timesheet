@@ -1,5 +1,4 @@
 describe('Notifications Actions Component: ', function () {
-
   var NotificationsActions;
 
   beforeEach(function () {
@@ -7,6 +6,6 @@ describe('Notifications Actions Component: ', function () {
   });
 
   it('should instantiate the NotificationsActions', function () {
-    expect(NotificationsActions).toBeDefined();
+    expect(NotificationsActions).to.be.defined;
   });
 });

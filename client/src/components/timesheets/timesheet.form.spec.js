@@ -7,6 +7,6 @@ describe('Timesheet Form Component: ', function () {
   });
 
   it('should instantiate the TimesheetForm', function () {
-    // expect(TimesheetForm).toBeDefined();
+    // expect(TimesheetForm).to.be.defined;
   });
 });

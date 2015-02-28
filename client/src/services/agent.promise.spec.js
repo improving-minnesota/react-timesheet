@@ -1,12 +1,13 @@
 describe('Wrapping Superagent: ', function () {
+  var expect = chai.expect;
 
   var superagent;
 
   beforeEach(function () {
-    // superagent = require('./agent.promise');
+    superagent = require('./agent.promise');
   });
 
   it('should wrap superagent', function () {
-    // expect(superagent).toBeDefined();
+    expect(superagent).to.be.defined;
   });
 });

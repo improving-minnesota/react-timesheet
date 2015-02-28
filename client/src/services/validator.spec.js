@@ -3,10 +3,10 @@ describe('Validator: ', function () {
   var Validator;
 
   beforeEach(function () {
-    // Validator = require('./validator');
+    Validator = require('./validator');
   });
 
   it('should instantiate the Validator', function () {
-    // expect(Validator).toBeDefined();
+    expect(Validator).to.be.defined;
   });
 });

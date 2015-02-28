@@ -7,6 +7,6 @@ describe('Employee Create Component: ', function () {
   });
 
   it('should instantiate the EmployeeCreate', function () {
-    expect(EmployeeCreate).toBeDefined();
+    expect(EmployeeCreate).to.be.defined;
   });
 });

@@ -7,6 +7,6 @@ describe('Timesheet Table Component: ', function () {
   });
 
   it('should instantiate the TimesheetTable', function () {
-    // expect(TimesheetTable).toBeDefined();
+    // expect(TimesheetTable).to.be.defined;
   });
 });

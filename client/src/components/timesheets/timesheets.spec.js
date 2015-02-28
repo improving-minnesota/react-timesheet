@@ -3,10 +3,10 @@ describe('Timesheets Component: ', function () {
   var Timesheets;
 
   beforeEach(function () {
-    // Timesheets = require('./timesheets');
+    Timesheets = require('./timesheets');
   });
 
   it('should instantiate the Timesheets', function () {
-    // expect(Timesheets).toBeDefined();
+    expect(Timesheets).to.be.defined;
   });
 });

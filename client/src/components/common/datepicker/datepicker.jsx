@@ -2,6 +2,7 @@ var Popover   = require('./popover');
 var DateUtil  = require('./date.util');
 var Calendar  = require('./calendar');
 var DateInput = require('./date_input');
+var React = require('react/addons');
 
 var DatePicker = React.createClass({
   getInitialState: function() {

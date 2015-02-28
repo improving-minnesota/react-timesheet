@@ -7,7 +7,7 @@ describe('Progress Component: ', function () {
   });
 
   it('should instantiate the Progress', function () {
-    //expect(Progress).toBeDefined();
+    //expect(Progress).to.be.defined;
   });
 });
 

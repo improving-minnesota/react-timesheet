@@ -7,6 +7,6 @@ describe('Timeunit Form Component: ', function () {
   });
 
   it('should instantiate the TimeunitForm', function () {
-    // expect(TimeunitForm).toBeDefined();
+    // expect(TimeunitForm).to.be.defined;
   });
 });

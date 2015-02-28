@@ -7,6 +7,6 @@ describe('Employee Detail Component: ', function () {
   });
 
   it('should instantiate the EmployeeDetail', function () {
-    // expect(EmployeeDetail).toBeDefined();
+    // expect(EmployeeDetail).to.be.defined;
   });
 });

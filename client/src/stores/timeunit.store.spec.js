@@ -3,10 +3,10 @@ describe('Timeunit Store: ', function () {
   var TimeunitStore;
 
   beforeEach(function () {
-    // TimeunitStore = require('./timeunit.store');
+    TimeunitStore = require('./timeunit.store');
   });
 
   it('should instantiate the TimeunitStore', function () {
-    // expect(TimeunitStore).toBeDefined();
+    expect(TimeunitStore).to.be.defined;
   });
 });

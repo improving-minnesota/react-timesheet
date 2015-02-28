@@ -1,5 +1,4 @@
 describe('Timeunit actions: ', function () {
-
   var TimeunitActions;
 
   beforeEach(function () {
@@ -7,6 +6,6 @@ describe('Timeunit actions: ', function () {
   });
 
   it('should instantiate the TimeunitActions', function () {
-    expect(TimeunitActions).toBeDefined();
+    expect(TimeunitActions).to.be.defined;
   });
 });

@@ -7,6 +7,6 @@ describe('Login Component: ', function () {
   });
 
   it('should instantiate the Login', function () {
-    expect(Login).toBeDefined();
+    expect(Login).to.be.defined;
   });
 });

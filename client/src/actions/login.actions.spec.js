@@ -7,6 +7,6 @@ describe('Login actions: ', function () {
   });
 
   it('should instantiate the LoginActions', function () {
-    expect(LoginActions).toBeDefined();
+    expect(LoginActions).to.be.defined;
   });
 });

@@ -7,6 +7,6 @@ describe('Projects Component: ', function () {
   });
 
   it('should instantiate the Projects', function () {
-    // expect(Projects).toBeDefined();
+    // expect(Projects).to.be.defined;
   });
 });

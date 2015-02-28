@@ -7,6 +7,6 @@ describe('Login Store: ', function () {
   });
 
   it('should instantiate the LoginStore', function () {
-    //expect(LoginStore).toBeDefined();
+    //expect(LoginStore).to.be.defined;
   });
 });

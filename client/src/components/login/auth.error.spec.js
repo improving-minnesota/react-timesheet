@@ -7,6 +7,6 @@ describe('Auth Error Component: ', function () {
   });
 
   it('should instantiate the AuthError', function () {
-    expect(AuthError).toBeDefined();
+    expect(AuthError).to.be.defined;
   });
 });

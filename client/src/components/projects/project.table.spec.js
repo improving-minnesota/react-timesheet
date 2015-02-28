@@ -3,10 +3,10 @@ describe('Project Table Component: ', function () {
   var ProjectTable;
 
   beforeEach(function () {
-    // ProjectTable = require('./project.table');
+    ProjectTable = require('./project.table');
   });
 
   it('should instantiate the ProjectTable', function () {
-    // expect(ProjectTable).toBeDefined();
+    expect(ProjectTable).to.be.defined;
   });
 });

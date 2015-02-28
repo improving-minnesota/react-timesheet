@@ -1,4 +1,5 @@
 describe('Section Component: ', function () {
+  var expect = chai.expect;
 
   var Section;
 
@@ -7,6 +8,6 @@ describe('Section Component: ', function () {
   });
 
   it('should instantiate the Section', function () {
-    expect(Section).toBeDefined();
+    expect(Section).to.be.defined;
   });
 });

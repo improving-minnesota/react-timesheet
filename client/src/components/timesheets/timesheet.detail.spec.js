@@ -7,6 +7,6 @@ describe('Timesheet Detail Component: ', function () {
   });
 
   it('should instantiate the TimesheetDetail', function () {
-    // expect(TimesheetDetail).toBeDefined();
+    // expect(TimesheetDetail).to.be.defined;
   });
 });

@@ -1,5 +1,6 @@
 var moment = require('moment');
 var DateUtil = require('./date.util');
+var React = require('react/addons');
 
 var DateInput = React.createClass({
   getInitialState: function() {

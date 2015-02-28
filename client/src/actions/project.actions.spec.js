@@ -7,6 +7,6 @@ describe('Project actions: ', function () {
   });
 
   it('should instantiate the ProjectActions', function () {
-    expect(ProjectActions).toBeDefined();
+    expect(ProjectActions).to.be.defined;
   });
 });

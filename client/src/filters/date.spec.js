@@ -7,7 +7,7 @@ describe('Date Filter: ', function () {
   });
 
   it('should instantiate the DateFilter', function () {
-    expect(DateFilter).toBeDefined();
+    expect(DateFilter).to.be.defined;
   });
 });
 

@@ -7,6 +7,6 @@ describe('Project Detail Component: ', function () {
   });
 
   it('should instantiate the ProjectDetail', function () {
-    // expect(ProjectDetail).toBeDefined();
+    // expect(ProjectDetail).to.be.defined;
   });
 });

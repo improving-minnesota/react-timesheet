@@ -7,6 +7,6 @@ describe('Employee actions: ', function () {
   });
 
   it('should instantiate the EmployeeActions', function () {
-    expect(EmployeeActions).toBeDefined();
+    expect(EmployeeActions).to.be.defined;
   });
 });

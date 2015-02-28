@@ -1,13 +1,14 @@
 describe('Notifications: ', function () {
+  var expect = chai.expect;
 
   var Notifications;
 
   beforeEach(function () {
-    // Notifications = require('./notifications');
+    Notifications = require('./notifications');
   });
 
   it('should instantiate Notifications', function () {
-    // expect(Notifications).toBeDefined();
+    expect(Notifications).to.be.defined;
   });
 });
 

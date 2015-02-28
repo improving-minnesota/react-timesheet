@@ -1,4 +1,5 @@
 var moment = require('moment');
+var React = require('react/addons');
 
 var Day = React.createClass({
   render: function() {

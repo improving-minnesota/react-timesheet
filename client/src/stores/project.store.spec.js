@@ -7,6 +7,6 @@ describe('Project Store: ', function () {
   });
 
   it('should instantiate the ProjectStore', function () {
-    //expect(ProjectStore).toBeDefined();
+    //expect(ProjectStore).to.be.defined;
   });
 });
