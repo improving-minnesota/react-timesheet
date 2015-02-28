@@ -1,4 +1,5 @@
 var
+  _ =           require('lodash'),
   gulp =        require('gulp'),
   pkg =         require('./package.json'),
   changed =     require('gulp-changed'),
@@ -15,9 +16,11 @@ var
   plumber =     require('gulp-plumber'),
   rename =      require('gulp-rename'),
   shell =       require('gulp-shell'),
+  sourcemaps =  require('gulp-sourcemaps'),
   uglify =      require('gulp-uglify'),
   gutil =       require('gulp-util'),
   watch =       require('gulp-watch'),
+  buffer =      require('vinyl-buffer'),
   source =      require('vinyl-source-stream'),
   watchify =    require('watchify'),
   browserify =  require('browserify'),
@@ -185,17 +188,27 @@ gulp.task('build:css', ['semantic:build', 'less'], function () {
 
 // Compile and minify the Javascripts
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./client/src/main.js', watchify.args));
+  var bundler = watchify(
+    browserify(
+      _.extend(watchify.args, {
+        entries: ['./client/src/main.jsx'],
+        extensions: ['.jsx'],
+        transform: [reactify, browserifyShim]
+      })
+    )
+  );
 
-  bundler.transform('browserify-shim');
-  bundler.transform('reactify');
   bundler.on('update', rebundle);
 
   function rebundle() {
-    return bundler.bundle()
+    return bundler
+      .bundle()
       // log errors if they happen
       .on('error', gutil.log.bind(gutil, 'Browserify error'))
       .pipe(source('app.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(dist('/js')))
       .pipe(livereload());
   }
