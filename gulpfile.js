@@ -188,14 +188,13 @@ gulp.task('watchify', function() {
   var bundler = watchify(
     browserify(
       _.extend(watchify.args, {
-        entries: ['./client/src/main.js'],
-        debug: true
+        entries: ['./client/src/main.jsx'],
+        extensions: ['.jsx'],
+        transform: [reactify, browserifyShim]
       })
     )
   );
 
-  bundler.transform('browserify-shim');
-  bundler.transform('reactify');
   bundler.on('update', rebundle);
 
   function rebundle() {

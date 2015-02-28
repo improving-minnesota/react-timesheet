@@ -2,7 +2,7 @@ var React = require('react/addons');
 var Router = require('react-router');
 var _ = require('lodash');
 
-var ProjectForm = require('./project.form.js');
+var ProjectForm = require('./project.form');
 var ProjectActions = require('../../actions/project.actions');
 
 var ChangeMixin = require('../../mixins/change.mixin');
