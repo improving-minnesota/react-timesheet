@@ -1,5 +1,3 @@
-jest.dontMock('./timesheet.edit');
-
 describe('Timesheet Edit Component: ', function () {
 
   var TimesheetEdit;

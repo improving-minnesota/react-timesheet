@@ -1,5 +1,3 @@
-jest.dontMock('./timesheet.mixin');
-
 describe('Timesheet Mixin: ', function () {
 
   var Timesheet;

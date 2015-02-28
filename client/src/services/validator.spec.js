@@ -1,5 +1,3 @@
-jest.dontMock('./validator');
-
 describe('Validator: ', function () {
 
   var Validator;

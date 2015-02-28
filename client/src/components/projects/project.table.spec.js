@@ -1,5 +1,3 @@
-jest.dontMock('./project.table');
-
 describe('Project Table Component: ', function () {
 
   var ProjectTable;

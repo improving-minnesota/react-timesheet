@@ -1,5 +1,3 @@
-jest.dontMock('./login.store');
-
 describe('Login Store: ', function () {
 
   var LoginStore;

@@ -1,5 +1,3 @@
-jest.dontMock('./timesheet.form');
-
 describe('Timesheet Form Component: ', function () {
 
   var TimesheetForm;

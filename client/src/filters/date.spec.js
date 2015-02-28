@@ -1,5 +1,3 @@
-jest.dontMock('./date');
-
 describe('Date Filter: ', function () {
 
   var DateFilter;

@@ -1,5 +1,3 @@
-jest.dontMock('./project.store');
-
 describe('Project Store: ', function () {
 
   var ProjectStore;

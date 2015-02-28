@@ -1,5 +1,3 @@
-jest.dontMock('./login.actions');
-
 describe('Login actions: ', function () {
 
   var LoginActions;

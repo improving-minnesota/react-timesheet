@@ -1,5 +1,3 @@
-jest.dontMock('./employee.create');
-
 describe('Employee Create Component: ', function () {
 
   var EmployeeCreate;

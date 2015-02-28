@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.row');
-
 describe('Timeunit Row Component: ', function () {
 
   var TimeunitRow;

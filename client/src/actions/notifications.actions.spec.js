@@ -1,5 +1,3 @@
-jest.dontMock('./notifications.actions');
-
 describe('Notifications Actions Component: ', function () {
 
   var NotificationsActions;

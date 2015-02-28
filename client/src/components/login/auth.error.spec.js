@@ -1,5 +1,3 @@
-jest.dontMock('./auth.error');
-
 describe('Auth Error Component: ', function () {
 
   var AuthError;

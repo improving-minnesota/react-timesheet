@@ -1,5 +1,3 @@
-jest.dontMock('./section');
-
 describe('Section Component: ', function () {
 
   var Section;

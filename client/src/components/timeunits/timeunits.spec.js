@@ -1,5 +1,3 @@
-jest.dontMock('./timeunits');
-
 describe('Timeunits Component: ', function () {
 
   var Timeunits;

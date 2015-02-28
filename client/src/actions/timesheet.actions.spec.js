@@ -1,6 +1,3 @@
-// tests pass
-jest.dontMock('./timesheet.actions');
-
 describe('Timesheet actions: ', function () {
 
   var TimesheetActions;

@@ -1,6 +1,3 @@
-jest.dontMock('./employee.mixin');
-jest.dontMock('../stores/employee.store');
-
 describe('Employee Mixin: ', function () {
 
   var Employee;

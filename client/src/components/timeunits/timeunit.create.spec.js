@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.create');
-
 describe('Timeunit Create Component: ', function () {
 
   var TimeunitCreate;

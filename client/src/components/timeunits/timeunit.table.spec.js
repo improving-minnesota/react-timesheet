@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.table');
-
 describe('Timeunit Table Component: ', function () {
 
   var TimeunitTable;

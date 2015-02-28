@@ -1,5 +1,3 @@
-jest.dontMock('./flux.store');
-
 describe('Flux Store: ', function () {
 
   var FluxStore;

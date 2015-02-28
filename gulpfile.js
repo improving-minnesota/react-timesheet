@@ -5,6 +5,7 @@ var
   changed =     require('gulp-changed'),
   concat =      require('gulp-concat'),
   filesize =    require('gulp-filesize'),
+  gulpif =      require('gulp-if'),
   jade =        require('gulp-jade'),
   jest =        require('gulp-jest'),
   jshint =      require('gulp-jshint'),
@@ -29,6 +30,8 @@ var
   reactify =    require('reactify'),
   browserifyShim = require('browserify-shim'),
   merge =       require('merge-stream'),
+  karma =       require('karma').server,
+  handleError = require('./config/gulp.error'),
   filesConfig = require('./config/files.config');
 
 // main tasks
@@ -68,15 +71,11 @@ gulp.task('watch:prod', function () {
   gulp.start('prod');
 });
 
-// run tests
-gulp.task('jest', function () {
-  gulp.watch(['./client/src/**/*.spec.js'], ['jest:run']);
-});
-
-gulp.task('jest:run', function () {
-  return gulp.src('./client/src/**/*.spec.js')
-    .pipe(plumber())
-    .pipe(jest(pkg.jest));
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }, done);
 });
 
 // Build index.html

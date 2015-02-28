@@ -1,5 +1,3 @@
-jest.dontMock('./notifications');
-
 describe('Notifications: ', function () {
 
   var Notifications;

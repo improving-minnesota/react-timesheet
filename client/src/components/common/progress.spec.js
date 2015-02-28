@@ -1,5 +1,3 @@
-jest.dontMock('./progress');
-
 describe('Progress Component: ', function () {
 
   var Progress;

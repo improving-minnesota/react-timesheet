@@ -1,5 +1,3 @@
-jest.dontMock('./timesheet.row');
-
 describe('Timesheet Row Component: ', function () {
 
   var TimesheetRow;

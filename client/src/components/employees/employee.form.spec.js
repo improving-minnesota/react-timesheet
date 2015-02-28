@@ -1,5 +1,3 @@
-jest.dontMock('./employee.form');
-
 describe('Employee Form Component: ', function () {
 
   var EmployeeForm;

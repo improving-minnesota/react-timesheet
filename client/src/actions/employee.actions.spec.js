@@ -1,5 +1,3 @@
-jest.dontMock('./employee.actions');
-
 describe('Employee actions: ', function () {
 
   var EmployeeActions;

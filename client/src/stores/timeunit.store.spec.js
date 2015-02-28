@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.store');
-
 describe('Timeunit Store: ', function () {
 
   var TimeunitStore;

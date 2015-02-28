@@ -1,5 +1,3 @@
-jest.dontMock('./navbar');
-
 describe('Navbar Component: ', function () {
 
   var Navbar;

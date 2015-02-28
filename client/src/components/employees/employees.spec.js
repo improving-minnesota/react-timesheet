@@ -1,5 +1,3 @@
-jest.dontMock('./employees');
-
 describe('Employees Component: ', function () {
 
   var Employees;

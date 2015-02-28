@@ -1,5 +1,3 @@
-jest.dontMock('./project.form');
-
 describe('Project Form Component: ', function () {
 
   var ProjectForm;

@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.actions');
-
 describe('Timeunit actions: ', function () {
 
   var TimeunitActions;

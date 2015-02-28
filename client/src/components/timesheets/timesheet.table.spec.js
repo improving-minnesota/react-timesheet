@@ -1,5 +1,3 @@
-jest.dontMock('./timesheet.table');
-
 describe('Timesheet Table Component: ', function () {
 
   var TimesheetTable;

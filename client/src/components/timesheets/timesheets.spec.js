@@ -1,5 +1,3 @@
-jest.dontMock('./timesheets');
-
 describe('Timesheets Component: ', function () {
 
   var Timesheets;

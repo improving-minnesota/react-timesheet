@@ -1,5 +1,3 @@
-jest.dontMock('./change.mixin');
-
 describe('Change Mixin: ', function () {
 
   var ChangeMixin;

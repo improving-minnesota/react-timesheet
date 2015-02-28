@@ -1,5 +1,3 @@
-jest.dontMock('./flux.dispatcher');
-
 describe('Flux Dispatcher: ', function () {
 
   var FluxDispatcher;

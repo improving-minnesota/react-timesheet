@@ -1,5 +1,3 @@
-jest.dontMock('./employee.table');
-
 describe('Employee Table Component: ', function () {
 
   var EmployeeTable;

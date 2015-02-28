@@ -1,5 +1,3 @@
-jest.dontMock('./app');
-
 describe('App: ', function () {
 
   var App;

@@ -1,5 +1,3 @@
-jest.dontMock('./employee.store');
-
 describe('Employee Store: ', function () {
 
   var EmployeeStore;

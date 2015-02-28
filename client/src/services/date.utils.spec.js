@@ -1,5 +1,3 @@
-jest.dontMock('./date.utils');
-
 describe('Date Utils: ', function () {
 
   var DateUtils;

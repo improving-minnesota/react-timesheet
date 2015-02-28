@@ -1,5 +1,3 @@
-jest.dontMock('./boolean');
-
 describe('Boolean filter: ', function () {
 
   var BooleanFilter;

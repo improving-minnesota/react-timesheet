@@ -1,5 +1,3 @@
-jest.dontMock('./agent.promise');
-
 describe('Wrapping Superagent: ', function () {
 
   var superagent;

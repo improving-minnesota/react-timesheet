@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.mixin');
-
 describe('Timeunit Mixin: ', function () {
 
   var TimeunitMixin;

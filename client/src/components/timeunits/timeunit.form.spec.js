@@ -1,5 +1,3 @@
-jest.dontMock('./timeunit.form');
-
 describe('Timeunit Form Component: ', function () {
 
   var TimeunitForm;

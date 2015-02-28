@@ -1,5 +1,3 @@
-jest.dontMock('./project.row');
-
 describe('Project Row Component: ', function () {
 
   var ProjectRow;

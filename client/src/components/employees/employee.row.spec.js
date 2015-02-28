@@ -1,5 +1,3 @@
-jest.dontMock('./employee.row');
-
 describe('Employee Row Component: ', function () {
 
   var EmployeeRow;

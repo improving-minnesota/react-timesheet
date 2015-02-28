@@ -1,5 +1,3 @@
-jest.dontMock('./project.mixin');
-
 describe('Project Mixin: ', function () {
 
   var Project;

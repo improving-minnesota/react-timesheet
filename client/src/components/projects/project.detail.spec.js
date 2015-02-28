@@ -1,5 +1,3 @@
-jest.dontMock('./project.detail');
-
 describe('Project Detail Component: ', function () {
 
   var ProjectDetail;
