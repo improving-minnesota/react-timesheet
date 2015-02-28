@@ -1,3 +1,6 @@
+var React = require('react/addons'),
+  TestUtils = React.addons.TestUtils;
+
 describe('Employee Form Component: ', function () {
 
   var EmployeeForm;

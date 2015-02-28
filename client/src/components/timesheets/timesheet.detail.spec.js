@@ -1,3 +1,6 @@
+var React = require('react/addons'),
+  TestUtils = React.addons.TestUtils;
+
 describe('Timesheet Detail Component: ', function () {
 
   var TimesheetDetail;

@@ -1,3 +1,6 @@
+var React = require('react/addons'),
+  TestUtils = React.addons.TestUtils;
+
 describe('Timesheet Table Component: ', function () {
 
   var TimesheetTable;

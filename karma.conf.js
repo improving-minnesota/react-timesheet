@@ -13,8 +13,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       '../../node_modules/chai/chai.js',
-      '../../node_modules/sinon-chai/lib/sinon-chai.js',
       '../../node_modules/sinon/pkg/sinon.js',
+      '../../node_modules/sinon-chai/lib/sinon-chai.js',
       '../../config/test.globals.js',
 
       '**/*.spec.js'
