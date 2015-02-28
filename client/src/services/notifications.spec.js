@@ -1,3 +1,20 @@
+jest.dontMock('./notifications');
+
+describe('Notifications: ', function () {
+
+  var Notifications;
+
+  beforeEach(function () {
+    // Notifications = require('./notifications');
+  });
+
+  it('should instantiate Notifications', function () {
+    // expect(Notifications).toBeDefined();
+  });
+});
+
+
+
 // describe('Notifications services:', function() {
 //   var notifications,
 //     spies;

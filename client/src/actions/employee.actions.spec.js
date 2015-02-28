@@ -1,11 +1,11 @@
-jest.dontMock('../../../src/actions/employee.actions');
+jest.dontMock('./employee.actions');
 
 describe('Employee actions: ', function () {
 
   var EmployeeActions;
 
   beforeEach(function () {
-    EmployeeActions = require('../../../src/actions/employee.actions');
+    EmployeeActions = require('./employee.actions');
   });
 
   it('should instantiate the EmployeeActions', function () {

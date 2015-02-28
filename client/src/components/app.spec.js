@@ -1,3 +1,19 @@
+jest.dontMock('./app');
+
+describe('App: ', function () {
+
+  var App;
+
+  beforeEach(function () {
+    // App = require('./app');
+  });
+
+  it('should instantiate the App', function () {
+    // expect(App).toBeDefined();
+  });
+});
+
+
 // describe('App', function() {
 //
 //   var controller, scope;

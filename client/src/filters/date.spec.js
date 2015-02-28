@@ -1,3 +1,19 @@
+jest.dontMock('./date');
+
+describe('Date Filter: ', function () {
+
+  var DateFilter;
+
+  beforeEach(function () {
+    DateFilter = require('./date');
+  });
+
+  it('should instantiate the DateFilter', function () {
+    expect(DateFilter).toBeDefined();
+  });
+});
+
+
 // describe('Date filters:', function () {
 //
 //   beforeEach(module('date.filters'));

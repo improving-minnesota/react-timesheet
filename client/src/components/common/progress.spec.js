@@ -1,3 +1,19 @@
+jest.dontMock('./progress');
+
+describe('Progress Component: ', function () {
+
+  var Progress;
+
+  beforeEach(function () {
+    // Progress = require('./progress');
+  });
+
+  it('should instantiate the Progress', function () {
+    //expect(Progress).toBeDefined();
+  });
+});
+
+
 // describe('Timesheet directives', function () {
 //
 //

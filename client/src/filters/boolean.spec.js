@@ -1,3 +1,19 @@
+jest.dontMock('./boolean');
+
+describe('Boolean filter: ', function () {
+
+  var BooleanFilter;
+
+  beforeEach(function () {
+    BooleanFilter = require('./boolean');
+  });
+
+  it('should instantiate the BooleanFilter', function () {
+    expect(BooleanFilter).toBeDefined();
+  });
+});
+
+
 // describe('Boolean filters:', function () {
 //
 //   beforeEach(module('boolean.filters'));

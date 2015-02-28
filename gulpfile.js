@@ -67,9 +67,12 @@ gulp.task('watch:prod', function () {
 
 // run tests
 gulp.task('jest', function () {
-  return gulp.src('./client/test/unit/**')
+  gulp.watch(['./client/src/**/*.spec.js'], ['jest:run']);
+});
+
+gulp.task('jest:run', function () {
+  return gulp.src('./client/src/**/*.spec.js')
     .pipe(plumber())
-    .pipe(watch('./client/test/unit/**/*.js'))
     .pipe(jest(pkg.jest));
 });
 
