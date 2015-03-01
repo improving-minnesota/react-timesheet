@@ -5,7 +5,7 @@ var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
 var notifications = require('../../services/notifications');
-var yesNo = require('../../filters/boolean');
+var yesNo = require('../../util/boolean');
 
 var EmployeeRow = React.createClass({
 

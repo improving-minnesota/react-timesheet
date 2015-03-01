@@ -7,7 +7,7 @@ var TextInput = require('../common/text.input');
 var SaveButton = require('../common/save.button');
 var CancelButton = require('../common/cancel.button');
 var Separator = require('../common/form.separator');
-var yesNo = require('../../filters/boolean');
+var yesNo = require('../../util/boolean');
 
 var EmployeeForm = React.createClass({
 
