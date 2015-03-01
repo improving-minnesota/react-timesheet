@@ -6,6 +6,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 
 var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
+var Paginator = require('../common/paginator');
 
 var Projects = React.createClass({
 
@@ -30,6 +31,10 @@ var Projects = React.createClass({
     this.requestProjects();
   },
 
+  onPageChange: function (page) {
+    console.log(JSON.stringify(page));
+  },
+
   render: function () {
 
     return (
@@ -44,14 +49,9 @@ var Projects = React.createClass({
           <ProjectTable projects={this.state.projects} />
         </div>
 
-        <div className="text-center">
-          <div pagination
-            total-items="pageConfig.totalItems"
-            ng-model="pageConfig.page"
-            items-per-page="pageConfig.limit"
-            boundary-links="true"
-            rotate="true"
-            ng-change="requestProjects(page)">
+        <div className="ui grid pad-top">
+          <div className="centered row">
+            <Paginator max={20} onChange={this.onPageChange} />
           </div>
         </div>
       </div>

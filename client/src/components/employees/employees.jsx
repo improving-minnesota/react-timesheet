@@ -6,6 +6,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
+var Paginator = require('../common/paginator');
 
 var Employees = React.createClass({
 
@@ -30,6 +31,10 @@ var Employees = React.createClass({
     this.requestEmployees();
   },
 
+  onPageChange: function (page) {
+    console.log(JSON.stringify(page));
+  },
+
   render: function () {
     return (
       <div>
@@ -43,16 +48,11 @@ var Employees = React.createClass({
           <EmployeeTable employees={this.state.employees}/>
         </div>
 
-        <div className="center aligned">
-          <div pagination
-            total-items="pageConfig.totalItems"
-            ng-model="pageConfig.page"
-            items-per-page="pageConfig.limit"
-            boundary-links="true"
-            rotate="true"
-            ng-change="requestEmployees(page)">
+        <div className="ui grid pad-top">
+          <div className="centered row">
+            <Paginator max={20} onChange={this.onPageChange} />
           </div>
-        </div>
+      </div>
       </div>
     );
   }
