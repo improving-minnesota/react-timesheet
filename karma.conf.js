@@ -20,15 +20,10 @@ module.exports = function(config) {
       '**/*.spec.js'
     ],
 
-
-    // list of files to exclude
-    exclude: [
-    ],
-
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.spec.js': ['browserify'],
+      '**/*.spec.js': ['browserify']
     },
 
 
@@ -36,6 +31,15 @@ module.exports = function(config) {
       debug: true,
       transform: [ 'reactify' ],
       extensions: ['.js', '.jsx']
+    },
+
+
+    // mocha opts
+    client: {
+      mocha: {
+        reporter: 'html', // change Karma's debug.html to the mocha web reporter
+        ui: 'bdd'
+      }
     },
 
 

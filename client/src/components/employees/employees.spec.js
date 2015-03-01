@@ -6,10 +6,10 @@ describe('Employees Component: ', function () {
   var Employees;
 
   beforeEach(function () {
-    // Employees = require('./employees');
+    Employees = require('./employees');
   });
 
   it('should instantiate the Employees', function () {
-    // expect(Employees).to.be.defined;
+    expect(Employees).to.be.defined;
   });
 });

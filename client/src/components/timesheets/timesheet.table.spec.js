@@ -6,10 +6,10 @@ describe('Timesheet Table Component: ', function () {
   var TimesheetTable;
 
   beforeEach(function () {
-    // TimesheetTable = require('./timesheet.table');
+    TimesheetTable = require('./timesheet.table');
   });
 
   it('should instantiate the TimesheetTable', function () {
-    // expect(TimesheetTable).to.be.defined;
+    expect(TimesheetTable).to.be.defined;
   });
 });

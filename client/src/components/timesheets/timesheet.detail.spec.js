@@ -6,10 +6,10 @@ describe('Timesheet Detail Component: ', function () {
   var TimesheetDetail;
 
   beforeEach(function () {
-    // TimesheetDetail = require('./timesheet.detail');
+    TimesheetDetail = require('./timesheet.detail');
   });
 
   it('should instantiate the TimesheetDetail', function () {
-    // expect(TimesheetDetail).to.be.defined;
+    expect(TimesheetDetail).to.be.defined;
   });
 });

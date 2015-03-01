@@ -30,9 +30,7 @@ var
   reactify =    require('reactify'),
   browserifyShim = require('browserify-shim'),
   merge =       require('merge-stream'),
-  karma =       require('karma').server,
-  handleError = require('./config/gulp.error'),
-  filesConfig = require('./config/files.config');
+  karma =       require('karma').server;
 
 // main tasks
 gulp.task('core', ['watchify', 'build:css', 'copy:assets']);

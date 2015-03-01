@@ -48,9 +48,6 @@ module.exports = (
       <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create'            handler={TimeunitsCreate} />
       <Route name='timesheets.detail.timeunits.edit'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
 
-      // <DefaultRoute  handler={Employees} />
-      // <NotFoundRoute handler={Employees} />
-
       <Redirect to="employees" />
     </Route>
 

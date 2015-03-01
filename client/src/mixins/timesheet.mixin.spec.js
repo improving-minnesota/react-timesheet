@@ -2,8 +2,7 @@ var React = require('react/addons'),
   TestUtils = React.addons.TestUtils;
 
 describe('Timesheet Mixin: ', function () {
-  var expect = chai.expect;
-
+  
   var Timesheet;
 
   beforeEach(function () {

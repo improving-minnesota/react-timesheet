@@ -6,11 +6,11 @@ describe('Progress Component: ', function () {
   var Progress;
 
   beforeEach(function () {
-    // Progress = require('./progress');
+    Progress = require('./progress');
   });
 
   it('should instantiate the Progress', function () {
-    //expect(Progress).to.be.defined;
+    expect(Progress).to.be.defined;
   });
 });
 

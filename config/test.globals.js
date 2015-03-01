@@ -1,1 +1,5 @@
-var expect = chai.expect;
+(function () {
+
+  var expect = chai.expect;
+
+}());

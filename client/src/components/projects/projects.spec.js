@@ -6,10 +6,10 @@ describe('Projects Component: ', function () {
   var Projects;
 
   beforeEach(function () {
-    // Projects = require('./projects');
+    Projects = require('./projects');
   });
 
   it('should instantiate the Projects', function () {
-    // expect(Projects).to.be.defined;
+    expect(Projects).to.be.defined;
   });
 });

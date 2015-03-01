@@ -6,10 +6,10 @@ describe('Employee Row Component: ', function () {
   var EmployeeRow;
 
   beforeEach(function () {
-    // EmployeeRow = require('./employee.row');
+    EmployeeRow = require('./employee.row');
   });
 
   it('should instantiate the EmployeeRow', function () {
-    // expect(EmployeeRow).to.be.defined;
+    expect(EmployeeRow).to.be.defined;
   });
 });

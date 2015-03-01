@@ -6,10 +6,10 @@ describe('Timeunit Create Component: ', function () {
   var TimeunitCreate;
 
   beforeEach(function () {
-    // TimeunitCreate = require('./timeunit.create');
+    TimeunitCreate = require('./timeunit.create');
   });
 
   it('should instantiate the TimeunitCreate', function () {
-    // expect(TimeunitCreate).to.be.defined;
+    expect(TimeunitCreate).to.be.defined;
   });
 });
