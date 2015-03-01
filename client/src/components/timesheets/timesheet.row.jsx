@@ -6,7 +6,7 @@ var TimesheetStore = require('../../stores/timesheet.store');
 var LoginStore = require('../../stores/login.store');
 
 var notifications = require('../../services/notifications');
-var DateFilter = require('../../filters/date');
+var DateFilter = require('../../util/date');
 
 var TimesheetRow = React.createClass({
 

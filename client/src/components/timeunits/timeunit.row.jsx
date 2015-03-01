@@ -4,7 +4,7 @@ var Router = require('react-router');
 var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitStore = require('../../stores/timeunit.store');
 
-var DateFilter = require('../../filters/date');
+var DateFilter = require('../../util/date');
 var notifications = require('../../services/notifications');
 
 var TimeunitRow = React.createClass({

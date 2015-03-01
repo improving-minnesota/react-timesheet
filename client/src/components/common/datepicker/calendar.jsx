@@ -1,5 +1,6 @@
 var Day = require('./day');
 var DateUtil = require('./date.util');
+var React = require('react/addons');
 
 var Calendar = React.createClass({
   getInitialState: function() {

@@ -6,6 +6,7 @@ var ChangeMixin = require('../../mixins/change.mixin');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
+var Paginator = require('../common/paginator');
 
 var Timesheets = React.createClass({
 
@@ -30,6 +31,10 @@ var Timesheets = React.createClass({
     this.requestTimesheets();
   },
 
+  onPageChange: function (page) {
+    console.log(JSON.stringify(page));
+  },
+
   render: function () {
     return (
       <div>
@@ -43,14 +48,9 @@ var Timesheets = React.createClass({
           <TimesheetTable timesheets={this.state.timesheets} />
         </div>
 
-        <div className="center aligned">
-          <div pagination
-            total-items="pageConfig.totalItems"
-            ng-model="pageConfig.page"
-            items-per-page="pageConfig.limit"
-            boundary-links="true"
-            rotate="true"
-            ng-change="requestTimesheets(page)">
+        <div className="ui grid pad-top">
+          <div className="centered row">
+            <Paginator max={20} onChange={this.onPageChange} />
           </div>
         </div>
       </div>

@@ -16,14 +16,23 @@
   "browserify-shim": "./config/shims.js",
   "jest": {
     "rootDir": "client",
-    "testPathDirs": [
-      "<rootDir>/test/unit"
-    ],
-    "testDirectoryName": "unit",
-    "scriptPreprocessor": "<rootDir>/test/utils/react.preprocessor.js",
     "unmockedModulePathPatterns": [
-      "<rootDir>/../node_modules/react"
-    ]
+      "node_modules/react",
+      "node_modules/react/addons",
+      "node_modules/superagent"
+    ],
+    "testPathDirs": [
+      "<rootDir>/src"
+    ],
+    "testFileExtensions": [
+      "spec.js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "testDirectoryName": "src",
+    "scriptPreprocessor": "<rootDir>/test/utils/react.preprocessor.js"
   },
   "dependencies": {
     "es6-promise": "^2.0.1",
@@ -56,6 +65,7 @@
     "boom": "^2.6.1",
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.3",
+    "chai": "^2.1.0",
     "del": "^1.1.1",
     "good": "^5.1.2",
     "good-console": "^4.1.0",
@@ -64,8 +74,8 @@
     "gulp-concat": "^2.5.2",
     "gulp-docco": "0.0.4",
     "gulp-filesize": "0.0.6",
+    "gulp-if": "^1.2.5",
     "gulp-jade": "^1.0.0",
-    "gulp-jest": "^0.3.0",
     "gulp-jshint": "^1.9.2",
     "gulp-less": "^3.0.0",
     "gulp-livereload": "^3.7.0",
@@ -83,12 +93,20 @@
     "hapi": "^8.2.0",
     "hapi-auth-cookie": "^2.0.0",
     "hoek": "^2.11.0",
-    "jasmine-node": "^1.14.5",
-    "jest-cli": "^0.4.0",
+    "karma": "^0.12.31",
+    "karma-bro": "^0.11.1",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-mocha-reporter": "^1.0.0",
+    "karma-phantomjs-launcher": "^0.1.4",
     "lazypipe": "^0.2.2",
     "merge-stream": "^0.1.7",
+    "mocha": "^2.1.0",
     "protractor": "^1.7.0",
     "reactify": "^1.0.0",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.7.0",
     "through2": "^0.6.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",

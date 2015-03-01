@@ -12,7 +12,7 @@ var Notifications = React.createClass({
 
   render: function () {
 
-    switch(this.state.type)
+    // switch(this.state.type)
 
     return (
       <div className="notifications-container">

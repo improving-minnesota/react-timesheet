@@ -52,7 +52,8 @@ var TimesheetDetail = React.createClass({
             saveText={this.state.saveText}
             onSave={this.editTimesheet}
             errors={this.state.errors}
-            hasErrors={this.hasErrors} />
+            hasErrors={this.hasErrors}
+            validate={this.validate} />
         </div>
 
         <div className="ui divider"></div>
