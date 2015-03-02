@@ -3,17 +3,26 @@ var Router = require('react-router');
 
 var EmployeeForm = require('./employee.form');
 var EmployeeActions = require('../../actions/employee.actions');
-
 var EmployeeMixin = require('../../mixins/employee.mixin');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var EmployeeCreate = React.createClass({
 
   mixins : [
     Router.Navigation,
-    ChangeMixin,
     EmployeeMixin
   ],
+
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
+  },
 
   getInitialState: function () {
     return {

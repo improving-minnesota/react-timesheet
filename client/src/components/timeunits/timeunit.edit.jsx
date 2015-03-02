@@ -4,14 +4,12 @@ var Router = require('react-router');
 var TimeunitForm = require('./timeunit.form');
 var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitMixin = require('../../mixins/timeunit.mixin');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var TimeunitEdit = React.createClass({
 
   mixins: [
     Router.Navigation,
     Router.State,
-    ChangeMixin,
     TimeunitMixin
   ],
 
@@ -21,6 +19,18 @@ var TimeunitEdit = React.createClass({
       timeunit: {},
       errors: {}
     };
+  },
+
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   saveTimeunit: function (event) {

@@ -2,17 +2,15 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var ProjectTable = require('./project.table');
-var ChangeMixin = require('../../mixins/change.mixin');
-
 var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
+
 var Paginator = require('../common/paginator');
 
 var Projects = React.createClass({
 
   mixins: [
-    Router.Navigation,
-    ChangeMixin
+    Router.Navigation
   ],
 
   store: ProjectStore,
@@ -26,10 +24,19 @@ var Projects = React.createClass({
   createNew: function () {
     this.transitionTo('projects.create');
   },
+  
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
 
   componentWillMount: function () {
     this.requestProjects({page: 1});
+    this.store.addChangeListener(this.onChange);
   },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
+  }
 
   onPageChange: function (page) {
     this.requestProjects({page: page});

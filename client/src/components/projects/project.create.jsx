@@ -3,15 +3,12 @@ var Router = require('react-router');
 
 var ProjectForm = require('./project.form');
 var ProjectActions = require('../../actions/project.actions');
-
 var ProjectMixin = require('../../mixins/project.mixin');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var ProjectCreate = React.createClass({
 
   mixins: [
     Router.Navigation,
-    ChangeMixin,
     ProjectMixin
   ],
 
@@ -21,6 +18,18 @@ var ProjectCreate = React.createClass({
       project: {},
       errors: {}
     };
+  },  
+
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   saveProject: function (event) {

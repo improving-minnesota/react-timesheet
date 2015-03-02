@@ -2,8 +2,6 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var EmployeeTable = require('./employee.table');
-var ChangeMixin = require('../../mixins/change.mixin');
-
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 var Paginator = require('../common/paginator');
@@ -11,8 +9,7 @@ var Paginator = require('../common/paginator');
 var Employees = React.createClass({
 
   mixins: [
-    Router.Navigation,
-    ChangeMixin
+    Router.Navigation
   ],
 
   store: EmployeeStore,
@@ -27,8 +24,17 @@ var Employees = React.createClass({
     this.transitionTo('employees.create');
   },
 
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
   componentWillMount: function () {
     this.requestEmployees({page: 1});
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   onPageChange: function (page) {

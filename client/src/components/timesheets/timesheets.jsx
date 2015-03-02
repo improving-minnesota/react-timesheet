@@ -2,17 +2,15 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var TimesheetTable = require('./timesheet.table');
-var ChangeMixin = require('../../mixins/change.mixin');
-
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
+
 var Paginator = require('../common/paginator');
 
 var Timesheets = React.createClass({
 
   mixins: [
-    Router.Navigation,
-    ChangeMixin
+    Router.Navigation
   ],
 
   store: TimesheetStore,
@@ -27,8 +25,17 @@ var Timesheets = React.createClass({
     return this.transitionTo('timesheets.create', {user_id: '123'});
   },
 
-  componentDidMount: function () {
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
     this.requestTimesheets({page: 1});
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   onPageChange: function (page) {

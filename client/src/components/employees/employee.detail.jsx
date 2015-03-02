@@ -4,8 +4,6 @@ var _ = require('lodash');
 
 var EmployeeForm = require('./employee.form');
 var EmployeeActions = require('../../actions/employee.actions');
-
-var ChangeMixin = require('../../mixins/change.mixin');
 var EmployeeMixin = require('../../mixins/employee.mixin');
 
 var EmployeeDetail = React.createClass({
@@ -13,7 +11,6 @@ var EmployeeDetail = React.createClass({
   mixins: [
     Router.Navigation,
     Router.State,
-    ChangeMixin,
     EmployeeMixin
   ],
 
@@ -39,6 +36,18 @@ var EmployeeDetail = React.createClass({
       employee: {},
       errors: {}
     };
+  },
+
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   componentDidMount: function () {

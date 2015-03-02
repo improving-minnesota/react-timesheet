@@ -5,8 +5,6 @@ var _ = require('lodash');
 var TimesheetForm = require('./timesheet.form');
 var Timeunits = require('../timeunits/timeunits');
 var TimesheetActions = require('../../actions/timesheet.actions');
-
-var ChangeMixin = require('../../mixins/change.mixin');
 var TimesheetMixin = require('../../mixins/timesheet.mixin');
 
 var TimesheetDetail = React.createClass({
@@ -14,7 +12,6 @@ var TimesheetDetail = React.createClass({
   mixins: [
     Router.Navigation,
     Router.State,
-    ChangeMixin,
     TimesheetMixin
   ],
 
@@ -40,8 +37,17 @@ var TimesheetDetail = React.createClass({
     };
   },
 
-  componentDidMount: function () {
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
     this.get(this.getParams()._id);
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   render: function () {

@@ -2,13 +2,20 @@ var React = require('react/addons');
 
 var NotificationsStore = require('../../stores/notifications.store');
 var NotificationsAction = require('../../actions/notifications.actions');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var Notifications = React.createClass({
 
-  mixins: [
-    ChangeMixin
-  ],
+  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
+  },
 
   render: function () {
 
