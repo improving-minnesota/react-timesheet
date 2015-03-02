@@ -27,15 +27,18 @@ var Projects = React.createClass({
     this.transitionTo('projects.create');
   },
 
-  componentDidMount: function () {
-    this.requestProjects();
+  componentWillMount: function () {
+    this.requestProjects({page: 1});
   },
 
   onPageChange: function (page) {
-    console.log(JSON.stringify(page));
+    this.requestProjects({page: page});
   },
 
   render: function () {
+
+    var numPages = Math.ceil(this.state.pageConfig.totalItems / 5);
+    var pagesShown = Math.min(numPages, 5);
 
     return (
       <div>
@@ -46,12 +49,12 @@ var Projects = React.createClass({
         </div>
 
         <div className="row">
-          <ProjectTable projects={this.state.projects} />
+          <ProjectTable projects={this.state.pageConfig.data} />
         </div>
 
         <div className="ui grid pad-top">
           <div className="centered row">
-            <Paginator max={20} onChange={this.onPageChange} />
+            <Paginator max={numPages} maxVisible={pagesShown} onChange={this.onPageChange} />
           </div>
         </div>
       </div>

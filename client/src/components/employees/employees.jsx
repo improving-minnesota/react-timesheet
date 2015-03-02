@@ -27,15 +27,19 @@ var Employees = React.createClass({
     this.transitionTo('employees.create');
   },
 
-  componentDidMount: function () {
-    this.requestEmployees();
+  componentWillMount: function () {
+    this.requestEmployees({page: 1});
   },
 
   onPageChange: function (page) {
-    console.log(JSON.stringify(page));
+    this.requestEmployees({page: page});
   },
 
   render: function () {
+
+    var numPages = Math.ceil(this.state.pageConfig.totalItems / 5);
+    var pagesShown = Math.min(numPages, 5);
+
     return (
       <div>
         <div className="row">
@@ -45,12 +49,12 @@ var Employees = React.createClass({
         </div>
 
         <div className="row">
-          <EmployeeTable employees={this.state.employees}/>
+          <EmployeeTable employees={this.state.pageConfig.data}/>
         </div>
 
         <div className="ui grid pad-top">
           <div className="centered row">
-            <Paginator max={20} onChange={this.onPageChange} />
+            <Paginator max={numPages} maxVisible={pagesShown} onChange={this.onPageChange} />
           </div>
       </div>
       </div>

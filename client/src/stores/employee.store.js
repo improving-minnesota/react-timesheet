@@ -18,7 +18,12 @@ var EmployeeStore = _.extend(_.clone(Store), {
 
     this.setState({
       employee: {},
-      employees: []
+      pageConfig: {
+        data: [],
+        totalItems: 0,
+        limit: 5,
+        page: 1
+      }
     });
 
     return this;
@@ -33,13 +38,14 @@ var EmployeeStore = _.extend(_.clone(Store), {
     return url;
   },
 
-  list: function () {
+  list: function (payload) {
     var self = this;
 
     return agent.get(this.url())
+      .query(payload.action.query)
       .end()
       .then(function (res) {
-        self.setState({employees: res.body});
+        self.setState({pageConfig: res.body});
       })
       .catch(function (x) {
         notifications.error('Error attempting to retrieve employees.');

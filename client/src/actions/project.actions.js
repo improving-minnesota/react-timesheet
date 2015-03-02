@@ -9,9 +9,10 @@ var ProjectActions = {
   DELETE: 'DELETE_PROJECT',
   RESTORE: 'RESTORE_PROJECT',
 
-  list: function () {
+  list: function (query) {
     dispatcher.handleViewAction({
-      actionType: ProjectActions.LIST
+      actionType: ProjectActions.LIST,
+      query: query
     });
   },
 

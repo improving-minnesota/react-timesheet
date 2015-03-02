@@ -51,6 +51,11 @@ var Paginator = React.createClass({
       s = this.state,
       skip = 0;
 
+    // hide the paginator if there is zero or one page.
+    if (this.props.maxVisible < 2) {
+      className = 'hide ' + className;
+    }
+
     if (s.currentPage > p.maxVisible - 1 && s.currentPage < p.max) {
       skip = s.currentPage - p.maxVisible + 1;
     }

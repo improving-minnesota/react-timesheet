@@ -9,9 +9,10 @@ var TimesheetActions = {
   DELETE: 'DELETE_TIMESHEET',
   RESTORE: 'RESTORE_TIMESHEET',
 
-  list: function () {
+  list: function (query) {
     dispatcher.handleViewAction({
-      actionType: TimesheetActions.LIST
+      actionType: TimesheetActions.LIST,
+      query: query
     });
   },
 

@@ -43,7 +43,7 @@ var Timeunits = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-    TimesheetStore.addChangeListener(this.onTimesheetChange);
+    TimesheetStore.removeChangeListener(this.onTimesheetChange);
   },
 
   render: function () {
