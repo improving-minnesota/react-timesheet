@@ -24,7 +24,7 @@ var Projects = React.createClass({
   createNew: function () {
     this.transitionTo('projects.create');
   },
-  
+
   onChange: function () {
     this.setState(this.store.getState());
   },
@@ -36,7 +36,7 @@ var Projects = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-  }
+  },
 
   onPageChange: function (page) {
     this.requestProjects({page: page});
