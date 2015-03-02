@@ -3,20 +3,25 @@ var Router = require('react-router');
 
 var LoginActions = require('../../actions/login.actions');
 var LoginStore = require('../../stores/login.store');
-var ChangeMixin = require('../../mixins/change.mixin');
 
 var AuthError = require('./auth.error');
 
 var LoginForm = React.createClass({
 
-  mixins: [
-    ChangeMixin
-  ],
-
   store: LoginStore,
 
   getInitialState: function () {
     return this.store.getState();
+  },  onChange: function () {
+    this.setState(this.store.getState());
+  },
+
+  componentWillMount: function () {
+    this.store.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    this.store.removeChangeListener(this.onChange);
   },
 
   validate: function (event) {

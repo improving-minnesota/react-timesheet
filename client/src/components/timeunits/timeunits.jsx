@@ -37,6 +37,7 @@ var Timeunits = React.createClass({
   },
 
   componentWillMount: function () {
+    this.requestTimeunits(this.props.timesheet);
     this.store.addChangeListener(this.onChange);
     TimesheetStore.addChangeListener(this.onTimesheetChange);
   },
