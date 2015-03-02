@@ -19,7 +19,12 @@ var TimesheetStore = _.extend(_.clone(Store), {
 
     this.setState({
       timesheet: {},
-      timesheets: []
+      pageConfig: {
+        data: [],
+        totalItems: 0,
+        limit: 5,
+        page: 1
+      }
     });
 
     return this;
@@ -34,13 +39,14 @@ var TimesheetStore = _.extend(_.clone(Store), {
     return url;
   },
 
-  list: function () {
+  list: function (payload) {
     var self = this;
 
     return agent.get(this.url())
+      .query(payload.action.query)
       .end()
       .then(function (res) {
-        self.setState({timesheets: res.body});
+        self.setState({pageConfig: res.body});
       })
       .catch(function (x) {
         notifications.error('Error attempting to retrieve timesheets.');

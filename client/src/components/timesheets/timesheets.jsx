@@ -28,14 +28,18 @@ var Timesheets = React.createClass({
   },
 
   componentDidMount: function () {
-    this.requestTimesheets();
+    this.requestTimesheets({page: 1});
   },
 
   onPageChange: function (page) {
-    console.log(JSON.stringify(page));
+    this.requestTimesheets({page: page});
   },
 
   render: function () {
+
+    var numPages = Math.ceil(this.state.pageConfig.totalItems / 5);
+    var pagesShown = Math.min(numPages, 5);
+
     return (
       <div>
         <div className="row">
@@ -45,12 +49,12 @@ var Timesheets = React.createClass({
         </div>
 
         <div className="row">
-          <TimesheetTable timesheets={this.state.timesheets} />
+          <TimesheetTable timesheets={this.state.pageConfig.data} />
         </div>
 
         <div className="ui grid pad-top">
           <div className="centered row">
-            <Paginator max={20} onChange={this.onPageChange} />
+            <Paginator max={numPages} maxVisible={pagesShown} onChange={this.onPageChange} />
           </div>
         </div>
       </div>

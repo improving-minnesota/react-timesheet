@@ -18,7 +18,12 @@ var ProjectStore = _.extend(_.clone(Store), {
 
     this.setState({
       project: {},
-      projects: []
+      pageConfig: {
+        data: [],
+        totalItems: 0,
+        limit: 5,
+        page: 1
+      }
     });
 
     return this;
@@ -33,13 +38,17 @@ var ProjectStore = _.extend(_.clone(Store), {
     return url;
   },
 
-  list: function () {
+  // page = page number
+  // sort = property to sort on
+  // returns totalItems
+  list: function (payload) {
     var self = this;
 
     return agent.get(this.url())
+      .query(payload.action.query)
       .end()
       .then(function (res) {
-        self.setState({projects: res.body});
+        self.setState({pageConfig: res.body});
         return true;
       })
       .catch(function (x) {
