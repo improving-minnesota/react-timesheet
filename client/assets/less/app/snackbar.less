@@ -1,0 +1,35 @@
+.ui.snackbar {
+  opacity: 0.95;
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  z-index: 999;
+  min-height: 0em;
+  width: 300px;
+  margin: 0em;
+  padding: 0.75em 1em;
+  background: @lightGrey;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  text-align: left;
+  color: @darkGrey;
+  border-radius: 0em 0em 2px 2px;
+  -webkit-transition: 0.2s background ease;
+  transition: 0.2s background ease;
+
+  i {
+    float: right;
+  }
+
+  &.success {
+    background: @lightGreen;
+  }
+
+  &.error {
+    background: @lightRed;
+  }
+
+  &.info {
+    background: @lightBlue;
+  }
+}

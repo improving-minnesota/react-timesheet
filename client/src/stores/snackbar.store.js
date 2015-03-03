@@ -3,7 +3,7 @@ var Store = require('../flux/flux.store');
 var actions = require('../actions/notifications.actions');
 var Q = require('q');
 
-var NotificationsStore = _.extend(_.clone(Store), {
+var SnackbarStore = _.extend(Store, {
 
   initialize: function () {
 
@@ -41,4 +41,4 @@ var NotificationsStore = _.extend(_.clone(Store), {
   }
 });
 
-module.exports = NotificationsStore.initialize();
+module.exports = SnackbarStore.initialize();

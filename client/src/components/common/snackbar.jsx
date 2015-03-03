@@ -1,11 +1,11 @@
 var React = require('react/addons');
 var classes = require('react-classes');
 
-var NotificationsStore = require('../../stores/notifications.store');
+var SnackbarStore = require('../../stores/notifications.store');
 
 var Snackbar = React.createClass({
 
-  store: NotificationsStore,
+  store: SnackbarStore,
 
   mixins: [classes],
 
@@ -39,7 +39,7 @@ var Snackbar = React.createClass({
 
   render: function () {
 
-    var classes = this.getClass('ui inline nag top right', {
+    var classes = this.getClass('ui inline snackbar top right', {
       'hide':     !this.state.message.length,
       'success':  this.state.messageType === 'success',
       'info':     this.state.messageType === 'info',

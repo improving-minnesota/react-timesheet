@@ -1,4 +1,4 @@
-var dateUtils = require('../services/date.utils');
+var dateUtils = require('../util/date.utils');
 var moment = require('moment');
 
 module.exports = {

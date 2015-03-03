@@ -2,9 +2,9 @@ var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
 var NotificationsAction = require('../actions/notifications.actions');
-var agent = require('../services/agent.promise');
+var agent = require('../util/agent.promise');
 
-var ProjectStore = _.extend(_.clone(Store), {
+var ProjectStore = _.extend(Store, {
 
   initialize: function () {
     var events = {};
