@@ -6,12 +6,34 @@ var NavBar = require('./common/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
+var Snackbar = require('./common/snackbar');
+var NotificationsStore = require('../stores/notifications.store');
+
 var App = React.createClass({
 
   statics: {
     willTransitionTo: function (transition, params) {
       return LoginStore.requireAuthenticatedUser(transition);
     }
+  },
+
+  getInitialState: function () {
+    return {
+      message: 'Hello!!',
+      messageType: 'success'
+    };
+  },
+
+  componentWillMount: function () {
+    NotificationsStore.addChangeListener(this.notify);
+  },
+
+  componentWillUnmount: function () {
+    NotificationsStore.removeChangeListener(this.notify);
+  },
+
+  notify: function () {
+    this.setState(NotificationsStore.getState());
   },
 
   render : function () {
@@ -25,6 +47,8 @@ var App = React.createClass({
             <RouteHandler />
           </div>
         </div>
+
+        <Snackbar />
       </div>
     );
   }

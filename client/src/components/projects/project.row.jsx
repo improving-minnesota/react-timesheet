@@ -4,7 +4,7 @@ var Router = require('react-router');
 var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
 
-var notifications = require('../../services/notifications');
+var NotificationsAction = require('../../actions/notifications.actions');
 
 var ProjectRow = React.createClass({
 
@@ -14,7 +14,7 @@ var ProjectRow = React.createClass({
 
   showDetail: function showDetail () {
     if (this.props.project.deleted) {
-      notifications.error('You cannot edit a deleted project.');
+      NotificationsAction.error('You cannot edit a deleted project.');
       return;
     }
     ProjectStore.setState({project: this.props.project});

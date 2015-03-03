@@ -2,27 +2,27 @@ var dispatcher = require('../flux/flux.dispatcher');
 
 var NotificationsActions = {
 
-  ERROR: 'error_notification',
-  SUCCESS: 'succes_notification',
-  INFO: 'info_notification',
+  ERROR: 'error',
+  SUCCESS: 'success',
+  INFO: 'info',
 
   error: function (message) {
     dispatcher.handleViewAction({
-      actionType: this.ERROR,
+      actionType: NotificationsActions.ERROR,
       message: message
     });
   },
 
   success: function (message) {
     dispatcher.handleViewAction({
-      actionType: this.SUCCESS,
+      actionType: NotificationsActions.SUCCESS,
       message: message
     });
   },
 
   info: function (message) {
     dispatcher.handleViewAction({
-      actionType: this.INFO,
+      actionType: NotificationsActions.INFO,
       message: message
     });
   }

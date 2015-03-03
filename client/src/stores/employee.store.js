@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/employee.actions');
-var notifications = require('../services/notifications');
+var NotificationsAction = require('../actions/notifications.actions');
 var agent = require('../services/agent.promise');
 
 var EmployeeStore = _.extend(_.clone(Store), {
@@ -48,7 +48,7 @@ var EmployeeStore = _.extend(_.clone(Store), {
         self.setState({pageConfig: res.body});
       })
       .catch(function (x) {
-        notifications.error('Error attempting to retrieve employees.');
+        NotificationsAction.error('Error attempting to retrieve employees.');
       });
   },
 
@@ -62,7 +62,7 @@ var EmployeeStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (data) {
-        notifications.error('There was an error getting the employee');
+        NotificationsAction.error('There was an error getting the employee');
       });
   },
 
@@ -75,10 +75,10 @@ var EmployeeStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + employee.username + ', updated.');
+        NotificationsAction.success('Employee : ' + employee.username + ', updated.');
       })
       .catch(function (x) {
-        notifications.error('There was an error updating employee.');
+        NotificationsAction.error('There was an error updating employee.');
       });
   },
 
@@ -92,11 +92,11 @@ var EmployeeStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + res.body.username + ', was deleted.');
+        NotificationsAction.success('Employee : ' + res.body.username + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to delete employee.');
+        NotificationsAction.error('Error attempting to delete employee.');
       });
   },
 
@@ -110,11 +110,11 @@ var EmployeeStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + res.body.username + ', was restored.');
+        NotificationsAction.success('Employee : ' + res.body.username + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to restore employee.');
+        NotificationsAction.error('Error attempting to restore employee.');
       });
   },
 
@@ -126,10 +126,10 @@ var EmployeeStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        notifications.success('Employee : ' + res.body.username + ', created.');
+        NotificationsAction.success('Employee : ' + res.body.username + ', created.');
       })
       .catch(function (x) {
-        notifications.error('There was an error creating employee.');
+        NotificationsAction.error('There was an error creating employee.');
       });
   }
 });
