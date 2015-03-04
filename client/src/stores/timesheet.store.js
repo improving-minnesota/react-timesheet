@@ -106,7 +106,7 @@ var TimesheetStore = _.extend(_.clone(Store), {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = false;
 
-    var prom = agent.put(this.url(timesheet._id))
+    return agent.put(this.url(timesheet._id))
       .send(timesheet)
       .end()
       .then(function (res) {
@@ -117,8 +117,6 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .catch(function (x) {
         SnackbarAction.error('Error attempting to restore timesheet.');
       });
-
-    return prom;
   },
 
   create: function (payload) {

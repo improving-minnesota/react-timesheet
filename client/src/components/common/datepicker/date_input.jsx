@@ -1,8 +1,12 @@
 var moment = require('moment');
 var DateUtil = require('./date.util');
 var React = require('react/addons');
+var classes = require('react-classes');
 
 var DateInput = React.createClass({
+
+  mixins: [classes],
+
   getInitialState: function() {
     return {
       value: this.props.date.format("YYYY-MM-DD")
@@ -127,9 +131,13 @@ var DateInput = React.createClass({
   },
 
   render: function() {
+    var containerClasses = this.getClass('ui inline field', {
+      'error': !!this.props.error
+    });
+
     return (
       <div className="datepicker-input">
-        <div className="ui inline field">
+        <div className={containerClasses}>
           <input
             ref="input"
             type="text"
@@ -145,7 +153,7 @@ var DateInput = React.createClass({
             </button>
           </span>
         </div>
-        <div className="red">{this.props.error}</div>
+        <div className="input">{this.props.error}</div>
       </div>
     );
   }

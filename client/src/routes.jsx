@@ -20,7 +20,6 @@ var EmployeesCreate = require('./components/employees/employee.create');
 var Timesheets = require('./components/timesheets/timesheets');
 var TimesheetsDetail = require('./components/timesheets/timesheet.detail');
 var TimesheetsCreate = require('./components/timesheets/timesheet.create');
-var TimesheetsEdit = require('./components/timesheets/timesheet.edit');
 
 var TimeunitsCreate = require('./components/timeunits/timeunit.create');
 var TimeunitsEdit = require('./components/timeunits/timeunit.edit');
@@ -43,7 +42,6 @@ module.exports = (
       <Route name='timesheets'              path='/employees/:user_id/timesheets'                   handler={Timesheets} />
       <Route name='timesheets.create'       path='/employees/:user_id/timesheets/create'            handler={TimesheetsCreate} />
       <Route name='timesheets.detail'       path='/employees/:user_id/timesheets/detail/:_id'       handler={TimesheetsDetail} />
-      <Route name='timesheets.detail.edit'  path='/employees/:user_id/timesheets/detail/:_id/edit'  handler={TimesheetsEdit} />
 
       <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create'            handler={TimeunitsCreate} />
       <Route name='timesheets.detail.timeunits.edit'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
