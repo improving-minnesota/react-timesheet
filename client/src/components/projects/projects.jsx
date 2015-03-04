@@ -6,7 +6,7 @@ var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
 
 var Paginator = require('../common/paginator');
-var NotificationsAction = require('../../actions/notifications.actions');
+var SnackbarAction = require('../../actions/snackbar.actions');
 
 var Projects = React.createClass({
 
@@ -33,7 +33,7 @@ var Projects = React.createClass({
   componentWillMount: function () {
     this.requestProjects({page: 1});
     this.store.addChangeListener(this.onChange);
-    NotificationsAction.success('Yippeeeee!!!');
+    SnackbarAction.success('Yippeeeee!!!');
   },
 
   componentWillUnmount: function () {

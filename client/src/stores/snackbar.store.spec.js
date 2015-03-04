@@ -6,7 +6,7 @@ describe('Notifications Store: ', function () {
   var SnackbarStore;
 
   beforeEach(function () {
-    SnackbarStore = require('./notifications.store');
+    SnackbarStore = require('./snackbar.store');
   });
 
   it('should instantiate the SnackbarStore', function () {

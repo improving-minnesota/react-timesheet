@@ -1,10 +1,10 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/employee.actions');
-var NotificationsAction = require('../actions/notifications.actions');
+var SnackbarAction = require('../actions/snackbar.actions');
 var agent = require('../util/agent.promise');
 
-var EmployeeStore = _.extend(Store, {
+var EmployeeStore = _.extend(_.clone(Store), {
 
   initialize: function () {
     var events = {};
@@ -48,7 +48,7 @@ var EmployeeStore = _.extend(Store, {
         self.setState({pageConfig: res.body});
       })
       .catch(function (x) {
-        NotificationsAction.error('Error attempting to retrieve employees.');
+        SnackbarAction.error('Error attempting to retrieve employees.');
       });
   },
 
@@ -62,7 +62,7 @@ var EmployeeStore = _.extend(Store, {
         return true;
       })
       .catch(function (data) {
-        NotificationsAction.error('There was an error getting the employee');
+        SnackbarAction.error('There was an error getting the employee');
       });
   },
 
@@ -75,10 +75,10 @@ var EmployeeStore = _.extend(Store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        NotificationsAction.success('Employee : ' + employee.username + ', updated.');
+        SnackbarAction.success('Employee : ' + employee.username + ', updated.');
       })
       .catch(function (x) {
-        NotificationsAction.error('There was an error updating employee.');
+        SnackbarAction.error('There was an error updating employee.');
       });
   },
 
@@ -92,11 +92,11 @@ var EmployeeStore = _.extend(Store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        NotificationsAction.success('Employee : ' + res.body.username + ', was deleted.');
+        SnackbarAction.success('Employee : ' + res.body.username + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        NotificationsAction.error('Error attempting to delete employee.');
+        SnackbarAction.error('Error attempting to delete employee.');
       });
   },
 
@@ -110,11 +110,11 @@ var EmployeeStore = _.extend(Store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        NotificationsAction.success('Employee : ' + res.body.username + ', was restored.');
+        SnackbarAction.success('Employee : ' + res.body.username + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        NotificationsAction.error('Error attempting to restore employee.');
+        SnackbarAction.error('Error attempting to restore employee.');
       });
   },
 
@@ -126,10 +126,10 @@ var EmployeeStore = _.extend(Store, {
       .end()
       .then(function (res) {
         self.setState({employee: res.body});
-        NotificationsAction.success('Employee : ' + res.body.username + ', created.');
+        SnackbarAction.success('Employee : ' + res.body.username + ', created.');
       })
       .catch(function (x) {
-        NotificationsAction.error('There was an error creating employee.');
+        SnackbarAction.error('There was an error creating employee.');
       });
   }
 });

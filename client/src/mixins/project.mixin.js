@@ -2,8 +2,6 @@ var _ = require('lodash');
 var Router = require('react-router');
 var ProjectStore = require('../stores/project.store');
 
-var validator = require('../util/validator');
-
 module.exports = {
 
   store: ProjectStore,

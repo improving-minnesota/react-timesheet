@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var classes = require('react-classes');
 
-var SnackbarStore = require('../../stores/notifications.store');
+var SnackbarStore = require('../../stores/snackbar.store');
 
 var Snackbar = React.createClass({
 
