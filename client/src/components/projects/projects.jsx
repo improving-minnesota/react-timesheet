@@ -33,7 +33,6 @@ var Projects = React.createClass({
   componentWillMount: function () {
     this.requestProjects({page: 1});
     this.store.addChangeListener(this.onChange);
-    SnackbarAction.success('Yippeeeee!!!');
   },
 
   componentWillUnmount: function () {
@@ -53,7 +52,7 @@ var Projects = React.createClass({
       <div>
         <div className="one column row">
           <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            <i className="icon-plus"/> New Project
+            New Project
           </button>
         </div>
 

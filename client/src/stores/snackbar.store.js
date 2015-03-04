@@ -5,14 +5,15 @@ var Q = require('q');
 
 var SnackbarStore = _.extend(_.clone(Store), {
 
+  currentTimeout: null,
+
   initialize: function () {
 
     var events = {};
     events[actions.INFO]    = this.info;
     events[actions.SUCCESS] = this.success;
     events[actions.ERROR]   = this.error;
-    events[actions.RESET]   = this.newMessage;
-    events[actions.HIDE]    = this.hide
+    events[actions.HIDE]    = this.hide;
     this.register(events);
 
     return this;
@@ -23,6 +24,7 @@ var SnackbarStore = _.extend(_.clone(Store), {
       message: payload.action.message,
       messageType: payload.action.actionType
     });
+    this.reset();
 
     return Q();
   },
@@ -32,6 +34,7 @@ var SnackbarStore = _.extend(_.clone(Store), {
       message: payload.action.message,
       messageType: payload.action.actionType
     });
+    this.reset();
 
     return Q();
   },
@@ -41,17 +44,28 @@ var SnackbarStore = _.extend(_.clone(Store), {
       message: payload.action.message,
       messageType: payload.action.actionType
     });
+    this.reset();
 
     return Q();
   },
 
   reset: function () {
+    if (this.currentTimeout) {
+      window.clearTimeout(this.currentTimeout);
+    }
 
-
-    return Q();
+    this.currentTimeout = window.setTimeout(
+      function () {
+        actions.hide();
+      },
+      3000
+    );
   },
 
   hide: function () {
+    window.clearTimeout(this.currentTimeout);
+    this.currentTimeout = null;
+
     this.setState({
       message: ''
     });

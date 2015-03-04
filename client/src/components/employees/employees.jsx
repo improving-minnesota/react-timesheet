@@ -50,7 +50,7 @@ var Employees = React.createClass({
       <div>
         <div className="row">
           <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            <i className="icon-plus"/> New Employee
+            New Employee
           </button>
         </div>
 
