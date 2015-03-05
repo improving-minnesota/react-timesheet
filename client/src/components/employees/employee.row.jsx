@@ -4,19 +4,19 @@ var Router = require('react-router');
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
-var notifications = require('../../services/notifications');
 var yesNo = require('../../util/boolean');
 
 var EmployeeRow = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   showDetail: function showDetail () {
     var employee = this.props.employee;
     if (employee.deleted) {
-      notifications.error('You cannot edit a deleted employee.');
+      SnackbarAction.error('You cannot edit a deleted employee.');
       return;
     }
     EmployeeStore.setState({employee: employee});

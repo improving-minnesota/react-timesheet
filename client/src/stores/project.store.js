@@ -1,8 +1,8 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
-var notifications = require('../services/notifications');
-var agent = require('../services/agent.promise');
+var SnackbarAction = require('../actions/snackbar.actions');
+var agent = require('../util/agent.promise');
 
 var ProjectStore = _.extend(_.clone(Store), {
 
@@ -52,7 +52,7 @@ var ProjectStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to retrieve projects.');
+        SnackbarAction.error('Error attempting to retrieve projects.');
       });
   },
 
@@ -66,7 +66,7 @@ var ProjectStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (data) {
-        notifications.error('There was an error getting the project');
+        SnackbarAction.error('There was an error getting the project');
       });
   },
 
@@ -79,10 +79,10 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + project.name + ', updated.');
+        SnackbarAction.success('Project : ' + project.name + ', updated.');
       })
       .catch(function (x) {
-        notifications.error('There was an error updating project.');
+        SnackbarAction.error('There was an error updating project.');
       });
   },
 
@@ -96,11 +96,11 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was deleted.');
+        SnackbarAction.success('Project : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to delete project.');
+        SnackbarAction.error('Error attempting to delete project.');
       });
   },
 
@@ -114,11 +114,11 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was restored.');
+        SnackbarAction.success('Project : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to restore project.');
+        SnackbarAction.error('Error attempting to restore project.');
       });
 
     return prom;
@@ -132,11 +132,15 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', created.');
+        SnackbarAction.success('Project : ' + res.body.name + ', created.');
       })
       .catch(function (x) {
-        notifications.error('There was an error creating project.');
+        SnackbarAction.error('There was an error creating project.');
       });
+  },
+
+  clear: function () {
+    this.setState(null);
   }
 });
 

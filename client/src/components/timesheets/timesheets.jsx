@@ -51,7 +51,7 @@ var Timesheets = React.createClass({
       <div>
         <div className="row">
           <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            <i className="icon-plus"/> New Timesheet
+            New Timesheet
           </button>
         </div>
 

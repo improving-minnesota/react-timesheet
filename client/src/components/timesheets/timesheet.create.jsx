@@ -23,7 +23,7 @@ var TimesheetCreate = React.createClass({
   onSave: function (event) {
     event.preventDefault();
     TimesheetActions.create(this.state.timesheet);
-    this.goBack();
+    this.transitionTo('timesheets');
   },
 
   render: function () {

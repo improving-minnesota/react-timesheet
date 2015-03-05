@@ -5,7 +5,7 @@ var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
 var LoginStore = require('../../stores/login.store');
 
-var notifications = require('../../services/notifications');
+var SnackbarAction = require('../../actions/snackbar.actions');
 var DateFilter = require('../../util/date');
 
 var TimesheetRow = React.createClass({
@@ -17,7 +17,7 @@ var TimesheetRow = React.createClass({
   showDetail: function showDetail () {
     var timesheet = this.props.timesheet;
     if (timesheet.deleted) {
-      notifications.error('You cannot edit a deleted timesheet.');
+      SnackbarAction.error('You cannot edit a deleted timesheet.');
       return;
     }
     TimesheetStore.setState({timesheet: timesheet});

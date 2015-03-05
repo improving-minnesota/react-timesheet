@@ -1,8 +1,8 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
-var notifications = require('../services/notifications');
-var agent = require('../services/agent.promise');
+var SnackbarAction = require('../actions/snackbar.actions');
+var agent = require('../util/agent.promise');
 var LoginStore = require('./login.store');
 
 var TimesheetStore = _.extend(_.clone(Store), {
@@ -49,7 +49,7 @@ var TimesheetStore = _.extend(_.clone(Store), {
         self.setState({pageConfig: res.body});
       })
       .catch(function (x) {
-        notifications.error('Error attempting to retrieve timesheets.');
+        SnackbarAction.error('Error attempting to retrieve timesheets.');
       });
   },
 
@@ -63,7 +63,7 @@ var TimesheetStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (data) {
-        notifications.error('There was an error getting the timesheet');
+        SnackbarAction.error('There was an error getting the timesheet');
       });
   },
 
@@ -76,10 +76,10 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + timesheet.name + ', updated.');
+        SnackbarAction.success('Timesheet : ' + timesheet.name + ', updated.');
       })
       .catch(function (x) {
-        notifications.error('There was an error updating timesheet.');
+        SnackbarAction.error('There was an error updating timesheet.');
       });
   },
 
@@ -93,11 +93,11 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.name + ', was deleted.');
+        SnackbarAction.success('Timesheet : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to delete timesheet.');
+        SnackbarAction.error('Error attempting to delete timesheet.');
       });
   },
 
@@ -106,19 +106,17 @@ var TimesheetStore = _.extend(_.clone(Store), {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = false;
 
-    var prom = agent.put(this.url(timesheet._id))
+    return agent.put(this.url(timesheet._id))
       .send(timesheet)
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.name + ', was restored.');
+        SnackbarAction.success('Timesheet : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to restore timesheet.');
+        SnackbarAction.error('Error attempting to restore timesheet.');
       });
-
-    return prom;
   },
 
   create: function (payload) {
@@ -129,11 +127,15 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        notifications.success('Timesheet : ' + res.body.name + ', created.');
+        SnackbarAction.success('Timesheet : ' + res.body.name + ', created.');
       })
       .catch(function (x) {
-        notifications.error('There was an error creating timesheet.');
+        SnackbarAction.error('There was an error creating timesheet.');
       });
+  },
+
+  clear: function () {
+    this.setState(null);
   }
 });
 

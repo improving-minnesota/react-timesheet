@@ -5,7 +5,7 @@ var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitStore = require('../../stores/timeunit.store');
 
 var DateFilter = require('../../util/date');
-var notifications = require('../../services/notifications');
+var SnackbarAction = require('../../actions/snackbar.actions');
 
 var TimeunitRow = React.createClass({
 
@@ -18,7 +18,7 @@ var TimeunitRow = React.createClass({
     var timesheet = this.props.timesheet;
 
     if (timeunit.deleted) {
-      notifications.error('You cannot edit a deleted timeunit.');
+      SnackbarAction.error('You cannot edit a deleted timeunit.');
       return;
     }
     TimeunitStore.setState({timeunit: timeunit});

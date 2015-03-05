@@ -6,6 +6,7 @@ var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
 
 var Paginator = require('../common/paginator');
+var SnackbarAction = require('../../actions/snackbar.actions');
 
 var Projects = React.createClass({
 
@@ -36,6 +37,7 @@ var Projects = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.clear();
   },
 
   onPageChange: function (page) {
@@ -51,7 +53,7 @@ var Projects = React.createClass({
       <div>
         <div className="one column row">
           <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            <i className="icon-plus"/> New Project
+            New Project
           </button>
         </div>
 

@@ -15,8 +15,10 @@ var TimesheetDetail = React.createClass({
     TimesheetMixin
   ],
 
-  editTimesheet: function (event) {
-    this.transitionTo('timesheets.edit', {_id: this.props.timesheet._id});
+  saveTimesheet: function (event) {
+    event.preventDefault();
+    TimesheetActions.update(this.state.timesheet);
+    this.transitionTo('timesheets');
   },
 
   get: function (timesheetId) {
@@ -31,7 +33,7 @@ var TimesheetDetail = React.createClass({
 
   getInitialState: function () {
     return {
-      saveText: 'Edit',
+      saveText: 'Update',
       timesheet: {},
       errors: {}
     };
@@ -48,6 +50,7 @@ var TimesheetDetail = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.clear();
   },
 
   render: function () {
@@ -56,7 +59,7 @@ var TimesheetDetail = React.createClass({
         <div className="row">
           <TimesheetForm timesheet={this.state.timesheet}
             saveText={this.state.saveText}
-            onSave={this.editTimesheet}
+            onSave={this.saveTimesheet}
             errors={this.state.errors}
             hasErrors={this.hasErrors}
             validate={this.validate} />

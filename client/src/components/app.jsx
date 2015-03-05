@@ -6,6 +6,9 @@ var NavBar = require('./common/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
+var Snackbar = require('./common/snackbar');
+var SnackbarStore = require('../stores/snackbar.store');
+
 var App = React.createClass({
 
   statics: {
@@ -25,6 +28,8 @@ var App = React.createClass({
             <RouteHandler />
           </div>
         </div>
+
+        <Snackbar />
       </div>
     );
   }

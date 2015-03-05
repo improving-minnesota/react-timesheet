@@ -18,7 +18,7 @@ var ProjectCreate = React.createClass({
       project: {},
       errors: {}
     };
-  },  
+  },
 
   onChange: function () {
     this.setState(this.store.getState());
@@ -30,12 +30,13 @@ var ProjectCreate = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.clear();
   },
 
   saveProject: function (event) {
     event.preventDefault();
     ProjectActions.create(this.state.project);
-    this.goBack();
+    this.transitionTo('projects');
   },
 
   render : function () {

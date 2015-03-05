@@ -10,7 +10,7 @@ module.exports = {
     var value = event.target.value;
 
     this.state.timeunit[field] = value;
-    this.state.errors[field] = this.validator[field](value);
+    this.state.errors[field] = this.validator[field].call(this, value);
     return this.setState({timeunit: this.state.timeunit, errors: this.state.errors});
   },
 

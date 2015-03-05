@@ -12,7 +12,8 @@ var LoginStore = require('../../stores/login.store');
 var Timeunits = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   store: TimeunitStore,
@@ -44,6 +45,7 @@ var Timeunits = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.reset();
     TimesheetStore.removeChangeListener(this.onTimesheetChange);
   },
 

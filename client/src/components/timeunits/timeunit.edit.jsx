@@ -33,10 +33,10 @@ var TimeunitEdit = React.createClass({
     this.store.removeChangeListener(this.onChange);
   },
 
-  saveTimeunit: function (event) {
-    event.preventDefault();
+  saveTimeunit: function (e) {
+    e.stopPropagation();
     TimeunitActions.update(this.props.timesheet, this.state.timeunit);
-    this.goBack();
+    this.transitionTo('timesheets.detail', {});
   },
 
   render: function () {
