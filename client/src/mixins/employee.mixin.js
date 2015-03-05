@@ -9,7 +9,7 @@ module.exports = {
     var value = event.target.value;
 
     this.state.employee[field] = value;
-    this.state.errors[field] = this.validator[field](value);
+    this.state.errors[field] = this.validator[field].call(this, value);
     return this.setState({employee: this.state.employee, errors: this.state.errors});
   },
 

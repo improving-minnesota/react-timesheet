@@ -17,7 +17,7 @@ var EmployeeDetail = React.createClass({
   saveEmployee: function (event) {
     event.preventDefault();
     EmployeeActions.update(this.state.employee);
-    this.goBack();
+    this.transitionTo('employees');
   },
 
   get: function (employeeId) {

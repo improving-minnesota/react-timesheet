@@ -17,7 +17,7 @@ var TimesheetForm = React.createClass({
 
   onCancel: function (event) {
     event.preventDefault();
-    this.goBack();
+    this.transitionTo('timesheets');
   },
 
   setEndDate: function (date) {

@@ -17,7 +17,7 @@ var ProjectDetail = React.createClass({
   saveProject: function (event) {
     event.preventDefault();
     ProjectActions.update(this.state.project);
-    this.goBack();
+    this.transitionTo('projects');
   },
 
   get: function (projectId) {
@@ -49,6 +49,7 @@ var ProjectDetail = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.clear();
   },
 
   render : function () {

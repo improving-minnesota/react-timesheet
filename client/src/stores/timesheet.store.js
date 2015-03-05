@@ -132,6 +132,10 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .catch(function (x) {
         SnackbarAction.error('There was an error creating timesheet.');
       });
+  },
+
+  clear: function () {
+    this.setState(null);
   }
 });
 

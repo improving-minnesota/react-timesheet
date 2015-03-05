@@ -20,10 +20,10 @@ var TimeunitCreate = React.createClass({
     };
   },
 
-  saveTimeunit: function () {
-    this.preventDefault();
+  saveTimeunit: function (e) {
+    e.preventDefault();
     TimeunitActions.create(this.props.timesheet, this.state.timeunit);
-    this.goBack();
+    this.transitionTo('timesheets.detail', {});
   },
 
   render: function () {

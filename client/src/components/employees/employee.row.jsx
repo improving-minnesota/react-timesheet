@@ -9,7 +9,8 @@ var yesNo = require('../../util/boolean');
 var EmployeeRow = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   showDetail: function showDetail () {

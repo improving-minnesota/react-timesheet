@@ -18,7 +18,7 @@ var TimesheetDetail = React.createClass({
   saveTimesheet: function (event) {
     event.preventDefault();
     TimesheetActions.update(this.state.timesheet);
-    this.goBack();
+    this.transitionTo('timesheets');
   },
 
   get: function (timesheetId) {
@@ -50,6 +50,7 @@ var TimesheetDetail = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
+    this.store.clear();
   },
 
   render: function () {

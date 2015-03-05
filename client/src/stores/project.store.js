@@ -137,6 +137,10 @@ var ProjectStore = _.extend(_.clone(Store), {
       .catch(function (x) {
         SnackbarAction.error('There was an error creating project.');
       });
+  },
+
+  clear: function () {
+    this.setState(null);
   }
 });
 

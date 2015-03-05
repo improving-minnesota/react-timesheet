@@ -16,7 +16,7 @@ var ProjectForm = React.createClass({
 
   onCancel: function (event) {
     event.preventDefault();
-    this.goBack();
+    this.transitionTo('projects');
   },
 
   render : function () {

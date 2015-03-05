@@ -37,7 +37,7 @@ var EmployeeCreate = React.createClass({
   saveEmployee: function (event) {
     event.preventDefault();
     EmployeeActions.create(this.state.employee);
-    this.goBack();
+    this.transitionTo('employees');
   },
 
   render : function () {

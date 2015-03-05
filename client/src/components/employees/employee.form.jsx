@@ -17,7 +17,7 @@ var EmployeeForm = React.createClass({
 
   onCancel: function (event) {
     event.preventDefault();
-    this.goBack();
+    this.transitionTo('employees');
   },
 
   render : function () {
