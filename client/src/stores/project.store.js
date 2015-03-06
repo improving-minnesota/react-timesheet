@@ -3,8 +3,9 @@ var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
 var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 
-var ProjectStore = _.extend(_.clone(Store), {
+var ProjectStore = assign({}, Store, {
 
   initialize: function () {
     var events = {};
@@ -137,10 +138,6 @@ var ProjectStore = _.extend(_.clone(Store), {
       .catch(function (x) {
         SnackbarAction.error('There was an error creating project.');
       });
-  },
-
-  clear: function () {
-    this.setState(null);
   }
 });
 

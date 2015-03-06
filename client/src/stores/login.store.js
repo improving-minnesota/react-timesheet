@@ -6,8 +6,9 @@ var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
 var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 
-var LoginStore = _.extend(_.clone(Store), {
+var LoginStore = assign({}, Store, {
 
   initialize: function () {
 

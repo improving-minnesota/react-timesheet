@@ -3,9 +3,10 @@ var Store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
 var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 var LoginStore = require('./login.store');
 
-var TimesheetStore = _.extend(_.clone(Store), {
+var TimesheetStore = assign({}, Store, {
 
   initialize: function () {
     var events = {};
@@ -132,10 +133,6 @@ var TimesheetStore = _.extend(_.clone(Store), {
       .catch(function (x) {
         SnackbarAction.error('There was an error creating timesheet.');
       });
-  },
-
-  clear: function () {
-    this.setState(null);
   }
 });
 

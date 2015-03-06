@@ -37,7 +37,6 @@ var Projects = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-    this.store.clear();
   },
 
   onPageChange: function (page) {

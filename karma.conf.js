@@ -30,6 +30,7 @@ module.exports = function(config) {
     browserify: {
       debug: true,
       transform: [ 'reactify' ],
+      plugin: ['proxyquire-universal'],
       extensions: ['.js', '.jsx']
     },
 

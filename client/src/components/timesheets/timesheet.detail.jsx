@@ -50,7 +50,6 @@ var TimesheetDetail = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-    this.store.clear();
   },
 
   render: function () {

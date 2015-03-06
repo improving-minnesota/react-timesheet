@@ -3,9 +3,10 @@ var Store = require('../flux/flux.store');
 var actions = require('../actions/timeunit.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
 var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 var LoginStore = require('./login.store');
 
-var TimeunitStore = _.extend(_.clone(Store), {
+var TimeunitStore = assign({}, Store, {
 
   initialize: function () {
     var events = {};

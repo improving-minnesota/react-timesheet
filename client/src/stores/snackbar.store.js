@@ -2,8 +2,9 @@ var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/snackbar.actions');
 var Q = require('q');
+var assign = require('object-assign');
 
-var SnackbarStore = _.extend(_.clone(Store), {
+var SnackbarStore = assign({}, Store, {
 
   currentTimeout: null,
 

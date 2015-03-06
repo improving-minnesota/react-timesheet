@@ -1,10 +1,11 @@
 var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
+var assign = require('object-assign');
 
 var dispatcher = require('./flux.dispatcher');
 var CHANGE_EVENT = 'CHANGE_EVENT';
 
-var Store = _.extend(EventEmitter.prototype, {
+var Store = assign({}, EventEmitter.prototype, {
 
   state: {},
 

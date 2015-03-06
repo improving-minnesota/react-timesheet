@@ -30,7 +30,6 @@ var ProjectCreate = React.createClass({
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-    this.store.clear();
   },
 
   saveProject: function (event) {
