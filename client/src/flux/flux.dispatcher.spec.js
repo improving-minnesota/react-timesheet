@@ -1,15 +1,22 @@
 var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
+  TestUtils = React.addons.TestUtils,
+  fluxDispatcher = require('flux').Dispatcher;
 
 describe('Flux Dispatcher: ', function () {
 
-  var FluxDispatcher;
+  var dispatcher,
+    parent;
 
   beforeEach(function () {
-    FluxDispatcher = require('./flux.dispatcher');
+    parent = sinon.stub(fluxDispatcher);
+    dispatcher = require('./flux.dispatcher');
   });
 
-  it('should instantiate the FluxDispatcher', function () {
-    expect(FluxDispatcher).to.be.defined;
+  it('should instantiate the dispatcher', function () {
+    expect(dispatcher).to.be.defined;
+  });
+
+  describe('handling a view action', function () {
+
   });
 });
