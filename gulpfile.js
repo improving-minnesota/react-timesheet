@@ -7,7 +7,6 @@ var
   filesize =    require('gulp-filesize'),
   gulpif =      require('gulp-if'),
   jade =        require('gulp-jade'),
-  jest =        require('gulp-jest'),
   jshint =      require('gulp-jshint'),
   less =        require('gulp-less'),
   livereload =  require('gulp-livereload'),
@@ -127,27 +126,6 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   return merge(fa, img);
 });
 
-// semantic ui tasks
-gulp.task('semantic:copy', function (cb) {
-  var src = gulp.src('./node_modules/semantic/src/**')
-    .pipe(gulp.dest('./semantic/src'));
-
-  var tasks = gulp.src('./node_modules/semantic/tasks/**')
-    .pipe(gulp.dest('./semantic/tasks'));
-
-  var files = gulp.src([
-    './node_modules/semantic/gulpfile.js',
-    './node_modules/semantic/package.json',
-    './node_modules/semantic/semantic.json.example'
-  ])
-    .pipe(gulp.dest('./semantic'));
-
-  return merge(src, tasks, files);
-});
-
-gulp.task('semantic:install', ['semantic:copy'], shell.task(['cd semantic && npm install && gulp install']));
-gulp.task('semantic:build',   shell.task(['cd semantic && gulp build']));
-
 // Compile and concatenate less into css
 gulp.task('clean:css', function (cb) {
   return del([dist('/css')], cb);
@@ -222,6 +200,9 @@ gulp.task('uglify', ['watchify'], function () {
     .pipe(livereload())
     .on('error', gutil.log.bind(gutil, 'Error during minification.'));
 });
+
+gulp.task('semantic:build', require('./semantic/tasks/build'));
+gulp.task('semantic:watch', require('./semantic/tasks/watch'));
 
 // helper to navigate to the dist assets dir
 function dist(dest) {
