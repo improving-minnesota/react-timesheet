@@ -38,7 +38,7 @@ var
   version = project.version
 ;
 
-module.exports = function() {
+module.exports = function(callback) {
 
   var
     index = -1,
@@ -58,6 +58,7 @@ module.exports = function() {
 
     index = index + 1;
     if(index >= total) {
+      callback();
       return;
     }
 
@@ -90,6 +91,7 @@ module.exports = function() {
       fileModeOptions = { args : 'config core.fileMode false', cwd: outputDirectory },
       usernameOptions = { args : 'config user.name "' + oAuth.name + '"', cwd: outputDirectory },
       emailOptions    = { args : 'config user.email "' + oAuth.email + '"', cwd: outputDirectory },
+      versionOptions =  { args : 'rev-parse --verify HEAD', cwd: outputDirectory },
 
       localRepoSetup  = fs.existsSync(path.join(outputDirectory, '.git')),
       canProceed      = true
@@ -130,29 +132,29 @@ module.exports = function() {
       ;
     }
 
-    // push changess to remote
+    // push changes to remote
     function pushFiles() {
       console.info('Pushing files for ' + distribution);
       git.push('origin', 'master', { args: '', cwd: outputDirectory }, function(error) {
         console.info('Push completed successfully');
-        createRelease();
+        getSHA();
+      });
+    }
+
+    // gets SHA of last commit
+    function getSHA() {
+      git.exec(versionOptions, function(error, version) {
+        version = version.trim();
+        createRelease(version);
       });
     }
 
     // create release on GitHub.com
-    function createRelease() {
-      console.log('Tagging release as ', version);
+    function createRelease(version) {
+      if(version) {
+        releaseOptions.target_commitish = version;
+      }
       github.releases.createRelease(releaseOptions, function() {
-        nextRepo();
-        tagFiles();
-      });
-      tagFiles();
-    }
-
-    // Tags files locally
-    function tagFiles() {
-      console.info('Tagging new version ' + distribution, version);
-      git.tag(version, 'Updated version from semantic-ui (automatic)', function (err) {
         nextRepo();
       });
     }
