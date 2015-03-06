@@ -35,7 +35,7 @@ var SnackbarActions = {
     });
   },
 
-  hide: function (message) {
+  hide: function () {
     dispatcher.handleViewAction({
       actionType: SnackbarActions.HIDE
     });

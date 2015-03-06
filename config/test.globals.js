@@ -1,5 +1,5 @@
 (function () {
 
-  var expect = chai.expect;
+  window.expect = chai.expect;
 
 }());
