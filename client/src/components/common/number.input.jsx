@@ -1,14 +1,16 @@
 var React = require('react/addons');
-var cx = React.addons.classSet;
-var PropTypes = React.PropTypes;
 
 var Input = React.createClass({
 
-  render: function () {
-    var classNames = cx({
-      'form-control': true
-    });
+  propTypes: {
+    name:         React.PropTypes.string,
+    value:        React.PropTypes.number,
+    placeholder:  React.PropTypes.string,
+    error:        React.PropTypes.string,
+    onChange:     React.PropTypes.func.isRequired
+  },
 
+  render: function () {
     return (
       <div>
         <input type="number" className="form-control"

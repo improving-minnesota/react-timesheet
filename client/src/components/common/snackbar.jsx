@@ -11,8 +11,8 @@ var Snackbar = React.createClass({
   mixins: [classes],
 
   propTypes: {
-    message: React.PropTypes.string,
-    type: React.PropTypes.string
+    message:  React.PropTypes.string,
+    type:     React.PropTypes.string
   },
 
   getInitialState: function () {

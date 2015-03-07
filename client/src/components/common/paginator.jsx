@@ -3,9 +3,9 @@ var React = require('react/addons');
 var Paginator = React.createClass({
 
   propTypes: {
-    max: React.PropTypes.number.isRequired,
+    max:        React.PropTypes.number.isRequired,
     maxVisible: React.PropTypes.number,
-    onChange: React.PropTypes.func.isRequired
+    onChange:   React.PropTypes.func.isRequired
   },
 
   componentDidUpdate: function(prevProps, prevState) {

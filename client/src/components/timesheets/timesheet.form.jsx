@@ -7,7 +7,6 @@ var FieldWrap = require('../common/field.wrap');
 var TextInput = require('../common/text.input');
 var SaveButton = require('../common/save.button');
 var CancelButton = require('../common/cancel.button');
-var Separator = require('../common/form.separator');
 
 var TimesheetForm = React.createClass({
 

@@ -6,7 +6,6 @@ var FieldWrap = require('../common/field.wrap');
 var TextInput = require('../common/text.input');
 var SaveButton = require('../common/save.button');
 var CancelButton = require('../common/cancel.button');
-var Separator = require('../common/form.separator');
 
 var ProjectForm = React.createClass({
 
@@ -43,7 +42,7 @@ var ProjectForm = React.createClass({
                   onChange={this.props.validate} />
             }/>
 
-            <Separator />
+            <div className="ui horizontal divider"></div>
 
             <div className="ui sixteen column right floated grid">
               <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />

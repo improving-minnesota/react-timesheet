@@ -1,13 +1,12 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
-var PropTypes = React.PropTypes;
 
 var FieldWrap = React.createClass({
 
   propTypes: {
-    inputId: PropTypes.string,
-    label: PropTypes.string,
-    formField: PropTypes.component
+    inputId:    React.PropTypes.string,
+    label:      React.PropTypes.string,
+    formField:  React.PropTypes.element
   },
 
   render: function () {

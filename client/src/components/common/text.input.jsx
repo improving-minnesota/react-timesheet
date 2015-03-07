@@ -7,7 +7,11 @@ var Input = React.createClass({
   mixins: [classes],
 
   propTypes: {
-
+    name:         React.PropTypes.string.isRequired,
+    onChange:     React.PropTypes.func.isRequired,
+    placeholder:  React.PropTypes.string,
+    value:        React.PropTypes.string,
+    error:        React.PropTypes.string
   },
 
   render: function () {

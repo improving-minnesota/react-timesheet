@@ -5,6 +5,17 @@ var classes = require('react-classes');
 
 var DateInput = React.createClass({
 
+  propTypes: {
+    date:               React.PropTypes.object,
+    focus:              React.PropTypes.bool,
+    handleClick:        React.PropTypes.func,
+    handleEnter:        React.PropTypes.func,
+    handleButtonClick:  React.PropTypes.func,
+    onBlur:             React.PropTypes.func,
+    onFocus:            React.PropTypes.func,
+    error:              React.PropTypes.string
+  },
+
   mixins: [classes],
 
   getInitialState: function() {

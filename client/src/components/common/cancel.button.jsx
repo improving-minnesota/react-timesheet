@@ -2,6 +2,10 @@ var React = require('react/addons');
 
 var CancelButton = React.createClass({
 
+  propTypes: {
+    onCancel: React.PropTypes.func.isRequired
+  },
+
   render: function () {
     return (
       <div className="eight wide column">

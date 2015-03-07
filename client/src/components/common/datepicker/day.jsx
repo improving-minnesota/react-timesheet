@@ -2,6 +2,13 @@ var moment = require('moment');
 var React = require('react/addons');
 
 var Day = React.createClass({
+
+  propTypes: {
+    selected: React.PropTypes.object,
+    onClick: React.PropTypes.func.isRequired,
+    day: React.PropTypes.object
+  },
+
   render: function() {
     classes = React.addons.classSet({
       'datepicker-calendar-day': true,

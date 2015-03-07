@@ -6,7 +6,6 @@ var FieldWrap = require('../common/field.wrap');
 var TextInput = require('../common/text.input');
 var SaveButton = require('../common/save.button');
 var CancelButton = require('../common/cancel.button');
-var Separator = require('../common/form.separator');
 var yesNo = require('../../util/boolean');
 
 var EmployeeForm = React.createClass({
@@ -71,7 +70,7 @@ var EmployeeForm = React.createClass({
               </div>
             }/>
 
-            <Separator />
+            <div className="ui horizontal divider"></div>
 
             <div className="ui sixteen column right floated grid">
               <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />

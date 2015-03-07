@@ -8,6 +8,7 @@ var LoginStore = require('../../stores/login.store');
 var LoginActions = require('../../actions/login.actions');
 
 var NavBar = React.createClass({
+  
   mixins: [
     Router.State,
     Router.Navigation

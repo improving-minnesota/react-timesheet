@@ -3,6 +3,13 @@ var DateUtil = require('./date.util');
 var React = require('react/addons');
 
 var Calendar = React.createClass({
+
+  propTypes: {
+    selected:     React.PropTypes.object,
+    onSelect:     React.PropTypes.func.isRequired,
+    onMouseDown:  React.PropTypes.func
+  },
+
   getInitialState: function() {
     return {
       date: new DateUtil(this.props.selected).clone()

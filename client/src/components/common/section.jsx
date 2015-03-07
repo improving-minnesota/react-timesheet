@@ -3,6 +3,7 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var SectionHeader = React.createClass({
+
   mixins: [
     Router.State,
     Router.Navigation

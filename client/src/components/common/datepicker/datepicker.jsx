@@ -5,6 +5,13 @@ var DateInput = require('./date_input');
 var React = require('react/addons');
 
 var DatePicker = React.createClass({
+
+  propTypes: {
+    selected:   React.PropTypes.object,
+    error:      React.PropTypes.string,
+    onChange:   React.PropTypes.func.isRequired
+  },
+
   getInitialState: function() {
     return {
       focus: false
