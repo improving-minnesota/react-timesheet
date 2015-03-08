@@ -1,7 +1,7 @@
 var React = require('react/addons'),
   TestUtils = React.addons.TestUtils;
 
-describe('Timeunits Component: ', function () {
+describe('Timeunits Component:', function () {
 
   var Timeunits;
 

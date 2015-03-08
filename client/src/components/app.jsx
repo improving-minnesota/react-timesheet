@@ -2,7 +2,7 @@ var React = require('react/addons');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 
-var NavBar = require('./common/navbar');
+var NavBar = require('./common/navigation/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 

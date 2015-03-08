@@ -1,16 +1,20 @@
 var React = require('react/addons');
 var Router = require('react-router');
+var classes = require('react-classes');
 
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
-var yesNo = require('../../util/boolean');
-
 var EmployeeRow = React.createClass({
+
+  propTypes: {
+    employee: React.PropTypes.object
+  },
 
   mixins: [
     Router.Navigation,
-    Router.State
+    Router.State,
+    classes
   ],
 
   showDetail: function showDetail () {
@@ -36,20 +40,13 @@ var EmployeeRow = React.createClass({
   },
 
   render: function () {
-    var cx = React.addons.classSet;
     var employee = this.props.employee;
 
-    var classNames = cx({
-      'repeated-item': true,
-      'fadeable-row': true,
+    var classNames = this.getClass('repeated-item fadeable-row', {
       'faded': employee.deleted
     });
 
-    var buttonClasses = cx({
-      'ui': true,
-      'primary': true,
-      'button': true,
-      'small': true,
+    var buttonClasses = this.getClass('ui primary button small', {
       'positive': employee.deleted,
       'negative': !employee.deleted
     });

@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
+var classes = require('react-classes');
 
 var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
@@ -9,7 +10,8 @@ var SnackbarAction = require('../../actions/snackbar.actions');
 var ProjectRow = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    classes
   ],
 
   showDetail: function showDetail () {
@@ -34,20 +36,13 @@ var ProjectRow = React.createClass({
   },
 
   render: function () {
-    var cx = React.addons.classSet;
     var project = this.props.project;
 
-    var rowClasses = cx({
-      'repeated-item': true,
-      'fadeable-row': true,
+    var rowClasses = this.getClass('repeated-item fadeable-row', {
       'faded': project.deleted
     });
 
-    var buttonClasses = cx({
-      'ui': true,
-      'primary': true,
-      'button': true,
-      'small': true,
+    var buttonClasses = this.getClass('ui primary button small', {
       'positive': project.deleted,
       'negative': !project.deleted
     });

@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
+var classes = require('react-classes');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
@@ -11,7 +12,8 @@ var DateFilter = require('../../util/date');
 var TimesheetRow = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    classes
   ],
 
   showDetail: function showDetail () {
@@ -38,20 +40,13 @@ var TimesheetRow = React.createClass({
   },
 
   render: function () {
-    var cx = React.addons.classSet;
     var timesheet = this.props.timesheet;
 
-    var rowClasses = cx({
-      'repeated-item': true,
-      'fadeable-row': true,
+    var rowClasses = this.getClass('repeated-item fadeable-row', {
       'faded': timesheet.deleted
     });
 
-    var buttonClasses = cx({
-      'ui': true,
-      'primary': true,
-      'button': true,
-      'small': true,
+    var buttonClasses = this.getClass('ui primary button small', {
       'positive': timesheet.deleted,
       'negative': !timesheet.deleted
     });

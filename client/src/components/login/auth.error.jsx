@@ -2,6 +2,10 @@ var React = require('react/addons');
 
 var AuthError = React.createClass({
 
+  propTypes: {
+    authError: React.PropTypes.string
+  },
+
   render: function () {
     if (this.props.authError) {
       return (

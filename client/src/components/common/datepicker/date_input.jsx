@@ -7,6 +7,7 @@ var DateInput = React.createClass({
 
   propTypes: {
     date:               React.PropTypes.object,
+    label:              React.PropTypes.string.isRequired,
     focus:              React.PropTypes.bool,
     handleClick:        React.PropTypes.func,
     handleEnter:        React.PropTypes.func,
@@ -142,29 +143,37 @@ var DateInput = React.createClass({
   },
 
   render: function() {
+    var wrapperClasses = this.getClass('inline field', {
+      'has-error': this.props.error,
+      'has-success': !this.props.error
+    });
+
     var containerClasses = this.getClass('ui inline field', {
       'error': !!this.props.error
     });
 
     return (
-      <div className="datepicker-input">
-        <div className={containerClasses}>
-          <input
-            ref="input"
-            type="text"
-            value={this.state.value}
-            onBlur={this.props.onBlur}
-            onClick={this.handleClick}
-            onKeyDown={this.handleKeyDown}
-            onFocus={this.props.onFocus}
-            onChange={this.handleChange} />
-          <span>
-            <button className="ui secondary button" onClick={this.handleButtonClick}>
+      <div className={wrapperClasses}>
+        <label htmlFor={this.props.name}>{this.props.label}</label>
+        <div className="datepicker-input">
+          <div className={containerClasses}>
+            <input
+              ref="input"
+              type="text"
+              value={this.state.value}
+              onBlur={this.props.onBlur}
+              onClick={this.handleClick}
+              onKeyDown={this.handleKeyDown}
+              onFocus={this.props.onFocus}
+              onChange={this.handleChange} />
+            <span>
+              <button className="ui secondary button" onClick={this.handleButtonClick}>
               <i className="fa fa-fw fa-calendar"></i>
             </button>
-          </span>
+            </span>
+          </div>
+          <div className="input">{this.props.error}</div>
         </div>
-        <div className="input">{this.props.error}</div>
       </div>
     );
   }

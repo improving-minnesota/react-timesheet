@@ -1,14 +1,19 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var PropTypes = React.PropTypes;
 
-var FieldWrap = require('../common/field.wrap');
-var TextInput = require('../common/text.input');
-var SaveButton = require('../common/save.button');
-var CancelButton = require('../common/cancel.button');
-var yesNo = require('../../util/boolean');
+var TextInput = require('../common/form/text.input');
+var Checkbox = require('../common/form/checkbox');
+var SaveButton = require('../common/buttons/save.button');
+var CancelButton = require('../common/buttons/cancel.button');
 
 var EmployeeForm = React.createClass({
+
+  propTypes: {
+    employee: React.PropTypes.object,
+    errors: React.PropTypes.object,
+    validate: React.PropTypes.func.isRequired,
+    hasErrors: React.PropTypes.func.isRequired
+  },
 
   mixins: [
     Router.Navigation
@@ -25,50 +30,39 @@ var EmployeeForm = React.createClass({
         <div className="ten wide column">
           <form className="ui inline form" name="employeeForm" onSubmit={this.props.onSave}>
 
-            <FieldWrap inputId="username" label="Username"
+            <TextInput name="username"
+              label="Username"
+              placeholder="Employee Username"
+              value={this.props.employee.username}
               error={this.props.errors.username}
-              formField={
-                <TextInput name="username" placeholder="Employee Username"
-                  value={this.props.employee.username}
-                  error={this.props.errors.username}
-                  onChange={this.props.validate} />
-             }/>
+              onChange={this.props.validate} />
 
-            <FieldWrap inputId="email" label="Email"
+            <TextInput name="email"
+              label="Email"
+              placeholder="Employee Email"
+              value={this.props.employee.email}
               error={this.props.errors.email}
-              formField={
-                <TextInput name="email" placeholder="Employee Email"
-                  value={this.props.employee.email}
-                  error={this.props.errors.email}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
-            <FieldWrap inputId="firstName" label="First Name"
+            <TextInput name="firstName"
+              label="First Name"
+              placeholder="First Name"
+              value={this.props.employee.firstName}
               error={this.props.errors.firstName}
-              formField={
-                <TextInput name="firstName" placeholder="First Name"
-                  value={this.props.employee.firstName}
-                  error={this.props.errors.firstName}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
-            <FieldWrap inputId="lastName" label="Last Name"
+            <TextInput name="lastName"
+              label="Last Name"
+              placeholder="Last Name"
+              value={this.props.employee.lastName}
               error={this.props.errors.lastName}
-              formField={
-                <TextInput name="lastName" placeholder="Last Name"
-                  value={this.props.employee.lastName}
-                  error={this.props.errors.lastName}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
-            <FieldWrap inputId="admin" label="Admin" formField={
-              <div className="ui toggle checkbox" onClick={this.props.toggleAdmin}>
-                <input type="checkbox" name="admin"
-                  checked={this.props.employee.admin}
-                  onChange={this.props.validate} />
-                <label htmlFor="admin">{yesNo(this.props.employee.admin)}</label>
-              </div>
-            }/>
+            <Checkbox name="admin"
+              label="Admin"
+              value={this.props.employee.admin}
+              onClick={this.props.toggleAdmin}
+              onChange={this.props.validate} />
 
             <div className="ui horizontal divider"></div>
 

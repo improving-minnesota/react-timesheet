@@ -2,15 +2,18 @@ var moment = require('moment');
 var React = require('react/addons');
 var Router = require('react-router');
 
-var FieldWrap = require('../common/field.wrap');
 var DatePicker = require('../common/datepicker/datepicker');
-var Select = require('react-select');
-var TextInput = require('../common/text.input');
-var NumberInput = require('../common/number.input');
-var SaveButton = require('../common/save.button');
-var CancelButton = require('../common/cancel.button');
+var Select = require('../common/form/select');
+var TextInput = require('../common/form/text.input');
+var NumberInput = require('../common/form/number.input');
+var SaveButton = require('../common/buttons/save.button');
+var CancelButton = require('../common/buttons/cancel.button');
 
 var TimeunitForm = React.createClass({
+
+  propTypes: {
+
+  },
 
   mixins: [
     Router.Navigation
@@ -33,34 +36,29 @@ var TimeunitForm = React.createClass({
       <div className="ui ten column centered grid">
         <div className="ten wide column">
           <form className="ui inline form" name="timeunitForm" onSubmit={this.props.onSave}>
-            <FieldWrap inputId="timeunit-project" label="Project"
+
+            <Select name="project"
+              label="Project"
+              value={this.props.timeunit.project}
+              placeholder="Select Project"
+              onChange={this.props.onChange}
               error={this.props.errors.project}
-              formField={
-                <Select name="project"
-                  value={this.props.timeunit.project}
-                  placeholder="Select Project"
-                  onChange={this.props.onChange}
-                  error={this.props.errors.project}
-                  options={this.options} />
-            }/>
+              options={this.options} />
 
-            <FieldWrap inputId="timeunit-dateWorked" label="Date"
-              error={this.props.errors.dateWorked}
-              formField={
-                <DatePicker key='tu-worked' className="form-control"
-                  selected={moment(this.props.timeunit.dateWorked)}
-                  onChange={this.props.validate}
-                  error={this.props.errors.dateWorked}/>
-            }/>
+            <DatePicker key='tu-worked'
+              name="dateWorked"
+              label="Date"
+              className="form-control"
+              selected={moment(this.props.timeunit.dateWorked)}
+              onChange={this.props.validate}
+              error={this.props.errors.dateWorked}/>
 
-            <FieldWrap inpuId="timeunit-hoursWorked" label="Hours"
+            <NumberInput name="hoursWorked"
+              label="Hours Worked"
+              placeholder="Hours Worked"
+              value={this.props.timeunit.hoursWorked}
               error={this.props.errors.hoursWorked}
-              formField={
-                <NumberInput name="hoursWorked" placeholder="Hours Worked"
-                  value={this.props.timeunit.hoursWorked}
-                  error={this.props.errors.hoursWorked}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
             <div className="ui horizontal divider"></div>
 

@@ -5,7 +5,7 @@ var TimesheetTable = require('./timesheet.table');
 var TimesheetActions = require('../../actions/timesheet.actions');
 var TimesheetStore = require('../../stores/timesheet.store');
 
-var Paginator = require('../common/paginator');
+var Paginator = require('../common/navigation/paginator');
 
 var Timesheets = React.createClass({
 

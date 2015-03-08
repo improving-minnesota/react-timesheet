@@ -1,11 +1,9 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var PropTypes = React.PropTypes;
 
-var FieldWrap = require('../common/field.wrap');
-var TextInput = require('../common/text.input');
-var SaveButton = require('../common/save.button');
-var CancelButton = require('../common/cancel.button');
+var TextInput = require('../common/form/text.input');
+var SaveButton = require('../common/buttons/save.button');
+var CancelButton = require('../common/buttons/cancel.button');
 
 var ProjectForm = React.createClass({
 
@@ -24,23 +22,19 @@ var ProjectForm = React.createClass({
         <div className="ten wide column">
           <form className="ui inline form" name="projectForm" onSubmit={this.props.onSave}>
 
-            <FieldWrap inputId="project-name" label="Name"
+            <TextInput name="name"
+              label="Name"
+              placeholder="Project Name"
+              value={this.props.project.name}
               error={this.props.errors.name}
-              formField={
-                <TextInput name="name" placeholder="Project Name"
-                  value={this.props.project.name}
-                  error={this.props.errors.name}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
-            <FieldWrap inputId="project-description" label="Description"
+            <TextInput name="description"
+              label="Description"
+              placeholder="Project Description"
+              value={this.props.project.description}
               error={this.props.errors.description}
-              formField={
-                <TextInput name="description" placeholder="Project Description"
-                  value={this.props.project.description}
-                  error={this.props.errors.description}
-                  onChange={this.props.validate} />
-            }/>
+              onChange={this.props.validate} />
 
             <div className="ui horizontal divider"></div>
 

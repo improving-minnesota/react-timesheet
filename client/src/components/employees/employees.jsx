@@ -4,7 +4,7 @@ var Router = require('react-router');
 var EmployeeTable = require('./employee.table');
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
-var Paginator = require('../common/paginator');
+var Paginator = require('../common/navigation/paginator');
 
 var Employees = React.createClass({
 

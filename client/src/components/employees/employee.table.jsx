@@ -3,6 +3,10 @@ var EmployeeRow = require('./employee.row');
 
 var EmployeeTable = React.createClass({
 
+  propTypes: {
+    employees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
+
   render: function () {
 
     var employeeRows = this.props.employees.map(function (employee) {
