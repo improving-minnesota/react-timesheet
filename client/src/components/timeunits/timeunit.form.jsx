@@ -41,7 +41,7 @@ var TimeunitForm = React.createClass({
               label="Project"
               value={this.props.timeunit.project}
               placeholder="Select Project"
-              onChange={this.props.onChange}
+              onChange={this.props.validate}
               error={this.props.errors.project}
               options={this.options} />
 

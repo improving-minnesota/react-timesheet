@@ -11,7 +11,8 @@ var Select = React.createClass({
     onChange:     React.PropTypes.func.isRequired,
     placeholder:  React.PropTypes.string,
     value:        React.PropTypes.string,
-    error:        React.PropTypes.string
+    error:        React.PropTypes.string,
+    options:      React.PropTypes.arrayOf(React.PropTypes.object)
   },
 
   mixins: [classes],
@@ -31,11 +32,11 @@ var Select = React.createClass({
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className={containerClasses}>
           <ReactSelect name={this.props.name}
-            value={this.props.timeunit.project}
+            value={this.props.value}
             placeholder={this.props.placeholder}
             onChange={this.props.onChange}
             error={this.props.error}
-            options={this.options} />
+            options={this.props.options} />
 
           <div className="input">{this.props.error}</div>
         </div>

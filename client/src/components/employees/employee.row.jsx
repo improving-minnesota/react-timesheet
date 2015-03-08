@@ -5,6 +5,8 @@ var classes = require('react-classes');
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
+var yesNo = require('../../util/boolean');
+
 var EmployeeRow = React.createClass({
 
   propTypes: {

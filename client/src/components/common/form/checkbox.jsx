@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var classes = require('react-classes');
-var yesNo = require('../../util/boolean');
+var yesNo = require('../../../util/boolean');
 
 var Input = React.createClass({
 

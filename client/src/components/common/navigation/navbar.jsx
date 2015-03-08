@@ -5,8 +5,8 @@ var Router = require('react-router');
 var Link = Router.Link;
 var ActiveState = Router.State;
 
-var LoginStore = require('../../stores/login.store');
-var LoginActions = require('../../actions/login.actions');
+var LoginStore = require('../../../stores/login.store');
+var LoginActions = require('../../../actions/login.actions');
 
 var NavBar = React.createClass({
 

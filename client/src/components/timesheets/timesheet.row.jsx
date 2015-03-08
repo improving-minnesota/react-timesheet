@@ -7,7 +7,7 @@ var TimesheetStore = require('../../stores/timesheet.store');
 var LoginStore = require('../../stores/login.store');
 
 var SnackbarAction = require('../../actions/snackbar.actions');
-var DateFilter = require('../../util/date');
+var DateUtils = require('../../util/date.utils');
 
 var TimesheetRow = React.createClass({
 
@@ -54,8 +54,8 @@ var TimesheetRow = React.createClass({
     return (
       <tr className={rowClasses} onClick={this.showDetail}>
 
-        <td>{DateFilter.momentShortDate(timesheet.beginDate)}</td>
-        <td>{DateFilter.momentShortDate(timesheet.endDate)}</td>
+        <td>{DateUtils.momentShortDate(timesheet.beginDate)}</td>
+        <td>{DateUtils.momentShortDate(timesheet.endDate)}</td>
         <td>{timesheet.name}</td>
         <td>{timesheet.description}</td>
         <td>

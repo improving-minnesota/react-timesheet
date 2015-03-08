@@ -5,8 +5,8 @@ var classes = require('react-classes');
 var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitStore = require('../../stores/timeunit.store');
 
-var DateFilter = require('../../util/date');
-var SnackbarAction = require('../../actions/snackbar.actions');
+var DateUtils = require('../../util/date.utils');
+var SnackbarActions = require('../../actions/snackbar.actions');
 
 var TimeunitRow = React.createClass({
 
@@ -20,7 +20,7 @@ var TimeunitRow = React.createClass({
     var timesheet = this.props.timesheet;
 
     if (timeunit.deleted) {
-      SnackbarAction.error('You cannot edit a deleted timeunit.');
+      SnackbarActions.error('You cannot edit a deleted timeunit.');
       return;
     }
     TimeunitStore.setState({timeunit: timeunit});
@@ -56,7 +56,7 @@ var TimeunitRow = React.createClass({
       <tr className={rowClasses} onClick={this.showDetail}>
 
         <td>{timeunit.project}</td>
-        <td>{DateFilter.momentShortDate(timeunit.dateWorked)}</td>
+        <td>{DateUtils.momentShortDate(timeunit.dateWorked)}</td>
         <td>{timeunit.hoursWorked}</td>
         <td>
           <button className={buttonClasses} onClick={timeunit.deleted ? this.restore : this.remove}>
