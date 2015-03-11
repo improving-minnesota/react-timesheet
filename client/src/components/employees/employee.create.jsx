@@ -9,6 +9,7 @@ var EmployeeCreate = React.createClass({
 
   mixins : [
     Router.Navigation,
+    Router.State,
     EmployeeMixin
   ],
 
@@ -36,14 +37,19 @@ var EmployeeCreate = React.createClass({
 
   saveEmployee: function (event) {
     event.preventDefault();
-    EmployeeActions.create(this.state.employee);
-    this.transitionTo('employees');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      EmployeeActions.create(this.state.employee);
+      this.transitionTo('employees');
+    }
   },
 
   render : function () {
     return (
       <EmployeeForm employee={this.state.employee}
         errors={this.state.errors}
+        validateAll={this.validateAll}
         hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}

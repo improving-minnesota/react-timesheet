@@ -17,8 +17,12 @@ var TimesheetDetail = React.createClass({
 
   saveTimesheet: function (event) {
     event.preventDefault();
-    TimesheetActions.update(this.state.timesheet);
-    this.transitionTo('timesheets');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      TimesheetActions.update(this.state.timesheet);
+      this.transitionTo('timesheets', {user_id: this.getParams().user_id});
+    }
   },
 
   get: function (timesheetId) {
@@ -60,8 +64,11 @@ var TimesheetDetail = React.createClass({
             saveText={this.state.saveText}
             onSave={this.saveTimesheet}
             errors={this.state.errors}
+            validateAll={this.validateAll}
             hasErrors={this.hasErrors}
-            validate={this.validate} />
+            validate={this.validate}
+            validateBeginDate={this.validateBeginDate}
+            validateEndDate={this.validateEndDate} />
         </div>
 
         <div className="ui divider"></div>

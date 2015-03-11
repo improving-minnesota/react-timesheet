@@ -9,10 +9,11 @@ var CancelButton = require('../common/buttons/cancel.button');
 var EmployeeForm = React.createClass({
 
   propTypes: {
-    employee: React.PropTypes.object,
-    errors: React.PropTypes.object,
-    validate: React.PropTypes.func.isRequired,
-    hasErrors: React.PropTypes.func.isRequired
+    employee:   React.PropTypes.object,
+    errors:     React.PropTypes.object,
+    validate:   React.PropTypes.func.isRequired,
+    hasErrors:  React.PropTypes.func.isRequired,
+    toggleAdmin: React.PropTypes.func
   },
 
   mixins: [
@@ -67,7 +68,7 @@ var EmployeeForm = React.createClass({
             <div className="ui horizontal divider"></div>
 
             <div className="ui sixteen column right floated grid">
-              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <SaveButton validateAll={this.props.validateAll} hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
               <CancelButton onCancel={this.onCancel} />
             </div>
           </form>

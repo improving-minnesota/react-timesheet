@@ -9,6 +9,7 @@ var ProjectCreate = React.createClass({
 
   mixins: [
     Router.Navigation,
+    Router.State,
     ProjectMixin
   ],
 
@@ -34,8 +35,12 @@ var ProjectCreate = React.createClass({
 
   saveProject: function (event) {
     event.preventDefault();
-    ProjectActions.create(this.state.project);
-    this.transitionTo('projects');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      ProjectActions.create(this.state.project);
+      this.transitionTo('projects');
+    }
   },
 
   render : function () {
@@ -43,6 +48,7 @@ var ProjectCreate = React.createClass({
       <ProjectForm project={this.state.project}
         errors={this.state.errors}
         hasErrors={this.hasErrors}
+        validateAll={this.validateAll}
         saveText={this.state.saveText}
         onSave={this.saveProject}
         validate={this.validate} />

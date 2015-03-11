@@ -16,8 +16,12 @@ var EmployeeDetail = React.createClass({
 
   saveEmployee: function (event) {
     event.preventDefault();
-    EmployeeActions.update(this.state.employee);
-    this.transitionTo('employees');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      EmployeeActions.update(this.state.employee);
+      this.transitionTo('employees');
+    }
   },
 
   get: function (employeeId) {
@@ -58,6 +62,7 @@ var EmployeeDetail = React.createClass({
     return (
       <EmployeeForm employee={this.state.employee}
         errors={this.state.errors}
+        validateAll={this.validateAll}
         hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveEmployee}

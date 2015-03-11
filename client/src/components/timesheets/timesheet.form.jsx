@@ -9,23 +9,26 @@ var CancelButton = require('../common/buttons/cancel.button');
 
 var TimesheetForm = React.createClass({
 
+  propTypes: {
+    timesheet:          React.PropTypes.object,
+    saveText:           React.PropTypes.string.isRequired,
+    validate:           React.PropTypes.func.isRequired,
+    validateBeginDate:  React.PropTypes.func.isRequired,
+    validateEndDate:    React.PropTypes.func.isRequired,
+    errors:             React.PropTypes.object,
+    hasErrors:          React.PropTypes.func.isRequired
+  },
+
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   onCancel: function (event) {
     event.preventDefault();
-    this.transitionTo('timesheets');
-  },
-
-  setEndDate: function (date) {
-    this.props.validate({target:{name: 'endDate', value: date}});
-    this.props.validate({target:{name: 'beginDate', value: this.props.timesheet.beginDate}});
-  },
-
-  setBeginDate: function (date) {
-    this.props.validate({target:{name: 'beginDate', value: date}});
-    this.props.validate({target: {name: 'endDate', value: this.props.timesheet.endDate}});
+    this.transitionTo('timesheets', {
+      user_id: this.getParams().user_id
+    });
   },
 
   render : function () {
@@ -51,22 +54,24 @@ var TimesheetForm = React.createClass({
 
             <div className="two fields">
               <DatePicker key='ts-begin'
+                name="beginDate"
                 label="Begin Date"
                 selected={moment(this.props.timesheet.beginDate)}
                 value={this.props.timesheet.beginDate}
-                onChange={this.setBeginDate}
-                error={this.props.errors.beginDate}/>
+                onChange={this.props.validateBeginDate}
+                error={this.props.errors.beginDate} />
 
               <DatePicker key='ts-end'
+                name="beginDate"
                 label="End Date"
                 selected={moment(this.props.timesheet.endDate)}
                 value={this.props.timesheet.endDate}
-                onChange={this.setEndDate}
+                onChange={this.props.validateEndDate}
                 error={this.props.errors.endDate} />
             </div>
 
             <div className="ui sixteen column right floated grid">
-              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <SaveButton validateAll={this.props.validateAll} hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
               <CancelButton onCancel={this.onCancel} />
             </div>
           </form>

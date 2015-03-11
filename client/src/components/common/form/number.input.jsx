@@ -16,8 +16,11 @@ var Input = React.createClass({
 
   render: function () {
     var wrapperClasses = this.getClass('inline field', {
-      'has-error': this.props.error,
-      'has-success': !this.props.error
+      'error': this.props.error
+    });
+
+    var errorMessageClasses = this.getClass('input', {
+      'error': this.props.error
     });
 
     return (
@@ -32,7 +35,7 @@ var Input = React.createClass({
             value={this.props.value}
             onChange={this.props.onChange} />
 
-          <div className="text-danger">{this.props.error}</div>
+          <div className={errorMessageClasses}>{this.props.error}</div>
         </div>
       </div>
     );

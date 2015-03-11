@@ -3,14 +3,19 @@ var DateUtil  = require('./date.util');
 var Calendar  = require('./calendar');
 var DateInput = require('./date_input');
 var React = require('react/addons');
+var classes = require('react-classes');
 
 var DatePicker = React.createClass({
 
   propTypes: {
+    name:       React.PropTypes.string.isRequired,
+    label:      React.PropTypes.string.isRequired,
     selected:   React.PropTypes.object,
     error:      React.PropTypes.string,
     onChange:   React.PropTypes.func.isRequired
   },
+
+  mixins: [classes],
 
   getInitialState: function() {
     return {
@@ -77,6 +82,9 @@ var DatePicker = React.createClass({
     this.setState({
       focus: !this.state.focus
     });
+
+    // focus the input on button click so that blur will close the popover
+    this.refs[this.props.name].refs[this.props.name].getDOMNode().focus();
   },
 
   calendar: function() {
@@ -93,9 +101,16 @@ var DatePicker = React.createClass({
   },
 
   render: function() {
+    var wrapperClasses = this.getClass('inline field', {
+      'error': !!this.props.error
+    });
+
     return (
-      <div>
+       <div className={wrapperClasses}>
+        <label htmlFor={this.props.name}>{this.props.label}</label>
         <DateInput
+          ref={this.props.name}
+          name={this.props.name}
           date={this.props.selected}
           focus={this.state.focus}
           onBlur={this.handleBlur}

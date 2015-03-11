@@ -16,8 +16,12 @@ var ProjectDetail = React.createClass({
 
   saveProject: function (event) {
     event.preventDefault();
-    ProjectActions.update(this.state.project);
-    this.transitionTo('projects');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      ProjectActions.update(this.state.project);
+      this.transitionTo('projects');
+    }
   },
 
   get: function (projectId) {
@@ -55,6 +59,7 @@ var ProjectDetail = React.createClass({
     return (
       <ProjectForm project={this.state.project}
         errors={this.state.errors}
+        validateAll={this.validateAll}
         hasErrors={this.hasErrors}
         saveText={this.state.saveText}
         onSave={this.saveProject}

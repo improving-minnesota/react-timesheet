@@ -11,12 +11,17 @@ var LoginStore = require('../../stores/login.store');
 
 var Timeunits = React.createClass({
 
+  propTypes: {
+    timesheet: React.PropTypes.object.isRequired
+  },
+
   mixins: [
     Router.Navigation,
     Router.State
   ],
 
   store: TimeunitStore,
+  timesheetStore: TimesheetStore,
 
   requestTimeunits: TimeunitActions.list,
 
@@ -25,8 +30,11 @@ var Timeunits = React.createClass({
   },
 
   logTime: function () {
-    this.transitionTo('timesheets.detail.timeunits.create',
-      {user_id: LoginStore.getUserId(), _id: this.props.timesheet._id});
+    this.transitionTo('timesheets.detail.timeunits.create', {
+      user_id: this.getParams().user_id,
+      _id: this.getParams()._id,
+      timeunit_id: this.getParams().timeunit_id
+    });
   },
 
   onChange: function () {
@@ -40,12 +48,12 @@ var Timeunits = React.createClass({
   componentWillMount: function () {
     this.requestTimeunits(this.props.timesheet);
     this.store.addChangeListener(this.onChange);
-    TimesheetStore.addChangeListener(this.onTimesheetChange);
+    this.timesheetStore.addChangeListener(this.onTimesheetChange);
   },
 
   componentWillUnmount: function () {
     this.store.removeChangeListener(this.onChange);
-    TimesheetStore.removeChangeListener(this.onTimesheetChange);
+    this.timesheetStore.removeChangeListener(this.onTimesheetChange);
   },
 
   render: function () {

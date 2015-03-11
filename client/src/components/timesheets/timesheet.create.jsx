@@ -9,6 +9,7 @@ var TimesheetCreate = React.createClass({
 
   mixins: [
     Router.Navigation,
+    Router.State,
     TimesheetMixin
   ],
 
@@ -22,8 +23,12 @@ var TimesheetCreate = React.createClass({
 
   onSave: function (event) {
     event.preventDefault();
-    TimesheetActions.create(this.state.timesheet);
-    this.transitionTo('timesheets');
+    this.validateAll();
+
+    if (!this.hasErrors()) {
+      TimesheetActions.create(this.state.timesheet);
+      this.transitionTo('timesheets', {user_id: this.getParams().user_id});
+    }
   },
 
   render: function () {
@@ -31,9 +36,13 @@ var TimesheetCreate = React.createClass({
       <TimesheetForm timesheet={this.state.timesheet}
         saveText={this.state.saveText}
         errors={this.state.errors}
+        validateAll={this.validateAll}
         hasErrors={this.hasErrors}
         onSave={this.onSave}
-        validate={this.validate} />
+        validate={this.validate}
+        validateAll={this.validateAll}
+        validateBeginDate={this.validateBeginDate}
+        validateEndDate={this.validateEndDate}/>
     );
   }
 });

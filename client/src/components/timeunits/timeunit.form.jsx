@@ -2,6 +2,9 @@ var moment = require('moment');
 var React = require('react/addons');
 var Router = require('react-router');
 
+var ProjectActions = require('../../actions/project.actions');
+var ProjectStore = require('../../stores/project.store');
+
 var DatePicker = require('../common/datepicker/datepicker');
 var Select = require('../common/form/select');
 var TextInput = require('../common/form/text.input');
@@ -12,22 +15,58 @@ var CancelButton = require('../common/buttons/cancel.button');
 var TimeunitForm = React.createClass({
 
   propTypes: {
-
+    timeunit:           React.PropTypes.object.isRequired,
+    validate:           React.PropTypes.func.isRequired,
+    validateProject:    React.PropTypes.func.isRequired,
+    validateDateWorked: React.PropTypes.func.isRequired,
+    onSave:             React.PropTypes.func.isRequired,
+    errors:             React.PropTypes.object,
+    saveText:           React.PropTypes.string,
+    hasErrors:          React.PropTypes.func
   },
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
-  options: [
-    {value: 'project1', label: 'Project 1'},
-    {value: 'project2', label: 'Project 2'},
-    {value: 'project3', label: 'Project 3'}
-  ],
+  projectStore: ProjectStore,
+
+  requestProjects: ProjectActions.list,
+
+  getInitialState: function () {
+    return {
+      options: [],
+      projects: []
+    };
+  },
+
+  onProjectsChange: function () {
+    var projects = this.projectStore.getState().projects;
+    var options = [];
+
+    projects.forEach(function (project) {
+      options.push({value: project.name, label: project.name});
+    });
+
+    this.setState({options: options, projects: projects});
+  },
+
+  componentWillMount: function () {
+    this.projectStore.addChangeListener(this.onProjectsChange);
+    this.requestProjects();
+  },
+
+  componentWillUnmount: function () {
+    this.projectStore.removeChangeListener(this.onProjectsChange);
+  },
 
   onCancel: function (event) {
     event.preventDefault();
-    this.goBack();
+    this.transitionTo('timesheets.detail', {
+      user_id: this.getParams().user_id,
+      _id: this.getParams()._id
+    });
   },
 
   render : function () {
@@ -39,18 +78,18 @@ var TimeunitForm = React.createClass({
 
             <Select name="project"
               label="Project"
-              value={this.props.timeunit.project}
               placeholder="Select Project"
-              onChange={this.props.validate}
+              value={this.props.timeunit.project}
+              onChange={this.props.validateProject}
               error={this.props.errors.project}
-              options={this.options} />
+              options={this.state.options} />
 
             <DatePicker key='tu-worked'
               name="dateWorked"
               label="Date"
               className="form-control"
               selected={moment(this.props.timeunit.dateWorked)}
-              onChange={this.props.validate}
+              onChange={this.props.validateDateWorked}
               error={this.props.errors.dateWorked}/>
 
             <NumberInput name="hoursWorked"
@@ -63,7 +102,7 @@ var TimeunitForm = React.createClass({
             <div className="ui horizontal divider"></div>
 
             <div className="ui sixteen column right floated grid">
-              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <SaveButton validateAll={this.props.validateAll} hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
               <CancelButton onCancel={this.onCancel} />
             </div>
           </form>

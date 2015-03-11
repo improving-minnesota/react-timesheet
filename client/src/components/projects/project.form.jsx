@@ -7,8 +7,17 @@ var CancelButton = require('../common/buttons/cancel.button');
 
 var ProjectForm = React.createClass({
 
+  propTypes: {
+    project: React.PropTypes.object,
+    validate: React.PropTypes.func.isRequired,
+    hasErrors: React.PropTypes.func.isRequired,
+    saveText: React.PropTypes.string.isRequired,
+    errors: React.PropTypes.object
+  },
+
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   onCancel: function (event) {
@@ -39,7 +48,7 @@ var ProjectForm = React.createClass({
             <div className="ui horizontal divider"></div>
 
             <div className="ui sixteen column right floated grid">
-              <SaveButton hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
+              <SaveButton validateAll={this.props.validateAll} hasErrors={this.props.hasErrors()} saveText={this.props.saveText} />
               <CancelButton onCancel={this.onCancel} />
             </div>
           </form>

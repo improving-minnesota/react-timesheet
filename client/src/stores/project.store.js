@@ -49,7 +49,12 @@ var ProjectStore = assign({}, Store, {
       .query(payload.action.query)
       .end()
       .then(function (res) {
-        self.setState({pageConfig: res.body});
+        if (!_.isUndefined(res.body.data)) {
+          self.setState({pageConfig: res.body});
+        }
+        else {
+          self.setState({projects: res.body});
+        }
         return true;
       })
       .catch(function (x) {

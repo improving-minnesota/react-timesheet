@@ -19,8 +19,7 @@ var Select = React.createClass({
 
   render: function () {
     var wrapperClasses = this.getClass('inline field', {
-      'has-error': this.props.error,
-      'has-success': !this.props.error
+      'error': !!this.props.error
     });
 
     var containerClasses = this.getClass('field', {

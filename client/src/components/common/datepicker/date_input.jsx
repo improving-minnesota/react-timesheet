@@ -6,8 +6,8 @@ var classes = require('react-classes');
 var DateInput = React.createClass({
 
   propTypes: {
+    name:               React.PropTypes.string.isRequired,
     date:               React.PropTypes.object,
-    label:              React.PropTypes.string.isRequired,
     focus:              React.PropTypes.bool,
     handleClick:        React.PropTypes.func,
     handleEnter:        React.PropTypes.func,
@@ -39,7 +39,7 @@ var DateInput = React.createClass({
 
   componentDidUpdate: function() {
     if (this.props.focus) {
-      var el = this.refs.input.getDOMNode();
+      var el = this.refs[this.props.name].getDOMNode();
 
       if (typeof this.state.selectionStart == "number")
         el.selectionStart = this.state.selectionStart;
@@ -51,9 +51,9 @@ var DateInput = React.createClass({
 
   toggleFocus: function(focus) {
     if (focus) {
-      this.refs.input.getDOMNode().focus();
+      this.refs[this.props.name].getDOMNode().focus();
     } else {
-      this.refs.input.getDOMNode().blur();
+      this.refs[this.props.name].getDOMNode().blur();
     }
   },
 
@@ -95,7 +95,7 @@ var DateInput = React.createClass({
 
     this.updateSelectionState();
 
-    var el = this.refs.input.getDOMNode();
+    var el = this.refs[this.props.name].getDOMNode();
     var step = key === "ArrowUp" ? 1 : -1;
 
     var selectedDatePart = this.getSelectedDatePart(el.selectionStart, el.selectionEnd);
@@ -121,7 +121,7 @@ var DateInput = React.createClass({
   },
 
   updateSelectionState: function() {
-    var el = this.refs.input.getDOMNode();
+    var el = this.refs[this.props.name].getDOMNode();
 
     this.setState({
       selectionStart: el.selectionStart,
@@ -143,37 +143,34 @@ var DateInput = React.createClass({
   },
 
   render: function() {
-    var wrapperClasses = this.getClass('inline field', {
-      'has-error': this.props.error,
-      'has-success': !this.props.error
-    });
-
     var containerClasses = this.getClass('ui inline field', {
       'error': !!this.props.error
     });
 
+    var errorMessageClasses = this.getClass('input', {
+      'error': !!this.props.error
+    });
+
     return (
-      <div className={wrapperClasses}>
-        <label htmlFor={this.props.name}>{this.props.label}</label>
-        <div className="datepicker-input">
-          <div className={containerClasses}>
-            <input
-              ref="input"
-              type="text"
-              value={this.state.value}
-              onBlur={this.props.onBlur}
-              onClick={this.handleClick}
-              onKeyDown={this.handleKeyDown}
-              onFocus={this.props.onFocus}
-              onChange={this.handleChange} />
-            <span>
-              <button className="ui secondary button" onClick={this.handleButtonClick}>
+      <div className="datepicker-input">
+        <div className={containerClasses}>
+          <input
+            ref={this.props.name}
+            name={this.props.name}
+            type="text"
+            value={this.state.value}
+            onBlur={this.props.onBlur}
+            onClick={this.handleClick}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.props.onFocus}
+            onChange={this.handleChange} />
+          <span>
+            <button className="ui secondary button" onClick={this.handleButtonClick}>
               <i className="fa fa-fw fa-calendar"></i>
             </button>
-            </span>
-          </div>
-          <div className="input">{this.props.error}</div>
+          </span>
         </div>
+        <div className={errorMessageClasses}>{this.props.error}</div>
       </div>
     );
   }
