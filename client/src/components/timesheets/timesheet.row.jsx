@@ -11,6 +11,10 @@ var DateUtils = require('../../util/date.utils');
 
 var TimesheetRow = React.createClass({
 
+  propTypes: {
+    timesheet: React.PropTypes.object
+  },
+
   mixins: [
     Router.Navigation,
     classes

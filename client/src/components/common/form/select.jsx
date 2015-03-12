@@ -3,8 +3,7 @@ var classes = require('react-classes');
 var ReactSelect = require('react-select');
 
 var Select = React.createClass({
-
-
+  
   propTypes: {
     name:         React.PropTypes.string.isRequired,
     label:        React.PropTypes.string.isRequired,

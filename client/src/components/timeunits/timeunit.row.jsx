@@ -10,6 +10,11 @@ var SnackbarActions = require('../../actions/snackbar.actions');
 
 var TimeunitRow = React.createClass({
 
+  propTypes: {
+    timeunit: React.PropTypes.object.isRequired,
+    timesheet: React.PropTypes.object.isRequired
+  },
+
   mixins: [
     Router.Navigation,
     classes

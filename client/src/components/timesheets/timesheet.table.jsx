@@ -3,6 +3,10 @@ var TimesheetRow = require('./timesheet.row');
 
 var TimesheetTable = React.createClass({
 
+  propTypes: {
+    timesheets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
+
   render: function () {
 
     var timesheetRows = this.props.timesheets.map(function (timesheet) {

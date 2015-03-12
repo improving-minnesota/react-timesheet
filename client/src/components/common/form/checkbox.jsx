@@ -12,7 +12,7 @@ var Input = React.createClass({
 
   render: function () {
     return (
-      <div className="inline field" onClick={this.props.onClick} >
+      <div className="inline field" onClick={this.props.onClick}>
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className="ui toggle checkbox">
           <input type="checkbox"

@@ -3,6 +3,10 @@ var TimeunitRow = require('./timeunit.row');
 
 var TimeunitTable = React.createClass({
 
+  propTypes: {
+    timeunits: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
+
   render: function () {
     var self = this;
 

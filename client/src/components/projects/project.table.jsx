@@ -3,6 +3,10 @@ var ProjectRow = require('./project.row');
 
 var ProjectTable = React.createClass({
 
+  propTypes: {
+    projects: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
+
   render: function () {
 
     var projectRows = this.props.projects.map(function (project) {

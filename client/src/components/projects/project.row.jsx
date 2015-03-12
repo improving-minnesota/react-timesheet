@@ -9,6 +9,10 @@ var SnackbarAction = require('../../actions/snackbar.actions');
 
 var ProjectRow = React.createClass({
 
+  propTypes: {
+    project: React.PropTypes.object
+  },
+
   mixins: [
     Router.Navigation,
     classes
