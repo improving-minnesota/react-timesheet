@@ -1,83 +1,50 @@
 var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
+  _ = require('lodash'),
+  TestUtils = React.addons.TestUtils,
+  proxyquire = require('proxyquireify')(require);
 
 describe('App: ', function () {
 
-  var App;
+  var App,
+    LoginStore,
+    element,
+    spies = {},
+    proxies;
 
   beforeEach(function () {
+    proxies = {
+      './common/navigation/navbar': React.createClass({
+        render: function () {return (<div/>);}
+      }),
+      './common/section': React.createClass({
+        render: function () {return (<div/>);}
+      })
+    };
+    proxyquire('./app', proxies);
+
     App = require('./app');
+
+    element =  TestUtils.renderIntoDocument(<App />);
   });
 
   it('should instantiate the App', function () {
-    expect(App).to.be.defined;
+    expect(TestUtils.isCompositeComponent(element)).to.be.true;
+  });
+
+  describe('during the will transition to lifecyle', function () {
+    beforeEach(function () {
+      LoginStore = require('../stores/snackbar.store');
+      spies.requireAuthenticatedUser = sinon.stub(LoginStore, 'requireAuthenticatedUser').returns({name: 'Sterling'});
+
+      App.statics.willTransitionTo('transitionArg', 'paramsArg');
+    });
+
+    afterEach(function () {
+      spies.requireAuthenticatedUser.restore();
+    });
+
+    it('should require an authenticated user from the login store', function () {
+      expect(spies.requireAuthenticatedUser).to.have.been.calledWith('transitionArg');
+    });
   });
 });
-
-
-// describe('App', function() {
-//
-//   var controller, scope;
-//
-//   describe('Controllers', function() {
-//
-//     beforeEach(
-//       module(
-//         'ui.router',
-//         'app.resources',
-//         'ngResource',
-//         'security.services',
-//         'authentication.services',
-//         'notifications.services',
-//         'app.controllers'
-//       ));
-//
-//     describe('MainCtrl', function() {
-//       beforeEach(inject(function($rootScope, $controller) {
-//         scope = $rootScope.$new();
-//         controller = $controller("MainCtrl", {
-//           $scope: scope
-//         });
-//       }));
-//
-//       describe('setup', function () {
-//         it('should be able to instantiate the controller', function () {
-//           expect(controller).to.be.ok;
-//         });
-//       });
-//     });
-//
-//     describe('AppCtrl', function() {
-//
-//       beforeEach(inject(function($rootScope, $controller) {
-//         scope = $rootScope.$new();
-//         controller = $controller("AppCtrl", {
-//           $scope: scope
-//         });
-//       }));
-//
-//       describe('setup', function () {
-//         it('should be able to instantiate the controller', function () {
-//           expect(controller).to.be.ok;
-//         });
-//       });
-//     });
-//
-//     describe('NavCtrl', function() {
-//
-//       beforeEach(inject(function($rootScope, $controller) {
-//         scope = $rootScope.$new();
-//         controller = $controller("NavCtrl", {
-//           $scope: scope
-//         });
-//       }));
-//
-//       describe('setup', function () {
-//         it('should be able to instantiate the controller', function () {
-//           expect(controller).to.be.ok;
-//         });
-//       });
-//     });
-//
-//   });
-// });
