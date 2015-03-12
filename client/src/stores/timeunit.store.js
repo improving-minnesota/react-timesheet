@@ -45,7 +45,7 @@ var TimeunitStore = assign({}, Store, {
         self.setState({timeunits: res.body});
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to retrieve timeunits.');
+        SnackbarAction.error('Error attempting to retrieve logged hours.');
       });
   },
 
@@ -61,7 +61,7 @@ var TimeunitStore = assign({}, Store, {
         return true;
       })
       .catch(function (data) {
-        SnackbarAction.error('There was an error getting the timeunit');
+        SnackbarAction.error('There was an error getting the time.');
       });
   },
 
@@ -75,10 +75,10 @@ var TimeunitStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        SnackbarAction.success('Timeunit : ' + timeunit.username + ', updated.');
+        SnackbarAction.success('Your logged time has been updated.');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error updating timeunit.');
+        SnackbarAction.error('There was an error updating time.');
       });
   },
 
@@ -93,11 +93,11 @@ var TimeunitStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        SnackbarAction.success('Timeunit : ' + res.body.username + ', was restored.');
+        SnackbarAction.success('Your logged time was deleted.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to delete timeunit.');
+        SnackbarAction.error('Error attempting to delete time.');
       });
   },
 
@@ -112,11 +112,11 @@ var TimeunitStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        SnackbarAction.success('Timeunit : ' + res.body.username + ', was deleted.');
+        SnackbarAction.success('Your logged time was restored.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to restore timeunit.');
+        SnackbarAction.error('Error attempting to restore time.');
       });
 
     return prom;
@@ -131,10 +131,10 @@ var TimeunitStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        SnackbarAction.success('Timeunit : ' + res.body.username + ', created.');
+        SnackbarAction.success('Your time has been logged.');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error creating timeunit.');
+        SnackbarAction.error('Error attempting to log your time.');
       });
   }
 });

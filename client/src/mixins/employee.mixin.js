@@ -63,6 +63,10 @@ module.exports = {
       }
 
       return null;
+    },
+
+    admin: function (value) {
+      return null;
     }
   },
 

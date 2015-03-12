@@ -94,7 +94,7 @@ var TimesheetStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        SnackbarAction.success('Timesheet : ' + res.body.name + ', was deleted.');
+        SnackbarAction.success('Timesheet : ' + timesheet.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -112,7 +112,7 @@ var TimesheetStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        SnackbarAction.success('Timesheet : ' + res.body.name + ', was restored.');
+        SnackbarAction.success('Timesheet : ' + timesheet.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
@@ -128,7 +128,7 @@ var TimesheetStore = assign({}, Store, {
       .end()
       .then(function (res) {
         self.setState({timesheet: res.body});
-        SnackbarAction.success('Timesheet : ' + res.body.name + ', created.');
+        SnackbarAction.success('Timesheet : ' + timesheet.name + ', created.');
       })
       .catch(function (x) {
         SnackbarAction.error('There was an error creating timesheet.');

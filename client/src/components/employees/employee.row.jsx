@@ -5,8 +5,6 @@ var classes = require('react-classes');
 var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeStore = require('../../stores/employee.store');
 
-var yesNo = require('../../util/boolean');
-
 var EmployeeRow = React.createClass({
 
   propTypes: {
@@ -60,7 +58,7 @@ var EmployeeRow = React.createClass({
         <td>{employee.email}</td>
         <td>{employee.firstName}</td>
         <td>{employee.lastName}</td>
-        <td>{yesNo(employee.admin)}</td>
+        <td>{employee.admin ? 'Yes' : 'No'}</td>
         <td>
           <button className={buttonClasses} onClick={employee.deleted ? this.restore : this.remove}>
             {employee.deleted ? 'Restore' : 'Delete'}
