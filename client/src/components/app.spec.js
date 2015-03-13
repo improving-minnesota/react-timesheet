@@ -1,30 +1,31 @@
 var React = require('react/addons'),
-  _ = require('lodash'),
   TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require);
+  proxyquire = require('proxyquireify')(require),
+  mock = require('./mock');
 
 describe('App: ', function () {
 
   var App,
-    LoginStore,
     element,
     spies = {},
     proxies;
 
   beforeEach(function () {
+    spies.authenticatedUser = sinon.stub();
+
     proxies = {
-      './common/navigation/navbar': React.createClass({
-        render: function () {return (<div/>);}
-      }),
-      './common/section': React.createClass({
-        render: function () {return (<div/>);}
-      })
+      './common/navigation/navbar': mock.mockComponent(),
+      './common/section': mock.mockComponent(),
+      '../stores/login.store': {
+        requireAuthenticatedUser: spies.authenticatedUser
+      },
+      'react-router': {
+        RouteHandler: mock.mockComponent()
+      }
     };
-    proxyquire('./app', proxies);
 
-    App = require('./app');
-
-    element =  TestUtils.renderIntoDocument(<App />);
+    App = proxyquire('./app', proxies);
+    element = TestUtils.renderIntoDocument(<App />);
   });
 
   it('should instantiate the App', function () {
@@ -32,19 +33,9 @@ describe('App: ', function () {
   });
 
   describe('during the will transition to lifecyle', function () {
-    beforeEach(function () {
-      LoginStore = require('../stores/snackbar.store');
-      spies.requireAuthenticatedUser = sinon.stub(LoginStore, 'requireAuthenticatedUser').returns({name: 'Sterling'});
-
-      App.statics.willTransitionTo('transitionArg', 'paramsArg');
-    });
-
-    afterEach(function () {
-      spies.requireAuthenticatedUser.restore();
-    });
-
     it('should require an authenticated user from the login store', function () {
-      expect(spies.requireAuthenticatedUser).to.have.been.calledWith('transitionArg');
+      App.willTransitionTo('transitionArg', 'paramsArg');
+      expect(spies.authenticatedUser).to.have.been.calledWith('transitionArg');
     });
   });
 });

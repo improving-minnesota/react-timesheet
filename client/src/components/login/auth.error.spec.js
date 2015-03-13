@@ -3,13 +3,17 @@ var React = require('react/addons'),
 
 describe('Auth Error Component: ', function () {
 
-  var AuthError;
+  var AuthError,
+    element,
+    spies,
+    proxies;
 
   beforeEach(function () {
     AuthError = require('./auth.error');
+    element = TestUtils.renderIntoDocument(<AuthError authError="none" />);
   });
 
   it('should instantiate the AuthError', function () {
-    expect(AuthError).to.be.defined;
+    expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 });

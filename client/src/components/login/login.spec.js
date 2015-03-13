@@ -1,15 +1,29 @@
 var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
+  TestUtils = React.addons.TestUtils,
+  proxyquire = require('proxyquireify')(require),
+  mock = require('../mock');
 
 describe('Login Component: ', function () {
 
-  var Login;
+  var Login,
+    element,
+    spies,
+    proxies;
 
   beforeEach(function () {
-    Login = require('./login');
+    spies = {
+
+    };
+
+    proxies = {
+      './auth.error': mock.mockComponent()
+    };
+
+    Login = proxyquire('./login', proxies);
+    element = TestUtils.renderIntoDocument(<Login />);
   });
 
   it('should instantiate the Login', function () {
-    expect(Login).to.be.defined;
+    expect(TestUtils.isCompositComponent(element)).to.be.true;
   });
 });

@@ -1,9 +1,9 @@
 var React = require('react/addons');
 var Router = require('react-router');
 
-var TimeunitActions = require('../../actions/timeunit.actions');
 var TimeunitForm = require('./timeunit.form');
 var TimeunitMixin = require('../../mixins/timeunit.mixin');
+var TimeunitActions = require('../../actions/timeunit.actions');
 var TimesheetActions = require('../../actions/timesheet.actions');
 
 var TimeunitCreate = React.createClass({

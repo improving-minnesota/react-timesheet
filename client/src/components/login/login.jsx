@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var Router = require('react-router');
 
 var LoginActions = require('../../actions/login.actions');
 var LoginStore = require('../../stores/login.store');
@@ -12,7 +11,9 @@ var LoginForm = React.createClass({
 
   getInitialState: function () {
     return this.store.getState();
-  },  onChange: function () {
+  },
+
+  onChange: function () {
     this.setState(this.store.getState());
   },
 
