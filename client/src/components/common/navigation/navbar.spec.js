@@ -1,35 +1,38 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../../mock');
+var _ = require('lodash');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../../mock');
 
 describe('Navbar Component: ', function () {
 
   var Navbar,
     element,
-    spies,
     proxies;
 
-  beforeEach(function () {
-    spies = {
-      getState: sinon.stub().returns({user: {_id: 'abc123'}}),
-      addChangeListener: sinon.stub(),
-      removeChangeListener: sinon.stub()
-    };
+  var React, TestUtils;
 
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
     proxies = {
       '../../../stores/login.store': {
-        getState: spies.getState,
-        addChangeListener: spies.addChangeListener,
-        removeChangeListener: spies.removeChangeListener
+        getState: sinon.stub().returns({user: {_id: 'abc123'}}),
+        addChangeListener: sinon.stub(),
+        removeChangeListener: sinon.stub()
+      },
+      '../../../actions/login.actions': {
+        logout: sinon.stub()
       },
       'react-router': {
-        RouteHandler: mock.mockComponent(),
-        Link: mock.mockComponent(),
+        RouteHandler: mockComponent('RouteHandler'),
+        Link: mockComponent('Link'),
         State: {
-          getRoutes: sinon.stub.returns([{name: 'projects'}])
+          getRoutes: sinon.stub().returns([{name: 'projects'}])
         }
-      }
+      },
+      '@noCallThru': true
     };
 
     Navbar = proxyquire('./navbar', proxies);
@@ -42,19 +45,9 @@ describe('Navbar Component: ', function () {
 
   describe('when navigating between routes', function () {
     it('should set the appropriate active class', function () {
-
-    });
-  });
-
-  describe('when a user logs in', function () {
-    it('should set the user id in the url to the timesheets link', function () {
-
-    });
-  });
-
-  describe('clicking the logout button', function () {
-    it('should log the user out', function () {
-
+      var Links = TestUtils.scryRenderedComponentsWithType(element, proxies['react-router'].Link);
+      var projectLink = TestUtils.findRenderedDOMComponentWithClass(element, 'active');
+      expect(projectLink.getDOMNode().innerText).to.equal('Projects');
     });
   });
 });

@@ -1,29 +1,34 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var _ = require('lodash');
 
 describe('Employee Create Component: ', function () {
 
   var EmployeeCreate,
     element,
-    spies,
+    spies = {},
     proxies;
 
-  beforeEach(function () {
-    proxies = {
-      './employee.form': mock.mockComponent(),
-      'react-router': {
-        RouteHandler: mock.mockComponent(),
-        Link: mock.mockComponent(),
-        State: {
-          getRoutes: sinon.stub.returns([{name: 'projects'}])
-        }
-      }
-    };
+  var React, TestUtils;
 
-    EmployeeCreate = proxyquire('./employee.create', proxies);
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
+    EmployeeCreate = require('./employee.create');
+    EmployeeActions = require('../../actions/employee.actions');
+
     element = TestUtils.renderIntoDocument(<EmployeeCreate />);
+
+    spies.transitionTo = sinon.stub(element, 'transitionTo', _.noop);
+    spies.validateAll = sinon.stub(element, 'validateAll', _.noop);
+    spies.create = sinon.stub(EmployeeActions, 'create', _.noop);
+  });
+
+  afterEach(function () {
+    spies.validateAll.restore();
+    spies.transitionTo.restore();
+    spies.create.restore();
   });
 
   it('should instantiate the EmployeeCreate', function () {
@@ -31,17 +36,29 @@ describe('Employee Create Component: ', function () {
   });
 
   describe('saving an employee', function () {
-    it('should validate the entire employee', function () {
+    beforeEach(function () {
+      element.saveEmployee({preventDefault: _.noop});
+    });
 
+    it('should validate the entire employee', function () {
+      expect(spies.validateAll).to.have.been.called;
     });
 
     describe('when the employee passes validation', function () {
-      it('should fire a create action', function () {
+      beforeEach(function () {
+        spies.hasErrors = sinon.stub(element, 'hasErrors').returns(false);
+      });
 
+      afterEach(function () {
+        spies.hasErrors.restore();
+      });
+
+      it('should fire a create action', function () {
+        expect(spies.create).to.have.been.called;
       });
 
       it('should transition back to the employee list', function () {
-        
+        expect(spies.transitionTo).to.have.been.calledWith('employees');
       });
     });
   });
