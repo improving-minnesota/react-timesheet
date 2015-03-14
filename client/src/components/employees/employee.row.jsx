@@ -3,12 +3,13 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var EmployeeActions = require('../../actions/employee.actions');
-var EmployeeStore = require('../../stores/employee.store');
+var SnackbarActions = require('../../actions/snackbar.actions');
 
 var EmployeeRow = React.createClass({
 
   propTypes: {
-    employee: React.PropTypes.object
+    employee: React.PropTypes.object,
+    store: React.PropTypes.object
   },
 
   mixins: [
@@ -20,10 +21,10 @@ var EmployeeRow = React.createClass({
   showDetail: function showDetail () {
     var employee = this.props.employee;
     if (employee.deleted) {
-      SnackbarAction.error('You cannot edit a deleted employee.');
+      SnackbarActions.error('You cannot edit a deleted employee.');
       return;
     }
-    EmployeeStore.setState({employee: employee});
+    this.props.store.setState({employee: employee});
     this.transitionTo('employees.detail', {_id: employee._id});
   },
 
@@ -52,7 +53,7 @@ var EmployeeRow = React.createClass({
     });
 
     return (
-      <tr className={classNames} onClick={this.showDetail}>
+      <tr className={classNames} ref={employee._id} onClick={this.showDetail}>
 
         <td>{employee.username}</td>
         <td>{employee.email}</td>

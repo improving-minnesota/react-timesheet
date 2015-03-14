@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Timesheets Component: ', function () {
 
@@ -10,14 +9,21 @@ describe('Timesheets Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
   beforeEach(function () {
     spies = {
 
     };
 
     proxies = {
-      './timesheet.table': mock.mockComponent(),
-      '../common/navigation/paginator': mock.mockComponent()
+      './timesheet.table': mockComponent(),
+      '../common/navigation/paginator': mockComponent()
     };
 
     Timesheets = proxyquire('./timesheets', proxies);

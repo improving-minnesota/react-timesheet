@@ -1,8 +1,3 @@
-var _ = require('lodash'),
-  React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  fluxDispatcher = require('../flux/flux.dispatcher');
-
 describe('Timeunit actions: ', function () {
 
   var TimeunitActions,
@@ -11,6 +6,15 @@ describe('Timeunit actions: ', function () {
     payload,
     timesheet = 'timesheet',
     timeunit = 'timeunit';
+
+  var React, TestUtils, _, fluxDispatcher;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    _ = require('lodash');
+    fluxDispatcher = require('../flux/flux.dispatcher');
+  });
 
   beforeEach(function () {
     TimeunitActions = require('./timeunit.actions');

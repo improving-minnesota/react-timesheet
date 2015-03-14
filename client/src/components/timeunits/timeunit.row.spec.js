@@ -1,12 +1,19 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Timeunit Row Component: ', function () {
 
   var TimeunitRow,
     element,
     spies;
+
+  var React, TestUtils, proxyquire, mock;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
 
   beforeEach(function () {
     spies = {

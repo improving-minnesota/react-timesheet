@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var _ = require('lodash');
+var mockComponent = require('../mock');
 
 describe('Timeunit Table Component: ', function () {
 
@@ -11,13 +10,20 @@ describe('Timeunit Table Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
   beforeEach(function () {
     spies = {
 
     };
 
     proxies = {
-      './timeunit.row': mock.mockComponent()
+      './timeunit.row': mockComponent()
     };
 
     timeunits = [{}, {}];

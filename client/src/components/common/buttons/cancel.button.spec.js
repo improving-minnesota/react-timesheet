@@ -1,6 +1,4 @@
-var React = require('react/addons'),
-  _ = require('lodash'),
-  TestUtils = React.addons.TestUtils;
+var _ = reqiure('lodash');
 
 describe('Cancel Button: ', function () {
 
@@ -8,6 +6,13 @@ describe('Cancel Button: ', function () {
     element,
     testCtrl,
     spies = {};
+
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
 
   beforeEach(function () {
     CancelButton = require('./cancel.button');

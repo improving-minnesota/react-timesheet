@@ -1,6 +1,4 @@
-var React = require('react/addons'),
-  _ = require('lodash'),
-  TestUtils = React.addons.TestUtils;
+var _ = require('lodash');
 
 describe('Save Button: ', function () {
 
@@ -9,6 +7,13 @@ describe('Save Button: ', function () {
     button,
     testCtrl,
     spies = {};
+    
+  var React, TestUtils
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
 
   beforeEach(function () {
     SaveButton = require('./save.button');

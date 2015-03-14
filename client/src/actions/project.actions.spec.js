@@ -1,8 +1,3 @@
-var _ = require('lodash'),
-React = require('react/addons'),
-TestUtils = React.addons.TestUtils,
-fluxDispatcher = require('../flux/flux.dispatcher');
-
 describe('Project actions: ', function () {
 
   var ProjectActions,
@@ -10,6 +5,15 @@ describe('Project actions: ', function () {
     query,
     payload,
     project = 'project';
+
+  var React, TestUtils, _, fluxDispatcher;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    _ = require('lodash');
+    fluxDispatcher = require('../flux/flux.dispatcher');
+  });
 
   beforeEach(function () {
     ProjectActions = require('./project.actions');

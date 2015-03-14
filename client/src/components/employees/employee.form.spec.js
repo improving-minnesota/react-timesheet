@@ -1,43 +1,47 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var _ = require('lodash');
 
 describe('Employee Form Component: ', function () {
 
   var EmployeeForm,
+    CancleButton,
     employee,
-    errors,
+    errors, 
     element,
-    spies,
+    spies = {},
     proxies;
 
+  var React, TestUtils;
+
   beforeEach(function () {
-    spies = {
-      validate: sinon.stub(),
-      hasErrors: sinon.stub(),
-      toggleAdmin: sinon.stub()
-    };
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    CancelButton = require('../common/buttons/cancel.button');
+  });
 
-    employee = {
-      _id: '12345',
-      username: 'username',
-      email: 'email',
-      firstName: 'firstName',
-      lastName: 'lastName',
-      admin: true
-    };
+  beforeEach(function () {
+    employee =  {};
+    errors = {};
 
-    errors  = {};
+    spies.validate = sinon.stub();
+    spies.hasErrors = sinon.stub();
+    spies.toggleAdmin = sinon.stub();
+    spies.onSave = sinon.stub();
 
     EmployeeForm = require('./employee.form');
     element = TestUtils.renderIntoDocument(
-      <EmployeeForm employee={employee} 
-        errors={errors} 
+      <EmployeeForm employee={employee}
+        errors={errors}
         validate={spies.validate}
         hasErrors={spies.hasErrors}
-        toggleAdmin={spies.toggleAdmin} />
+        toggleAdmin={spies.toggleAdmin}
+        onSave={spies.onSave} />
     );
+
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the EmployeeForm', function () {
@@ -45,8 +49,12 @@ describe('Employee Form Component: ', function () {
   });
 
   describe('clicking the cancel button', function () {
-    it('should return to the employees route', function () {
-      
+    it('should go back to the employees home', function () {
+      var cancel = TestUtils.findRenderedComponentWithType(element, CancelButton);
+      var button = TestUtils.findRenderedDOMComponentWithTag(cancel, 'button');
+      TestUtils.Simulate.click(button);
+
+      expect(spies.transitionTo).to.have.been.calledWith('employees');
     });
   });
 });

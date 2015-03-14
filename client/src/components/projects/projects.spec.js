@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Projects Component: ', function () {
 
@@ -10,14 +9,21 @@ describe('Projects Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
   beforeEach(function () {
     spies = {
 
     };
 
     proxies = {
-      './employee.table': mock.mockComponent(),
-      '../common/navigation/paginator': mock.mockComponent()
+      './employee.table': mockComponent(),
+      '../common/navigation/paginator': mockComponent()
     };
 
     Projects = proxyquire('./projects', proxies);

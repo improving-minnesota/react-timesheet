@@ -1,13 +1,17 @@
-var _ = require('lodash'),
-  React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  fluxDispatcher = require('../flux/flux.dispatcher');
-
 describe('Login actions: ', function () {
 
   var LoginActions,
     dispatcher,
-    credentials = 'credentials';
+    credentials = 'credentials';  
+
+  var React, TestUtils, _, fluxDispatcher;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    _ = require('lodash');
+    fluxDispatcher = require('../flux/flux.dispatcher');
+  });
 
   beforeEach(function () {
     LoginActions = require('./login.actions');

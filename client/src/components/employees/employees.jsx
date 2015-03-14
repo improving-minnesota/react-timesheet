@@ -9,7 +9,8 @@ var Paginator = require('../common/navigation/paginator');
 var Employees = React.createClass({
 
   mixins: [
-    Router.Navigation
+    Router.Navigation,
+    Router.State
   ],
 
   store: EmployeeStore,
@@ -55,7 +56,7 @@ var Employees = React.createClass({
         </div>
 
         <div className="row">
-          <EmployeeTable employees={this.state.pageConfig.data}/>
+          <EmployeeTable employees={this.state.pageConfig.data} store={this.store} />
         </div>
 
         <div className="ui grid pad-top">

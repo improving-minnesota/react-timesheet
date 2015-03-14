@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var classes = require('react-classes');
-var ReactSelect = require('react-select');
+// var ReactSelect = require('react-select');
 
 var Select = React.createClass({
   
@@ -29,12 +29,7 @@ var Select = React.createClass({
       <div className={wrapperClasses}>
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <div className={containerClasses}>
-          <ReactSelect name={this.props.name}
-            value={this.props.value}
-            placeholder={this.props.placeholder}
-            onChange={this.props.onChange}
-            error={this.props.error}
-            options={this.props.options} />
+         
 
           <div className="input">{this.props.error}</div>
         </div>

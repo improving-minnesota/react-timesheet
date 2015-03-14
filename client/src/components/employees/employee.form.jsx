@@ -13,7 +13,8 @@ var EmployeeForm = React.createClass({
     errors:     React.PropTypes.object,
     validate:   React.PropTypes.func.isRequired,
     hasErrors:  React.PropTypes.func.isRequired,
-    toggleAdmin: React.PropTypes.func
+    toggleAdmin: React.PropTypes.func,
+    onSave: React.PropTypes.func.isRequired
   },
 
   mixins: [

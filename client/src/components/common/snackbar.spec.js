@@ -1,26 +1,29 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var _ = require('lodash');
 
 describe('Snackbar Component: ', function () {
 
   var Snackbar,
     element,
-    spies,
-    proxies;
+    spies;
+
+  var React, TestUtils;
 
   beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
+    Snackbar = require('./snackbar');
+    element = TestUtils.renderIntoDocument(<Snackbar />);
+
     spies = {
 
     };
+  });
 
-    proxies = {
-
-    };
-
-    Snackbar = proxyquire('./snackbar', proxies);
-    element = TestUtils.renderIntoDocument(<Snackbar />);
+  afterEach(function () {
+    
   });
 
   it('should instantiate the Snackbar', function () {

@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Employees Component: ', function () {
 
@@ -10,17 +9,19 @@ describe('Employees Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
   beforeEach(function () {
     spies = {
 
     };
 
-    proxies = {
-      './employee.table': mock.mockComponent(),
-      '../common/navigation/paginator': mock.mockComponent()
-    };
-
-    Employees = proxyquire('./employees', proxies);
+    Employees = require('./employees');
     element = TestUtils.renderIntoDocument(<Employees />);
   });
 
@@ -30,7 +31,8 @@ describe('Employees Component: ', function () {
 
   describe('clicking the new employee button', function () {
     it('should transition to the create employee route', function () {
-      
+      var container  = element.getDOMNode();
+
     });
   });
 });

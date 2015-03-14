@@ -1,29 +1,29 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var _ = require('lodash');
 
 describe('Employee Table Component: ', function () {
 
   var EmployeeTable,
+    EmployeeStore,
     employees,
     element,
-    spies,
+    spies = {},
     proxies;
 
+  var React, TestUtils;
+
   beforeEach(function () {
-    spies = {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    EmployeeStore = require('../../stores/employee.store');
+  });
 
-    };
-
-    proxies = {
-      './employee.row': mock.mockComponent()
-    };
-
+  beforeEach(function () {
     employees = [{}, {}];
 
-    EmployeeTable = proxyquire('./employee.table', proxies);
-    element = TestUtils.renderIntoDocument(<EmployeeTable employees={employees}/>);
+    EmployeeTable = require('./employee.table');
+    element = TestUtils.renderIntoDocument(
+      <EmployeeTable employees={employees} store={EmployeeStore} />
+    );
   });
 
   it('should instantiate the EmployeeTable', function () {

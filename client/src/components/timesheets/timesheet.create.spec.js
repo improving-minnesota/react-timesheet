@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Timesheet Create Component: ', function () {
 
@@ -10,12 +9,19 @@ describe('Timesheet Create Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
   beforeEach(function () {
     proxies = {
-      './timesheet.form': mock.mockComponent(),
+      './timesheet.form': mockComponent(),
       'react-router': {
-        RouteHandler: mock.mockComponent(),
-        Link: mock.mockComponent(),
+        RouteHandler: mockComponent(),
+        Link: mockComponent(),
         State: {
           getRoutes: sinon.stub.returns([{name: 'timesheets'}])
         }

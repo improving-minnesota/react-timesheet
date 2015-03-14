@@ -1,8 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  TimeunitActions = require('../../actions/timeunit.actions'),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Timeunits Component:', function () {
 
@@ -11,16 +9,20 @@ describe('Timeunits Component:', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
   beforeEach(function () {
-    spies = {
-      requestTimeunits: sinon.stub(TimeunitActions, 'list')
-    };
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
 
    proxies = {
-      './timunit.table': mock.mockComponent(),
+      './timunit.table': mockComponent(),
       'react-router': {
-        RouteHandler: mock.mockComponent(),
-        Link: mock.mockComponent(),
+        RouteHandler: mockComponent(),
+        Link: mockComponent(),
         State: {
           getParams: function () {
             return {
@@ -29,16 +31,15 @@ describe('Timeunits Component:', function () {
               timeunit_id: 'timeunit_id'
             }
           }
+        },
+        '../../actions/timeuint.actions': {
+          list: sinon.stub()
         }
       }
     };
 
     Timeunits = proxyquire('./timeunits', proxies);
     element = TestUtils.renderIntoDocument(<Timeunits timesheet={{_id: '12345'}}/>);
-  });
-
-  afterEach(function () {
-    spies.requestTimeunits.restore();
   });
 
   it('should instantiate the Timeunits', function () {

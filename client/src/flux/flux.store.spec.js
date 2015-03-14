@@ -1,5 +1,5 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
+var proxyquire = require('proxyquireify')(require);
+var _ = require('lodash');
 
 describe('Flux Store: ', function () {
 

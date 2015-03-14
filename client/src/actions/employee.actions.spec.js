@@ -11,6 +11,15 @@ describe('Employee actions: ', function () {
     payload,
     employee;
 
+  var React, TestUtils, _, fluxDispatcher;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+    _ = require('lodash');
+    fluxDispatcher = require('../flux/flux.dispatcher');
+  });
+
   beforeEach(function () {
     EmployeeActions = require('./employee.actions');
 

@@ -1,6 +1,3 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
-
 describe('Login Store: ', function () {
 
   var LoginStore;

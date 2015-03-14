@@ -1,6 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Timesheet Row Component: ', function () {
 
@@ -8,6 +8,13 @@ describe('Timesheet Row Component: ', function () {
     timesheet,
     element,
     spies;
+
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
 
   beforeEach(function () {
     spies = {

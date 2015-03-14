@@ -24,9 +24,10 @@ var EmployeeDetail = React.createClass({
     }
   },
 
-  get: function (employeeId) {
+  get: function () {
     var employee = this.store.getState().employee;
     if (_.isEmpty(employee)) {
+      var employeeId = this.getParams()._id;
       EmployeeActions.get(employeeId);
     }
     else {
@@ -55,7 +56,7 @@ var EmployeeDetail = React.createClass({
   },
 
   componentDidMount: function () {
-    this.get(this.getParams()._id);
+    this.get();
   },
 
   render : function () {

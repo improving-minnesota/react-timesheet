@@ -1,7 +1,5 @@
-var _ = require('lodash'),
-  React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require);
+var proxyquire = require('proxyquireify')(require);
+var _ = require('lodash');
 
 describe('Flux Dispatcher: ', function () {
 

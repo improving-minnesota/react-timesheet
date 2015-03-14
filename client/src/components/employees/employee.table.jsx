@@ -4,14 +4,16 @@ var EmployeeRow = require('./employee.row');
 var EmployeeTable = React.createClass({
 
   propTypes: {
-    employees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    employees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object
   },
 
   render: function () {
+    var store = this.props.store;
 
     var employeeRows = this.props.employees.map(function (employee) {
       return (
-        <EmployeeRow employee={employee} key={employee._id} />
+        <EmployeeRow employee={employee} key={employee._id} store={store}/>
       );
     });
 

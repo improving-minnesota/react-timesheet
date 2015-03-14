@@ -1,7 +1,6 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils,
-  proxyquire = require('proxyquireify')(require),
-  mock = require('../mock');
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');
+var _ = require('lodash');
 
 describe('Project Create Component: ', function () {
 
@@ -10,12 +9,19 @@ describe('Project Create Component: ', function () {
     spies,
     proxies;
 
+  var React, TestUtils;
+
   beforeEach(function () {
-        proxies = {
-      './project.form': mock.mockComponent(),
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
+    proxies = {
+      './project.form': mockComponent(),
       'react-router': {
-        RouteHandler: mock.mockComponent(),
-        Link: mock.mockComponent(),
+        RouteHandler: mockComponent(),
+        Link: mockComponent(),
         State: {
           getRoutes: sinon.stub.returns([{name: 'projects'}])
         }

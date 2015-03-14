@@ -49,8 +49,6 @@ var LoginForm = React.createClass({
 
         <hr/>
 
-        <AuthError authError={this.state.authError} />
-
         <div className="centered row">
           <div className="center aligned eight wide column">
             <form className="ui form" name="loginForm" onSubmit={this.handleSubmit}>

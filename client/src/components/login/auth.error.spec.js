@@ -1,5 +1,5 @@
-var React = require('react/addons'),
-  TestUtils = React.addons.TestUtils;
+var proxyquire = require('proxyquireify')(require);
+var mockComponent = require('../mock');var _ = require('lodash');
 
 describe('Auth Error Component: ', function () {
 
@@ -7,6 +7,13 @@ describe('Auth Error Component: ', function () {
     element,
     spies,
     proxies;
+
+  var React, TestUtils;
+
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
 
   beforeEach(function () {
     AuthError = require('./auth.error');
