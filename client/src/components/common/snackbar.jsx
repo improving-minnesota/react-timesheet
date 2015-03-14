@@ -10,11 +10,6 @@ var Snackbar = React.createClass({
 
   mixins: [classes],
 
-  propTypes: {
-    message:  React.PropTypes.string,
-    type:     React.PropTypes.string
-  },
-
   getInitialState: function () {
     return {
       message: '',
@@ -54,7 +49,6 @@ var Snackbar = React.createClass({
       </div>
     )
   }
-
 });
 
 module.exports = Snackbar;
