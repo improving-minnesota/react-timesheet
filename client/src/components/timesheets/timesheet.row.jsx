@@ -3,9 +3,6 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
-var LoginStore = require('../../stores/login.store');
-
-var SnackbarAction = require('../../actions/snackbar.actions');
 var DateUtils = require('../../util/date.utils');
 
 var TimesheetRow = React.createClass({

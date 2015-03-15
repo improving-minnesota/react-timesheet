@@ -1,7 +1,6 @@
 describe('Timesheet Row Component: ', function () {
 
   var TimesheetRow,
-    SnackbarActions,
     TimesheetActions,
     TimesheetStore,
     timesheet,
@@ -19,7 +18,6 @@ describe('Timesheet Row Component: ', function () {
   beforeEach(function () {
     TimesheetStore = require('../../stores/timesheet.store');
     TimesheetRow = require('./timesheet.row');
-    SnackbarActions = require('../../actions/snackbar.actions');
     TimesheetActions = require('../../actions/timesheet.actions');
   });
 

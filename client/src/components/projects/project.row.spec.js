@@ -1,7 +1,6 @@
 describe('Project Row Component: ', function () {
 
   var ProjectRow,
-    SnackbarActions,
     ProjectActions,
     ProjectStore,
     project,
@@ -19,7 +18,6 @@ describe('Project Row Component: ', function () {
   beforeEach(function () {
     ProjectStore = require('../../stores/project.store');
     ProjectRow = require('./project.row');
-    SnackbarActions = require('../../actions/snackbar.actions');
     ProjectActions = require('../../actions/project.actions');
   });
 

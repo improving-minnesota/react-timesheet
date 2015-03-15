@@ -21,9 +21,6 @@ describe('App: ', function () {
       './common/section': mockComponent('SectionHeader'),
       'react-router': {
         RouteHandler: mockComponent('RouteHandler')
-      },
-      '../stores/login.store': {
-        requireAuthenticatedUser: sinon.stub()
       }
     };
 

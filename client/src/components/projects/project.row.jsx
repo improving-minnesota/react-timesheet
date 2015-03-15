@@ -3,7 +3,6 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var ProjectActions = require('../../actions/project.actions');
-var SnackbarAction = require('../../actions/snackbar.actions');
 
 var ProjectRow = React.createClass({
 

@@ -1,10 +1,8 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
-var SnackbarAction = require('../actions/snackbar.actions');
 var axios = require('axios');
 var assign = require('object-assign');
-var LoginStore = require('./login.store');
 
 var TimesheetStore = assign({}, Store, {
 
@@ -32,7 +30,7 @@ var TimesheetStore = assign({}, Store, {
   },
 
   url: function (timesheetId) {
-    var url = 'users/' + LoginStore.getUserId() + '/timesheets';
+    var url = 'users/all/timesheets';
     if (timesheetId) {
       url += '/' + timesheetId;
     }
@@ -48,7 +46,7 @@ var TimesheetStore = assign({}, Store, {
         self.setState({pageConfig: res.data});
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to retrieve timesheets.');
+        console.log('Error attempting to retrieve timesheets.');
       });
   },
 
@@ -61,7 +59,7 @@ var TimesheetStore = assign({}, Store, {
         return true;
       })
       .catch(function (data) {
-        SnackbarAction.error('There was an error getting the timesheet');
+        console.log('There was an error getting the timesheet');
       });
   },
 
@@ -72,10 +70,10 @@ var TimesheetStore = assign({}, Store, {
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.data});
-        SnackbarAction.success('Timesheet : ' + timesheet.name + ', updated.');
+        console.log('Timesheet : ' + timesheet.name + ', updated.');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error updating timesheet.');
+        console.log('There was an error updating timesheet.');
       });
   },
 
@@ -87,11 +85,11 @@ var TimesheetStore = assign({}, Store, {
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.data});
-        SnackbarAction.success('Timesheet : ' + timesheet.name + ', was deleted.');
+        console.log('Timesheet : ' + timesheet.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to delete timesheet.');
+        console.log('Error attempting to delete timesheet.');
       });
   },
 
@@ -103,11 +101,11 @@ var TimesheetStore = assign({}, Store, {
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.data});
-        SnackbarAction.success('Timesheet : ' + timesheet.name + ', was restored.');
+        console.log('Timesheet : ' + timesheet.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to restore timesheet.');
+        console.log('Error attempting to restore timesheet.');
       });
   },
 
@@ -117,10 +115,10 @@ var TimesheetStore = assign({}, Store, {
     return axios.post(this.url(), payload.action.timesheet)
       .then(function (res) {
         self.setState({timesheet: res.data});
-        SnackbarAction.success('Timesheet : ' + timesheet.name + ', created.');
+        console.log('Timesheet : ' + timesheet.name + ', created.');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error creating timesheet.');
+        console.log('There was an error creating timesheet.');
       });
   }
 });
