@@ -21,10 +21,6 @@ var Timesheets = React.createClass({
     return this.store.getState();
   },
 
-  createNew: function () {
-    return this.transitionTo('timesheets.create', {user_id: '123'});
-  },
-
   onChange: function () {
     this.setState(this.store.getState());
   },
@@ -49,12 +45,6 @@ var Timesheets = React.createClass({
 
     return (
       <div>
-        <div className="row">
-          <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            New Timesheet
-          </button>
-        </div>
-
         <div className="row">
           <TimesheetTable timesheets={this.state.pageConfig.data} store={this.store} />
         </div>

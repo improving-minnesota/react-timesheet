@@ -6,7 +6,6 @@ var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
 
 var Paginator = require('../common/navigation/paginator');
-var SnackbarAction = require('../../actions/snackbar.actions');
 
 var Projects = React.createClass({
 
@@ -20,10 +19,6 @@ var Projects = React.createClass({
 
   getInitialState: function () {
     return this.store.getState();
-  },
-
-  createNew: function () {
-    this.transitionTo('projects.create');
   },
 
   onChange: function () {
@@ -50,12 +45,6 @@ var Projects = React.createClass({
 
     return (
       <div>
-        <div className="one column row">
-          <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
-            New Project
-          </button>
-        </div>
-
         <div className="row">
           <ProjectTable projects={this.state.pageConfig.data} store={ProjectStore}/>
         </div>

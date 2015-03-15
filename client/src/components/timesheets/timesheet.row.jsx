@@ -20,17 +20,6 @@ var TimesheetRow = React.createClass({
     classes
   ],
 
-  showDetail: function showDetail () {
-    var timesheet = this.props.timesheet;
-    if (timesheet.deleted) {
-      SnackbarAction.error('You cannot edit a deleted timesheet.');
-      return;
-    }
-    this.props.store.setState({timesheet: timesheet});
-    this.transitionTo('timesheets.detail',
-      {user_id: timesheet.user_id, _id: timesheet._id});
-  },
-
   remove: function remove (e) {
     e.stopPropagation();
     this.props.timesheet.deleted = true;
@@ -56,7 +45,7 @@ var TimesheetRow = React.createClass({
     });
 
     return (
-      <tr className={rowClasses} onClick={this.showDetail}>
+      <tr className={rowClasses}>
 
         <td>{DateUtils.momentShortDate(timesheet.beginDate)}</td>
         <td>{DateUtils.momentShortDate(timesheet.endDate)}</td>

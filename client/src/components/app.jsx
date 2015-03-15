@@ -8,10 +8,7 @@ var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
 
- // TODO - add the statics block with the willTransitionTo to check
- // for an unauthorized user.
-
-  render : function () {
+ render : function () {
 
     return (
       <div>

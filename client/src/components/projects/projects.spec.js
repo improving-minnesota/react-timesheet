@@ -27,12 +27,4 @@ describe('Projects Component: ', function () {
   it('should instantiate the Projects', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
-
-  describe('clicking the new project button', function () {
-    it('should transition to the create project route', function () {
-      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
-      TestUtils.Simulate.click(button);
-      expect(spies.transitionTo).to.have.been.calledWith('projects.create');
-    });
-  });
 });
