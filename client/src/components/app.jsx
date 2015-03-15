@@ -6,8 +6,7 @@ var NavBar = require('./common/navigation/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
-var Snackbar = require('./common/snackbar');
-var SnackbarStore = require('../stores/snackbar.store');
+// TODO - Import the Snackbar component
 
 var App = React.createClass({
 
@@ -29,7 +28,7 @@ var App = React.createClass({
           </div>
         </div>
 
-        <Snackbar />
+       {/* TODO - Add the Snackbar component here */}
       </div>
     );
   }
