@@ -27,7 +27,6 @@ var TimeunitsEdit = require('./components/timeunits/timeunit.detail');
 // Initialize the routes
 module.exports = (
   <Route name="index" path="/" handler={Index}>
-    <Route name='login' path='/login' handler={Login} />
 
     <Route name='app' path="/" handler={App}>
 
@@ -36,16 +35,13 @@ module.exports = (
       <Route name='projects.create'   path='/projects/create'       handler={ProjectsCreate} />
 
       <Route name='employees'         path='/employees'             handler={Employees} />
-      <Route name='employees.detail'  path='/employees/detail/:_id' handler={EmployeesDetail} />
-      <Route name='employees.create'  path='/employees/create'      handler={EmployeesCreate} />
-
+      {/* TODO - Add the employee detail and create routes*/}
+      
       <Route name='timesheets'        path='/employees/:user_id/timesheets'             handler={Timesheets} />
-      <Route name='timesheets.create' path='/employees/:user_id/timesheets/create'      handler={TimesheetsCreate} />
-      <Route name='timesheets.detail' path='/employees/:user_id/timesheets/detail/:_id' handler={TimesheetsDetail} />
+      {/* TODO - Add the timesheets detail and create routes */}
 
-      <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create'            handler={TimeunitsCreate} />
-      <Route name='timesheets.detail.timeunits.detail'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
-
+      {/* TODO - Add the timeunits detail and create routes*/}
+      
       <Redirect to="employees" />
     </Route>
 

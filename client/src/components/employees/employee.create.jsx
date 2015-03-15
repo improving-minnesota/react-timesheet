@@ -6,57 +6,9 @@ var EmployeeActions = require('../../actions/employee.actions');
 var EmployeeMixin = require('../../mixins/employee.mixin');
 
 var EmployeeCreate = React.createClass({
+  // TODO - implement me
 
-  mixins : [
-    Router.Navigation,
-    Router.State,
-    EmployeeMixin
-  ],
-
-  onChange: function () {
-    this.setState(this.store.getState());
-  },
-
-  componentWillMount: function () {
-    this.store.addChangeListener(this.onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.store.removeChangeListener(this.onChange);
-  },
-
-  getInitialState: function () {
-    return {
-      saveText: 'Create',
-      employee: {
-        admin:false
-      },
-      errors: {}
-    };
-  },
-
-  saveEmployee: function (event) {
-    event.preventDefault();
-    this.validateAll();
-
-    if (!this.hasErrors()) {
-      EmployeeActions.create(this.state.employee);
-      this.transitionTo('employees');
-    }
-  },
-
-  render : function () {
-    return (
-      <EmployeeForm employee={this.state.employee}
-        errors={this.state.errors}
-        validateAll={this.validateAll}
-        hasErrors={this.hasErrors}
-        saveText={this.state.saveText}
-        onSave={this.saveEmployee}
-        validate={this.validate}
-        toggleAdmin={this.toggleAdmin} />
-    );
-  }
+  render: function () {return (<div />);}
 });
 
 module.exports = EmployeeCreate;

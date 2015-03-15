@@ -35,10 +35,5 @@ describe('App: ', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 
-  describe('during the will transition to lifecyle', function () {
-    it('should require an authenticated user from the login store', function () {
-      App.willTransitionTo('transitionArg', 'paramsArg');
-      expect(proxies['../stores/login.store'].requireAuthenticatedUser).to.have.been.calledWith('transitionArg');
-    });
-  });
+  // TODO - test the will transition to static method
 });

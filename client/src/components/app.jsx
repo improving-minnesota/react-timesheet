@@ -6,15 +6,10 @@ var NavBar = require('./common/navigation/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
-// TODO - Import the Snackbar component
-
 var App = React.createClass({
 
-  statics: {
-    willTransitionTo: function (transition, params) {
-      return LoginStore.requireAuthenticatedUser(transition);
-    }
-  },
+ // TODO - add the statics block with the willTransitionTo to check
+ // for an unauthorized user.
 
   render : function () {
 
@@ -27,8 +22,6 @@ var App = React.createClass({
             <RouteHandler />
           </div>
         </div>
-
-       {/* TODO - Add the Snackbar component here */}
       </div>
     );
   }
