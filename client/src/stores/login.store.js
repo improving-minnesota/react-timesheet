@@ -1,11 +1,11 @@
 var _ = require('lodash');
 var Router = require('react-router');
-var q = require('q');
+var Promise = require('es6-promise').Promise;
 
 var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 
 var LoginStore = assign({}, Store, {
@@ -47,8 +47,7 @@ var LoginStore = assign({}, Store, {
       return q.when(self.getState());
     }
     else {
-      return agent.get(self.loginUrl)
-        .end()
+      return axios.get(self.loginUrl)
         .then(function (res) {
           self.setState({
             authenticated: res.body.authenticated,
@@ -65,9 +64,7 @@ var LoginStore = assign({}, Store, {
   login: function (payload) {
     var self = this;
 
-    return agent.post(this.loginUrl)
-      .send(payload.action.credentials)
-      .end()
+    return axios.post(this.loginUrl, payload.action.credentials)
       .then(function (res) {
         var authenticated = res.body.authenticated;
         self.setState({
@@ -101,8 +98,7 @@ var LoginStore = assign({}, Store, {
   logout: function (payload) {
     var self = this;
 
-    return agent.post(this.logoutUrl)
-      .end()
+    return axios.post(this.logoutUrl)
       .then(function (res) {
         self.initState();
         self.showLogin();
@@ -114,7 +110,7 @@ var LoginStore = assign({}, Store, {
 
   requireAuthenticatedUser: function (transition) {
     var self = this;
-    var deferred = q.defer();
+    var deferred = Promise.defer();
 
     var authCheckInterval = setInterval(function () {
       if (self.getState().authenticated) {

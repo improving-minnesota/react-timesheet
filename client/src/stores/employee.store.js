@@ -1,7 +1,7 @@
 var Store = require('../flux/flux.store');
 var actions = require('../actions/employee.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 var _ = require('lodash');
 
@@ -42,9 +42,7 @@ var EmployeeStore = assign({}, Store, {
   list: function (payload) {
     var self = this;
 
-    return agent.get(this.url())
-      .query(payload.action.query)
-      .end()
+    return axios.get(this.url(), payload.action.query)
       .then(function (res) {
         self.setState({pageConfig: res.body});
       })
@@ -56,8 +54,7 @@ var EmployeeStore = assign({}, Store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url(payload.action.employee._id))
-      .end()
+    return axios.get(this.url(payload.action.employee._id))
       .then(function (res) {
         self.setState({employee: res.body});
         return true;
@@ -71,9 +68,7 @@ var EmployeeStore = assign({}, Store, {
     var self = this;
     var employee = payload.action.employee;
 
-    return agent.put(this.url(employee._id))
-      .send(employee)
-      .end()
+    return axios.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.body});
         SnackbarAction.success('Employee : ' + employee.username + ', updated.');
@@ -88,9 +83,7 @@ var EmployeeStore = assign({}, Store, {
     var employee = payload.action.employee;
     employee.deleted = true;
 
-    return agent.put(this.url(employee._id))
-      .send(employee)
-      .end()
+    return axios.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.body});
         SnackbarAction.success('Employee : ' + res.body.username + ', was deleted.');
@@ -106,9 +99,7 @@ var EmployeeStore = assign({}, Store, {
     var employee = payload.action.employee;
     employee.deleted = false;
 
-    return agent.put(this.url(employee._id))
-      .send(employee)
-      .end()
+    return agent.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.body});
         SnackbarAction.success('Employee : ' + res.body.username + ', was restored.');
@@ -122,9 +113,7 @@ var EmployeeStore = assign({}, Store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url())
-      .send(payload.action.employee)
-      .end()
+    return agent.post(this.url(), payload.action.employee)
       .then(function (res) {
         self.setState({employee: res.body});
         SnackbarAction.success('Employee : ' + res.body.username + ', created.');

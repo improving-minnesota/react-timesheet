@@ -2,7 +2,7 @@ var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timesheet.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 var LoginStore = require('./login.store');
 
@@ -43,9 +43,7 @@ var TimesheetStore = assign({}, Store, {
   list: function (payload) {
     var self = this;
 
-    return agent.get(this.url())
-      .query(payload.action.query)
-      .end()
+    return axios.get(this.url(), payload.action.query)
       .then(function (res) {
         self.setState({pageConfig: res.body});
       })
@@ -57,8 +55,7 @@ var TimesheetStore = assign({}, Store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url(payload.action.timesheet._id))
-      .end()
+    return axios.get(this.url(payload.action.timesheet._id))
       .then(function (res) {
         self.setState({timesheet: res.body});
         return true;
@@ -72,9 +69,7 @@ var TimesheetStore = assign({}, Store, {
     var self = this;
     var timesheet = payload.action.timesheet;
 
-    return agent.put(this.url(timesheet._id))
-      .send(timesheet)
-      .end()
+    return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.body});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', updated.');
@@ -89,9 +84,7 @@ var TimesheetStore = assign({}, Store, {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = true;
 
-    return agent.put(this.url(timesheet._id))
-      .send(timesheet)
-      .end()
+    return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.body});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', was deleted.');
@@ -107,9 +100,7 @@ var TimesheetStore = assign({}, Store, {
     var timesheet = payload.action.timesheet;
     timesheet.deleted = false;
 
-    return agent.put(this.url(timesheet._id))
-      .send(timesheet)
-      .end()
+    return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
         self.setState({timesheet: res.body});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', was restored.');
@@ -123,9 +114,7 @@ var TimesheetStore = assign({}, Store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url())
-      .send(payload.action.timesheet)
-      .end()
+    return axios.post(this.url(), payload.action.timesheet)
       .then(function (res) {
         self.setState({timesheet: res.body});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', created.');
