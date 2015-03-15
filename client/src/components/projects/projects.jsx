@@ -2,10 +2,6 @@ var React = require('react/addons');
 var Router = require('react-router');
 
 var ProjectTable = require('./project.table');
-var ProjectActions = require('../../actions/project.actions');
-var ProjectStore = require('../../stores/project.store');
-
-var Paginator = require('../common/navigation/paginator');
 
 var Projects = React.createClass({
 
@@ -13,46 +9,20 @@ var Projects = React.createClass({
     Router.Navigation
   ],
 
-  store: ProjectStore,
-
-  requestProjects: ProjectActions.list,
-
   getInitialState: function () {
-    return this.store.getState();
-  },
-
-  onChange: function () {
-    this.setState(this.store.getState());
-  },
-
-  componentWillMount: function () {
-    this.requestProjects({page: 1});
-    this.store.addChangeListener(this.onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.store.removeChangeListener(this.onChange);
-  },
-
-  onPageChange: function (page) {
-    this.requestProjects({page: page});
+    return {
+      pageConfig: {
+        data: require('../../../../api/data/projects.json').projects
+      }
+    };
   },
 
   render: function () {
 
-    var numPages = Math.ceil(this.state.pageConfig.totalItems / 5);
-    var pagesShown = Math.min(numPages, 5);
-
     return (
       <div>
         <div className="row">
-          <ProjectTable projects={this.state.pageConfig.data} store={ProjectStore}/>
-        </div>
-
-        <div className="ui grid pad-top">
-          <div className="centered row">
-            <Paginator max={numPages} maxVisible={pagesShown} onChange={this.onPageChange} />
-          </div>
+          <ProjectTable projects={this.state.pageConfig.data}/>
         </div>
       </div>
     );

@@ -3,7 +3,6 @@ var _ = require('lodash');
 describe('Project Table Component: ', function () {
 
   var ProjectTable,
-    ProjectStore,
     projects,
     element,
     spies = {},
@@ -14,7 +13,6 @@ describe('Project Table Component: ', function () {
   beforeEach(function () {
     React = require('react/addons');
     TestUtils = React.addons.TestUtils;
-    ProjectStore = require('../../stores/project.store');
   });
 
   beforeEach(function () {
@@ -22,7 +20,7 @@ describe('Project Table Component: ', function () {
 
     ProjectTable = require('./project.table');
     element = TestUtils.renderIntoDocument(
-      <ProjectTable projects={projects} store={ProjectStore} />
+      <ProjectTable projects={projects} />
     );
   });
 

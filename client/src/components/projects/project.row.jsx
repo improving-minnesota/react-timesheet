@@ -2,13 +2,10 @@ var React = require('react/addons');
 var Router = require('react-router');
 var classes = require('react-classes');
 
-var ProjectActions = require('../../actions/project.actions');
-
 var ProjectRow = React.createClass({
 
   propTypes: {
-    project: React.PropTypes.object,
-    store: React.PropTypes.object.isRequired
+    project: React.PropTypes.object
   },
 
   mixins: [
@@ -19,13 +16,11 @@ var ProjectRow = React.createClass({
   remove: function remove (e) {
     e.stopPropagation();
     this.props.project.deleted = true;
-    ProjectActions.remove(this.props.project);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
     this.props.project.deleted = false;
-    ProjectActions.restore(this.props.project);
   },
 
   render: function () {

@@ -3,7 +3,6 @@ var _ = require('lodash');
 describe('Timesheet Table Component: ', function () {
 
   var TimesheetTable,
-    TimesheetStore,
     timesheets,
     element,
     spies = {},
@@ -14,7 +13,6 @@ describe('Timesheet Table Component: ', function () {
   beforeEach(function () {
     React = require('react/addons');
     TestUtils = React.addons.TestUtils;
-    TimesheetStore = require('../../stores/timesheet.store');
   });
 
   beforeEach(function () {
@@ -22,7 +20,7 @@ describe('Timesheet Table Component: ', function () {
 
     TimesheetTable = require('./timesheet.table');
     element = TestUtils.renderIntoDocument(
-      <TimesheetTable timesheets={timesheets} store={TimesheetStore} />
+      <TimesheetTable timesheets={timesheets} />
     );
   });
 

@@ -1,8 +1,6 @@
 describe('Employee Row Component: ', function () {
 
   var EmployeeRow,
-    EmployeeActions,
-    EmployeeStore,
     employee,
     element,
     spies = {},
@@ -16,13 +14,11 @@ describe('Employee Row Component: ', function () {
   });
 
   beforeEach(function () {
-    EmployeeStore = require('../../stores/employee.store');
     EmployeeRow = require('./employee.row');
-    // EmployeeActions = require('../../actions/employee.actions');
   });
 
   it('should instantiate the EmployeeRow', function () {
-    element = TestUtils.renderIntoDocument(<EmployeeRow employee={{_id: 1}} store={EmployeeStore} />);
+    element = TestUtils.renderIntoDocument(<EmployeeRow employee={{_id: 1}} />);
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 
@@ -34,22 +30,14 @@ describe('Employee Row Component: ', function () {
         deleted: false
       };
 
-      // spies.remove = sinon.stub(EmployeeActions, 'remove');
-
-      element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} store={EmployeeStore} />);
+      element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} />);
       button = TestUtils.findRenderedDOMComponentWithClass(element, 'button');
       TestUtils.Simulate.click(button);
-    });
-
-    afterEach(function () {
-      // spies.remove.restore();
     });
 
     it('should set the employee to deleted', function () {
       expect(element.props.employee.deleted).to.be.true;
     });
-
-    // TODO - verify an action to remove the employee was fired
   });
 
   describe('clicking the restore button', function () {
@@ -60,21 +48,13 @@ describe('Employee Row Component: ', function () {
         deleted: true
       };
 
-      // spies.restore = sinon.stub(EmployeeActions, 'restore');
-
-      element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} store={EmployeeStore} />);
+      element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} />);
       button = TestUtils.findRenderedDOMComponentWithClass(element, 'button');
       TestUtils.Simulate.click(button);
-    });
-
-    afterEach(function () {
-      // spies.restore.restore();
     });
 
     it('should set the employee to restored', function () {
       expect(element.props.employee.deleted).to.be.false;
     });
-
-    // TODO - verifiy an action to restore the employee was fired
   });
 });

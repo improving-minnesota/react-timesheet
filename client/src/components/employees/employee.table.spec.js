@@ -3,7 +3,6 @@ var _ = require('lodash');
 describe('Employee Table Component: ', function () {
 
   var EmployeeTable,
-    EmployeeStore,
     employees,
     element,
     spies = {},
@@ -14,7 +13,6 @@ describe('Employee Table Component: ', function () {
   beforeEach(function () {
     React = require('react/addons');
     TestUtils = React.addons.TestUtils;
-    EmployeeStore = require('../../stores/employee.store');
   });
 
   beforeEach(function () {
@@ -22,7 +20,7 @@ describe('Employee Table Component: ', function () {
 
     EmployeeTable = require('./employee.table');
     element = TestUtils.renderIntoDocument(
-      <EmployeeTable employees={employees} store={EmployeeStore} />
+      <EmployeeTable employees={employees} />
     );
   });
 

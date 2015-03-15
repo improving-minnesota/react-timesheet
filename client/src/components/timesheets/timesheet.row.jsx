@@ -2,14 +2,12 @@ var React = require('react/addons');
 var Router = require('react-router');
 var classes = require('react-classes');
 
-var TimesheetActions = require('../../actions/timesheet.actions');
 var DateUtils = require('../../util/date.utils');
 
 var TimesheetRow = React.createClass({
 
   propTypes: {
-    timesheet: React.PropTypes.object,
-    store: React.PropTypes.object.isRequired
+    timesheet: React.PropTypes.object
   },
 
   mixins: [
@@ -20,13 +18,11 @@ var TimesheetRow = React.createClass({
   remove: function remove (e) {
     e.stopPropagation();
     this.props.timesheet.deleted = true;
-    // TODO - fire an action to remove the timesheet
   },
 
   restore: function restore (e) {
    e.stopPropagation();
    this.props.timesheet.deleted = false;
-   // TODO - fire an action to restore the timesheet
   },
 
   render: function () {
