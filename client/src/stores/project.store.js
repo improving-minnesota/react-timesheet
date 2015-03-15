@@ -2,7 +2,7 @@ var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 
 var ProjectStore = assign({}, Store, {
@@ -45,15 +45,13 @@ var ProjectStore = assign({}, Store, {
   list: function (payload) {
     var self = this;
 
-    return agent.get(this.url())
-      .query(payload.action.query)
-      .end()
+    return axios.get(this.url(), {params: payload.action.query})
       .then(function (res) {
-        if (!_.isUndefined(res.body.data)) {
-          self.setState({pageConfig: res.body});
+        if (!_.isUndefined(res.data.data)) {
+          self.setState({pageConfig: res.data});
         }
         else {
-          self.setState({projects: res.body});
+          self.setState({projects: res.data});
         }
         return true;
       })
@@ -65,10 +63,9 @@ var ProjectStore = assign({}, Store, {
   get: function (payload) {
     var self = this;
 
-    return agent.get(this.url(payload.action.project._id))
-      .end()
+    return axios.get(this.url(payload.action.project._id))
       .then(function (res) {
-        self.setState({project: res.body});
+        self.setState({project: res.data});
         return true;
       })
       .catch(function (data) {
@@ -80,11 +77,9 @@ var ProjectStore = assign({}, Store, {
     var self = this;
     var project = payload.action.project;
 
-    return agent.put(this.url(project._id))
-      .send(project)
-      .end()
+    return axios.put(this.url(project._id), project)
       .then(function (res) {
-        self.setState({project: res.body});
+        self.setState({project: res.data});
         SnackbarAction.success('Project : ' + project.name + ', updated.');
       })
       .catch(function (x) {
@@ -97,12 +92,10 @@ var ProjectStore = assign({}, Store, {
     var project = payload.action.project;
     project.deleted = true;
 
-    return agent.put(this.url(project._id))
-      .send(project)
-      .end()
+    return axios.put(this.url(project._id), project)
       .then(function (res) {
-        self.setState({project: res.body});
-        SnackbarAction.success('Project : ' + res.body.name + ', was deleted.');
+        self.setState({project: res.data});
+        SnackbarAction.success('Project : ' + res.data.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -115,12 +108,10 @@ var ProjectStore = assign({}, Store, {
     var project = payload.action.project;
     project.deleted = false;
 
-    var prom = agent.put(this.url(project._id))
-      .send(project)
-      .end()
+    var prom = axios.put(this.url(project._id), project)
       .then(function (res) {
-        self.setState({project: res.body});
-        SnackbarAction.success('Project : ' + res.body.name + ', was restored.');
+        self.setState({project: res.data});
+        SnackbarAction.success('Project : ' + res.data.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
@@ -133,12 +124,10 @@ var ProjectStore = assign({}, Store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url())
-      .send(payload.action.project)
-      .end()
+    return axios.post(this.url(), payload.action.project)
       .then(function (res) {
-        self.setState({project: res.body});
-        SnackbarAction.success('Project : ' + res.body.name + ', created.');
+        self.setState({project: res.data});
+        SnackbarAction.success('Project : ' + res.data.name + ', created.');
       })
       .catch(function (x) {
         SnackbarAction.error('There was an error creating project.');

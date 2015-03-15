@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/snackbar.actions');
-var Q = require('q');
+var Promise = require('es6-promise').Promise;
 var assign = require('object-assign');
 
 var SnackbarStore = assign({}, Store, {
@@ -21,33 +21,42 @@ var SnackbarStore = assign({}, Store, {
   },
 
   info: function (payload) {
-    this.setState({
-      message: payload.action.message,
-      messageType: payload.action.actionType
-    });
-    this.reset();
+    var self = this;
 
-    return Q();
+    return new Promise(function (resolve) {
+      self.setState({
+        message: payload.action.message,
+        messageType: payload.action.actionType
+      });
+      self.reset();
+      resolve();
+    });
   },
 
   error: function (payload) {
-    this.setState({
-      message: payload.action.message,
-      messageType: payload.action.actionType
-    });
-    this.reset();
+    var self = this;
 
-    return Q();
+    return new Promise(function (resolve) {
+      self.setState({
+        message: payload.action.message,
+        messageType: payload.action.actionType
+      });
+      self.reset();
+      resolve();
+    });
   },
 
   success: function (payload) {
-    this.setState({
-      message: payload.action.message,
-      messageType: payload.action.actionType
-    });
-    this.reset();
+    var self = this;
 
-    return Q();
+    return new Promise(function (resolve) {
+      self.setState({
+        message: payload.action.message,
+        messageType: payload.action.actionType
+      });
+      self.reset();
+      resolve();
+    });
   },
 
   reset: function () {
@@ -64,14 +73,19 @@ var SnackbarStore = assign({}, Store, {
   },
 
   hide: function () {
-    window.clearTimeout(this.currentTimeout);
-    this.currentTimeout = null;
+    var self = this;
 
-    this.setState({
-      message: ''
+    return new Promise(function (resolve) {
+      window.clearTimeout(self.currentTimeout);
+      self.currentTimeout = null;
+
+
+      self.setState({
+        message: ''
+      });
+
+      resolve();
     });
-
-    return Q();
   }
 
 });

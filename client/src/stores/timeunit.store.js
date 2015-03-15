@@ -2,7 +2,7 @@ var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timeunit.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 var LoginStore = require('./login.store');
 
@@ -39,10 +39,9 @@ var TimeunitStore = assign({}, Store, {
     var self = this;
     var timesheet = payload.action.timesheet;
 
-    return agent.get(this.url(timesheet._id))
-      .end()
+    return axios.get(this.url(timesheet._id))
       .then(function (res) {
-        self.setState({timeunits: res.body});
+        self.setState({timeunits: res.data});
       })
       .catch(function (x) {
         SnackbarAction.error('Error attempting to retrieve logged hours.');
@@ -54,10 +53,9 @@ var TimeunitStore = assign({}, Store, {
     var timesheet = payload.action.timesheet;
     var timeunit = payload.action.timeunit;
 
-    return agent.get(this.url(timesheet._id, timeunit._id))
-      .end()
+    return axios.get(this.url(timesheet._id, timeunit._id))
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         return true;
       })
       .catch(function (data) {
@@ -70,11 +68,9 @@ var TimeunitStore = assign({}, Store, {
     var timesheet = payload.action.timesheet;
     var timeunit = payload.action.timeunit;
 
-    return agent.put(this.url(timesheet._id, timeunit._id))
-      .send(timeunit)
-      .end()
+    return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time has been updated.');
       })
       .catch(function (x) {
@@ -88,11 +84,9 @@ var TimeunitStore = assign({}, Store, {
     var timeunit = payload.action.timeunit;
     timeunit.deleted = true;
 
-    return agent.put(this.url(timesheet._id, timeunit._id))
-      .send(timeunit)
-      .end()
+    return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time was deleted.');
         return true;
       })
@@ -107,11 +101,9 @@ var TimeunitStore = assign({}, Store, {
     var timeunit = payload.action.timeunit;
     timeunit.deleted = false;
 
-    var prom = agent.put(this.url(timesheet._id, timeunit._id))
-      .send(timeunit)
-      .end()
+    var prom = axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time was restored.');
         return true;
       })
@@ -126,11 +118,9 @@ var TimeunitStore = assign({}, Store, {
     var self = this;
     var timesheet = payload.action.timesheet;
 
-    return agent.post(this.url(timesheet._id))
-      .send(payload.action.timeunit)
-      .end()
+    return axios.post(this.url(timesheet._id), payload.action.timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your time has been logged.');
       })
       .catch(function (x) {
