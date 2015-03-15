@@ -70,7 +70,9 @@ var Timeunits = React.createClass({
         </div>
 
         <div className="sixteen wide column">
-          <TimeunitTable timeunits={this.state.timeunits} timesheet={this.props.timesheet}/>
+          <TimeunitTable timeunits={this.state.timeunits} 
+            timesheet={this.props.timesheet}
+            store={this.store}/>
         </div>
       </div>
     );
