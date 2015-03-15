@@ -7,20 +7,8 @@ var SectionHeader = require('./common/section');
 
 var App = React.createClass({
 
- render : function () {
-
-    return (
-      <div>
-        <NavBar />
-        <div className="container">
-          <SectionHeader />
-          <div className="row">
-            <RouteHandler />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // TODO - actually implement this for realz
+  render: function () {return (<div />);}
 });
 
 module.exports = App;

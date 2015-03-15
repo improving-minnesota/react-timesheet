@@ -10,25 +10,5 @@ describe('App: ', function () {
 
   var React, TestUtils;
 
-  beforeEach(function () {
-    React = require('react/addons');
-    TestUtils = React.addons.TestUtils;
-  });
-
-  beforeEach(function () {
-    proxies = {
-      './common/navigation/navbar': mockComponent('Navbar'),
-      './common/section': mockComponent('SectionHeader'),
-      'react-router': {
-        RouteHandler: mockComponent('RouteHandler')
-      }
-    };
-
-    App = proxyquire('./app', proxies);
-    element = TestUtils.renderIntoDocument(<App />);
-  });
-
-  it('should instantiate the App', function () {
-    expect(TestUtils.isCompositeComponent(element)).to.be.true;
-  });
+  // TODO - write the unit tests to verify the component is rendered
 });

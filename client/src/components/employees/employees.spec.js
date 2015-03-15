@@ -9,22 +9,5 @@ describe('Employees Component: ', function () {
 
   var React, TestUtils;
 
-  beforeEach(function () {
-    React = require('react/addons');
-    TestUtils = React.addons.TestUtils;
-  });
-
-  beforeEach(function () {
-    Employees = require('./employees');
-    element = TestUtils.renderIntoDocument(<Employees />);
-    spies.transitionTo = sinon.stub(element, 'transitionTo');
-  });
-
-  afterEach(function () {
-    spies.transitionTo.restore();
-  });
-
-  it('should instantiate the Employees', function () {
-    expect(TestUtils.isCompositeComponent(element)).to.be.true;
-  });
+ // TODO - write the unit tests to verify the component is rendered
 });

@@ -5,11 +5,6 @@ var EmployeeTable = require('./employee.table');
 
 var Employees = React.createClass({
 
-  mixins: [
-    Router.Navigation,
-    Router.State
-  ],
-
   getInitialState: function () {
     return {
       pageConfig: {
@@ -17,17 +12,10 @@ var Employees = React.createClass({
       }
     };
   },
+  
+  // TODO - actually implement this for realz
+  render: function () {return (<div />);}
 
-  render: function () {
-
-    return (
-      <div>
-        <div className="row">
-          <EmployeeTable employees={this.state.pageConfig.data} />
-        </div>
-      </div>
-    );
-  }
 });
 
 module.exports = Employees;
