@@ -32,9 +32,10 @@ var
   karma =       require('karma').server;
 
 // main tasks
-gulp.task('core', ['watchify', 'build:css', 'copy:assets']);
+gulp.task('core', ['watchify', 'concat:css', 'copy:assets']);
 gulp.task('dev',  ['core', 'jade:dev']);
 gulp.task('prod', ['core', 'jade:prod', 'uglify']);
+gulp.task('init', ['build:css']);
 
 // server tasks
 gulp.task('serve:dev', shell.task([pkg.scripts.run_dev]));
