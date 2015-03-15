@@ -1,13 +1,13 @@
+var _ = require('lodash');
 var proxyquire = require('proxyquireify')(require);
 var mockComponent = require('../mock');
-var _ = require('lodash');
 
 describe('Timeunit Create Component: ', function () {
 
   var TimeunitCreate,
     element,
-    spies,
-    proxies;
+    proxies,
+    spies = {};
 
   var React, TestUtils;
 
@@ -18,18 +18,27 @@ describe('Timeunit Create Component: ', function () {
 
   beforeEach(function () {
     proxies = {
-      './timeunit.form': mockComponent(),
+      '../../actions/timeunit.actions': {
+        create: sinon.stub()
+      },
+      './timeunit.form': mockComponent('TimeunitForm'),
       'react-router': {
-        RouteHandler: mockComponent(),
-        Link: mockComponent(),
         State: {
-          getParams: sinon.stub.returns([{_id: '12345'}])
+          getParams: sinon.stub().returns({user_id: 'userId', _id: 'abc123'})
         }
       }
     };
 
     TimeunitCreate = proxyquire('./timeunit.create', proxies);
     element = TestUtils.renderIntoDocument(<TimeunitCreate />);
+
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+    spies.validateAll = sinon.stub(element, 'validateAll');
+  });
+
+  afterEach(function () {
+    spies.validateAll.restore();
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the TimeunitCreate', function () {
@@ -37,17 +46,29 @@ describe('Timeunit Create Component: ', function () {
   });
 
   describe('saving a timeunit', function () {
-    it('should validate the entire timeunit', function () {
+    beforeEach(function () {
+      element.saveTimeunit({preventDefault: _.noop});
+    });
 
+    it('should validate the entire timeunit', function () {
+      expect(spies.validateAll).to.have.been.called;
     });
 
     describe('when the timeunit passes validation', function () {
-      it('should fire a create action', function () {
-
+      beforeEach(function () {
+        spies.hasErrors = sinon.stub(element, 'hasErrors').returns(false);
       });
 
-      it('should transition back to the timeunit list', function () {
-        
+      afterEach(function () {
+        spies.hasErrors.restore();
+      });
+
+      it('should fire a create action', function () {
+        expect(proxies['../../actions/timeunit.actions'].create).to.have.been.called;
+      });
+
+      it('should transition back to the timesheet detail for the timeunit', function () {
+        expect(spies.transitionTo).to.have.been.calledWith('timesheets.detail', {user_id: 'userId', _id: 'abc123'});
       });
     });
   });

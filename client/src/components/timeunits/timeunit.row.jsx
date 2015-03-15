@@ -3,8 +3,6 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var TimeunitActions = require('../../actions/timeunit.actions');
-var TimeunitStore = require('../../stores/timeunit.store');
-
 var DateUtils = require('../../util/date.utils');
 var SnackbarActions = require('../../actions/snackbar.actions');
 
@@ -12,7 +10,8 @@ var TimeunitRow = React.createClass({
 
   propTypes: {
     timeunit: React.PropTypes.object.isRequired,
-    timesheet: React.PropTypes.object.isRequired
+    timesheet: React.PropTypes.object.isRequired,
+    store: React.PropTypes.object.isRequired
   },
 
   mixins: [
@@ -28,7 +27,7 @@ var TimeunitRow = React.createClass({
       SnackbarActions.error('You cannot edit a deleted timeunit.');
       return;
     }
-    TimeunitStore.setState({timeunit: timeunit});
+    this.props.store.setState({timeunit: timeunit});
     this.transitionTo('timesheets.detail.timeunits.edit',
       {user_id: timesheet.user_id, _id: timesheet._id, timeunit_id: timeunit._id});
   },

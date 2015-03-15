@@ -3,7 +3,6 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
-var TimesheetStore = require('../../stores/timesheet.store');
 var LoginStore = require('../../stores/login.store');
 
 var SnackbarAction = require('../../actions/snackbar.actions');
@@ -12,7 +11,8 @@ var DateUtils = require('../../util/date.utils');
 var TimesheetRow = React.createClass({
 
   propTypes: {
-    timesheet: React.PropTypes.object
+    timesheet: React.PropTypes.object,
+    store: React.PropTypes.object.isRequired
   },
 
   mixins: [
@@ -26,7 +26,7 @@ var TimesheetRow = React.createClass({
       SnackbarAction.error('You cannot edit a deleted timesheet.');
       return;
     }
-    TimesheetStore.setState({timesheet: timesheet});
+    this.props.store.setState({timesheet: timesheet});
     this.transitionTo('timesheets.detail',
       {user_id: timesheet.user_id, _id: timesheet._id});
   },

@@ -3,14 +3,14 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var ProjectActions = require('../../actions/project.actions');
-var ProjectStore = require('../../stores/project.store');
 
 var SnackbarAction = require('../../actions/snackbar.actions');
 
 var ProjectRow = React.createClass({
 
   propTypes: {
-    project: React.PropTypes.object
+    project: React.PropTypes.object,
+    store: React.PropTypes.object.isRequired
   },
 
   mixins: [
@@ -23,7 +23,7 @@ var ProjectRow = React.createClass({
       SnackbarAction.error('You cannot edit a deleted project.');
       return;
     }
-    ProjectStore.setState({project: this.props.project});
+    this.props.store.setState({project: this.props.project});
     this.transitionTo('projects.detail', {_id: this.props.project._id});
   },
 

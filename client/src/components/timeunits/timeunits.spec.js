@@ -1,12 +1,11 @@
-var proxyquire = require('proxyquireify')(require);
-var mockComponent = require('../mock');
 var _ = require('lodash');
 
-describe('Timeunits Component:', function () {
+describe('Timeunits Component: ', function () {
 
   var Timeunits,
+    timesheet,
     element,
-    spies,
+    spies = {},
     proxies;
 
   var React, TestUtils;
@@ -17,38 +16,32 @@ describe('Timeunits Component:', function () {
   });
 
   beforeEach(function () {
+    Timeunits = require('./timeunits');
 
-   proxies = {
-      './timunit.table': mockComponent(),
-      'react-router': {
-        RouteHandler: mockComponent(),
-        Link: mockComponent(),
-        State: {
-          getParams: function () {
-            return {
-              _id: '123456',
-              user_id: 'user_id',
-              timeunit_id: 'timeunit_id'
-            }
-          }
-        },
-        '../../actions/timeuint.actions': {
-          list: sinon.stub()
-        }
-      }
-    };
+    timesheet = {_id: 'timesheetId'};
 
-    Timeunits = proxyquire('./timeunits', proxies);
-    element = TestUtils.renderIntoDocument(<Timeunits timesheet={{_id: '12345'}}/>);
+    element = TestUtils.renderIntoDocument(<Timeunits timesheet={timesheet}/>);
+    
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+    spies.getParams = sinon.stub(element, 'getParams').returns(
+      {user_id: 'userId', _id: 'timesheetId', timeunit_id: 'timeunitId'});
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Timeunits', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 
-  describe('clicking the new timunit button', function () {
-    it('should transition to the create timunit route', function () {
+  describe('clicking the new employee button', function () {
+    it('should transition to the create employee route', function () {
+      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
+      TestUtils.Simulate.click(button);
       
+      expect(spies.transitionTo).to.have.been.calledWith('timesheets.detail.timeunits.create', {
+        user_id: 'userId', _id: 'timesheetId', timeunit_id: 'timeunitId'});
     });
   });
 });

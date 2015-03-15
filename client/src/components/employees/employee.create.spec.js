@@ -20,9 +20,9 @@ describe('Employee Create Component: ', function () {
 
     element = TestUtils.renderIntoDocument(<EmployeeCreate />);
 
-    spies.transitionTo = sinon.stub(element, 'transitionTo', _.noop);
-    spies.validateAll = sinon.stub(element, 'validateAll', _.noop);
-    spies.create = sinon.stub(EmployeeActions, 'create', _.noop);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+    spies.validateAll = sinon.stub(element, 'validateAll');
+    spies.create = sinon.stub(EmployeeActions, 'create');
   });
 
   afterEach(function () {

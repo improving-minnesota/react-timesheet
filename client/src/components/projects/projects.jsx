@@ -57,7 +57,7 @@ var Projects = React.createClass({
         </div>
 
         <div className="row">
-          <ProjectTable projects={this.state.pageConfig.data} />
+          <ProjectTable projects={this.state.pageConfig.data} store={ProjectStore}/>
         </div>
 
         <div className="ui grid pad-top">

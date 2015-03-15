@@ -1,12 +1,10 @@
-var proxyquire = require('proxyquireify')(require);
-var mockComponent = require('../mock');
 var _ = require('lodash');
 
 describe('Projects Component: ', function () {
 
   var Projects,
     element,
-    spies,
+    spies = {},
     proxies;
 
   var React, TestUtils;
@@ -17,17 +15,13 @@ describe('Projects Component: ', function () {
   });
 
   beforeEach(function () {
-    spies = {
-
-    };
-
-    proxies = {
-      './employee.table': mockComponent(),
-      '../common/navigation/paginator': mockComponent()
-    };
-
-    Projects = proxyquire('./projects', proxies);
+    Projects = require('./projects');
     element = TestUtils.renderIntoDocument(<Projects />);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Projects', function () {
@@ -36,7 +30,9 @@ describe('Projects Component: ', function () {
 
   describe('clicking the new project button', function () {
     it('should transition to the create project route', function () {
-      
+      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
+      TestUtils.Simulate.click(button);
+      expect(spies.transitionTo).to.have.been.calledWith('projects.create');
     });
   });
 });

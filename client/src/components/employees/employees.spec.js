@@ -1,12 +1,10 @@
-var proxyquire = require('proxyquireify')(require);
-var mockComponent = require('../mock');
 var _ = require('lodash');
 
 describe('Employees Component: ', function () {
 
   var Employees,
     element,
-    spies,
+    spies = {},
     proxies;
 
   var React, TestUtils;
@@ -17,12 +15,13 @@ describe('Employees Component: ', function () {
   });
 
   beforeEach(function () {
-    spies = {
-
-    };
-
     Employees = require('./employees');
     element = TestUtils.renderIntoDocument(<Employees />);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Employees', function () {
@@ -31,8 +30,9 @@ describe('Employees Component: ', function () {
 
   describe('clicking the new employee button', function () {
     it('should transition to the create employee route', function () {
-      var container  = element.getDOMNode();
-
+      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
+      TestUtils.Simulate.click(button);
+      expect(spies.transitionTo).to.have.been.calledWith('employees.create');
     });
   });
 });

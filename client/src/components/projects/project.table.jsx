@@ -4,14 +4,16 @@ var ProjectRow = require('./project.row');
 var ProjectTable = React.createClass({
 
   propTypes: {
-    projects: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    projects: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object.isRequired
   },
 
   render: function () {
+    var store = this.props.store;
 
     var projectRows = this.props.projects.map(function (project) {
       return (
-        <ProjectRow project={project} key={project._id} />
+        <ProjectRow project={project} key={project._id} store={store} />
       );
     });
 

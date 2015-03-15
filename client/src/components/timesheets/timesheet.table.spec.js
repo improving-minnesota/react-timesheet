@@ -1,13 +1,12 @@
-var proxyquire = require('proxyquireify')(require);
 var _ = require('lodash');
-var mockComponent = require('../mock');
 
 describe('Timesheet Table Component: ', function () {
 
   var TimesheetTable,
+    TimesheetStore,
     timesheets,
     element,
-    spies,
+    spies = {},
     proxies;
 
   var React, TestUtils;
@@ -15,21 +14,16 @@ describe('Timesheet Table Component: ', function () {
   beforeEach(function () {
     React = require('react/addons');
     TestUtils = React.addons.TestUtils;
+    TimesheetStore = require('../../stores/timesheet.store');
   });
 
   beforeEach(function () {
-    spies = {
-
-    };
-
-    proxies = {
-      './timesheet.row': mockComponent()
-    };
-
     timesheets = [{}, {}];
 
-    TimesheetTable = proxyquire('./timesheet.table', proxies);
-    element = TestUtils.renderIntoDocument(<TimesheetTable timesheets={timesheets}/>);
+    TimesheetTable = require('./timesheet.table');
+    element = TestUtils.renderIntoDocument(
+      <TimesheetTable timesheets={timesheets} store={TimesheetStore} />
+    );
   });
 
   it('should instantiate the TimesheetTable', function () {

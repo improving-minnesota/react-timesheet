@@ -56,7 +56,7 @@ var Timesheets = React.createClass({
         </div>
 
         <div className="row">
-          <TimesheetTable timesheets={this.state.pageConfig.data} />
+          <TimesheetTable timesheets={this.state.pageConfig.data} store={this.store} />
         </div>
 
         <div className="ui grid pad-top">

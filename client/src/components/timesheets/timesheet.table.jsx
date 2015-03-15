@@ -4,14 +4,16 @@ var TimesheetRow = require('./timesheet.row');
 var TimesheetTable = React.createClass({
 
   propTypes: {
-    timesheets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    timesheets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object.isRequired
   },
 
   render: function () {
+    var store = this.props.store;
 
     var timesheetRows = this.props.timesheets.map(function (timesheet) {
       return (
-        <TimesheetRow timesheet={timesheet} key={timesheet._id} />
+        <TimesheetRow timesheet={timesheet} key={timesheet._id} store={store} />
       );
     });
 

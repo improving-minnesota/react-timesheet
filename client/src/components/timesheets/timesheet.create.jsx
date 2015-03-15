@@ -21,7 +21,7 @@ var TimesheetCreate = React.createClass({
     };
   },
 
-  onSave: function (event) {
+  saveTimesheet: function (event) {
     event.preventDefault();
     this.validateAll();
 
@@ -38,7 +38,7 @@ var TimesheetCreate = React.createClass({
         errors={this.state.errors}
         validateAll={this.validateAll}
         hasErrors={this.hasErrors}
-        onSave={this.onSave}
+        onSave={this.saveTimesheet}
         validate={this.validate}
         validateAll={this.validateAll}
         validateBeginDate={this.validateBeginDate}

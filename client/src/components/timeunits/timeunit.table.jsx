@@ -4,7 +4,8 @@ var TimeunitRow = require('./timeunit.row');
 var TimeunitTable = React.createClass({
 
   propTypes: {
-    timeunits: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    timeunits: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object.isRequired
   },
 
   render: function () {
@@ -12,7 +13,10 @@ var TimeunitTable = React.createClass({
 
     var timeunitRows = this.props.timeunits.map(function (timeunit) {
       return (
-        <TimeunitRow timeunit={timeunit} key={timeunit._id} timesheet={self.props.timesheet}/>
+        <TimeunitRow timeunit={timeunit}
+          key={timeunit._id}
+          timesheet={self.props.timesheet}
+          store={self.props.store} />
       );
     });
 

@@ -1,13 +1,12 @@
-var proxyquire = require('proxyquireify')(require);
-var mockComponent = require('../mock');
 var _ = require('lodash');
 
 describe('Project Table Component: ', function () {
 
   var ProjectTable,
+    ProjectStore,
     projects,
     element,
-    spies,
+    spies = {},
     proxies;
 
   var React, TestUtils;
@@ -15,21 +14,16 @@ describe('Project Table Component: ', function () {
   beforeEach(function () {
     React = require('react/addons');
     TestUtils = React.addons.TestUtils;
+    ProjectStore = require('../../stores/project.store');
   });
 
   beforeEach(function () {
-    spies = {
-
-    };
-
-    proxies = {
-      './project.row': mockComponent()
-    };
-
     projects = [{}, {}];
 
-    ProjectTable = proxyquire('./project.table', proxies);
-    element = TestUtils.renderIntoDocument(<ProjectTable projects={projects} />);
+    ProjectTable = require('./project.table');
+    element = TestUtils.renderIntoDocument(
+      <ProjectTable projects={projects} store={ProjectStore} />
+    );
   });
 
   it('should instantiate the ProjectTable', function () {
