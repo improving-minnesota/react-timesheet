@@ -22,7 +22,7 @@ var TimesheetsDetail = require('./components/timesheets/timesheet.detail');
 var TimesheetsCreate = require('./components/timesheets/timesheet.create');
 
 var TimeunitsCreate = require('./components/timeunits/timeunit.create');
-var TimeunitsEdit = require('./components/timeunits/timeunit.edit');
+var TimeunitsEdit = require('./components/timeunits/timeunit.detail');
 
 // Initialize the routes
 module.exports = (
@@ -44,7 +44,7 @@ module.exports = (
       <Route name='timesheets.detail' path='/employees/:user_id/timesheets/detail/:_id' handler={TimesheetsDetail} />
 
       <Route name='timesheets.detail.timeunits.create' path='/employees/:user_id/timesheets/detail/:_id/timeunits/create'            handler={TimeunitsCreate} />
-      <Route name='timesheets.detail.timeunits.edit'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
+      <Route name='timesheets.detail.timeunits.detail'   path='/employees/:user_id/timesheets/detail/:_id/timeunits/edit/:timeunit_id' handler={TimeunitsEdit} />
 
       <Redirect to="employees" />
     </Route>

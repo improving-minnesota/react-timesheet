@@ -1,6 +1,3 @@
-window.$ = window.jQuery = require('jquery');
-require('../../semantic/dist/semantic');
-
 var React = window.React = require('react/addons');
 var Router = require('react-router');
 var routes = require('./routes');

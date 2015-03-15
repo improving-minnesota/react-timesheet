@@ -90,7 +90,7 @@ describe('Timeunit Row Component: ', function () {
       });
 
       it('should transition to the detail route', function () {
-        expect(spies.transitionTo).to.have.been.calledWith('timesheets.detail.timeunits.edit', 
+        expect(spies.transitionTo).to.have.been.calledWith('timesheets.detail.timeunits.detail', 
           { _id: "timesheetId", timeunit_id: "timeunitId", user_id: "userId" });
       });
     });

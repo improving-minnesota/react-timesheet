@@ -1,11 +1,11 @@
 var _ = require('lodash');
 var Router = require('react-router');
-var q = require('q');
+var Promise = require('es6-promise').Promise;
 
 var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
 var SnackbarAction = require('../actions/snackbar.actions');
-var agent = require('../util/agent.promise');
+var axios = require('axios');
 var assign = require('object-assign');
 
 var LoginStore = assign({}, Store, {
@@ -44,16 +44,17 @@ var LoginStore = assign({}, Store, {
     var self = this;
 
     if (this.getState().authenticated) {
-      return q.when(self.getState());
+      SnackbarAction.success('Welcome back, ' + this.getState().user.username + '.');
+      return Promise.resolve(self.getState());
     }
     else {
-      return agent.get(self.loginUrl)
-        .end()
+      return axios.get(self.loginUrl)
         .then(function (res) {
           self.setState({
-            authenticated: res.body.authenticated,
-            user: res.body.user
+            authenticated: res.data.authenticated,
+            user: res.data.user
           });
+          SnackbarAction.success('Welcome back, ' + res.data.user.username + '.');
           return self.getState();
         })
         .catch(function (data) {
@@ -65,14 +66,12 @@ var LoginStore = assign({}, Store, {
   login: function (payload) {
     var self = this;
 
-    return agent.post(this.loginUrl)
-      .send(payload.action.credentials)
-      .end()
+    return axios.post(this.loginUrl, payload.action.credentials)
       .then(function (res) {
-        var authenticated = res.body.authenticated;
+        var authenticated = res.data.authenticated;
         self.setState({
           authenticated: authenticated,
-          user: res.body.user
+          user: res.data.user
         });
 
         if (authenticated) {
@@ -87,7 +86,7 @@ var LoginStore = assign({}, Store, {
             window.location.assign('/');
           }
 
-          SnackbarAction.success('Welcome back, ' + res.body.user.username + '.');
+          SnackbarAction.success('Welcome back, ' + res.data.user.username + '.');
         }
         else {
           self.setState({authError: self.authErrorMessage});
@@ -101,8 +100,7 @@ var LoginStore = assign({}, Store, {
   logout: function (payload) {
     var self = this;
 
-    return agent.post(this.logoutUrl)
-      .end()
+    return axios.post(this.logoutUrl)
       .then(function (res) {
         self.initState();
         self.showLogin();
@@ -114,21 +112,20 @@ var LoginStore = assign({}, Store, {
 
   requireAuthenticatedUser: function (transition) {
     var self = this;
-    var deferred = q.defer();
 
-    var authCheckInterval = setInterval(function () {
-      if (self.getState().authenticated) {
-        clearInterval(authCheckInterval);
-        deferred.resolve(true);
+    return new Promise(function (resolve, reject) {
+      var authCheckInterval = setInterval(function () {
+        if (self.getState().authenticated) {
+          clearInterval(authCheckInterval);
+          resolve(true);
+        }
+      }, 200);
+
+      if (!self.getState().authenticated && transition.path !== '/login') {
+        self.setState({pausedTransition: transition});
+        transition.redirect('/login');
       }
-    }, 200);
-
-    if (!self.getState().authenticated && transition.path !== '/login') {
-      self.setState({pausedTransition: transition});
-      transition.redirect('/login');
-    }
-
-    return deferred.promise;
+    });
   }
 });
 
