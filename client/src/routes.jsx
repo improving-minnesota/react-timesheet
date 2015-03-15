@@ -5,7 +5,6 @@ var Redirect = Router.Redirect;
 var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 
-var Index = require('./components/index');
 var App = require('./components/app');
 
 var Projects = require('./components/projects/projects');
@@ -14,16 +13,12 @@ var Timesheets = require('./components/timesheets/timesheets');
 
 // Initialize the routes
 module.exports = (
-  <Route name="index" path="/" handler={Index}>
+  <Route name='app' path="/" handler={App}>
 
-    <Route name='app' path="/" handler={App}>
-
-      <Route name='projects'   path='/projects'  handler={Projects} />
-      <Route name='employees'  path='/employees' handler={Employees} />
-      <Route name='timesheets' path='/employees/:user_id/timesheets' handler={Timesheets} />
-      
-      <Redirect to="employees" />
-    </Route>
-
+    <Route name='projects'   path='/projects'  handler={Projects} />
+    <Route name='employees'  path='/employees' handler={Employees} />
+    <Route name='timesheets' path='/employees/:user_id/timesheets' handler={Timesheets} />
+    
+    <Redirect to="employees" />
   </Route>
 );
