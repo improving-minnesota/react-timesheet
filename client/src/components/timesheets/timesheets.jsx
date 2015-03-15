@@ -13,30 +13,14 @@ var Timesheets = React.createClass({
     Router.Navigation
   ],
 
-  store: TimesheetStore,
-
-  requestTimesheets: TimesheetActions.list,
-
+  // TODO - replace these with actual implementations
   getInitialState: function () {
-    return this.store.getState();
+    return {pageConfig: {data: [{}], totalItems: 0}};
   },
+  store: null,
+  onPageChange: null,
+  // ERASE THE ABOVE LINES
 
-  onChange: function () {
-    this.setState(this.store.getState());
-  },
-
-  componentWillMount: function () {
-    this.requestTimesheets({page: 1});
-    this.store.addChangeListener(this.onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.store.removeChangeListener(this.onChange);
-  },
-
-  onPageChange: function (page) {
-    this.requestTimesheets({page: page});
-  },
 
   render: function () {
 

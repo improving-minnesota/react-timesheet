@@ -13,30 +13,13 @@ var Employees = React.createClass({
     Router.State
   ],
 
-  store: EmployeeStore,
-
-  requestEmployees: EmployeeActions.list,
-
+  // TODO - replace these with actual implementations
   getInitialState: function () {
-    return this.store.getState();
+    return {pageConfig: {data: [{}], totalItems: 0}};
   },
-
-  onChange: function () {
-    this.setState(this.store.getState());
-  },
-
-  componentWillMount: function () {
-    this.requestEmployees({page: 1});
-    this.store.addChangeListener(this.onChange);
-  },
-
-  componentWillUnmount: function () {
-    this.store.removeChangeListener(this.onChange);
-  },
-
-  onPageChange: function (page) {
-    this.requestEmployees({page: page});
-  },
+  store: null,
+  onPageChange: null,
+  // ERASE THE ABOVE LINES
 
   render: function () {
 
