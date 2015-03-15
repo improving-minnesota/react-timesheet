@@ -22,7 +22,7 @@ var SectionHeader = React.createClass({
       'timesheets.detail': 'Timesheet Detail',
       'timesheets.edit': 'Edit Timesheet',
       'timesheets.create': 'Create Timesheet',
-      'timesheets.detail.timeunits.edit': 'Update Time',
+      'timesheets.detail.timeunits.detail': 'Update Time',
       'timesheets.detail.timeunits.create': 'Log Time'
     };
 

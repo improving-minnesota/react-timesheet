@@ -1,4 +1,4 @@
-var _ = reqiure('lodash');
+var _ = require('lodash');
 
 describe('Cancel Button: ', function () {
 
