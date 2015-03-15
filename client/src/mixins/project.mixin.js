@@ -2,8 +2,6 @@ var _ = require('lodash');
 var Router = require('react-router');
 var ProjectStore = require('../stores/project.store');
 
-var validator = require('../services/validator');
-
 module.exports = {
 
   store: ProjectStore,
@@ -13,8 +11,14 @@ module.exports = {
     var value = event.target.value;
 
     this.state.project[field] = value;
-    this.state.errors[field] = this.validator[field].bind(this, value);
+    this.state.errors[field] = this.validator[field].call(this, value);
     return this.setState({project: this.state.project, errors: this.state.errors});
+  },
+
+  validateAll: function () {
+    this.state.errors.name = this.validator.name.call(this, this.state.project.name);
+    this.state.errors.description = this.validator.description.call(this, this.state.project.description);
+    this.setState({errors: this.state.errors});
   },
 
   hasErrors: function () {
@@ -24,7 +28,7 @@ module.exports = {
   validator: {
     name: function (value) {
       // min length 1
-      if (value.length < 1) {
+      if (!value || value.length < 1) {
         return 'You must provide a name.';
       }
       // max length 40
@@ -36,7 +40,7 @@ module.exports = {
 
     description: function (value) {
       // minlength 1
-      if (value.length < 1) {
+      if (!value || value.length < 1) {
         return 'You must provide a description.';
       }
       // maxlength 255

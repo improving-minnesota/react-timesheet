@@ -14,15 +14,33 @@ module.exports = {
     return this.setState({timesheet: this.state.timesheet, errors: this.state.errors});
   },
 
+  validateAll: function () {
+    this.state.errors.name = this.validator.name.call(this, this.state.timesheet.name);
+    this.state.errors.description = this.validator.description.call(this, this.state.timesheet.description);
+    this.state.errors.beginDate = this.validator.beginDate.call(this, this.state.timesheet.beginDate);
+    this.state.errors.endDate = this.validator.endDate.call(this, this.state.timesheet.endDate);
+    this.setState({errors: this.state.errors});
+  },
+
   hasErrors: function () {
     var errors = this.state.errors;
     return !!(errors.name || errors.description || errors.beginDate || errors.endDate);
   },
 
+  validateEndDate: function (date) {
+    this.validate({target:{name: 'endDate', value: date}});
+    this.validate({target:{name: 'beginDate', value: this.state.timesheet.beginDate}});
+  },
+
+  validateBeginDate: function (date) {
+    this.validate({target:{name: 'beginDate', value: date}});
+    this.validate({target: {name: 'endDate', value: this.state.timesheet.endDate}});
+  },
+
   validator: {
     name: function (value) {
       // min length 1
-      if (value.length < 1) {
+      if (!value || value.length < 1) {
         return 'You must provide a name.';
       }
       // max length 40
@@ -34,7 +52,7 @@ module.exports = {
 
     description: function (value) {
       // minlength 1
-      if (value.length < 1) {
+      if (!value || value.length < 1) {
         return 'You must provide a description.';
       }
       // maxlength 255

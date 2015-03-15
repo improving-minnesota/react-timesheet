@@ -1,10 +1,11 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
-var notifications = require('../services/notifications');
-var agent = require('../services/agent.promise');
+var SnackbarAction = require('../actions/snackbar.actions');
+var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 
-var ProjectStore = _.extend(_.clone(Store), {
+var ProjectStore = assign({}, Store, {
 
   initialize: function () {
     var events = {};
@@ -18,7 +19,12 @@ var ProjectStore = _.extend(_.clone(Store), {
 
     this.setState({
       project: {},
-      projects: []
+      pageConfig: {
+        data: [],
+        totalItems: 0,
+        limit: 5,
+        page: 1
+      }
     });
 
     return this;
@@ -33,17 +39,26 @@ var ProjectStore = _.extend(_.clone(Store), {
     return url;
   },
 
-  list: function () {
+  // page = page number
+  // sort = property to sort on
+  // returns totalItems
+  list: function (payload) {
     var self = this;
 
     return agent.get(this.url())
+      .query(payload.action.query)
       .end()
       .then(function (res) {
-        self.setState({projects: res.body});
+        if (!_.isUndefined(res.body.data)) {
+          self.setState({pageConfig: res.body});
+        }
+        else {
+          self.setState({projects: res.body});
+        }
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to retrieve projects.');
+        SnackbarAction.error('Error attempting to retrieve projects.');
       });
   },
 
@@ -57,7 +72,7 @@ var ProjectStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (data) {
-        notifications.error('There was an error getting the project');
+        SnackbarAction.error('There was an error getting the project');
       });
   },
 
@@ -70,10 +85,10 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + project.name + ', updated.');
+        SnackbarAction.success('Project : ' + project.name + ', updated.');
       })
       .catch(function (x) {
-        notifications.error('There was an error updating project.');
+        SnackbarAction.error('There was an error updating project.');
       });
   },
 
@@ -87,11 +102,11 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was deleted.');
+        SnackbarAction.success('Project : ' + res.body.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to delete project.');
+        SnackbarAction.error('Error attempting to delete project.');
       });
   },
 
@@ -105,11 +120,11 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', was restored.');
+        SnackbarAction.success('Project : ' + res.body.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to restore project.');
+        SnackbarAction.error('Error attempting to restore project.');
       });
 
     return prom;
@@ -123,10 +138,10 @@ var ProjectStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({project: res.body});
-        notifications.success('Project : ' + res.body.name + ', created.');
+        SnackbarAction.success('Project : ' + res.body.name + ', created.');
       })
       .catch(function (x) {
-        notifications.error('There was an error creating project.');
+        SnackbarAction.error('There was an error creating project.');
       });
   }
 });

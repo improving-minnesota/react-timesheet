@@ -1,11 +1,12 @@
 var
+  _ =           require('lodash'),
   gulp =        require('gulp'),
   pkg =         require('./package.json'),
   changed =     require('gulp-changed'),
   concat =      require('gulp-concat'),
   filesize =    require('gulp-filesize'),
+  gulpif =      require('gulp-if'),
   jade =        require('gulp-jade'),
-  jest =        require('gulp-jest'),
   jshint =      require('gulp-jshint'),
   less =        require('gulp-less'),
   livereload =  require('gulp-livereload'),
@@ -15,9 +16,11 @@ var
   plumber =     require('gulp-plumber'),
   rename =      require('gulp-rename'),
   shell =       require('gulp-shell'),
+  sourcemaps =  require('gulp-sourcemaps'),
   uglify =      require('gulp-uglify'),
   gutil =       require('gulp-util'),
   watch =       require('gulp-watch'),
+  buffer =      require('vinyl-buffer'),
   source =      require('vinyl-source-stream'),
   watchify =    require('watchify'),
   browserify =  require('browserify'),
@@ -26,7 +29,7 @@ var
   reactify =    require('reactify'),
   browserifyShim = require('browserify-shim'),
   merge =       require('merge-stream'),
-  filesConfig = require('./config/files.config');
+  karma =       require('karma').server;
 
 // main tasks
 gulp.task('core', ['watchify', 'build:css', 'copy:assets']);
@@ -65,12 +68,11 @@ gulp.task('watch:prod', function () {
   gulp.start('prod');
 });
 
-// run tests
-gulp.task('jest', function () {
-  return gulp.src('./client/test/unit/**')
-    .pipe(plumber())
-    .pipe(watch('./client/test/unit/**/*.js'))
-    .pipe(jest(pkg.jest));
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }, done);
 });
 
 // Build index.html
@@ -124,27 +126,6 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   return merge(fa, img);
 });
 
-// semantic ui tasks
-gulp.task('semantic:copy', function (cb) {
-  var src = gulp.src('./node_modules/semantic/src/**')
-    .pipe(gulp.dest('./semantic/src'));
-
-  var tasks = gulp.src('./node_modules/semantic/tasks/**')
-    .pipe(gulp.dest('./semantic/tasks'));
-
-  var files = gulp.src([
-    './node_modules/semantic/gulpfile.js',
-    './node_modules/semantic/package.json',
-    './node_modules/semantic/semantic.json.example'
-  ])
-    .pipe(gulp.dest('./semantic'));
-
-  return merge(src, tasks, files);
-});
-
-gulp.task('semantic:install', ['semantic:copy'], shell.task(['cd semantic && npm install && gulp install']));
-gulp.task('semantic:build',   shell.task(['cd semantic && gulp build']));
-
 // Compile and concatenate less into css
 gulp.task('clean:css', function (cb) {
   return del([dist('/css')], cb);
@@ -182,17 +163,27 @@ gulp.task('build:css', ['semantic:build', 'less'], function () {
 
 // Compile and minify the Javascripts
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./client/src/main.js', watchify.args));
+  var bundler = watchify(
+    browserify(
+      _.extend(watchify.args, {
+        entries: ['./client/src/main.jsx'],
+        extensions: ['.jsx'],
+        transform: [reactify, browserifyShim]
+      })
+    )
+  );
 
-  bundler.transform('browserify-shim');
-  bundler.transform('reactify');
   bundler.on('update', rebundle);
 
   function rebundle() {
-    return bundler.bundle()
+    return bundler
+      .bundle()
       // log errors if they happen
       .on('error', gutil.log.bind(gutil, 'Browserify error'))
       .pipe(source('app.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(dist('/js')))
       .pipe(livereload());
   }
@@ -209,6 +200,9 @@ gulp.task('uglify', ['watchify'], function () {
     .pipe(livereload())
     .on('error', gutil.log.bind(gutil, 'Error during minification.'));
 });
+
+gulp.task('semantic:build', require('./semantic/tasks/build'));
+gulp.task('semantic:watch', require('./semantic/tasks/watch'));
 
 // helper to navigate to the dist assets dir
 function dist(dest) {

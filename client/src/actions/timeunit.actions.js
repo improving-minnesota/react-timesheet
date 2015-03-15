@@ -9,10 +9,11 @@ var TimeunitActions = {
   DELETE: 'DELETE_TIMEUNIT',
   RESTORE: 'RESTORE_TIMEUNIT',
 
-  list: function (timesheet) {
+  list: function (timesheet, query) {
     dispatcher.handleViewAction({
       actionType: TimeunitActions.LIST,
-      timesheet: timesheet
+      timesheet: timesheet,
+      query: query
     });
   },
 

@@ -9,9 +9,10 @@ var EmployeeActions = {
   DELETE: 'DELETE_EMPLOYEE',
   RESTORE: 'RESTORE_EMPLOYEE',
 
-  list: function () {
+  list: function (query) {
     dispatcher.handleViewAction({
-      actionType: EmployeeActions.LIST
+      actionType: EmployeeActions.LIST,
+      query: query
     });
   },
 

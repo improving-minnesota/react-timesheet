@@ -1,11 +1,12 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timeunit.actions');
-var notifications = require('../services/notifications');
-var agent = require('../services/agent.promise');
+var SnackbarAction = require('../actions/snackbar.actions');
+var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 var LoginStore = require('./login.store');
 
-var TimeunitStore = _.extend(_.clone(Store), {
+var TimeunitStore = assign({}, Store, {
 
   initialize: function () {
     var events = {};
@@ -44,7 +45,7 @@ var TimeunitStore = _.extend(_.clone(Store), {
         self.setState({timeunits: res.body});
       })
       .catch(function (x) {
-        notifications.error('Error attempting to retrieve timeunits.');
+        SnackbarAction.error('Error attempting to retrieve logged hours.');
       });
   },
 
@@ -60,7 +61,7 @@ var TimeunitStore = _.extend(_.clone(Store), {
         return true;
       })
       .catch(function (data) {
-        notifications.error('There was an error getting the timeunit');
+        SnackbarAction.error('There was an error getting the time.');
       });
   },
 
@@ -74,10 +75,10 @@ var TimeunitStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        notifications.success('Timeunit : ' + timeunit.username + ', updated.');
+        SnackbarAction.success('Your logged time has been updated.');
       })
       .catch(function (x) {
-        notifications.error('There was an error updating timeunit.');
+        SnackbarAction.error('There was an error updating time.');
       });
   },
 
@@ -92,11 +93,11 @@ var TimeunitStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        notifications.success('Timeunit : ' + res.body.username + ', was restored.');
+        SnackbarAction.success('Your logged time was deleted.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to delete timeunit.');
+        SnackbarAction.error('Error attempting to delete time.');
       });
   },
 
@@ -111,11 +112,11 @@ var TimeunitStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        notifications.success('Timeunit : ' + res.body.username + ', was deleted.');
+        SnackbarAction.success('Your logged time was restored.');
         return true;
       })
       .catch(function (x) {
-        notifications.error('Error attempting to restore timeunit.');
+        SnackbarAction.error('Error attempting to restore time.');
       });
 
     return prom;
@@ -130,10 +131,10 @@ var TimeunitStore = _.extend(_.clone(Store), {
       .end()
       .then(function (res) {
         self.setState({timeunit: res.body});
-        notifications.success('Timeunit : ' + res.body.username + ', created.');
+        SnackbarAction.success('Your time has been logged.');
       })
       .catch(function (x) {
-        notifications.error('There was an error creating timeunit.');
+        SnackbarAction.error('Error attempting to log your time.');
       });
   }
 });

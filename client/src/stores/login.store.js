@@ -4,10 +4,11 @@ var q = require('q');
 
 var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
-var notifications = require('../services/notifications');
-var agent = require('../services/agent.promise');
+var SnackbarAction = require('../actions/snackbar.actions');
+var agent = require('../util/agent.promise');
+var assign = require('object-assign');
 
-var LoginStore = _.extend(_.clone(Store), {
+var LoginStore = assign({}, Store, {
 
   initialize: function () {
 
@@ -56,7 +57,7 @@ var LoginStore = _.extend(_.clone(Store), {
           return self.getState();
         })
         .catch(function (data) {
-          notifications.error('There was an error getting the current user');
+          SnackbarAction.error('There was an error getting the current user');
         });
     }
   },
@@ -86,7 +87,7 @@ var LoginStore = _.extend(_.clone(Store), {
             window.location.assign('/');
           }
 
-          notifications.success('Welcome back, ' + res.body.user.username + '.');
+          SnackbarAction.success('Welcome back, ' + res.body.user.username + '.');
         }
         else {
           self.setState({authError: self.authErrorMessage});
@@ -107,7 +108,7 @@ var LoginStore = _.extend(_.clone(Store), {
         self.showLogin();
       })
       .catch(function (x) {
-        notifications.error('There was an error logging out.');
+        SnackbarAction.error('There was an error logging out.');
       });
   },
 
