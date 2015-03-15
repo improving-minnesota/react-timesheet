@@ -25,25 +25,25 @@ function login (request, reply) {
   }
 
   db.findOne('users', {username: request.payload.username})
-  .then(function (user) {
-    authenticatedUser = user;
-    return validate(request.payload.password, user.password);
-  })
-  .then(function (isValid) {
+    .then(function (user) {
+      authenticatedUser = user;
+      return validate(request.payload.password, user.password);
+    })
+    .then(function (isValid) {
 
-    if (!isValid) {
-      Q.reject(Boom.unauthorized('Invalid username or password'));
-    }
+      if (!isValid) {
+        Q.reject(Boom.unauthorized('Invalid username or password'));
+      }
 
-    return setSession(request, props.session.secret, {user: authenticatedUser});
-  })
-  .then(function () {
-    request.auth.session.set({ sid: props.session.secret });
-    return reply(sanitize(authenticatedUser));
-  })
-  .fail(function (err) {
-    reply(Boom.unauthorized(err.message)).code(401);
-  });
+      return setSession(request, props.session.secret, {user: authenticatedUser});
+    })
+    .then(function () {
+      request.auth.session.set({ sid: props.session.secret });
+      return reply(sanitize(authenticatedUser));
+    })
+    .fail(function (err) {
+      reply(Boom.unauthorized(err.message)).code(401);
+    });
 }
 
 function validate (password, userPassword) {

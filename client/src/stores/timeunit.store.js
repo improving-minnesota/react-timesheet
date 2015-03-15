@@ -40,9 +40,8 @@ var TimeunitStore = assign({}, Store, {
     var timesheet = payload.action.timesheet;
 
     return axios.get(this.url(timesheet._id))
-      .end()
       .then(function (res) {
-        self.setState({timeunits: res.body});
+        self.setState({timeunits: res.data});
       })
       .catch(function (x) {
         SnackbarAction.error('Error attempting to retrieve logged hours.');
@@ -56,7 +55,7 @@ var TimeunitStore = assign({}, Store, {
 
     return axios.get(this.url(timesheet._id, timeunit._id))
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         return true;
       })
       .catch(function (data) {
@@ -71,7 +70,7 @@ var TimeunitStore = assign({}, Store, {
 
     return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time has been updated.');
       })
       .catch(function (x) {
@@ -87,7 +86,7 @@ var TimeunitStore = assign({}, Store, {
 
     return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time was deleted.');
         return true;
       })
@@ -104,7 +103,7 @@ var TimeunitStore = assign({}, Store, {
 
     var prom = axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your logged time was restored.');
         return true;
       })
@@ -121,7 +120,7 @@ var TimeunitStore = assign({}, Store, {
 
     return axios.post(this.url(timesheet._id), payload.action.timeunit)
       .then(function (res) {
-        self.setState({timeunit: res.body});
+        self.setState({timeunit: res.data});
         SnackbarAction.success('Your time has been logged.');
       })
       .catch(function (x) {

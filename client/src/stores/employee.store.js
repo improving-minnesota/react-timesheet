@@ -42,9 +42,9 @@ var EmployeeStore = assign({}, Store, {
   list: function (payload) {
     var self = this;
 
-    return axios.get(this.url(), payload.action.query)
+    return axios.get(this.url(), {params: payload.action.query})
       .then(function (res) {
-        self.setState({pageConfig: res.body});
+        self.setState({pageConfig: res.data});
       })
       .catch(function (x) {
         SnackbarAction.error('Error attempting to retrieve employees.');
@@ -56,7 +56,7 @@ var EmployeeStore = assign({}, Store, {
 
     return axios.get(this.url(payload.action.employee._id))
       .then(function (res) {
-        self.setState({employee: res.body});
+        self.setState({employee: res.data});
         return true;
       })
       .catch(function (data) {
@@ -70,7 +70,7 @@ var EmployeeStore = assign({}, Store, {
 
     return axios.put(this.url(employee._id), employee)
       .then(function (res) {
-        self.setState({employee: res.body});
+        self.setState({employee: res.data});
         SnackbarAction.success('Employee : ' + employee.username + ', updated.');
       })
       .catch(function (x) {
@@ -85,8 +85,8 @@ var EmployeeStore = assign({}, Store, {
 
     return axios.put(this.url(employee._id), employee)
       .then(function (res) {
-        self.setState({employee: res.body});
-        SnackbarAction.success('Employee : ' + res.body.username + ', was deleted.');
+        self.setState({employee: res.data});
+        SnackbarAction.success('Employee : ' + res.data.username + ', was deleted.');
         return true;
       })
       .catch(function (x) {
@@ -99,10 +99,10 @@ var EmployeeStore = assign({}, Store, {
     var employee = payload.action.employee;
     employee.deleted = false;
 
-    return agent.put(this.url(employee._id), employee)
+    return axios.put(this.url(employee._id), employee)
       .then(function (res) {
-        self.setState({employee: res.body});
-        SnackbarAction.success('Employee : ' + res.body.username + ', was restored.');
+        self.setState({employee: res.data});
+        SnackbarAction.success('Employee : ' + res.data.username + ', was restored.');
         return true;
       })
       .catch(function (x) {
@@ -113,10 +113,10 @@ var EmployeeStore = assign({}, Store, {
   create: function (payload) {
     var self = this;
 
-    return agent.post(this.url(), payload.action.employee)
+    return axios.post(this.url(), payload.action.employee)
       .then(function (res) {
-        self.setState({employee: res.body});
-        SnackbarAction.success('Employee : ' + res.body.username + ', created.');
+        self.setState({employee: res.data});
+        SnackbarAction.success('Employee : ' + res.data.username + ', created.');
       })
       .catch(function (x) {
         SnackbarAction.error('There was an error creating employee.');

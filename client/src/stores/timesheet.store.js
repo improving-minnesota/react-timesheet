@@ -43,9 +43,9 @@ var TimesheetStore = assign({}, Store, {
   list: function (payload) {
     var self = this;
 
-    return axios.get(this.url(), payload.action.query)
+    return axios.get(this.url(), {params: payload.action.query})
       .then(function (res) {
-        self.setState({pageConfig: res.body});
+        self.setState({pageConfig: res.data});
       })
       .catch(function (x) {
         SnackbarAction.error('Error attempting to retrieve timesheets.');
@@ -57,7 +57,7 @@ var TimesheetStore = assign({}, Store, {
 
     return axios.get(this.url(payload.action.timesheet._id))
       .then(function (res) {
-        self.setState({timesheet: res.body});
+        self.setState({timesheet: res.data});
         return true;
       })
       .catch(function (data) {
@@ -71,7 +71,7 @@ var TimesheetStore = assign({}, Store, {
 
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
-        self.setState({timesheet: res.body});
+        self.setState({timesheet: res.data});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', updated.');
       })
       .catch(function (x) {
@@ -86,7 +86,7 @@ var TimesheetStore = assign({}, Store, {
 
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
-        self.setState({timesheet: res.body});
+        self.setState({timesheet: res.data});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', was deleted.');
         return true;
       })
@@ -102,7 +102,7 @@ var TimesheetStore = assign({}, Store, {
 
     return axios.put(this.url(timesheet._id), timesheet)
       .then(function (res) {
-        self.setState({timesheet: res.body});
+        self.setState({timesheet: res.data});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', was restored.');
         return true;
       })
@@ -116,7 +116,7 @@ var TimesheetStore = assign({}, Store, {
 
     return axios.post(this.url(), payload.action.timesheet)
       .then(function (res) {
-        self.setState({timesheet: res.body});
+        self.setState({timesheet: res.data});
         SnackbarAction.success('Timesheet : ' + timesheet.name + ', created.');
       })
       .catch(function (x) {
