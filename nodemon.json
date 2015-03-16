@@ -2,9 +2,8 @@
   "ignore": [
     "client/**",
     "node_modules/**",
-    "Gruntfile.js",
+    "Gulpfile.js",
     "karma.config.js",
-    "protractor.config.js",
     "api/data/**"
   ]
 }

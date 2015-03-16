@@ -10,7 +10,6 @@
     "debug": "node-debug api/server.js"
   },
   "browser": {
-    "jquery": "./node_modules/jquery/dist/jquery.js",
     "tether": "./node_modules/tether/tether.js"
   },
   "browserify-shim": "./config/shims.js",

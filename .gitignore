@@ -17,19 +17,11 @@ client/cache.manifest
 
 *.iml
 
-client/index.html
-
 libpeerconnection.log
 
 dist
 
 api/data/db/*
-
-.bower-cache/*
-
-.bower-registry/*
-
-.bower-tmp/*
 
 semantic/dist/*
 
