@@ -1,6 +1,30 @@
-var React = window.React = require('react/addons');
-var Router = require('react-router');
-var routes = require('./routes');
+var React = require('react/addons');
 
-// initialize the router and its routes
+var Hello = React.createClass({
 
+  getInitialState: function () {
+    return {
+      greeting: 'Howdy!!'
+    };
+  },
+
+  getDefaultProps: function () {
+    return {
+      friend: 'Partner!!'
+    };
+  },
+
+  render : function () {
+
+   return (
+    <div className="ui message">
+      <div className="ui huge header">{this.state.greeting}</div>
+      <div className="ui large header">{this.props.friend}</div>
+      <p>You are now an expert Browserifier</p>
+    </div>
+   );
+ }
+});
+
+
+React.render(<Hello />, document.getElementById('app'));
