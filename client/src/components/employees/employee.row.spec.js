@@ -28,6 +28,56 @@ describe('Employee Row Component: ', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 
+  describe('clicking the row', function () {
+    describe('when the employee is deleted', function () {
+      beforeEach(function () {
+        employee = {
+          _id: 'abc123',
+          deleted: true
+        };
+
+        spies.error = sinon.stub(SnackbarActions, 'error');
+
+        element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} store={EmployeeStore} />);
+        element.showDetail();
+      });
+
+      afterEach(function () {
+        spies.error.restore();
+      });
+
+      it('should display an error in the snackbar', function () {
+        expect(spies.error).to.have.been.calledWith('You cannot edit a deleted employee.');
+      });
+    });
+
+    describe('when the employee is NOT deleted', function () {
+      beforeEach(function () {
+        employee = {
+          _id: 'abc123',
+          username: 'sterlingArcher',
+          deleted: false
+        };
+
+        element = TestUtils.renderIntoDocument(<EmployeeRow employee={employee} store={EmployeeStore} />);
+        spies.transitionTo = sinon.stub(element, 'transitionTo');
+        element.showDetail();
+      });
+
+      afterEach(function () {
+        spies.transitionTo.restore();
+      });
+
+      it('should set the employee on the stored state', function () {
+        expect(element.props.store.getState().employee.username).to.equal('sterlingArcher');
+      });
+
+      it('should transition to the detail route', function () {
+        expect(spies.transitionTo).to.have.been.calledWith('employees.detail', {_id: 'abc123'});
+      });
+    });
+  });
+
   describe('clicking the remove button', function () {
     beforeEach(function () {
       employee = {

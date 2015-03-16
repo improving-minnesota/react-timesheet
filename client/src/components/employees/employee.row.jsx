@@ -18,6 +18,16 @@ var EmployeeRow = React.createClass({
     classes
   ],
 
+  showDetail: function showDetail () {
+    var employee = this.props.employee;
+    if (employee.deleted) {
+      SnackbarActions.error('You cannot edit a deleted employee.');
+      return;
+    }
+    this.props.store.setState({employee: employee});
+    this.transitionTo('employees.detail', {_id: employee._id});
+  },
+
   remove: function remove (e) {
     e.stopPropagation();
     this.props.employee.deleted = true;
@@ -43,7 +53,7 @@ var EmployeeRow = React.createClass({
     });
 
     return (
-      <tr className={classNames} ref={employee._id}>
+      <tr className={classNames} ref={employee._id} onClick={this.showDetail}>
 
         <td>{employee.username}</td>
         <td>{employee.email}</td>

@@ -21,6 +21,10 @@ var Employees = React.createClass({
     return this.store.getState();
   },
 
+  createNew: function createNew () {
+    this.transitionTo('employees.create');
+  },
+
   onChange: function () {
     this.setState(this.store.getState());
   },
@@ -45,7 +49,11 @@ var Employees = React.createClass({
 
     return (
       <div>
-        {/* TODO - Add a button to open the create employee route */}
+        <div className="row">
+          <button className="ui right floated primary button pad-bottom" type="button" onClick={this.createNew}>
+            New Employee
+          </button>
+        </div>
 
         <div className="row">
           <EmployeeTable employees={this.state.pageConfig.data} store={this.store} />

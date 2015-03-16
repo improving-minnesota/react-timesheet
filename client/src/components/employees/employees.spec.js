@@ -28,5 +28,11 @@ describe('Employees Component: ', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
 
-  // TODO - test the create new button
+  describe('clicking the new employee button', function () {
+    it('should transition to the create employee route', function () {
+      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
+      TestUtils.Simulate.click(button);
+      expect(spies.transitionTo).to.have.been.calledWith('employees.create');
+    });
+  });
 });
