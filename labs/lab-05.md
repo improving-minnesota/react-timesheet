@@ -35,7 +35,7 @@ routes.jsx
 ----------------------------------
 Login
 
-Checkout LoginStore and LoginActions (current())
+Checkout LoginStore (current())
 
 main.jsx
 ```javascript

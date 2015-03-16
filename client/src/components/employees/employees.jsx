@@ -45,6 +45,8 @@ var Employees = React.createClass({
 
     return (
       <div>
+        {/* TODO - Add a button to open the create employee route */}
+
         <div className="row">
           <EmployeeTable employees={this.state.pageConfig.data} store={this.store} />
         </div>

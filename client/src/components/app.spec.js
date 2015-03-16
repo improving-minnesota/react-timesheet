@@ -21,6 +21,9 @@ describe('App: ', function () {
       './common/section': mockComponent('SectionHeader'),
       'react-router': {
         RouteHandler: mockComponent('RouteHandler')
+      },
+      '../stores/login.store': {
+        requireAuthenticatedUser: sinon.stub()
       }
     };
 
@@ -31,4 +34,6 @@ describe('App: ', function () {
   it('should instantiate the App', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
+
+  // TODO - test the will transition to static method
 });

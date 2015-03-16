@@ -4,10 +4,14 @@ var RouteHandler = Router.RouteHandler;
 
 var NavBar = require('./common/navigation/navbar');
 var SectionHeader = require('./common/section');
+var LoginStore = require('../stores/login.store');
 
 var App = React.createClass({
 
- render : function () {
+ // TODO - add the statics block with the willTransitionTo to check
+ // for an unauthorized user.
+
+  render : function () {
 
     return (
       <div>

@@ -3,6 +3,9 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
+var LoginStore = require('../../stores/login.store');
+
+var SnackbarAction = require('../../actions/snackbar.actions');
 var DateUtils = require('../../util/date.utils');
 
 var TimesheetRow = React.createClass({
@@ -16,6 +19,17 @@ var TimesheetRow = React.createClass({
     Router.Navigation,
     classes
   ],
+
+  showDetail: function showDetail () {
+    var timesheet = this.props.timesheet;
+    if (timesheet.deleted) {
+      SnackbarAction.error('You cannot edit a deleted timesheet.');
+      return;
+    }
+    this.props.store.setState({timesheet: timesheet});
+    this.transitionTo('timesheets.detail',
+      {user_id: timesheet.user_id, _id: timesheet._id});
+  },
 
   remove: function remove (e) {
     e.stopPropagation();
@@ -42,7 +56,7 @@ var TimesheetRow = React.createClass({
     });
 
     return (
-      <tr className={rowClasses}>
+      <tr className={rowClasses} onClick={this.showDetail}>
 
         <td>{DateUtils.momentShortDate(timesheet.beginDate)}</td>
         <td>{DateUtils.momentShortDate(timesheet.endDate)}</td>

@@ -3,6 +3,7 @@ var Router = require('react-router');
 var classes = require('react-classes');
 
 var EmployeeActions = require('../../actions/employee.actions');
+var SnackbarActions = require('../../actions/snackbar.actions');
 
 var EmployeeRow = React.createClass({
 

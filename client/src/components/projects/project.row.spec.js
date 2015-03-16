@@ -1,6 +1,7 @@
 describe('Project Row Component: ', function () {
 
   var ProjectRow,
+    SnackbarActions,
     ProjectActions,
     ProjectStore,
     project,
@@ -18,12 +19,63 @@ describe('Project Row Component: ', function () {
   beforeEach(function () {
     ProjectStore = require('../../stores/project.store');
     ProjectRow = require('./project.row');
+    SnackbarActions = require('../../actions/snackbar.actions');
     ProjectActions = require('../../actions/project.actions');
   });
 
   it('should instantiate the ProjectRow', function () {
     element = TestUtils.renderIntoDocument(<ProjectRow project={{_id: 1}} store={ProjectStore} />);
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
+  });
+
+  describe('clicking the row', function () {
+    describe('when the project is deleted', function () {
+      beforeEach(function () {
+        project = {
+          _id: 'abc123',
+          deleted: true
+        };
+
+        spies.error = sinon.stub(SnackbarActions, 'error');
+
+        element = TestUtils.renderIntoDocument(<ProjectRow project={project} store={ProjectStore} />);
+        element.showDetail();
+      });
+
+      afterEach(function () {
+        spies.error.restore();
+      });
+
+      it('should display an error in the snackbar', function () {
+        expect(spies.error).to.have.been.calledWith('You cannot edit a deleted project.');
+      });
+    });
+
+    describe('when the project is NOT deleted', function () {
+      beforeEach(function () {
+        project = {
+          _id: 'abc123',
+          name: 'projectOne',
+          deleted: false
+        };
+
+        element = TestUtils.renderIntoDocument(<ProjectRow project={project} store={ProjectStore} />);
+        spies.transitionTo = sinon.stub(element, 'transitionTo');
+        element.showDetail();
+      });
+
+      afterEach(function () {
+        spies.transitionTo.restore();
+      });
+
+      it('should set the project on the stored state', function () {
+        expect(element.props.store.getState().project.name).to.equal('projectOne');
+      });
+
+      it('should transition to the detail route', function () {
+        expect(spies.transitionTo).to.have.been.calledWith('projects.detail', {_id: 'abc123'});
+      });
+    });
   });
 
   describe('clicking the remove button', function () {

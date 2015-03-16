@@ -5,6 +5,9 @@ var Router = require('react-router');
 var Link = Router.Link;
 var ActiveState = Router.State;
 
+var LoginStore = require('../../../stores/login.store');
+var LoginActions = require('../../../actions/login.actions');
+
 var NavBar = React.createClass({
 
   mixins: [
@@ -14,10 +17,35 @@ var NavBar = React.createClass({
   ],
 
   getInitialState: function () {
+    var loggedInUser = LoginStore.getState().user;
+    var userId = (loggedInUser !== null && loggedInUser._id) ? loggedInUser._id : 'all';
+
     return {
       title: 'Timesheetz',
-      user: {_id: 'all'}
+      user: {
+        _id: userId
+      }
     };
+  },
+
+  logout: function () {
+    LoginActions.logout();
+  },
+
+  onLoginChange: function () {
+    var loginState = LoginStore.getState();
+
+    this.setState({
+      user: loginState.user
+    });
+  },
+
+  componentWillMount: function () {
+    LoginStore.addChangeListener(this.onLoginChange);
+  },
+
+  componentWillUnmount: function () {
+    LoginStore.removeChangeListener(this.onLoginChange);
   },
 
   render : function () {
@@ -45,6 +73,9 @@ var NavBar = React.createClass({
         <Link className={employeesClasses} to="employees">Employees</Link>
         <Link className={timesheetsClasses} to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
 
+        <a ref="logoutButton" className="right menu item logout" onClick={this.logout}>
+          <i className="fa fa-power-off"/> Logout
+        </a>
       </div>
     );
   }

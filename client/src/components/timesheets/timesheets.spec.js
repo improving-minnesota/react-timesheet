@@ -27,4 +27,12 @@ describe('Timesheets Component: ', function () {
   it('should instantiate the Timesheets', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
+
+  describe('clicking the new employee button', function () {
+    it('should transition to the create employee route', function () {
+      var button = TestUtils.findRenderedDOMComponentWithTag(element, 'button');
+      TestUtils.Simulate.click(button);
+      expect(spies.transitionTo).to.have.been.calledWith('timesheets.create');
+    });
+  });
 });

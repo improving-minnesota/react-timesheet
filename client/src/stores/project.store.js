@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/project.actions');
+var SnackbarAction = require('../actions/snackbar.actions');
 var axios = require('axios');
 var assign = require('object-assign');
 
@@ -55,7 +56,7 @@ var ProjectStore = assign({}, Store, {
         return true;
       })
       .catch(function (x) {
-        console.log('Error attempting to retrieve projects.');
+        SnackbarAction.error('Error attempting to retrieve projects.');
       });
   },
 
@@ -68,7 +69,7 @@ var ProjectStore = assign({}, Store, {
         return true;
       })
       .catch(function (data) {
-        console.log('There was an error getting the project');
+        SnackbarAction.error('There was an error getting the project');
       });
   },
 
@@ -79,10 +80,10 @@ var ProjectStore = assign({}, Store, {
     return axios.put(this.url(project._id), project)
       .then(function (res) {
         self.setState({project: res.data});
-        console.log('Project : ' + project.name + ', updated.');
+        SnackbarAction.success('Project : ' + project.name + ', updated.');
       })
       .catch(function (x) {
-        console.log('There was an error updating project.');
+        SnackbarAction.error('There was an error updating project.');
       });
   },
 
@@ -94,11 +95,11 @@ var ProjectStore = assign({}, Store, {
     return axios.put(this.url(project._id), project)
       .then(function (res) {
         self.setState({project: res.data});
-        console.log('Project : ' + res.data.name + ', was deleted.');
+        SnackbarAction.success('Project : ' + res.data.name + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        console.log('Error attempting to delete project.');
+        SnackbarAction.error('Error attempting to delete project.');
       });
   },
 
@@ -110,11 +111,11 @@ var ProjectStore = assign({}, Store, {
     var prom = axios.put(this.url(project._id), project)
       .then(function (res) {
         self.setState({project: res.data});
-        console.log('Project : ' + res.data.name + ', was restored.');
+        SnackbarAction.success('Project : ' + res.data.name + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        console.log('Error attempting to restore project.');
+        SnackbarAction.error('Error attempting to restore project.');
       });
 
     return prom;
@@ -126,10 +127,10 @@ var ProjectStore = assign({}, Store, {
     return axios.post(this.url(), payload.action.project)
       .then(function (res) {
         self.setState({project: res.data});
-        console.log('Project : ' + res.data.name + ', created.');
+        SnackbarAction.success('Project : ' + res.data.name + ', created.');
       })
       .catch(function (x) {
-        console.log('There was an error creating project.');
+        SnackbarAction.error('There was an error creating project.');
       });
   }
 });

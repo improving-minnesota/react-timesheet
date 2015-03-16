@@ -4,6 +4,8 @@ var classes = require('react-classes');
 
 var ProjectActions = require('../../actions/project.actions');
 
+var SnackbarAction = require('../../actions/snackbar.actions');
+
 var ProjectRow = React.createClass({
 
   propTypes: {
@@ -15,6 +17,15 @@ var ProjectRow = React.createClass({
     Router.Navigation,
     classes
   ],
+
+  showDetail: function showDetail () {
+    if (this.props.project.deleted) {
+      SnackbarAction.error('You cannot edit a deleted project.');
+      return;
+    }
+    this.props.store.setState({project: this.props.project});
+    this.transitionTo('projects.detail', {_id: this.props.project._id});
+  },
 
   remove: function remove (e) {
     e.stopPropagation();
@@ -41,7 +52,7 @@ var ProjectRow = React.createClass({
     });
 
     return (
-      <tr className={rowClasses}>
+      <tr className={rowClasses} onClick={this.showDetail}>
 
         <td>{project.name}</td>
         <td>{project.description}</td>

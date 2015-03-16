@@ -40,6 +40,27 @@ server.register([
   if (err) console.log('Error registering routes: ' + err);
 });
 
+
+// Setup security session and cookie
+server.register(cookie, function (err) {
+
+  server.auth.strategy('session', 'cookie', true, {
+    password: props.security.cookieSecret,
+    isSecure: false,
+    validateFunc: function (session, callback) {
+
+      cache.get(session.sid, function (err, cached) {
+
+        if (err || !cached) {
+          return callback(err, false);
+        }
+
+        return callback(null, true, cached.user)
+      })
+    }
+  });
+});
+
 // seed the database
 require('./services/data').init();
 

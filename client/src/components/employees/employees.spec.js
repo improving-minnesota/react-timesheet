@@ -27,4 +27,6 @@ describe('Employees Component: ', function () {
   it('should instantiate the Employees', function () {
     expect(TestUtils.isCompositeComponent(element)).to.be.true;
   });
+
+  // TODO - test the create new button
 });

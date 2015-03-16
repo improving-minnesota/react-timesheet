@@ -1,5 +1,6 @@
 var Store = require('../flux/flux.store');
 var actions = require('../actions/employee.actions');
+var SnackbarAction = require('../actions/snackbar.actions');
 var axios = require('axios');
 var assign = require('object-assign');
 var _ = require('lodash');
@@ -46,7 +47,7 @@ var EmployeeStore = assign({}, Store, {
         self.setState({pageConfig: res.data});
       })
       .catch(function (x) {
-        console.log('Error attempting to retrieve employees.');
+        SnackbarAction.error('Error attempting to retrieve employees.');
       });
   },
 
@@ -59,7 +60,7 @@ var EmployeeStore = assign({}, Store, {
         return true;
       })
       .catch(function (data) {
-        console.log('There was an error getting the employee');
+        SnackbarAction.error('There was an error getting the employee');
       });
   },
 
@@ -70,10 +71,10 @@ var EmployeeStore = assign({}, Store, {
     return axios.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.data});
-        console.log('Employee : ' + employee.username + ', updated.');
+        SnackbarAction.success('Employee : ' + employee.username + ', updated.');
       })
       .catch(function (x) {
-        console.log('There was an error updating employee.');
+        SnackbarAction.error('There was an error updating employee.');
       });
   },
 
@@ -85,11 +86,11 @@ var EmployeeStore = assign({}, Store, {
     return axios.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.data});
-        console.log('Employee : ' + res.data.username + ', was deleted.');
+        SnackbarAction.success('Employee : ' + res.data.username + ', was deleted.');
         return true;
       })
       .catch(function (x) {
-        console.log('Error attempting to delete employee.');
+        SnackbarAction.error('Error attempting to delete employee.');
       });
   },
 
@@ -101,11 +102,11 @@ var EmployeeStore = assign({}, Store, {
     return axios.put(this.url(employee._id), employee)
       .then(function (res) {
         self.setState({employee: res.data});
-        console.log('Employee : ' + res.data.username + ', was restored.');
+        SnackbarAction.success('Employee : ' + res.data.username + ', was restored.');
         return true;
       })
       .catch(function (x) {
-        console.log('Error attempting to restore employee.');
+        SnackbarAction.error('Error attempting to restore employee.');
       });
   },
 
@@ -115,10 +116,10 @@ var EmployeeStore = assign({}, Store, {
     return axios.post(this.url(), payload.action.employee)
       .then(function (res) {
         self.setState({employee: res.data});
-        console.log('Employee : ' + res.data.username + ', created.');
+        SnackbarAction.success('Employee : ' + res.data.username + ', created.');
       })
       .catch(function (x) {
-        console.log('There was an error creating employee.');
+        SnackbarAction.error('There was an error creating employee.');
       });
   }
 });
