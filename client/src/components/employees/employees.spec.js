@@ -17,6 +17,11 @@ describe('Employees Component: ', function () {
   beforeEach(function () {
     Employees = require('./employees');
     element = TestUtils.renderIntoDocument(<Employees />);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Employees', function () {

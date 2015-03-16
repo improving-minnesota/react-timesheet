@@ -17,6 +17,11 @@ describe('Timesheets Component: ', function () {
   beforeEach(function () {
     Timesheets = require('./timesheets');
     element = TestUtils.renderIntoDocument(<Timesheets />);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Timesheets', function () {

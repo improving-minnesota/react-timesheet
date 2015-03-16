@@ -4,15 +4,16 @@ var TimesheetRow = require('./timesheet.row');
 var TimesheetTable = React.createClass({
 
   propTypes: {
-    timesheets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    timesheets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object.isRequired
   },
 
   render: function () {
-    var key = 1;
+    var store = this.props.store;
 
     var timesheetRows = this.props.timesheets.map(function (timesheet) {
       return (
-        <TimesheetRow timesheet={timesheet} key={++key} />
+        <TimesheetRow timesheet={timesheet} key={timesheet._id} store={store} />
       );
     });
 
@@ -24,6 +25,7 @@ var TimesheetTable = React.createClass({
             <th>End Date</th>
             <th>Name</th>
             <th>Description</th>
+            <th className="tsz-table-delete-column">Delete</th>
           </tr>
         </thead>
         <tbody>

@@ -17,6 +17,11 @@ describe('Projects Component: ', function () {
   beforeEach(function () {
     Projects = require('./projects');
     element = TestUtils.renderIntoDocument(<Projects />);
+    spies.transitionTo = sinon.stub(element, 'transitionTo');
+  });
+
+  afterEach(function () {
+    spies.transitionTo.restore();
   });
 
   it('should instantiate the Projects', function () {

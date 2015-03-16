@@ -4,15 +4,16 @@ var EmployeeRow = require('./employee.row');
 var EmployeeTable = React.createClass({
 
   propTypes: {
-    employees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    employees: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    store: React.PropTypes.object
   },
 
   render: function () {
-    var key = 1;
+    var store = this.props.store;
 
     var employeeRows = this.props.employees.map(function (employee) {
       return (
-        <EmployeeRow employee={employee} key={++key} />
+        <EmployeeRow employee={employee} key={employee._id} store={store}/>
       );
     });
 
@@ -25,6 +26,7 @@ var EmployeeTable = React.createClass({
             <th>First Name</th>
             <th>Last Name</th>
             <th>Admin</th>
+            <th className="tsz-table-delete-column">Delete</th>
           </tr>
         </thead>
         <tbody>
