@@ -13,16 +13,6 @@ var ProjectRow = React.createClass({
     classes
   ],
 
-  remove: function remove (e) {
-    e.stopPropagation();
-    this.props.project.deleted = true;
-  },
-
-  restore: function restore (e) {
-    e.stopPropagation();
-    this.props.project.deleted = false;
-  },
-
   render: function () {
     var project = this.props.project;
 
@@ -30,21 +20,10 @@ var ProjectRow = React.createClass({
       'faded': project.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
-      'positive': project.deleted,
-      'negative': !project.deleted
-    });
-
     return (
       <tr className={rowClasses}>
-
         <td>{project.name}</td>
         <td>{project.description}</td>
-        <td>
-          <button className={buttonClasses} onClick={project.deleted ? this.restore : this.remove}>
-            {project.deleted ? 'Restore' : 'Delete'}
-          </button>
-        </td>
       </tr>
     );
   }

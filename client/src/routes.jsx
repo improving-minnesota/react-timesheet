@@ -5,6 +5,20 @@ var Redirect = Router.Redirect;
 var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 
+var App = require('./components/app');
 
-// TODO - Import the handlers and initialize the routes
+var Projects = require('./components/projects/projects');
+var Employees = require('./components/employees/employees');
+var Timesheets = require('./components/timesheets/timesheets');
 
+// Initialize the routes
+module.exports = (
+  <Route name='app' path="/" handler={App}>
+
+    <Route name='projects'   path='/projects'  handler={Projects} />
+    <Route name='employees'  path='/employees' handler={Employees} />
+    <Route name='timesheets' path='/employees/:user_id/timesheets' handler={Timesheets} />
+    
+    <Redirect to="employees" />
+  </Route>
+);

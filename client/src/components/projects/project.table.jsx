@@ -22,7 +22,6 @@ var ProjectTable = React.createClass({
           <tr>
             <th>Name</th>
             <th>Description</th>
-            <th className="tsz-table-delete-column">Delete</th>
           </tr>
         </thead>
         <tbody>

@@ -10,5 +10,21 @@ describe('Employee Table Component: ', function () {
 
   var React, TestUtils;
 
- // TODO - write the unit tests to verify the component is rendered
+  beforeEach(function () {
+    React = require('react/addons');
+    TestUtils = React.addons.TestUtils;
+  });
+
+  beforeEach(function () {
+    employees = [{}, {}];
+
+    EmployeeTable = require('./employee.table');
+    element = TestUtils.renderIntoDocument(
+      <EmployeeTable employees={employees} />
+    );
+  });
+
+  it('should instantiate the EmployeeTable', function () {
+    expect(TestUtils.isCompositeComponent(element)).to.be.true;
+  });
 });
