@@ -28,7 +28,7 @@
 `npm install`
 
 ## Gulp Tasks ##
-### These are all the Gulp.js tasks in their entirety: ###
+### These are the Gulp.js tasks for your dev process: ###
 
 * `gulp init` - Runs the Semantic UI build.
 
