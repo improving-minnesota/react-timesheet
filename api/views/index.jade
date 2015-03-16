@@ -7,12 +7,18 @@ html(class="no-js")
     meta(name="viewport", content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1")
     meta(name="description", content="Timesheet Demo Application")
 
-    link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
+    - if (env == 'production')
+      link(href="/assets/css/style.min.css", rel="stylesheet", type="text/css")
+    - else
+      link(href="/assets/css/style.css", rel="stylesheet", type="text/css")
 
   body
     .tsz-page-container.ui.padded
-      .ui.message.yellow
-        .ui.large.header Welcome to Nebraska.Code()
+      div(id="app")
 
-      .ui.message.yellow
-        .ui.medium.header NO Javascript, Just HTML (jade really)
+    case env
+      when 'production'
+        script(src="assets/js/app.min.js")
+
+      default
+        script(src="assets/js/app.js")
