@@ -1,4 +1,4 @@
-** First component and spec via Browserify/Reactify
+** First component via Browserify/Reactify
 
 main.jsx
 ```javascript
