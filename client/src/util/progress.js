@@ -4,8 +4,25 @@ var NProgress = require('nprogress');
 
 module.exports = function () {
 
-  // TODO - register NProgress as a request interceptor for axios
+  axios.interceptors.request.use(
+    function (config) {
+      NProgress.start();
+      return config;
+    },
+    function (err) {
+      NProgress.done();
+      return Promise.reject(err);
+    }
+  );
 
-  // TODO - register NProgress as a response intercrptor for axios
-
+  axios.interceptors.response.use(
+    function (response) {
+      NProgress.done();
+      return response;
+    },
+    function (err) {
+      NProgress.done();
+      return Promise.reject(err);
+    }
+);
 };
