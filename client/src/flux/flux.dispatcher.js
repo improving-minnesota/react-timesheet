@@ -8,9 +8,13 @@ var dispatcher = _.extend(new Dispatcher(), {
    * as a view action.  Another variant here could be handleServerAction.
    * @param  {object} action The data coming from the view.
    */
+  handleViewAction: function(action) {
+    this.dispatch({
+      source: 'VIEW_ACTION',
+      action: action
+    });
+  }
 
-   // TODO - replace with actual implementation
-   handleViewAction: _.noop
 });
 
 module.exports = dispatcher;

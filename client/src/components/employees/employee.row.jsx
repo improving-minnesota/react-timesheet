@@ -2,7 +2,7 @@ var React = require('react/addons');
 var Router = require('react-router');
 var classes = require('react-classes');
 
-// var EmployeeActions = require('../../actions/employee.actions');
+var EmployeeActions = require('../../actions/employee.actions');
 
 var EmployeeRow = React.createClass({
 
@@ -20,13 +20,13 @@ var EmployeeRow = React.createClass({
   remove: function remove (e) {
     e.stopPropagation();
     this.props.employee.deleted = true;
-    // TODO - fire an action to remove the employee
+    EmployeeActions.remove(this.props.employee);
   },
 
   restore: function restore (e) {
     e.stopPropagation();
     this.props.employee.deleted = false;
-    // TODO - fire an action to restore the employee
+    EmployeeActions.restore(this.props.employee);
   },
 
   render: function () {
