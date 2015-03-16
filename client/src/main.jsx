@@ -1,4 +1,6 @@
-var React = require('react/addons');
-var Hello = require('./hello');
+var React = window.React = require('react/addons');
+var Router = require('react-router');
+var routes = require('./routes');
 
-React.render(<Hello />, document.getElementById('app'));
+// initialize the router and its routes
+
