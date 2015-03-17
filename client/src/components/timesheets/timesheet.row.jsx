@@ -20,13 +20,13 @@ var TimesheetRow = React.createClass({
   remove: function remove (e) {
     e.stopPropagation();
     this.props.timesheet.deleted = true;
-    // TODO - fire an action to remove the timesheet
+    TimesheetActions.remove(this.props.timesheet);
   },
 
   restore: function restore (e) {
    e.stopPropagation();
    this.props.timesheet.deleted = false;
-   // TODO - fire an action to restore the timesheet
+   TimesheetActions.restore(this.props.timesheet);
   },
 
   render: function () {
