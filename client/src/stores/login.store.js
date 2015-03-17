@@ -28,7 +28,7 @@ var LoginStore = assign({}, Store, {
 
   initState: function () {
     this.setState({
-      user: {},
+      user: {_id: 'all'},
       authenticated: false,
       credentials: {},
       pausedTransition: null
@@ -103,7 +103,7 @@ var LoginStore = assign({}, Store, {
     return axios.post(this.logoutUrl)
       .then(function (res) {
         self.initState();
-        self.showLogin();
+        window.location.assign('/#/login');
       })
       .catch(function (x) {
         SnackbarAction.error('There was an error logging out.');

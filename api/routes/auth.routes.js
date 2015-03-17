@@ -11,7 +11,7 @@ exports.register = function (server, options, next) {
   server.route([
     {method: 'POST', path: login, config: {handler: loginController.login, auth: false}},
     {method: 'GET',  path: login,  config: {handler: loginController.index, auth: false}},
-    {method: 'POST',  path: logout, handler: logoutController.logout}
+    {method: 'POST',  path: logout, config: {handler: logoutController.logout, auth:false}}
   ]);
 
   return next();
