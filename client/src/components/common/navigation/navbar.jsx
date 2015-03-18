@@ -73,7 +73,7 @@ var NavBar = React.createClass({
         <Link className={employeesClasses} to="employees">Employees</Link>
         <Link className={timesheetsClasses} to="timesheets" params={{user_id: this.state.user._id}}>Timesheets</Link>
 
-        <a ref="logoutButton" className="right menu item logout" onClick={this.logout}>
+        <a ref="logoutButton" className="right item logout" onClick={this.logout}>
           <i className="fa fa-power-off"/> Logout
         </a>
       </div>

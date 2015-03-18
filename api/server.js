@@ -55,8 +55,8 @@ server.register(cookie, function (err) {
           return callback(err, false);
         }
 
-        return callback(null, true, cached.user)
-      })
+        return callback(null, true, cached.user);
+      });
     }
   });
 });
