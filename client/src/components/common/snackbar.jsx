@@ -4,6 +4,11 @@ var classes = require('react-classes');
 var SnackbarStore = require('../../stores/snackbar.store');
 var SnackbarActions = require('../../actions/snackbar.actions');
 
+var classes = require('react-classes');
+
+var SnackbarStore = require('../../stores/snackbar.store');
+var SnackbarActions = require('../../actions/snackbar.actions');
+
 var Snackbar = React.createClass({
 
   store: SnackbarStore,
