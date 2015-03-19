@@ -20,7 +20,7 @@ var EmployeeRow = React.createClass({
   showDetail: function showDetail () {
     var employee = this.props.employee;
     if (employee.deleted) {
-      SnackbarActions.error('You cannot edit a deleted employee.');
+      console.log('You cannot edit a deleted employee.');
       return;
     }
     this.props.store.setState({employee: employee});

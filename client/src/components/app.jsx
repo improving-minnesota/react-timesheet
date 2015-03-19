@@ -6,8 +6,6 @@ var NavBar = require('./common/navigation/navbar');
 var SectionHeader = require('./common/section');
 var LoginStore = require('../stores/login.store');
 
-// TODO - Import the Snackbar component
-
 var App = React.createClass({
 
   statics: {
@@ -27,8 +25,6 @@ var App = React.createClass({
             <RouteHandler />
           </div>
         </div>
-
-       {/* TODO - Add the Snackbar component here */}
       </div>
     );
   }
