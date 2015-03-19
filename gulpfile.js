@@ -38,13 +38,12 @@ gulp.task('prod', ['core', 'jade:prod', 'uglify']);
 gulp.task('init', ['build:css']);
 
 // server tasks
-gulp.task('serve:dev', shell.task([pkg.scripts.run_dev]));
-// gulp.task('serve:dev', function () {
-//   nodemon({
-//     script: './api/server.js',
-//     env: {'NODE_ENV': 'development'}
-//   });
-// });
+gulp.task('serve:dev', function () {
+  nodemon({
+    script: './api/server.js',
+    env: {'NODE_ENV': 'development'}
+  });
+});
 
 gulp.task('serve:prod', function () {
   nodemon({
