@@ -4,7 +4,6 @@ var Promise = require('es6-promise').Promise;
 
 var Store = require('../flux/flux.store');
 var actions = require('../actions/login.actions');
-var SnackbarAction = require('../actions/snackbar.actions');
 var axios = require('axios');
 var assign = require('object-assign');
 
@@ -44,7 +43,7 @@ var LoginStore = assign({}, Store, {
     var self = this;
 
     if (this.getState().authenticated) {
-      SnackbarAction.success('Welcome back, ' + this.getState().user.username + '.');
+      console.log('Welcome back, ' + this.getState().user.username + '.');
       return Promise.resolve(self.getState());
     }
     else {
@@ -54,11 +53,11 @@ var LoginStore = assign({}, Store, {
             authenticated: res.data.authenticated,
             user: res.data.user
           });
-          SnackbarAction.success('Welcome back, ' + res.data.user.username + '.');
+          console.log('Welcome back, ' + res.data.user.username + '.');
           return self.getState();
         })
         .catch(function (data) {
-          SnackbarAction.error('There was an error getting the current user');
+          console.log('There was an error getting the current user');
         });
     }
   },
@@ -86,7 +85,7 @@ var LoginStore = assign({}, Store, {
             window.location.assign('/');
           }
 
-          SnackbarAction.success('Welcome back, ' + res.data.user.username + '.');
+          console.log('Welcome back, ' + res.data.user.username + '.');
         }
         else {
           self.setState({authError: self.authErrorMessage});
@@ -106,7 +105,7 @@ var LoginStore = assign({}, Store, {
         window.location.assign('/#/login');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error logging out.');
+        console.log('There was an error logging out.');
       });
   },
 

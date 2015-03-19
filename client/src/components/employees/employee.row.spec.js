@@ -1,7 +1,6 @@
 describe('Employee Row Component: ', function () {
 
   var EmployeeRow,
-    SnackbarActions,
     EmployeeActions,
     EmployeeStore,
     employee,
@@ -19,7 +18,6 @@ describe('Employee Row Component: ', function () {
   beforeEach(function () {
     EmployeeStore = require('../../stores/employee.store');
     EmployeeRow = require('./employee.row');
-    SnackbarActions = require('../../actions/snackbar.actions');
     EmployeeActions = require('../../actions/employee.actions');
   });
 

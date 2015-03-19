@@ -6,7 +6,6 @@ var ProjectActions = require('../../actions/project.actions');
 var ProjectStore = require('../../stores/project.store');
 
 var Paginator = require('../common/navigation/paginator');
-var SnackbarAction = require('../../actions/snackbar.actions');
 
 var Projects = React.createClass({
 

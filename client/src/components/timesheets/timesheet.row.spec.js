@@ -1,7 +1,6 @@
 describe('Timesheet Row Component: ', function () {
 
   var TimesheetRow,
-    SnackbarActions,
     TimesheetActions,
     TimesheetStore,
     timesheet,
@@ -19,7 +18,6 @@ describe('Timesheet Row Component: ', function () {
   beforeEach(function () {
     TimesheetStore = require('../../stores/timesheet.store');
     TimesheetRow = require('./timesheet.row');
-    SnackbarActions = require('../../actions/snackbar.actions');
     TimesheetActions = require('../../actions/timesheet.actions');
   });
 
@@ -37,18 +35,8 @@ describe('Timesheet Row Component: ', function () {
           deleted: true
         };
 
-        spies.error = sinon.stub(SnackbarActions, 'error');
-
         element = TestUtils.renderIntoDocument(<TimesheetRow timesheet={timesheet} store={TimesheetStore} />);
         element.showDetail();
-      });
-
-      afterEach(function () {
-        spies.error.restore();
-      });
-
-      it('should display an error in the snackbar', function () {
-        expect(spies.error).to.have.been.calledWith('You cannot edit a deleted timesheet.');
       });
     });
 
