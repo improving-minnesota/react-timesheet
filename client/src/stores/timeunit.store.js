@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var Store = require('../flux/flux.store');
 var actions = require('../actions/timeunit.actions');
-var SnackbarAction = require('../actions/snackbar.actions');
 var axios = require('axios');
 var assign = require('object-assign');
 var LoginStore = require('./login.store');
@@ -44,7 +43,7 @@ var TimeunitStore = assign({}, Store, {
         self.setState({timeunits: res.data});
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to retrieve logged hours.');
+        console.log('Error attempting to retrieve logged hours.');
       });
   },
 
@@ -59,7 +58,7 @@ var TimeunitStore = assign({}, Store, {
         return true;
       })
       .catch(function (data) {
-        SnackbarAction.error('There was an error getting the time.');
+        console.log('There was an error getting the time.');
       });
   },
 
@@ -71,10 +70,10 @@ var TimeunitStore = assign({}, Store, {
     return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
         self.setState({timeunit: res.data});
-        SnackbarAction.success('Your logged time has been updated.');
+        console.log('Your logged time has been updated.');
       })
       .catch(function (x) {
-        SnackbarAction.error('There was an error updating time.');
+        console.log('There was an error updating time.');
       });
   },
 
@@ -87,11 +86,11 @@ var TimeunitStore = assign({}, Store, {
     return axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
         self.setState({timeunit: res.data});
-        SnackbarAction.success('Your logged time was deleted.');
+        console.log('Your logged time was deleted.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to delete time.');
+        console.log('Error attempting to delete time.');
       });
   },
 
@@ -104,11 +103,11 @@ var TimeunitStore = assign({}, Store, {
     var prom = axios.put(this.url(timesheet._id, timeunit._id), timeunit)
       .then(function (res) {
         self.setState({timeunit: res.data});
-        SnackbarAction.success('Your logged time was restored.');
+        console.log('Your logged time was restored.');
         return true;
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to restore time.');
+        console.log('Error attempting to restore time.');
       });
 
     return prom;
@@ -121,10 +120,10 @@ var TimeunitStore = assign({}, Store, {
     return axios.post(this.url(timesheet._id), payload.action.timeunit)
       .then(function (res) {
         self.setState({timeunit: res.data});
-        SnackbarAction.success('Your time has been logged.');
+        console.log('Your time has been logged.');
       })
       .catch(function (x) {
-        SnackbarAction.error('Error attempting to log your time.');
+        console.log('Error attempting to log your time.');
       });
   }
 });

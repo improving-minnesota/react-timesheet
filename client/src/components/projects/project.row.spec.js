@@ -1,7 +1,6 @@
 describe('Project Row Component: ', function () {
 
   var ProjectRow,
-    SnackbarActions,
     ProjectActions,
     ProjectStore,
     project,
@@ -19,7 +18,6 @@ describe('Project Row Component: ', function () {
   beforeEach(function () {
     ProjectStore = require('../../stores/project.store');
     ProjectRow = require('./project.row');
-    SnackbarActions = require('../../actions/snackbar.actions');
     ProjectActions = require('../../actions/project.actions');
   });
 
@@ -36,18 +34,8 @@ describe('Project Row Component: ', function () {
           deleted: true
         };
 
-        spies.error = sinon.stub(SnackbarActions, 'error');
-
         element = TestUtils.renderIntoDocument(<ProjectRow project={project} store={ProjectStore} />);
         element.showDetail();
-      });
-
-      afterEach(function () {
-        spies.error.restore();
-      });
-
-      it('should display an error in the snackbar', function () {
-        expect(spies.error).to.have.been.calledWith('You cannot edit a deleted project.');
       });
     });
 
