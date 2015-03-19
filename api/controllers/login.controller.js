@@ -1,5 +1,5 @@
 var Q = require('q');
-var Boom = require('Boom');
+var Boom = require('boom');
 var Bcrypt = require('bcrypt');
 var db = require('../services/db');
 var props = require('../properties');
