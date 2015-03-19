@@ -8,6 +8,7 @@ var SnackbarActions = require('../../actions/snackbar.actions');
 var Snackbar = React.createClass({
 
   // TODO - implement me!!
+  render: function () {return (<div/>)}
 });
 
 module.exports = Snackbar;
