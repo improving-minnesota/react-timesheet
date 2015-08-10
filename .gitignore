@@ -5,12 +5,6 @@ client/dist/*
 
 node_modules/*
 
-client/test-reports/*
-
-client/docs/*
-
-client/assets/js/*
-
 client/cache.manifest
 
 .idea/*
@@ -22,9 +16,5 @@ libpeerconnection.log
 dist
 
 api/data/db/*
-
-semantic/dist/*
-
-semantic/node_modules/*
 
 npm-debug.log
