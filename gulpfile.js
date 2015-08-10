@@ -123,6 +123,9 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   var img = gulp.src(client('/img/**'))
     .pipe(gulp.dest(dist('/img')));
 
+  var sem = gulp.src(client('/lib/semantic/themes/**'))
+    .pipe(gulp.dest(dist('/css')));
+
   return merge(fa, img);
 });
 
@@ -145,7 +148,6 @@ gulp.task('less', ['clean:css'], function () {
 gulp.task('concat:css', ['less'], function () {
   return gulp.src([
       './node_modules/nprogress/nprogress.css',
-      './client/less/lib/semantic/dist/semantic.css',
       dist('/css/style.css')
     ])
     .pipe(concat('style.css'))
