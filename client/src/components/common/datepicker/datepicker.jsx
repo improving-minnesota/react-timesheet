@@ -3,7 +3,7 @@ var DateUtil  = require('./date.util');
 var Calendar  = require('./calendar');
 var DateInput = require('./date_input');
 var React = require('react/addons');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var DatePicker = React.createClass({
 
@@ -14,8 +14,6 @@ var DatePicker = React.createClass({
     error:      React.PropTypes.string,
     onChange:   React.PropTypes.func.isRequired
   },
-
-  mixins: [classes],
 
   getInitialState: function() {
     return {
@@ -101,7 +99,7 @@ var DatePicker = React.createClass({
   },
 
   render: function() {
-    var wrapperClasses = this.getClass('inline field', {
+    var wrapperClasses = classNames('inline field', {
       'error': !!this.props.error
     });
 

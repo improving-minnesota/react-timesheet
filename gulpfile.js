@@ -170,7 +170,7 @@ gulp.task('watchify', function() {
       _.extend(watchify.args, {
         entries: ['./client/src/main.jsx'],
         extensions: ['.jsx'],
-        transform: [reactify, browserifyShim]
+        transform: [reactify]
       })
     )
   );

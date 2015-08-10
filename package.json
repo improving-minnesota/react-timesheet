@@ -9,10 +9,6 @@
     "run_prod": "NODE_ENV=production nodemon api/server.js",
     "debug": "node-debug api/server.js"
   },
-  "browser": {
-    "tether": "./node_modules/tether/tether.js"
-  },
-  "browserify-shim": "./config/shims.js",
   "dependencies": {
     "axios": "^0.5.4",
     "bcrypt": "^0.8.4",
