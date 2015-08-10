@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var TimesheetActions = require('../../actions/timesheet.actions');
 var DateUtils = require('../../util/date.utils');
@@ -13,8 +13,7 @@ var TimesheetRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
-    classes
+    Router.Navigation
   ],
 
   remove: function remove (e) {
@@ -32,11 +31,11 @@ var TimesheetRow = React.createClass({
   render: function () {
     var timesheet = this.props.timesheet;
 
-    var rowClasses = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': timesheet.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': timesheet.deleted,
       'negative': !timesheet.deleted
     });

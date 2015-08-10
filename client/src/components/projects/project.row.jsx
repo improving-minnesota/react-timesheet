@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var ProjectActions = require('../../actions/project.actions');
 
@@ -13,7 +13,6 @@ var ProjectRow = React.createClass({
 
   mixins: [
     Router.Navigation,
-    classes
   ],
 
   remove: function remove (e) {
@@ -31,11 +30,11 @@ var ProjectRow = React.createClass({
   render: function () {
     var project = this.props.project;
 
-    var rowClasses = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': project.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': project.deleted,
       'negative': !project.deleted
     });
