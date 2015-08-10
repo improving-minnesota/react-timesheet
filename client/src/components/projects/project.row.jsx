@@ -34,7 +34,7 @@ var ProjectRow = React.createClass({
       'faded': project.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': project.deleted,
       'negative': !project.deleted
     });

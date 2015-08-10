@@ -35,7 +35,7 @@ var EmployeeRow = React.createClass({
       'faded': employee.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': employee.deleted,
       'negative': !employee.deleted
     });

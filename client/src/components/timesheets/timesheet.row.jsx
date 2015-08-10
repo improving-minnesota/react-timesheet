@@ -35,7 +35,7 @@ var TimesheetRow = React.createClass({
       'faded': timesheet.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': timesheet.deleted,
       'negative': !timesheet.deleted
     });
