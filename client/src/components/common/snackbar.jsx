@@ -1,10 +1,5 @@
 var React = require('react/addons');
-var classes = require('react-classes');
-
-var SnackbarStore = require('../../stores/snackbar.store');
-var SnackbarActions = require('../../actions/snackbar.actions');
-
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var SnackbarStore = require('../../stores/snackbar.store');
 var SnackbarActions = require('../../actions/snackbar.actions');
@@ -12,8 +7,6 @@ var SnackbarActions = require('../../actions/snackbar.actions');
 var Snackbar = React.createClass({
 
   store: SnackbarStore,
-
-  mixins: [classes],
 
   getInitialState: function () {
     return {
@@ -40,7 +33,7 @@ var Snackbar = React.createClass({
 
   render: function () {
 
-    var classes = this.getClass('ui inline snackbar top right', {
+    var classes = classNames('ui inline snackbar top right', {
       'hide':     !this.state.message.length,
       'success':  this.state.messageType === 'success',
       'info':     this.state.messageType === 'info',
