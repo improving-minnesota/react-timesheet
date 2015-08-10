@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var EmployeeRow = React.createClass({
 
@@ -10,19 +10,18 @@ var EmployeeRow = React.createClass({
 
   mixins: [
     Router.Navigation,
-    Router.State,
-    classes
+    Router.State
   ],
 
   render: function () {
     var employee = this.props.employee;
 
-    var classNames = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': employee.deleted
     });
 
     return (
-      <tr className={classNames} ref={employee._id}>
+      <tr className={rowClasses} ref={employee._id}>
         <td>{employee.username}</td>
         <td>{employee.email}</td>
         <td>{employee.firstName}</td>

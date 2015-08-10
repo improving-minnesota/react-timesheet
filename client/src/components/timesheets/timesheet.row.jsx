@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var DateUtils = require('../../util/date.utils');
 
@@ -11,14 +11,13 @@ var TimesheetRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
-    classes
+    Router.Navigation
   ],
 
   render: function () {
     var timesheet = this.props.timesheet;
 
-    var rowClasses = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': timesheet.deleted
     });
 
