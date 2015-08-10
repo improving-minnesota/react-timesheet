@@ -47,7 +47,7 @@ server.register(cookie, function (err) {
   server.auth.strategy('session', 'cookie', true, {
     password: props.security.cookieSecret,
     isSecure: false,
-    validateFunc: function (session, callback) {
+    validateFunc: function (request, session, callback) {
 
       cache.get(session.sid, function (err, cached) {
 

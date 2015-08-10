@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var TimeunitActions = require('../../actions/timeunit.actions');
 var DateUtils = require('../../util/date.utils');
@@ -15,8 +15,7 @@ var TimeunitRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
-    classes
+    Router.Navigation
   ],
 
   showDetail: function showDetail () {
@@ -47,11 +46,11 @@ var TimeunitRow = React.createClass({
   render: function () {
     var timeunit = this.props.timeunit;
 
-    var rowClasses = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': timeunit.deleted
     });
 
-    var buttonClasses = this.getClass('ui primary button small', {
+    var buttonClasses = classNames('ui primary button small', {
       'positive': timeunit.deleted,
       'negative': !timeunit.deleted
     });
