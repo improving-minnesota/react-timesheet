@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var classes = require('react-classes');
+var classNames = require('classNames');
 var _ = require('lodash');
 var Router = require('react-router');
 var Link = Router.Link;

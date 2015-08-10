@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var Router = require('react-router');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var ProjectRow = React.createClass({
 
@@ -9,14 +9,13 @@ var ProjectRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
-    classes
+    Router.Navigation
   ],
 
   render: function () {
     var project = this.props.project;
 
-    var rowClasses = this.getClass('repeated-item fadeable-row', {
+    var rowClasses = classNames('repeated-item fadeable-row', {
       'faded': project.deleted
     });
 
