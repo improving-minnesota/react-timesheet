@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var classes = require('react-classes');
+var classNames = require('classnames');
 var _ = require('lodash');
 var Router = require('react-router');
 var Link = Router.Link;
@@ -13,7 +13,6 @@ var NavBar = React.createClass({
   mixins: [
     Router.State,
     Router.Navigation,
-    classes
   ],
 
   getInitialState: function () {
@@ -51,15 +50,15 @@ var NavBar = React.createClass({
   render : function () {
     var activeRoutes = _.pluck(this.getRoutes(), 'name').join('.').split('.');
 
-    var projectsClasses = this.getClass('item', {
+    var projectsClasses = classNames('item', {
       active: _.contains(activeRoutes, 'projects')
     });
 
-    var employeesClasses = this.getClass('item', {
+    var employeesClasses = classNames('item', {
       active: _.contains(activeRoutes, 'employees')
     });
 
-    var timesheetsClasses = this.getClass('item', {
+    var timesheetsClasses = classNames('item', {
       active: _.contains(activeRoutes, 'timesheets')
     });
 

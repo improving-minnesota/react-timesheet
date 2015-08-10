@@ -1,7 +1,7 @@
 var moment = require('moment');
 var DateUtil = require('./date.util');
 var React = require('react/addons');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var DateInput = React.createClass({
 
@@ -16,8 +16,6 @@ var DateInput = React.createClass({
     onFocus:            React.PropTypes.func,
     error:              React.PropTypes.string
   },
-
-  mixins: [classes],
 
   getInitialState: function() {
     return {
@@ -143,11 +141,11 @@ var DateInput = React.createClass({
   },
 
   render: function() {
-    var containerClasses = this.getClass('ui inline field', {
+    var containerClasses = classNames('ui inline field', {
       'error': !!this.props.error
     });
 
-    var errorMessageClasses = this.getClass('input', {
+    var errorMessageClasses = classNames('input', {
       'error': !!this.props.error
     });
 

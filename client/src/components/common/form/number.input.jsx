@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var Input = React.createClass({
 
@@ -12,14 +12,12 @@ var Input = React.createClass({
     onChange:     React.PropTypes.func.isRequired
   },
 
-  mixins: [classes],
-
   render: function () {
-    var wrapperClasses = this.getClass('inline field', {
+    var wrapperClasses = classNames('inline field', {
       'error': this.props.error
     });
 
-    var errorMessageClasses = this.getClass('input', {
+    var errorMessageClasses = classNames('input', {
       'error': this.props.error
     });
 
