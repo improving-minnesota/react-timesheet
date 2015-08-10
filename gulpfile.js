@@ -123,6 +123,9 @@ gulp.task('copy:assets', ['clean:assets'], function () {
   var img = gulp.src(client('/img/**'))
     .pipe(gulp.dest(dist('/img')));
 
+  var sem = gulp.src(client('/lib/semantic/themes/**'))
+    .pipe(gulp.dest(dist('/css')));
+
   return merge(fa, img);
 });
 
@@ -145,7 +148,6 @@ gulp.task('less', ['clean:css'], function () {
 gulp.task('concat:css', ['less'], function () {
   return gulp.src([
       './node_modules/nprogress/nprogress.css',
-      './semantic/dist/semantic.css',
       dist('/css/style.css')
     ])
     .pipe(concat('style.css'))
@@ -157,7 +159,7 @@ gulp.task('concat:css', ['less'], function () {
     .on('error', gutil.log.bind(gutil, 'Error concatenating CSS'));
 });
 
-gulp.task('build:css', ['semantic:build', 'less'], function () {
+gulp.task('build:css', ['less'], function () {
   return gulp.start('concat:css');
 });
 
@@ -168,7 +170,7 @@ gulp.task('watchify', function() {
       _.extend(watchify.args, {
         entries: ['./client/src/main.jsx'],
         extensions: ['.jsx'],
-        transform: [reactify, browserifyShim]
+        transform: [reactify]
       })
     )
   );
@@ -200,9 +202,6 @@ gulp.task('uglify', ['watchify'], function () {
     .pipe(livereload())
     .on('error', gutil.log.bind(gutil, 'Error during minification.'));
 });
-
-gulp.task('semantic:build', require('./semantic/tasks/build'));
-gulp.task('semantic:watch', require('./semantic/tasks/watch'));
 
 // helper to navigate to the dist assets dir
 function dist(dest) {

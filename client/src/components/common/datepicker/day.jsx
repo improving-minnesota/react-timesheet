@@ -1,5 +1,6 @@
 var moment = require('moment');
 var React = require('react/addons');
+var classNames = require('classnames');
 
 var Day = React.createClass({
 
@@ -10,8 +11,7 @@ var Day = React.createClass({
   },
 
   render: function() {
-    classes = React.addons.classSet({
-      'datepicker-calendar-day': true,
+    var classes = classNames('datepicker-calendar-day', {
       'selected': this.props.day.sameDay(this.props.selected),
       'this-month': this.props.day.sameMonth(this.props.date),
       'today': this.props.day.sameDay(moment())

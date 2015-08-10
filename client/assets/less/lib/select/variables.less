@@ -6,10 +6,11 @@
  * MIT License: https://github.com/keystonejs/react-select
 */
 
-// 
+//
 // Select Variables
-// ------------------------------
+// ------------------------------------------------------------
 
+@select-input-bg:                  #fff;
 @select-text-color:                #333;
 @select-input-border-color:        #ccc;
 @select-input-border-radius:       4px;
@@ -28,6 +29,7 @@
 @select-option-color:              lighten(@select-text-color, 20%);
 @select-option-focused-color:      @select-text-color;
 @select-option-focused-bg:         #f2f9fc; // pale blue
+@select-option-disabled-color:     lighten(@select-text-color, 60%);
 
 @select-noresults-color:           lighten(@select-text-color, 40%);
 
@@ -44,6 +46,10 @@
 @select-item-border-color:         darken(@select-item-bg, 10%);
 @select-item-hover-color:          darken(@select-item-color, 5%); // pale blue
 @select-item-hover-bg:             darken(@select-item-bg, 5%);
+@select-item-disabled-color:       #888;
+@select-item-disabled-bg:          #f2f2f2;
+@select-item-disabled-border-color: darken(@select-item-disabled-bg, 10%);
+
 
 
 // wrapper
@@ -51,4 +57,3 @@
 .Select {
 	position: relative;
 }
-
