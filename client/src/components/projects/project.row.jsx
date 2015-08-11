@@ -9,7 +9,7 @@ var ProjectRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
+    Router.Navigation
   ],
 
   render: function () {
@@ -21,6 +21,7 @@ var ProjectRow = React.createClass({
 
     return (
       <tr className={rowClasses}>
+
         <td>{project.name}</td>
         <td>{project.description}</td>
       </tr>
