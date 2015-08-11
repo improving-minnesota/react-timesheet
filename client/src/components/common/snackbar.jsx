@@ -1,6 +1,6 @@
 var React = require('react/addons');
 
-var classes = require('react-classes');
+var classNames = require('classnames');
 
 var SnackbarStore = require('../../stores/snackbar.store');
 var SnackbarActions = require('../../actions/snackbar.actions');
