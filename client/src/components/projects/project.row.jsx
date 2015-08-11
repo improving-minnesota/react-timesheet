@@ -12,7 +12,7 @@ var ProjectRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
+    Router.Navigation
   ],
 
   remove: function remove (e) {
