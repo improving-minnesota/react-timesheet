@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "axios": "^0.5.4",
-    "bcrypt": "^0.8.4",
     "better-console": "^0.2.4",
     "boom": "^2.8.0",
     "classnames": "^2.1.3",
