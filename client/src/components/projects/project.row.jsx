@@ -14,7 +14,7 @@ var ProjectRow = React.createClass({
   },
 
   mixins: [
-    Router.Navigation,
+    Router.Navigation
   ],
 
   showDetail: function showDetail () {
