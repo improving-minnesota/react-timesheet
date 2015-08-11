@@ -1,7 +1,6 @@
 var _ = require('lodash'),
   db = require('./db'),
-  Q = require('q'),
-  bcrypt = require('bcrypt');
+  Q = require('q');
 
 exports.init = init;
 
@@ -36,45 +35,41 @@ function seed() {
     _.forEach(users, function (user) {
       console.log("Seeding " + user.username);
 
-      bcrypt.hash(user.password, 10, function (err, hash) {
-        user.password = hash;
+      db.insert('users', user)
+        .then(function (newUser) {
 
-        db.insert('users', user)
-          .then(function (newUser) {
+          console.log("Created " + newUser.username);
 
-            console.log("Created " + newUser.username);
+          var timesheets = user.username === "admin" ? adminTimesheets: userTimesheets;
 
-            var timesheets = user.username === "admin" ? adminTimesheets: userTimesheets;
+          _.forEach(timesheets, function (timesheet) {
+            var timesheetModel = _.omit(timesheet, 'timeunits');
+            timesheetModel.user_id = newUser._id;
 
-            _.forEach(timesheets, function (timesheet) {
-              var timesheetModel = _.omit(timesheet, 'timeunits');
-              timesheetModel.user_id = newUser._id;
+            db.insert('timesheets', timesheetModel)
+              .then(function (newTimesheet) {
 
-              db.insert('timesheets', timesheetModel)
-                .then(function (newTimesheet) {
+                console.log("Seeding timeunits : " + timesheet.timeunits.length);
 
-                  console.log("Seeding timeunits : " + timesheet.timeunits.length);
+                _.forEach(timesheet.timeunits, function (timeunit) {
+                  timeunit.timesheet_id = newTimesheet._id;
 
-                  _.forEach(timesheet.timeunits, function (timeunit) {
-                    timeunit.timesheet_id = newTimesheet._id;
-
-                    console.log("Attempting to seed timeunit : " + timeunit.project);
-                    db.findOne('projects', {name: timeunit.project})
-                      .then(function (project) {
-                        timeunit.project_id = project._id;
-                        return db.insert('timeunits', timeunit);
-                      })
-                      .then(function (newTimeunit) {
-                        console.log("Created timeunit for " + newTimeunit.dateWorked);
-                      })
-                      .fail(function (err) {
-                        console.log("Error : " + err);
-                      });
-                  });
+                  console.log("Attempting to seed timeunit : " + timeunit.project);
+                  db.findOne('projects', {name: timeunit.project})
+                    .then(function (project) {
+                      timeunit.project_id = project._id;
+                      return db.insert('timeunits', timeunit);
+                    })
+                    .then(function (newTimeunit) {
+                      console.log("Created timeunit for " + newTimeunit.dateWorked);
+                    })
+                    .fail(function (err) {
+                      console.log("Error : " + err);
+                    });
                 });
-            });
+              });
           });
-      });
+        });
     });
   })
 
