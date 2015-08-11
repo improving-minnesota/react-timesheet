@@ -1,6 +1,5 @@
 var Q = require('q');
 var Boom = require('boom');
-var Bcrypt = require('bcrypt');
 var db = require('../services/db');
 var props = require('../properties');
 
@@ -47,7 +46,7 @@ function login (request, reply) {
 }
 
 function validate (password, userPassword) {
-  return Q.ninvoke(Bcrypt, 'compare', password, userPassword);
+  return Q(password === userPassword);
 }
 
 function setSession (request, sid, cacheObject) {
