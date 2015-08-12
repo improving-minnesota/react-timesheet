@@ -28,20 +28,20 @@ server.views({
   path: Path.join(__dirname, 'views')
 });
 
-server.register(cookie, function (err) {
-  server.auth.strategy('session', 'cookie', true, {
-    password: props.security.cookieSecret,
-    isSecure: false,
-    validateFunc: function (request, session, callback) {
-      cache.get(session.sid, function (err, cached) {
-        if (err || !cached) {
-          return callback(err, false);
-        }
-        return callback(null, true, cached.user);
-      });
-    }
-  });
-});
+// server.register(cookie, function (err) {
+//   server.auth.strategy('session', 'cookie', true, {
+//     password: props.security.cookieSecret,
+//     isSecure: false,
+//     validateFunc: function (request, session, callback) {
+//       cache.get(session.sid, function (err, cached) {
+//         if (err || !cached) {
+//           return callback(err, false);
+//         }
+//         return callback(null, true, cached.user);
+//       });
+//     }
+//   });
+// });
 
 // register the routes
 server.register([
