@@ -4,6 +4,7 @@
   "main": "./api/server.js",
   "description": "Timesheet application for React training labs",
   "version": "0.0.1",
+  "repository": "https://github.com/objectpartners/react-timesheet",
   "scripts": {
     "run_dev": "NODE_ENV=development nodemon api/server.js",
     "run_prod": "NODE_ENV=production nodemon api/server.js",
