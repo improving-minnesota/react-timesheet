@@ -2,11 +2,13 @@
   "name": "react-timesheet",
   "version": "1.0.0",
   "scripts": {
+    "api:start": "npm explore opi-workshop-api -- npm start",
     "start": "webpack-dev-server --config webpack/webpack.config.dev.js --port 4500"
   },
   "license": "MIT",
   "dependencies": {
     "history": "^4.5.0",
+    "opi-workshop-api": "git+https://gitlab.com/moosehawk/workshop-api.git",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.1",
