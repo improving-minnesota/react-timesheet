@@ -1,9 +1,0 @@
-{
-  "ignore": [
-    "client/**",
-    "node_modules/**",
-    "Gulpfile.js",
-    "karma.config.js",
-    "api/data/**"
-  ]
-}
