@@ -1,13 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import { Redirect } from 'react-router'
 
 class IndexPage extends Component {
   render() {
     return (
-      <div>
-        <p>
-          This is the index page
-        </p>
-      </div>
+      <Redirect to="login" />
     )
   }
 }

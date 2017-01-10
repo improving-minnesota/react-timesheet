@@ -18,7 +18,11 @@ module.exports = {
 
   context: resolve(__dirname, '../src'),
 
-  devtool: 'inline-source-map',
+  devtool: 'cheap-eval-source-map',
+
+  performance: {
+    hints: false
+  },
 
   devServer: {
     hot: true,
