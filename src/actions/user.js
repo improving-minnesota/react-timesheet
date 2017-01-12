@@ -51,7 +51,7 @@ export function loginUser(username, password) {
   return (dispatch) => {
     dispatch(loginUserStart())
 
-    return fetch('http://localhost:4000/auth/login', {
+    return fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
