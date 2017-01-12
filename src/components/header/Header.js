@@ -8,12 +8,10 @@ export class Header extends Component {
     super(props)
 
     this.handleLogout = this.handleLogout.bind(this)
-    console.log(this)
   }
 
   handleLogout(e) {
     e.preventDefault()
-    console.log(this)
     this.props.userActions.logoutUser()
   }
 
