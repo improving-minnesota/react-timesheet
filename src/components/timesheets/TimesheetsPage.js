@@ -4,7 +4,7 @@ export class TimesheetsPage extends Component {
   render() {
     return (
       <div>
-        This is the timesheets page
+        This is the timesheets page. You can only see this when logged in.
       </div>
     )
   }

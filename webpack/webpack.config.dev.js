@@ -18,7 +18,7 @@ module.exports = {
 
   context: resolve(__dirname, '../src'),
 
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-source-map',
 
   performance: {
     hints: false
@@ -45,7 +45,15 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader?modules',
-          'postcss-loader'
+          'postcss-loader',
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader?modules',
+          'sass-loader'
         ]
       }
     ]

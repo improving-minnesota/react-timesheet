@@ -4,7 +4,7 @@ export class ProjectsPage extends Component {
   render() {
     return (
       <div>
-        This is the projects page
+        This is the projects page. You can only see this when logged in.
       </div>
     )
   }
