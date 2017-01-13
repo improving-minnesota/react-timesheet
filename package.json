@@ -10,7 +10,7 @@
     "history": "^4.5.0",
     "jwt-decode": "^2.1.0",
     "material-ui": "^0.16.6",
-    "opi-workshop-api": "git+https://gitlab.com/moosehawk/workshop-api.git",
+    "opi-workshop-api": "git://github.com/objectpartners/timesheet-api.git",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.1",
